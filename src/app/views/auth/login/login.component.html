@@ -1,0 +1,15 @@
+<div style="display: flex; justify-content:center;">
+<form [formGroup]="formLogin" (submit)="login()">
+<mat-form-field appearance="fill">
+    <mat-label>username</mat-label>
+    <input matInput formControlName="username">
+</mat-form-field>
+<br>
+<mat-form-field appearance="fill">
+    <mat-label>password</mat-label>
+    <input matInput type="password" formControlName="password">
+</mat-form-field>
+<br>
+<button mat-raised-button color="primary">Iniciar Sesión</button>
+</form>
+</div>
