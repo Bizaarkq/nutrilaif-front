@@ -1,0 +1,87 @@
+<!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
+<mat-grid-list cols="3" rowHeight="50px">
+    <form [formGroup]="formDatosPaciente" (ngSubmit)="guardar()">
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>N° de Expediente</mat-label>
+                <!--UTILIZAMOS EL ATRIBUTO FORMCONTROLNAME PARA RELACIONAR EL ELEMENTO A UNA VARIABLE O ATRIBUTO DEL ARCHIVO DE TYPSCRIPT-->
+                <!--Utilizamos el atributo autocomplete='OFF' para desactivar el autocompletado en los campos-->
+                <input autocomplete="off" matInput type="text" placeholder="Ingrese el número de expediente" formControlName="numeroExpediente" value="">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Fecha</mat-label>
+                <input matInput type="date" formControlName="fechaExpediente" placeholder="Ingrese la fecha" value="">
+            </mat-form-field>    
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Departamento</mat-label>
+                <select matNativeControl FormControlName="departamento" required>
+                    <option value="LaPaz">La Paz</option>
+                    <option value="San Salvador">San Salvador</option>
+                    <option value="Usulutan">Usulutan</option>
+                    <option value="La union">La union</option>
+                </select>                       
+            </mat-form-field>    
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Nombre del paciente</mat-label>
+                <input formControlName="nombrePaciente" autocomplete="enabled" matInput type="text" placeholder="Ingrese el nombre del paciente" value="">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input formControlName="fechaNacimiento" matInput type="date" placeholder="Ingrese la fecha nacimiento" value="">
+            </mat-form-field>    
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Municipio</mat-label>
+                <select formControlName="municipio" matNativeControl required>
+                    <option value="San salvador">San salvador</option>
+                    <option value="San marcos">San marcos</option>
+                    <option value="Izalco">Izalco</option>
+                    <option value="Colon">Colon</option>
+                </select>                       
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Edad</mat-label>
+                <input formControlName="edad" autocomplete="enabled" matInput type="number" placeholder="Edad" value="">                     
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input formControlName="telefono" autocomplete="enabled" matInput type="number" placeholder="Telefono" value="">                     
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Ocupación</mat-label>
+                <input formControlName="ocupacion" autocomplete="enabled" matInput type="text" placeholder="Ocupacion" value="">                     
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Correo electrónico</mat-label>
+                <input formControlName="correoElectronico" autocomplete="off" matInput type="email" placeholder="Correo electronico" value="">                     
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <!--[disabled]="formDatosPaciente.invalid" No activa el boton hasta que el formulario sea valido, cada campo se valida en el archivo de typescript del componente-->
+                <button type="submit" mat-raised-button color="primary" [disabled]="formDatosPaciente.invalid">Guardar</button>
+            </div>
+        </mat-grid-tile>
+    </form>
+</mat-grid-list>
+
+
+
+

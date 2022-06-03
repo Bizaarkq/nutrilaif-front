@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './views/auth/login/login.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
+import { DatosPersonalesComponent } from './views/components/expediente/datos-personales/datos-personales.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: '',
     component: AppComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'datos-personales',
+    component: DatosPersonalesComponent,
     canActivate: [AuthGuard]
   }
 ];
