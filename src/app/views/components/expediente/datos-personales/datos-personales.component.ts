@@ -22,10 +22,14 @@ export class DatosPersonalesComponent implements OnInit {
       edad: ['',],//Campo no requerido
       telefono: ['',],
       ocupacion: ['',],
-      correoElectronico: ['']
+      correoElectronico: ['', Validators.email]
     })
   }
   ngOnInit(): void {
+  }
+
+  cargarDatos():void{
+    
   }
 
   guardar():void{
