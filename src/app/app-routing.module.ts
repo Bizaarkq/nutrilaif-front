@@ -4,21 +4,31 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './views/auth/login/login.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
+import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
+import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 
 const routes: Routes = [
   {
-    path:'auth',
-    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+    path: 'auth',
+    loadChildren: () =>
+      import('./views/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
-    component: AppComponent,
-    canActivate: [AuthGuard]
-  }
+    component: GeneralLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'inicio',
+        component: InicioComponent,
+        canActivate: [AuthGuard]
+      }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
