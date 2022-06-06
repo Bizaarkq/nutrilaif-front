@@ -1,0 +1,9 @@
+<mat-grid-list cols="4" rowHeight="250px">
+  <mat-grid-tile
+    *ngFor="let tile of tiles"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows"
+    [style.background]="tile.color">
+    <a [routerLink]="tile.link">{{ tile.text }}</a>
+  </mat-grid-tile>
+</mat-grid-list>
