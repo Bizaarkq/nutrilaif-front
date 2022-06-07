@@ -1,0 +1,6 @@
+{
+    "gitlens.views.repositories.showIncomingActivity": false,
+    "activitusbar.combineWorkspaceSettings": false,
+    "activitusbar.searchViewInPanel": false,
+    "activitusbar.showSourceControlCounter": false
+}

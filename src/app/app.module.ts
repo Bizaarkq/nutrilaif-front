@@ -28,7 +28,7 @@ import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ComponentsModule
+    ComponentsModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,

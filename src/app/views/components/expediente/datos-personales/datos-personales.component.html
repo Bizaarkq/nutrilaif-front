@@ -1,12 +1,12 @@
 <!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
 <mat-grid-list cols="3" rowHeight="50px">
-    <form [formGroup]="formDatosPaciente" (ngSubmit)="guardar()">
+    <form [formGroup]="formDatosPaciente">
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
                 <mat-label>N° de Expediente</mat-label>
                 <!--UTILIZAMOS EL ATRIBUTO FORMCONTROLNAME PARA RELACIONAR EL ELEMENTO A UNA VARIABLE O ATRIBUTO DEL ARCHIVO DE TYPSCRIPT-->
                 <!--Utilizamos el atributo autocomplete='OFF' para desactivar el autocompletado en los campos-->
-                <input autocomplete="off" matInput type="text" placeholder="Ingrese el número de expediente" formControlName="numeroExpediente" value="">
+                <input autocomplete="off" matInput type="text" placeholder="Ingrese el número de expediente" formControlName="numero_exp" value="">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -19,34 +19,39 @@
             <mat-form-field class="" appearance="fill">
                 <mat-label>Departamento</mat-label>
                 <select matNativeControl FormControlName="departamento" required>
-                    <option value="LaPaz">La Paz</option>
+                    <option value="Ahuachapan">Ahuachapan</option>
                     <option value="San Salvador">San Salvador</option>
+                    <option value="La Paz">La Paz</option>
+                    <option value="La Union">La Union</option>
+                    <option value="Cabañas">Cabañas</option>
+                    <option value="Chalatenango">Chalatenango</option>
+                    <option value="Cuscatlan">Cuscatlan</option>
+                    <option value="La Libertad">La Libertad</option>
+                    <option value="Morazan">Morazan</option>
+                    <option value="Santa Ana">Santa Ana</option>
+                    <option value="San Miguel">San Miguel</option>
+                    <option value="San Vicente">San Vicente</option>
                     <option value="Usulutan">Usulutan</option>
-                    <option value="La union">La union</option>
+                    <option value="Sonsonate">Sonsonate</option>
                 </select>                       
             </mat-form-field>    
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
                 <mat-label>Nombre del paciente</mat-label>
-                <input formControlName="nombrePaciente" autocomplete="enabled" matInput type="text" placeholder="Ingrese el nombre del paciente" value="">
+                <input formControlName="nombre" autocomplete="enabled" matInput type="text" placeholder="Ingrese el nombre del paciente" value="">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
                 <mat-label>Fecha de nacimiento</mat-label>
-                <input formControlName="fechaNacimiento" matInput type="date" placeholder="Ingrese la fecha nacimiento" value="">
+                <input formControlName="fecha_nacimiento" matInput type="date" placeholder="Ingrese la fecha nacimiento" value="">
             </mat-form-field>    
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
                 <mat-label>Municipio</mat-label>
-                <select formControlName="municipio" matNativeControl required>
-                    <option value="San salvador">San salvador</option>
-                    <option value="San marcos">San marcos</option>
-                    <option value="Izalco">Izalco</option>
-                    <option value="Colon">Colon</option>
-                </select>                       
+                <input  autocomplete="off" formControlName="municipio" matInput type="text" placeholder="Municipio"/>                      
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -70,7 +75,16 @@
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
                 <mat-label>Correo electrónico</mat-label>
-                <input formControlName="correoElectronico" autocomplete="off" matInput type="email" placeholder="Correo electronico" value="">                     
+                <input formControlName="correo" autocomplete="off" matInput type="email" placeholder="Correo electronico" value="">                     
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Departamento</mat-label>
+                <select matNativeControl FormControlName="departamento" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>                       
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -81,7 +95,7 @@
         </mat-grid-tile>
     </form>
 </mat-grid-list>
-
+{{formDatosPaciente.value|json}}
 
 
 
