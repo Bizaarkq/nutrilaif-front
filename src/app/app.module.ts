@@ -13,6 +13,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 //componentes
 import { HttpClientModule } from '@angular/common/http';
+import { ComponentsModule } from './views/components/components.module';
 import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 
@@ -27,6 +28,7 @@ import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    ComponentsModule
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
