@@ -87,12 +87,6 @@
                 </select>                       
             </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile>
-            <div>
-                <!--[disabled]="formDatosPaciente.invalid" No activa el boton hasta que el formulario sea valido, cada campo se valida en el archivo de typescript del componente-->
-                <button type="submit" mat-raised-button color="primary" [disabled]="formDatosPaciente.invalid">Guardar</button>
-            </div>
-        </mat-grid-tile>
     </form>
 </mat-grid-list>
 {{formDatosPaciente.value|json}}
