@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
-import { DatosPersonalesComponent } from './views/components/expediente/datos-personales/datos-personales.component';
 
 const routes: Routes = [
   {
@@ -21,15 +20,10 @@ const routes: Routes = [
     children: [
       {
         path: 'inicio',
-        component: DatosPersonalesComponent,
+        component: InicioComponent,
         canActivate: [AuthGuard]
       },
     ],
-  },
-  {
-    path: 'datos',
-    component: DatosPersonalesComponent,
-    canActivate: [AuthGuard]
   },
 ];
 
