@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         {
           next: res => {
             localStorage.setItem('access_token', res.access_token);
-            this.router.navigate(['/']);
+            this.router.navigate(['/inicio']);
           },
           error: err =>{
             this.snack.open('Usuario o Contraseña incorrectos', 'Ok',{
