@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
+import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,22 @@ const routes: Routes = [
         path: 'inicio',
         component: InicioComponent,
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'consulta',
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'crear',
+            component: ConsultaComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'subsecuente/:id',
+            component: ConsultaComponent,
+            canActivate: [AuthGuard]
+          },
+        ]
       }
     ],
   },
