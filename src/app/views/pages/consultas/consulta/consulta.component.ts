@@ -83,6 +83,9 @@ export class ConsultaComponent implements OnInit {
     console.log(this.consultaForm);
   }
 
+  log(val:any){
+    console.log(val);
+  }
   guardar() {
     console.log(this.consultaForm.value);
     this.consultaService.guardarConsulta(this.consultaForm.value, '123asd123')

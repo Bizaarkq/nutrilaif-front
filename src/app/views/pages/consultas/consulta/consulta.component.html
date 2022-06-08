@@ -1,32 +1,26 @@
 {{ consultaForm.value | json }}
 
 <mat-stepper [linear]="false" #stepper>
-  <mat-step [stepControl]="datosAntropo">
-    <form [formGroup]="datosAntropo">
-      <ng-template matStepLabel>Datos Antropométricos</ng-template>
-      <ng-container *ngFor="let control of datosAntropo.controls | keyvalue">
-        <mat-form-field appearance="fill">
-          <mat-label>{{control.key}}</mat-label>
-          <input matInput placeholder="Peso Actual" formControlName="{{control.key}}">
-        </mat-form-field>
-      </ng-container>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="historiaDiet">
-    <form [formGroup]="historiaDiet">
-      <ng-template matStepLabel>Historia dietética</ng-template>
-      <ng-container *ngFor="let control of historiaDiet.controls | keyvalue">
-        <mat-form-field appearance="fill">
-          <mat-label>{{control.key}}</mat-label>
-          <input matInput placeholder="Peso Actual" formControlName="{{control.key}}">
-        </mat-form-field>
-      </ng-container>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
+  <ng-container *ngFor="let group of consultaForm.controls | keyvalue">
+    {{log(group)}}
+    <mat-step [stepControl]="group.value">
+      <form [formGroup]="datosAntropo">
+        <ng-template matStepLabel>{{group.key}}</ng-template>
+        <ng-container *ngFor="let control of datosAntropo.controls | keyvalue">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ control.key }}</mat-label>
+            <input
+              matInput
+              placeholder="Peso Actual"
+              formControlName="{{ control.key }}"
+              required
+            />
+          </mat-form-field>
+        </ng-container>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+  </ng-container>
 </mat-stepper>
