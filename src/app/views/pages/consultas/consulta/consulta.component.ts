@@ -9,6 +9,7 @@ import {
 import { Cons } from 'rxjs';
 import { ConsultaForm } from './consulta-form';
 import { ConsultaService } from 'src/app/services/consulta.service';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
 @Component({
   selector: 'app-consulta',
@@ -17,74 +18,40 @@ import { ConsultaService } from 'src/app/services/consulta.service';
 })
 export class ConsultaComponent implements OnInit {
   //consultaForm = this.primeraConsulta.primeraConsulta();
-  datosMedicos = this.FB.group({
-    diagnostico: [''],
-    medicamento_suplemento: [''],
-    otros_datos: ['']
-  });
-  examenesLabs = this.FB.group({
-    hemoglobina: [''],
-    linfocitos: [''],
-    hba_1c: [''],
-    creatinina: [''],
-    trigliceridos: [''],
-    colesterol_total: [''],
-    chdl: [''],
-    cldl: [''],
-    glucosa_ayuno: [''],
-    glucosa_post_pondrial: [''],
-    acido_urico: [''],
-    albumina: ['']
-  });
-
-  datosAntropo = this.FB.group({
-    peso_actual: [''],
-    peso_ideal: [''],
-    p_grasa_corporal: [''],
-    p_masa_muscular: [''],
-    p_grasa_visceral: [''],
-    peso_meta: [''],
-    talla: [''],
-    c_cintura: [''],
-    imc: [''],
-    edad_metabolica: [''],
-    c_brazo_relaj: [''],
-    c_cadera: [''],
-    c_muneca: ['']
-  });
-
-  historiaDiet = this.FB.group({
-    preferencia_alimen: [''],
-    alimentos_no_gustan: [''],
-    intolerancia_alergia: [''],
-    actividad_fisica: [''],
-    alcohol: [''],
-    tabaco: [''],
-  });
+  
+  datosMedicos = this.consulta.primeraConsulta("datos_medicos");
+  examenesLabs = this.consulta.primeraConsulta("examen_labs");
+  datosAntropo = this.consulta.primeraConsulta("datos_antropo");
+  historiaDiet = this.consulta.primeraConsulta("historia_dietetica");
   
   consultaForm = this.FB.group({
-    paciente: this.FB.group({}),
+    //paciente: this.FB.group({}),
     datos_medicos: this.datosMedicos,
     examen_labs: this.examenesLabs,
     datos_antropo: this.datosAntropo,
     historia_dietetica: this.historiaDiet,
-    recordatorio: this.FB.group({}),
-    frecuencia_consumo: this.FB.group({}),
-    planificacion_dieta: this.FB.group({})
+    // recordatorio: this.FB.group({}),
+    // frecuencia_consumo: this.FB.group({}),
+    // planificacion_dieta: this.FB.group({})
   });
 
+  contador = 0;
   constructor(
     private FB: FormBuilder, 
-    private primeraConsulta: ConsultaForm,
+    private consulta: ConsultaForm,
     private consultaService: ConsultaService) {}
 
   ngOnInit(): void {
-    console.log(this.datosAntropo.controls);
-    console.log(this.consultaForm);
+
+  }
+
+  passToFormGroup(form:string){
+    return this.consultaForm.get(form) as FormGroup;
   }
 
   log(val:any){
-    console.log(val);
+    this.contador ++;
+    console.log(this.contador,val);
   }
   guardar() {
     console.log(this.consultaForm.value);

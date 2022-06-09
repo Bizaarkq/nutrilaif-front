@@ -2,25 +2,25 @@
 
 <mat-stepper [linear]="false" #stepper>
   <ng-container *ngFor="let group of consultaForm.controls | keyvalue">
-    {{log(group)}}
+    {{ log(group)}}
+    <ng-container>
     <mat-step [stepControl]="group.value">
-      <form [formGroup]="datosAntropo">
+      <form *ngIf="consultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
         <ng-template matStepLabel>{{group.key}}</ng-template>
-        <ng-container *ngFor="let control of datosAntropo.controls | keyvalue">
+        <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
           <mat-form-field appearance="fill">
             <mat-label>{{ control.key }}</mat-label>
             <input
               matInput
-              placeholder="Peso Actual"
               formControlName="{{ control.key }}"
-              required
             />
           </mat-form-field>
         </ng-container>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
+  </ng-container>
   </ng-container>
 </mat-stepper>

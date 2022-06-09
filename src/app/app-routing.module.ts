@@ -34,6 +34,11 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           },
           {
+            path: 'crear/:id',
+            component: ConsultaComponent,
+            canActivate: [AuthGuard]
+          },
+          {
             path: 'subsecuente/:id',
             component: ConsultaComponent,
             canActivate: [AuthGuard]
