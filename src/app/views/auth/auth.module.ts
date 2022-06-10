@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule} from '@angular/material/input';
-import { MatButtonModule} from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms'
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+//Modulo encargado de almacenar todas las importaciones del angular material
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,12 +13,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     AuthRoutingModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    ReactiveFormsModule
   ],
   exports: [LoginComponent]
 })

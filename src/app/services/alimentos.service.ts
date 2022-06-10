@@ -31,15 +31,30 @@ export class AlimentosService {
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
-      'Autorization': 'Bearer' + token,
+      'Autorization': 'Bearer ' + token,
     });
-    let url = endpoints.alimento.agregarAlimentos + '/' + data;
-    return this.http.post(url, {headers}).pipe(
+    
+    return this.http.post(endpoints.alimento.agregarAlimentos, data, {headers}).pipe(
       map((results: any) => {
         return results;
       })
     )
   }
+  //Editar alimentos
+  editarAlimentos(data:any){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Autorization': 'Bearer ' + token,
+    });
+
+    return this.http.post(endpoints.alimento.editarAlimentos, data, {headers}).pipe(
+      map((results: any) => {
+        return results;
+      })
+    )
+  }
+  
   //Elimminar un alimento 
   eliminarAlimento(index:number){
     //this.lista_alimentos.splice(index, 1);

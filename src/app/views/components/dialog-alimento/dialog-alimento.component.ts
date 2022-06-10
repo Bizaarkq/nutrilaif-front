@@ -73,8 +73,7 @@ export class DialogAlimentoComponent implements OnInit {
 
   addAlimento(){
     if(!this.editData){
-      console.log(this.formDatosAlimento.value);
-      if(this.formDatosAlimento.isValid){
+      if(!this.formDatosAlimento.invalid){
           this.api.addAlimentos(this.formDatosAlimento.value)
           .subscribe({
             next:(res)=>{
@@ -86,27 +85,26 @@ export class DialogAlimentoComponent implements OnInit {
               alert("Error al agregar alimento");
             }
           })
-      }else{
-        console.log("no es valido")
       }
     }else{
       this.editarAlimento();
     }
-    
   }
 
   editarAlimento(){
-    // this.api.editarAlimento(this.formDatosAlimento.value, this.editData.id)
-    // .subscribe({
-    //   next:(res)=>{
-    //     alert("Alimento actualizado");
-    //     this.formDatosAlimento.reset();
-    //     this.dialogRef.close('actualizar');
-    //   },
-    //   error:()=>{
-    //     alert("Error al actualizar el alimento");
-    //   }
-    // })
+    if(!this.formDatosAlimento.invalid){
+      this.api.editarAlimentos(this.formDatosAlimento.value)
+      .subscribe({
+        next:(res)=>{
+          alert("Alimento editado correctamente");
+          this.formDatosAlimento.reset();
+          this.dialogRef.close('actualizar');
+        },
+        error:()=>{
+          alert("Error al editar un alimento");
+        }
+      })
+    }
   }
 
 }
