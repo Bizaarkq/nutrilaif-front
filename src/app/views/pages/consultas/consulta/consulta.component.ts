@@ -24,7 +24,7 @@ export class ConsultaComponent implements OnInit {
   datosAntropo = this.consulta.primeraConsulta("datos_antropo");
   historiaDiet = this.consulta.primeraConsulta("historia_dietetica");
   
-  consultaForm = this.FB.group({
+  subConsultaForm = this.FB.group({
     //paciente: this.FB.group({}),
     datos_medicos: this.datosMedicos,
     examen_labs: this.examenesLabs,
@@ -33,6 +33,14 @@ export class ConsultaComponent implements OnInit {
     // recordatorio: this.FB.group({}),
     // frecuencia_consumo: this.FB.group({}),
     // planificacion_dieta: this.FB.group({})
+  });
+
+  consultaForm = this.FB.group({
+    paciente: this.FB.group({}),
+    recordatorio: this.FB.group({}),
+    frecuencia_consumo: this.FB.group({}),
+    planificacion_dieta: this.FB.group({}),
+    subconsulta_form: this.subConsultaForm
   });
 
   contador = 0;
@@ -46,7 +54,7 @@ export class ConsultaComponent implements OnInit {
   }
 
   passToFormGroup(form:string){
-    return this.consultaForm.get(form) as FormGroup;
+    return this.subConsultaForm.get(form) as FormGroup;
   }
 
   log(val:any){
@@ -55,7 +63,7 @@ export class ConsultaComponent implements OnInit {
   }
   guardar() {
     console.log(this.consultaForm.value);
-    this.consultaService.guardarConsulta(this.consultaForm.value, '123asd123')
+    this.consultaService.guardarConsulta(this.consultaForm.value)
     .subscribe(
       {
         next: res => {

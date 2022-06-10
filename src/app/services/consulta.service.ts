@@ -20,7 +20,7 @@ export class ConsultaService {
       'Authorization': 'Bearer ' + token,
     });
 
-    let url = endpoints.consulta.guardarConsulta + '/' + id;
+    let url = id === '' ? endpoints.consulta.guardarConsulta : endpoints.consulta.guardarConsulta + '/' + id;
     return this.http.post(url , cuerpo, {headers})
     .pipe(
       map((results: any) => {
