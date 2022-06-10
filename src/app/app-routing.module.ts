@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
+import { FrecuenciaConsumoComponent } from './views/components/consulta/frecuencia-consumo/frecuencia-consumo.component'
 
 const routes: Routes = [
   {
