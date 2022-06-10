@@ -1,0 +1,45 @@
+<form [formGroup]="formDatosAlimento">
+    <h1 mat-dialog-title>Formulario para agregar alimento</h1>
+    <div mat-dialog-content>
+        <mat-form-field class="" appearance="fill">
+            <mat-label>Codigo</mat-label>
+            <input matInput type="number" formControlName="codigo" placeholder="Ingrese el codigo del alimento" value="" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field class="" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" placeholder="Ingrese el nombre del alimento" value="" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field class="" appearance="fill">
+            <mat-label>Calorias</mat-label>
+            <input matInput type="number" formControlName="calorias" placeholder="Ingrese las calorias del alimento" value="" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field class="" appearance="fill">
+            <mat-label>Grasas</mat-label>
+            <input matInput type="number" formControlName="grasas" placeholder="Ingrese la grasa del alimento" value="" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field class="" appearance="fill">
+            <mat-label>Proteinas</mat-label>
+            <input matInput type="number" formControlName="proteinas" placeholder="Ingrese las proteinas del alimento" value="" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="fill">
+            <mat-label>Carbohidratos</mat-label>
+            <input matInput type="number" formControlName="carbohidratos" placeholder="Ingrese los carbohidratos del alimento" value="" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="fill">
+            <mat-label>Hierro</mat-label>
+            <input matInput type="number" formControlName="hierro" placeholder="Ingrese el hierro del alimento" value="" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="fill">
+            <mat-label>Potasio</mat-label>
+            <input matInput type="number" formControlName="potasio" placeholder="Ingrese el potasio del alimento" value="" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="fill">
+            <mat-label>Calcio</mat-label>
+            <input matInput type="number" formControlName="calcio" placeholder="Ingrese el calcio del alimento" value="" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field class="" appearance="fill">
+            <mat-label>Sodio</mat-label>
+            <input matInput type="number" formControlName="sodio" placeholder="Ingrese el sodio del alimento" value="" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-action [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>
+        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addAlimento()">{{actionBtn}}</button>
+    </div>
+</form>
