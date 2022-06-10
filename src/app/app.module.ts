@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input'
 import {MatStepperModule} from '@angular/material/stepper'
 //componentes
 import { HttpClientModule } from '@angular/common/http';
+import { ComponentsModule } from './views/components/components.module';
 import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.component';
@@ -31,6 +32,7 @@ import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.com
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    ComponentsModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
