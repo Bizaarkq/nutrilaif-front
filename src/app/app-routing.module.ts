@@ -8,6 +8,8 @@ import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/gen
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 import { FrecuenciaConsumoComponent } from './views/components/consulta/frecuencia-consumo/frecuencia-consumo.component'
 
+import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
+
 const routes: Routes = [
   {
     path: 'auth',
@@ -25,6 +27,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
     ],
+  },
+  {
+    path: 'alimentos',
+    component: ListarAlimentosComponent,
+    canActivate: [AuthGuard]
   },
 ];
 
