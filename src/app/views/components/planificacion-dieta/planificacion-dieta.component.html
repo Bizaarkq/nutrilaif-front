@@ -1,388 +1,508 @@
-<div style="display: flex; justify-content:center;">
-<h1>
-    <strong>PLANIFICACIÓN DE LA DIETA</strong><br>
-</h1></div>
-
-<div style="display: flex; justify-content:center;">
-<mat-form-field appearance="fill">
-    <mat-label>Requerimiento Energético:</mat-label>
-    <input matInput formControlName="reqEnergetico">
-</mat-form-field></div>
-<div style="display: flex; justify-content:center;">
-<br>
-<mat-form-field appearance="fill">
-    <mat-label>Calorías a preescribir </mat-label>
-    <input matInput formControlName="calPreescribir">
-</mat-form-field></div>
-
-<div style="display: flex; justify-content:center;">
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO: </mat-label>
-    <input matInput placeholder="%"value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>porcentaje de grasa: </mat-label>
-    <input matInput placeholder="gr" value="">
-</mat-form-field>
-
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON: </mat-label>
-    <input matInput placeholder="%"value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>porcentaje de grasa: </mat-label>
-    <input matInput placeholder="gr" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO </mat-label>
-    <input matInput placeholder="%"value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>porcentaje de grasa: </mat-label>
-    <input matInput placeholder="gr" value="">
-</mat-form-field><br></div>
-
-<div style="display: flex; justify-content:center;">
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Preescripción de dieta </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>   
-</div>
-<hr>
-<div style="display: flex; justify-content:center;">
-<h2><strong>Distribución de nutrientes por lista de intercambio</strong></h2>
-</div>
-
-<div style="display: flex; justify-content:center;">
-<h3>Leche</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
+<div class="container">
+    <mat-toolbar>
+        <span>Planificacion de la dieta</span>
+    </mat-toolbar>
+    <mat-card style="margin-top: 10px;">
+    <form [formGroup]="formPlanDieta" (submit)="AgregarPlanDieta()">
+        <mat-grid-list cols="3" rowHeight="60px">
+            <mat-grid-tile [colspan] = "2" [rowspan]="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Requerimiento Energético</mat-label>
+                    <input matInput formControlName="requerimiento_energetico">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "1" [rowspan]="2">
+                <!------Limpio------->
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "2" [rowspan]="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Calorias a preescribir</mat-label>
+                    <input matInput formControlName="calorias_prescribir">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                <mat-form-field class="ancho">
+                    <mat-label>CHO</mat-label>
+                    <input matInput formControlName="choc">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                <mat-form-field class="ancho">
+                    <mat-label>CHON</mat-label>
+                    <input matInput formControlName="chon">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                <mat-form-field class="ancho">
+                    <mat-label>CHOO</mat-label>
+                    <input matInput formControlName="cooh">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "3" [rowspan]="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Preescripción de la dieta</mat-label>
+                    <input matInput formControlName="preescripcion_dieta">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "2" [rowspan]="1">
+                <!----Limpio---->
+            </mat-grid-tile>
+            <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                <button type="submit" mat-raised-button color="primary">Guardar</button>
+            </mat-grid-tile>
+        </mat-grid-list>        
+    </form>
+    </mat-card>
 </div>
 
-<div style="display: flex; justify-content:center;">
-<h3>Suplemento</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br></div>
+<div>
+    valido:{{formPlanDieta.valid|json}}
+</div>
+<!--------------------------------------------------------------------------->
+<strong>
+    <mat-card>Simple card</mat-card>
+</strong>
+<div class="container">
+    <mat-card>
+        <form>
+            <mat-grid-list cols="7" rowHeight="60px">
+        <!-----------Titulos------------->
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Alimento
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    N° de int.
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    CHO g
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    CHON g
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Kcal
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Na
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    -
+                </mat-grid-tile>
+        <!-----------Leche------------->       
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Leche
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
 
-<div style="display: flex; justify-content:center;">
-<h3>Vegetales</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br></div>
+        <!-----------Suplementos------------->        
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                        Sumplemento                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
 
-<h3>Alimento: Frutas</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
+        <!-----------Vegetals------------->        
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Vegetales                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
 
-<h3>Alimento: Panes y cereales</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
+        <!-----------Frutas------------->    
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Frutas                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                <mat-form-field class="ancho">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="gramos">
+                  </mat-form-field>
+                </mat-grid-tile>
 
-<h3>Alimento: Carnes magras</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
 
-<h3>Alimento: Carnes semi - magras</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Panes y cereales                
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
 
-<h3>Alimento: Carnes grasas</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Carnes magras                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
 
-<h3>Alimento: Grasas</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br><hr>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Carnes semi magras                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
 
-<br><h3>Total</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label >N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field><br>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Carnes grasas                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
 
-<h3>Margen de error</h3>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>N° de int. </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHO g.</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHON g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>CHOO g</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>    
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Kcal</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Na</mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field>  
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label> </mat-label>
-    <input matInput placeholder="descripción" value="">
-</mat-form-field> 
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Grasas                 
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    <mat-form-field class="ancho">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="gramos">
+                      </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card>
+</div>
+<div class="container">
+    <mat-card>
+        <form>
+            <mat-grid-list cols="7" rowHeight="60px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Total
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    -
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Total de CHO
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Total de CHON
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Total de COOH
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Total de Kcal
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Total de Na
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Margen de error
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                   -
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Margen de error CHO
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Margen de error CHON
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Margen de error COOH
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Margen de error Kcal
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+                    Margen de error Na
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card>
+</div>
