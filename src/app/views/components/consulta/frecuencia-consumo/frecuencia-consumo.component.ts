@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray } from '@angular/forms';
-
-const ELEMENT_DATA = [
-  {alimento: 'Cereal', },
-];
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-frecuencia-consumo',
@@ -11,15 +7,41 @@ const ELEMENT_DATA = [
   styleUrls: ['./frecuencia-consumo.component.css']
 })
 export class FrecuenciaConsumoComponent {
-  
-  displayedColumns: string[] = ['nombre', 'frecuencia', 'comentario'];
-  dataSource = ELEMENT_DATA;
-
-  constructor() { }
+  frecuenciaConsumo:FormGroup = this.fb.group({
+    frecuencias: this.fb.array([], Validators.required)
+  });
+  constructor( private fb:FormBuilder ) { }
 
   ngOnInit(): void {
 
-    
   }
 
+  get frecuencias(){
+    return this.frecuenciaConsumo.controls["frecuencias"] as FormArray;
+  }
+
+  addFrecuencia(){
+
+    const frecuenciaForm:FormGroup = this.fb.group({
+      nombre: ['', Validators.required],
+      freq: ['0', Validators.required],
+      comentario: ['',]
+    });
+
+    this.frecuencias.push(frecuenciaForm);
+  }
+
+  deleteFrecuencia(frecuenciaIndex:number){
+    this.frecuencias.removeAt(frecuenciaIndex);
+  }
 }
+
+
+// frecuenciaConsumo: FormGroup = this.fb.group({
+  //   frecuencia: this.fb.array( [
+  //     ['Naranja', Validators.required],
+  //     [1],
+  //     ['En cuatro partes']
+  //   ], Validators.required )
+  // })
+  

@@ -33,6 +33,11 @@ const routes: Routes = [
     component: ListarAlimentosComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path:'frecuencia',
+    component: FrecuenciaConsumoComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

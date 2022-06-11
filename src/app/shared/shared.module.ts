@@ -16,6 +16,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
+    MatRadioModule
   ], 
   exports: [
     MatFormFieldModule,
@@ -51,7 +53,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     MatSnackBarModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
   ]
 })
 export class SharedModule { }
