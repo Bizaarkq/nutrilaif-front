@@ -1,14 +1,14 @@
 <mat-grid-list rowHeight="6:1" cols="3">
-        <mat-grid-tile>
-          <mat-label>Alimento</mat-label>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <mat-label>Frecuencia de consumo</mat-label>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <mat-label>Comentarios</mat-label>
-        </mat-grid-tile>
-      </mat-grid-list>
+  <mat-grid-tile>
+    <mat-label>Alimento</mat-label>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-label>Frecuencia de consumo</mat-label>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-label>Comentarios</mat-label>
+  </mat-grid-tile>
+</mat-grid-list>
 <div [formGroup] = "frecuenciaConsumo">
   <ng-container formArrayName="frecuencia">
       <ng-container *ngFor="let frecuenciaForm of frecuencias.controls; let i = index">
@@ -43,10 +43,16 @@
         </ng-container>
       </ng-container>
   </ng-container>
-  
-  <button mat-mini-fab (click)="addFrecuencia()">
-    <mat-icon>add</mat-icon>
-  </button>
+  <mat-grid-list rowHeight="6:1" cols="3">
+    <mat-grid-tile>
+      <button mat-mini-fab (click)="addFrecuencia()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
 
 <p>Valido</p>
