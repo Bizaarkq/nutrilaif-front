@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  realm: 'nutrilaif',
+  client: 'nutri-auth',
+  authUrl: 'http://137.184.184.76:8080/auth',
+  apiUrl: 'http://localhost:8000/api'
   
 };
 
