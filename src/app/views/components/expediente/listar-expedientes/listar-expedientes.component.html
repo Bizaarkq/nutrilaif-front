@@ -1,1 +1,55 @@
-<p>listar-expedientes works!</p>
+<div class="container">
+    <mat-toolbar>
+        <span>Expedientes</span>
+        <span class="example-spacer"></span>
+        <button mat-raised-button color="primary">Agregar expedientes</button>
+    </mat-toolbar>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+    
+          <!-- Columna de numero_exp -->
+          <ng-container matColumnDef="numero_exp">
+            <th mat-header-cell *matHeaderCellDef> Numero de expediente </th>
+            <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+          </ng-container>
+          <!-- Columna de nombre del paciente -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombres </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+        
+          <!-- Columna de apellidos del paciente -->
+          <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+            <td mat-cell *matCellDef="let element"> {{element.calorias}} </td>
+          </ng-container>
+        
+          <!-- Columna de telefono del paciente -->
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef>Telefono</th>
+            <td mat-cell *matCellDef="let element"> {{element.grasas}} </td>
+          </ng-container>
+
+          <!-- Columna del correo electronico del paciente -->
+          <ng-container matColumnDef="correo">
+            <th mat-header-cell *matHeaderCellDef>Correo electronico</th>
+            <td mat-cell *matCellDef="let element"> {{element.proteinas}} </td>
+          </ng-container>
+
+          <!-- Columna de acciones -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element" style="text-align: right"> <!--Obtener indice del arreglo selecciona-->
+              <a class="pointer" style="color: #195f2e;" matTooltip="Editar alimento" >
+                <mat-icon>visibility</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        </table>
+    
+      </div>
+</div>

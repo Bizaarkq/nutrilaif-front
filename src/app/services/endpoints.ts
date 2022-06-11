@@ -10,6 +10,10 @@ export const endpoints = {
         agregarAlimentos: environment.apiUrl + '/catalogo/alimento/store',
         editarAlimentos: environment.apiUrl + '/catalogo/alimento/update',
         elimarAlimentos: environment.apiUrl + '/catalogo/alimento/' 
+    },
+    expediente: {
+        listaExpedientes: environment.apiUrl + '/paciente/list',
+        
     }
 };
 

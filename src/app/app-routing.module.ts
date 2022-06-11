@@ -8,6 +8,7 @@ import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/gen
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
+import { ListarExpedientesComponent } from './views/components/expediente/listar-expedientes/listar-expedientes.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
     component: ListarAlimentosComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'expedientes',
+    component: ListarExpedientesComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

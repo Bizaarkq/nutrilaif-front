@@ -26,7 +26,8 @@ import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.compo
   exports: [
     DatosPersonalesComponent,
     ListarAlimentosComponent,
-    DialogAlimentoComponent
+    DialogAlimentoComponent,
+    ListarExpedientesComponent
   ]
 })
 export class ComponentsModule { }
