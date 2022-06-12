@@ -9,6 +9,7 @@ import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.component';
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
+import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
 
 const routes: Routes = [
   {
@@ -37,11 +38,6 @@ const routes: Routes = [
         component: ConsultaComponent
       }
     ],
-  },
-  {
-    path: 'alimentos',
-    component: ListarAlimentosComponent,
-    canActivate: [AuthGuard]
   },
 ];
 

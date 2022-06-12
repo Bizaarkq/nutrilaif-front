@@ -9,6 +9,7 @@ import { DatosPersonalesComponent } from './expediente/datos-personales/datos-pe
 import { ListarExpedientesComponent } from './expediente/listar-expedientes/listar-expedientes.component';
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
+import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
 
 
 
@@ -18,6 +19,7 @@ import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.compo
     ListarExpedientesComponent,
     ListarAlimentosComponent,
     DialogAlimentoComponent,
+    RecordatorioComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.compo
   exports: [
     DatosPersonalesComponent,
     ListarAlimentosComponent,
-    DialogAlimentoComponent
+    DialogAlimentoComponent,
+    RecordatorioComponent
   ]
 })
 export class ComponentsModule { }
