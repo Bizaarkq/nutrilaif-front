@@ -41,7 +41,6 @@ export class ConsultaService {
     return this.http.get(url, {headers})
     .pipe(
       map((results: any) => {
-        console.log(results);
         return results;
       })
     );
