@@ -8,6 +8,7 @@ import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/gen
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
+import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
 
 const routes: Routes = [
   {
@@ -26,11 +27,6 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
     ],
-  },
-  {
-    path: 'alimentos',
-    component: ListarAlimentosComponent,
-    canActivate: [AuthGuard]
   },
 ];
 
