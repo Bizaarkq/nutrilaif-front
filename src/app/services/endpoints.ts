@@ -9,7 +9,7 @@ export const endpoints = {
         listaAlimentos: environment.apiUrl + '/catalogo/alimento/listar',
         agregarAlimentos: environment.apiUrl + '/catalogo/alimento/store',
         editarAlimentos: environment.apiUrl + '/catalogo/alimento/update',
-        elimarAlimentos: environment.apiUrl + '/catalogo/alimento/' 
+        elimarAlimentos: environment.apiUrl + '/catalogo/alimento/delete' 
     }
 };
 

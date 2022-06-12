@@ -28,7 +28,7 @@ export class DialogAlimentoComponent implements OnInit {
     //this.createForm();
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
-      codigo: ['', Validators.required],
+      codigo: [{value:'', disabled:true}, Validators.required],
       nombre: ['', Validators.required],
       calorias: ['', Validators.required],
       grasas: ['', Validators.required],
@@ -93,7 +93,7 @@ export class DialogAlimentoComponent implements OnInit {
 
   editarAlimento(){
     if(!this.formDatosAlimento.invalid){
-      this.api.editarAlimentos(this.formDatosAlimento.value)
+      this.api.editarAlimentos(this.formDatosAlimento.getRawValue())
       .subscribe({
         next:(res)=>{
           alert("Alimento editado correctamente");
