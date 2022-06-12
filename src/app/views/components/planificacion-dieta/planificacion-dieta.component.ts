@@ -26,6 +26,9 @@ export class PlanificacionDietaComponent implements OnInit {
     private snack: MatSnackBar
   ) { }
 
+    columns = ["Alimento", "N° de int", "CHO g","CHON g", "CHOON g", "Kcal", "Na","Comentarios"]
+
+
   distribucion_alimento: FormGroup = this.FB.group({
     "n_int": [''],
     "chos": [''], 
@@ -59,33 +62,12 @@ export class PlanificacionDietaComponent implements OnInit {
   ];
 
 distribucionNutriente:FormGroup = this.FB.group({});
-//on init
 
 ngOnInit(): void {
- // this.planAlimenticio = this.FB.group({
     this.alimentos.forEach(nombre_alimento => this.distribucionNutriente.addControl(nombre_alimento, this.FB.control('')));
     this.planAlimenticio.addControl('distribucion_nutriente', this.distribucionNutriente);
     console.log(this.planAlimenticio);
-//  });
 }
-
-
-  /*
-  
-
-  ngOnInit(): void {
-    this.formPlanDieta = this.formBuilder.group({
-      requerimiento_energetico:[''],
-      calorias_prescribir:[''],
-      choc:[''],
-      chon:[''],
-      cooh:[''],
-      preescripcion_dieta:[''],
-    });
-  }*/
-
-  
-
     
   AgregarPlanDieta(){
     console.log(this.formPlanDieta)
@@ -100,23 +82,5 @@ ngOnInit(): void {
     }
     console.log(planDieta)
   }
-    
- /*   planificacion_dieta(){
-      this.authService
-        .planificacion_dieta(
-          this.formPlanDieta.value.requerimiento_energetico,
-          this.formPlanDieta.value.calorias_preescribir,
-          this.formPlanDieta.value.choc,
-          this.formPlanDieta.value.chon,
-          this.formPlanDieta.value.cooh,
-          this.formPlanDieta.value.preescripcion_dieta,
-        )
-      )
-    }*/
-
-    send():any{
-      console.log(this.formPlanDieta.value)
-    }
-
-  }
+}
 
