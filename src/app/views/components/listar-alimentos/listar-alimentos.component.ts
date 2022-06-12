@@ -62,17 +62,17 @@ export class ListarAlimentosComponent implements OnInit {
     }
   }
 
-  eliminarAlimento(id:number){
-    // this.api.eliminarAlimento(id)
-    // .subscribe({
-    //   next:(res)=>{
-    //     alert("Alimento eliminado");
-    //     this.cargarAlimentos();
-    //   },
-    //   error:()=>{
-    //     alert("Error al eliminar alimento");
-    //   }
-    // })
+  eliminarAlimento(alimento:any){
+    this.api.eliminarAlimento(alimento.codigo)
+    .subscribe({
+      next:(res)=>{
+        alert("Alimento eliminado");
+        this.cargarAlimentos();
+      },
+      error:()=>{
+        alert("Error al eliminar alimento");
+      }
+    })
   }
 
   editarAlimento(row:any){
