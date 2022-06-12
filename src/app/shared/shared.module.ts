@@ -16,8 +16,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
+    MatRadioModule
     MatCardModule,
     MatDividerModule
   ], 
@@ -56,6 +59,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
+    MatRadioModule
     MatCardModule,
     MatDividerModule
   ]
