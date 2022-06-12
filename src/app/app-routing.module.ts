@@ -25,25 +25,14 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'consulta',
+        path: 'consulta/:accion/:id',
         canActivate: [AuthGuard],
-        children: [
-          {
-            path: 'crear',
-            component: ConsultaComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'crear/:id',
-            component: ConsultaComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'subsecuente/:id',
-            component: ConsultaComponent,
-            canActivate: [AuthGuard]
-          },
-        ]
+        component: ConsultaComponent
+      },
+      {
+        path: 'consulta/:accion',
+        canActivate: [AuthGuard],
+        component: ConsultaComponent
       }
     ],
   },

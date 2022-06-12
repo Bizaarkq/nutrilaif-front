@@ -7,6 +7,8 @@ export const endpoints = {
     },
     consulta: {
         guardarConsulta: environment.apiUrl + '/consulta/save',
+        editarConsulta: environment.apiUrl + '/consulta/update',
+        getConsulta: environment.apiUrl + '/consulta/get'
     }
 };
 

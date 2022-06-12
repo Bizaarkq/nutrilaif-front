@@ -20,14 +20,31 @@ export class ConsultaService {
       'Authorization': 'Bearer ' + token,
     });
 
-    let url = id === '' ? endpoints.consulta.guardarConsulta : endpoints.consulta.guardarConsulta + '/' + id;
+    let url = id === '' || id === null? endpoints.consulta.guardarConsulta : endpoints.consulta.guardarConsulta + '/' + id;
     return this.http.post(url , cuerpo, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+
+  }
+
+  getconsulta(id: string){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    let url = endpoints.consulta.getConsulta + '/' + id;
+    return this.http.get(url, {headers})
     .pipe(
       map((results: any) => {
         console.log(results);
         return results;
       })
     );
-
   }
+
 }

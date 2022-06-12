@@ -1,19 +1,25 @@
-{{ consultaForm.value | json }}
 <form [formGroup]="consultaForm" (submit)="guardar()">
 <mat-stepper [linear]="false" #stepper>
+  <mat-step [stepControl]="paciente">
+    <form [formGroup]="paciente" >
+      <ng-template matStepLabel>Datos Paciente</ng-template>
+          <app-datos-personales [pacienteForm]="paciente"></app-datos-personales> 
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
   <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue">
-    {{ log(group)}}
-    <ng-container>
     <mat-step [stepControl]="group.value">
       <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
         <ng-template matStepLabel>{{group.key}}</ng-template>
         <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="legacy">
             <mat-label>{{ control.key }}</mat-label>
             <input
               matInput
               formControlName="{{ control.key }}"
-            />
+              />
           </mat-form-field>
         </ng-container>
         <div>
@@ -22,7 +28,9 @@
       </form>
     </mat-step>
   </ng-container>
-  </ng-container>
 </mat-stepper>
 <button mat-raised-button color="primary">Guardar</button>
+<section [formGroup]="consultaForm">
+  <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
+</section>
 </form>
