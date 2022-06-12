@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import {
   FormBuilder,
@@ -9,7 +9,6 @@ import {
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {PlanificacionDieta} from 'src/app/interfaces/PlanificacionDieta'
-//import {planAlimenticio} from 'src/app/interfaces/Alimento'
 
 @Component({
   selector: 'app-planificacion-dieta',
@@ -18,15 +17,61 @@ import {PlanificacionDieta} from 'src/app/interfaces/PlanificacionDieta'
 })
 export class PlanificacionDietaComponent implements OnInit {
 
-  //form planificacion de dieta
-  formPlanDieta!:FormGroup;
+  @Input() planAlimenticio !: FormGroup;
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder,
+    private FB: FormBuilder,
     private router: Router,
     private snack: MatSnackBar
   ) { }
+
+  distribucion_alimento: FormGroup = this.FB.group({
+    "n_int": [''],
+    "chos": [''], 
+    "choc": [''], 
+    "chon": [''], 
+    "cooh": [''], 
+    "kcal": [''], 
+    "na": [''], 
+    "comentario": [''],  
+  });
+
+  formPlanDieta:FormGroup = this.FB.group({
+    requerimiento_energetico:[''],
+    calorias_prescribir:[''],
+    choc:[''],
+    chon:[''],
+    cooh:[''],
+    preescripcion_dieta:[''],
+  });
+
+  alimentos = [
+      'leche',
+      'suplemento',
+      'vegetales',
+      'frutas',
+      'panes',
+      'carnes_magras',
+      'carnes_semi_grasas',
+      'carnes_grasas',
+      'grasas'
+  ];
+
+distribucionNutriente:FormGroup = this.FB.group({});
+//on init
+
+ngOnInit(): void {
+ // this.planAlimenticio = this.FB.group({
+    this.alimentos.forEach(nombre_alimento => this.distribucionNutriente.addControl(nombre_alimento, this.FB.control('')));
+    this.planAlimenticio.addControl('distribucion_nutriente', this.distribucionNutriente);
+    console.log(this.planAlimenticio);
+//  });
+}
+
+
+  /*
+  
 
   ngOnInit(): void {
     this.formPlanDieta = this.formBuilder.group({
@@ -37,8 +82,11 @@ export class PlanificacionDietaComponent implements OnInit {
       cooh:[''],
       preescripcion_dieta:[''],
     });
-  }
+  }*/
 
+  
+
+    
   AgregarPlanDieta(){
     console.log(this.formPlanDieta)
 
@@ -53,7 +101,7 @@ export class PlanificacionDietaComponent implements OnInit {
     console.log(planDieta)
   }
     
-  /*  planificacion_dieta(){
+ /*   planificacion_dieta(){
       this.authService
         .planificacion_dieta(
           this.formPlanDieta.value.requerimiento_energetico,
@@ -69,5 +117,6 @@ export class PlanificacionDietaComponent implements OnInit {
     send():any{
       console.log(this.formPlanDieta.value)
     }
+
   }
 

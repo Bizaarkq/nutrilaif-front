@@ -6,5 +6,5 @@ export interface PlanificacionDieta{
     chon:number,
     cooh:number,
     preescripcion_dieta:String
+    
 }
-
