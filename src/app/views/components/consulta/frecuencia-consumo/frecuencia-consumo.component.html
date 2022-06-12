@@ -9,90 +9,158 @@
     <mat-label>Comentarios</mat-label>
   </mat-grid-tile>
 </mat-grid-list>
-<div [formGroup] = "frecuenciaConsumo">
-  <ng-container formArrayName="frecuencia">
-      <ng-container *ngFor="let frecuenciaForm of frecuencias.controls; let i = index">
-        <ng-container >
-          <mat-grid-list rowHeight="6:1" cols="3">
-            <mat-grid-tile>
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Alimento</mat-label>
-                <input formControlName="nombre" autocomplete="off" matInput placeholder="Ingrese el alimento">
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-radio-group formControlName="freq" aria-label="Select an option">
-                    <mat-radio-button value="0">0</mat-radio-button>
-                    <mat-radio-button value="1">1</mat-radio-button>
-                    <mat-radio-button value="2">2</mat-radio-button>
-                    <mat-radio-button value="3">3</mat-radio-button>
-                    <mat-radio-button value="4">4</mat-radio-button>
-                    <mat-radio-button value="5">5</mat-radio-button>
-                    <mat-radio-button value="6">6</mat-radio-button>
-                    <mat-radio-button value="7">7</mat-radio-button>
-                </mat-radio-group>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-form-field appearance="fill">
-                <mat-label>Comentarios</mat-label>
-                <textarea formControlName="comentario" matInput></textarea>
-              </mat-form-field>
-              <mat-icon (click)="deleteFrecuencia(i)">delete_forever</mat-icon>
-            </mat-grid-tile>
-          </mat-grid-list>   
-        </ng-container>
-      </ng-container>
-  </ng-container>
+<form [formGroup] = "frecuenciaConsumo">
   <mat-grid-list rowHeight="6:1" cols="3">
+
     <mat-grid-tile>
-      <button mat-mini-fab (click)="addFrecuencia()">
-        <mat-icon>add</mat-icon>
-      </button>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Alimento</mat-label>
+        <input formControlName="nombre1" autocomplete="off" matInput placeholder="Ingrese el alimento">
+      </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
-
+      <mat-radio-group formControlName="frequencia1" aria-label="Select an option">
+        <mat-radio-button value="0">0</mat-radio-button>
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="5">5</mat-radio-button>
+        <mat-radio-button value="6">6</mat-radio-button>
+        <mat-radio-button value="7">7</mat-radio-button>
+      </mat-radio-group>
     </mat-grid-tile>
-  </mat-grid-list>
-</div>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Comentarios</mat-label>
+        <textarea formControlName="comentario1" matInput></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
 
-<p>Valido</p>
-<pre>{{frecuenciaConsumo.valid}}</pre>
-<span>Frecuencia de consumo</span>
-<pre>{{frecuenciaConsumo.value | json}}</pre>
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Alimento</mat-label>
+        <input formControlName="nombre2" autocomplete="off" matInput placeholder="Ingrese el alimento">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-radio-group formControlName="frequencia2" aria-label="Select an option">
+        <mat-radio-button value="0">0</mat-radio-button>
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="5">5</mat-radio-button>
+        <mat-radio-button value="6">6</mat-radio-button>
+        <mat-radio-button value="7">7</mat-radio-button>
+      </mat-radio-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Comentarios</mat-label>
+        <textarea formControlName="comentario2" matInput></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
 
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Alimento</mat-label>
+        <input formControlName="nombre3" autocomplete="off" matInput placeholder="Ingrese el alimento">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-radio-group formControlName="frequencia3" aria-label="Select an option">
+        <mat-radio-button value="0">0</mat-radio-button>
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="5">5</mat-radio-button>
+        <mat-radio-button value="6">6</mat-radio-button>
+        <mat-radio-button value="7">7</mat-radio-button>
+      </mat-radio-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Comentarios</mat-label>
+        <textarea formControlName="comentario3" matInput></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
 
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Alimento</mat-label>
+        <input formControlName="nombre4" autocomplete="off" matInput placeholder="Ingrese el alimento">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-radio-group formControlName="frequencia4" aria-label="Select an option">
+        <mat-radio-button value="0">0</mat-radio-button>
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="5">5</mat-radio-button>
+        <mat-radio-button value="6">6</mat-radio-button>
+        <mat-radio-button value="7">7</mat-radio-button>
+      </mat-radio-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Comentarios</mat-label>
+        <textarea formControlName="comentario4" matInput></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
 
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Alimento</mat-label>
+        <input formControlName="nombre5" autocomplete="off" matInput placeholder="Ingrese el alimento">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-radio-group formControlName="frequencia5" aria-label="Select an option">
+        <mat-radio-button value="0">0</mat-radio-button>
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="5">5</mat-radio-button>
+        <mat-radio-button value="6">6</mat-radio-button>
+        <mat-radio-button value="7">7</mat-radio-button>
+      </mat-radio-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Comentarios</mat-label>
+        <textarea formControlName="comentario5" matInput></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
 
-
-
-
-
-
-
-
-
-
-
-  <!--div>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Alimento</mat-label>
-          <input formControlName="nombre" 
-          autocomplete="off" 
-          matInput placeholder="Ingrese el alimento">
-        </mat-form-field>
-        <mat-radio-group formControlName="freq" aria-label="Select an option">
-          <mat-radio-button value="0">0</mat-radio-button>
-          <mat-radio-button value="1">1</mat-radio-button>
-          <mat-radio-button value="2">2</mat-radio-button>
-          <mat-radio-button value="3">3</mat-radio-button>
-          <mat-radio-button value="4">4</mat-radio-button>
-          <mat-radio-button value="5">5</mat-radio-button>
-          <mat-radio-button value="6">6</mat-radio-button>
-          <mat-radio-button value="7">7</mat-radio-button>
-        </mat-radio-group>
-        <mat-form-field appearance="fill">
-          <mat-label>Comentarios</mat-label>
-          <textarea formControlName="comentario" matInput></textarea>
-        </mat-form-field>
-        <mat-icon (click)="deleteFrecuencia(i)">delete_forever</mat-icon>
-      </div-->
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Alimento</mat-label>
+        <input formControlName="nombre6" autocomplete="off" matInput placeholder="Ingrese el alimento">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-radio-group formControlName="frequencia6" aria-label="Select an option">
+        <mat-radio-button value="0">0</mat-radio-button>
+        <mat-radio-button value="1">1</mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="5">5</mat-radio-button>
+        <mat-radio-button value="6">6</mat-radio-button>
+        <mat-radio-button value="7">7</mat-radio-button>
+      </mat-radio-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Comentarios</mat-label>
+        <textarea formControlName="comentario6" matInput></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
+    
+  </mat-grid-list>   
+</form>

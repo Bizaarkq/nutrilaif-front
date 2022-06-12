@@ -28,16 +28,6 @@ const routes: Routes = [
       },
     ],
   },
-  {
-    path: 'alimentos',
-    component: ListarAlimentosComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path:'frecuencia',
-    component: FrecuenciaConsumoComponent,
-    canActivate: [AuthGuard]
-  }
 ];
 
 @NgModule({
