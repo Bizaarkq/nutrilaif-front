@@ -1,6 +1,6 @@
 <!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
 <mat-grid-list cols="3" rowHeight="50px">
-    <form [formGroup]="formDatosPaciente">
+    <form [formGroup]="pacienteForm">
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
                 <mat-label>N° de Expediente</mat-label>
@@ -80,8 +80,8 @@
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-form-field class="" appearance="fill">
-                <mat-label>Departamento</mat-label>
-                <select matNativeControl FormControlName="departamento" required>
+                <mat-label>Sexo</mat-label>
+                <select matNativeControl FormControlName="sexo" required>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                 </select>                       
@@ -89,7 +89,3 @@
         </mat-grid-tile>
     </form>
 </mat-grid-list>
-{{formDatosPaciente.value|json}}
-
-
-

@@ -17,6 +17,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 
 @NgModule({
@@ -38,6 +41,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatToolbarModule,
     MatDialogModule,
     MatRadioModule
+    MatCardModule,
+    MatDividerModule
   ], 
   exports: [
     MatFormFieldModule,
@@ -55,6 +60,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatToolbarModule,
     MatDialogModule,
     MatRadioModule
+    MatCardModule,
+    MatDividerModule
   ]
 })
 export class SharedModule { }

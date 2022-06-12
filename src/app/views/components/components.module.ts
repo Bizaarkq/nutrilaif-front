@@ -10,6 +10,7 @@ import { ListarExpedientesComponent } from './expediente/listar-expedientes/list
 import { FrecuenciaConsumoComponent } from './consulta/frecuencia-consumo/frecuencia-consumo.component';
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
+import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
 
 
 
@@ -20,6 +21,8 @@ import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.compo
     FrecuenciaConsumoComponent,
     ListarAlimentosComponent,
     DialogAlimentoComponent
+    DialogAlimentoComponent,
+    RecordatorioComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.compo
     FrecuenciaConsumoComponent,
     DatosPersonalesComponent,
     ListarAlimentosComponent,
-    DialogAlimentoComponent
+    DialogAlimentoComponent,
+    RecordatorioComponent
   ]
 })
 export class ComponentsModule { }

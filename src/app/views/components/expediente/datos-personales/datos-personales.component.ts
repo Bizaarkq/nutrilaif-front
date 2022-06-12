@@ -8,6 +8,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class DatosPersonalesComponent implements OnInit {
 
+  @Input() pacienteForm !: FormGroup;
+
   camposPacientes: string[] = [
     'numero_exp', 
     'nombre',
@@ -27,32 +29,22 @@ export class DatosPersonalesComponent implements OnInit {
   formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
   constructor(private fb: FormBuilder) { 
-    // this.formDatosPaciente = this.fb.group({
-    //   numero_exp: ['', Validators.required],//Campo requerido
-    //   nombre: ['', Validators.required],
-    //   apellido: ['', Validators.required],
-    //   fecha_nacimiento: ['', Validators.required],
-    //   correo: ['', Validators.email],
-    //   sexo: ['', Validators.required],
-    //   telefono: ['',],
-    //   direccion: ['',],
-
-    //   //Los siguientes datos no estan en la base de datos
-    //   departamento: ['', ],
-    //   municipio: ['', ],
-    //   edad: ['',],
-    //   ocupacion: ['',],
-    //   fechaExpediente: ['', Validators.required],
-    // })
   }
   ngOnInit(): void {
     this.createForm();
+
+    if(this.pacienteForm.get('id_paciente')?.value){
+      
+    }
   }
 
   createForm(): void {
     const group:any = {};
-    this.camposPacientes.forEach(property => group[property] = new FormControl());
-    this.formDatosPaciente = new FormGroup(group);
+    //this.camposPacientes.forEach(property => group[property] = new FormControl());
+    this.camposPacientes.forEach(property => this.pacienteForm.addControl(property, new FormControl('')));
+    console.log(this.pacienteForm);
+
+    //this.formDatosPaciente = new FormGroup(group);
   }
 
 }
