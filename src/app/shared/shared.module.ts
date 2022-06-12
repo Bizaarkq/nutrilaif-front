@@ -40,7 +40,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
     MatCardModule,
     MatDividerModule
   ], 
@@ -59,7 +59,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
     MatCardModule,
     MatDividerModule
   ]

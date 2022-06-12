@@ -20,7 +20,6 @@ import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.comp
     ListarExpedientesComponent,
     FrecuenciaConsumoComponent,
     ListarAlimentosComponent,
-    DialogAlimentoComponent
     DialogAlimentoComponent,
     RecordatorioComponent,
   ],
