@@ -23,12 +23,14 @@ export class DialogAlimentoComponent implements OnInit {
     'calcio',
     'sodio'
   ];
+  codigoDisabled:boolean = false;
   
   ngOnInit(): void {
+    this.codigoDisabled = this.editData ? true : false;
     //this.createForm();
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
-      codigo: [{value:'', disabled:true}, Validators.required],
+      codigo: [{value:'', disabled: this.codigoDisabled}, Validators.required],
       nombre: ['', Validators.required],
       calorias: ['', Validators.required],
       grasas: ['', Validators.required],
