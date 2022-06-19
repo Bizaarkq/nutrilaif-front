@@ -14,11 +14,11 @@ export class GeneralLayoutComponent implements OnInit {
     },
     {
       'label': 'Consultas',
-      'link': '/consulta/listar'
+      'link': '/consulta/crear'
     },
     {
       'label': 'Catalogo',
-      'link': '/catalogo'
+      'link': '/alimentos'
     }
   ];
 
