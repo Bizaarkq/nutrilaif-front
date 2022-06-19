@@ -24,6 +24,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: '',
+        redirectTo: '/inicio',
+        pathMatch: 'full'
+      },
+      {
         path: 'inicio',
         component: InicioComponent,
         canActivate: [AuthGuard]
@@ -37,9 +42,18 @@ const routes: Routes = [
         path: 'consulta/:accion',
         canActivate: [AuthGuard],
         component: ConsultaComponent
-      }
+      },
+      {
+        path: 'alimentos',
+        canActivate: [AuthGuard],
+        component: ListarAlimentosComponent
+      },
     ],
   },
+  {
+    path: '**',
+    redirectTo: 'inicio',
+  }
 ];
 
 @NgModule({

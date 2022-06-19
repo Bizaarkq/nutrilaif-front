@@ -26,14 +26,14 @@ export class InicioComponent implements OnInit {
       text: 'Consulta',
       cols: 1,
       rows: 2,
-      link: '/consulta/listar',
+      link: '/consulta/crear',
       color: 'lightgreen'
     },
     {
       text: 'Catalogo',
       cols: 1,
       rows: 1,
-      link: '/catalogo',
+      link: '/alimentos',
       color:  'lightpink'
     },
     {

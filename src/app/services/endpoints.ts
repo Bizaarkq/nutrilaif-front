@@ -15,6 +15,9 @@ export const endpoints = {
         agregarAlimentos: environment.apiUrl + '/catalogo/alimento/store',
         editarAlimentos: environment.apiUrl + '/catalogo/alimento/update',
         elimarAlimentos: environment.apiUrl + '/catalogo/alimento/delete' 
+    },
+    paciente: {
+        listaPacientes: environment.apiUrl + '/paciente/listar',
     }
 };
 

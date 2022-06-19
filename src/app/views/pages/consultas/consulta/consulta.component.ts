@@ -48,8 +48,6 @@ export class ConsultaComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.data['id_paciente'];
-    console.log(this.route.snapshot.data);
-    console.log(this.id, this.accion, this.id_paciente);
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
     
     if (this.accion === 'editar' && this.id !== null) {
