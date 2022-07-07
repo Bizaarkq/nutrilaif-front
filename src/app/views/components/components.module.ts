@@ -11,6 +11,7 @@ import { FrecuenciaConsumoComponent } from './consulta/frecuencia-consumo/frecue
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
 import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
+import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
 
 
 
@@ -22,6 +23,7 @@ import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.comp
     ListarAlimentosComponent,
     DialogAlimentoComponent,
     RecordatorioComponent,
+    TablaDietaComponent,
   ],
   imports: [
     CommonModule,

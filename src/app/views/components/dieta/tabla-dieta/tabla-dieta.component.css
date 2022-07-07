@@ -1,0 +1,15 @@
+th{
+    padding: 1em;
+    font-size: 18px;
+    background-color: rgb(50, 187, 57);
+}
+tr{
+    text-align: center;
+}
+table {
+    width: 100%;
+    padding: 10px;
+}
+.mat-form-field {
+    width: 100%;
+}
