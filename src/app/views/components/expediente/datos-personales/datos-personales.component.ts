@@ -43,7 +43,7 @@ export class DatosPersonalesComponent implements OnInit {
       fechaExpediente:['',[Validators.required]],
       departamento:['',[Validators.required]],
       nombre:['',[Validators.required,
-        Validators.pattern(/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/)]],
+        Validators.pattern(/^([A-Za-zÁÉÍÓÚñáéíóúÑ0-9]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ0-9\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ0-9]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ0-9\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ0-9]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ0-9\'])?$/)]],
       fecha_nacimiento:['',[Validators.required]],
       municipio:['',[Validators.required]],
       edad:['',[Validators.required, Validators.min(0), Validators.max(130)]],
