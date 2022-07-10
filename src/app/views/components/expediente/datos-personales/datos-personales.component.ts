@@ -66,4 +66,9 @@ export class DatosPersonalesComponent implements OnInit {
 
   }
 
+  validarCampo( campo:string ){
+    return this.pacienteForm.controls[campo].errors && 
+      this.pacienteForm.controls[campo].touched;
+  }
+  
 }
