@@ -1,18 +1,10 @@
-<!--mat-grid-list cols="4" rowHeight="250px">
-  <mat-grid-tile
-    *ngFor="let tile of tiles"
-    [colspan]="tile.cols"
-    [rowspan]="tile.rows"
-    [style.background]="tile.color">
-    <a [routerLink]="tile.link">{{ tile.text }}</a>
-  </mat-grid-tile>
-</mat-grid-list-->
+<!--PAGINA DE INICIO-->
 <mat-grid-list cols="2" rowHeight="450px">
+  
   <mat-grid-tile 
     *ngFor="let card of tiles"
     [colspan]="card.cols"
-    [rowspan]="card.rows"
-    class="full">
+    [rowspan]="card.rows">
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>{{ card.text }}</mat-card-title>
