@@ -33,6 +33,7 @@ export class ConsultaComponent implements OnInit {
   recordatorio: FormGroup = this.FB.group({});
   frecuencia_consumo: FormGroup = this.FB.group({});
   planificacion_dieta: FormGroup = this.FB.group({});
+  dieta: FormGroup = this.FB.group({});
 
   consultaForm:FormGroup = this.FB.group({});
 

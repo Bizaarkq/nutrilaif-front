@@ -28,6 +28,15 @@
       </form>
     </mat-step>
   </ng-container>
+  <mat-step *ngIf="accion==='editar'" [stepControl]="dieta">
+    <form [formGroup]="dieta" >
+      <ng-template matStepLabel>Dieta</ng-template>
+      <app-tabla-dieta [formularioDieta]="dieta"></app-tabla-dieta>    
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
 </mat-stepper>
 <button mat-raised-button color="primary">Guardar</button>
 <section [formGroup]="consultaForm">

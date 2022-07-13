@@ -35,7 +35,8 @@ import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
     DatosPersonalesComponent,
     ListarAlimentosComponent,
     DialogAlimentoComponent,
-    RecordatorioComponent
+    RecordatorioComponent,
+    TablaDietaComponent
   ]
 })
 export class ComponentsModule { }
