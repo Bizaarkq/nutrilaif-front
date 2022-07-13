@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   //form login
   formLogin!: FormGroup;
 
+  hide = true;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -51,5 +53,9 @@ export class LoginComponent implements OnInit {
           }
         }
       );
+  }
+
+  validarCampos( campo:string ){
+    return this.formLogin.controls[campo].errors && this.formLogin.controls[campo].touched;
   }
 }
