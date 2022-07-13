@@ -5,7 +5,9 @@ export interface Tile {
   rows: number;
   text: string;
   link: string;
-  color: string;
+  linkImagen: string;
+  subtitulo: string;
+  alt: string;
 }
 
 @Component({
@@ -17,31 +19,39 @@ export class InicioComponent implements OnInit {
   tiles: Tile[] = [
     {
       text: 'Expediente',
-      cols: 3,
+      subtitulo: 'Listado de expedientes',
+      linkImagen: 'assets/images/expediente.jpeg',
+      cols: 1,
       rows: 1,
       link: '/expediente/listar',
-      color: 'lightblue'
+      alt: 'Expedientes de pacientes'
     },
     {
       text: 'Consulta',
+      subtitulo: 'Listado de consultas',
+      linkImagen: 'assets/images/consultaNutricionista.jpg',
       cols: 1,
-      rows: 2,
+      rows: 1,
       link: '/consulta/crear',
-      color: 'lightgreen'
+      alt: 'Listado de consultas'
     },
     {
       text: 'Catalogo',
+      subtitulo: 'Catalogo de alimentos',
+      linkImagen: 'assets/images/catalogoAlimentos.jpg',
       cols: 1,
       rows: 1,
       link: '/alimentos',
-      color:  'lightpink'
+      alt: 'Listado de alimentos'
     },
     {
       text: 'Citas',
-      cols: 2,
+      subtitulo: 'Listado de citas',
+      linkImagen: 'assets/images/calendarioCitas.webp',
+      cols: 1,
       rows: 1,
       link: '/citas',
-      color: '#DDBDF1'
+      alt: 'Listado de citas'
     },
   ];
   constructor() {}
