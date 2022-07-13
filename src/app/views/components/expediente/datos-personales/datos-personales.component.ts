@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { VirtualAction } from 'rxjs';
-import { AlimentosService } from 'src/app/services/alimentos.service';
 
 @Component({
   selector: 'app-datos-personales',
@@ -38,22 +36,6 @@ export class DatosPersonalesComponent implements OnInit {
     if(this.pacienteForm.get('id_paciente')?.value){
       
     }
-    this.pacienteForm=this.fb.group({
-      numero_exp:[''],
-      fechaExpediente:['',[Validators.required]],
-      departamento:['',[Validators.required]],
-      nombre:['',[Validators.required,
-        Validators.pattern(/^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/)]],
-      fecha_nacimiento:['',[Validators.required]],
-      municipio:['',[Validators.required]],
-      edad:['',[Validators.required, Validators.min(0), Validators.max(130)]],
-      telefono:['',[Validators.required, 
-        Validators.pattern(/^[6-7]\d{3}-\d{4}$/)]],
-      sexo:['',[Validators.required]],
-      correo:['',[Validators.required,Validators.email,
-        Validators.pattern(/.com$/)]]
-
-    });
   }
 
   createForm(): void {
