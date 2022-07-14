@@ -13,14 +13,17 @@ mat-grid-list {
   margin: 0 4% 0 4%;
 }
 
-.mat-raised-button.green{
+.mat-fab.green{
   background-color: #116530;
   color: white;
-  font-size: 18px;
-  width: 120px;
   float: right;
 }
 
 .grid-layout{
-  width: 91%;
+  width: 92%;
+}
+
+.label{
+  font-size: 18px;
+  font-weight: 400;
 }

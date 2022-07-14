@@ -1,7 +1,7 @@
 <!--TITULOS DEL FORMULARIO-->
 <mat-grid-list rowHeight="6:1" cols="3">
   <mat-grid-tile *ngFor="let item of titulos">
-    <mat-label>{{ item }}</mat-label>
+    <mat-label class="label">{{ item }}</mat-label>
   </mat-grid-tile>
 </mat-grid-list>
 <!--FORMULARIO DE FRECUENCIA DE CONSUMO-->
@@ -16,6 +16,9 @@
             <input autocomplete="off" 
                     matInput placeholder="Ingrese el alimento"
                     formControlName="alimento">
+            <mat-error *ngIf="validarCampos()">
+              Error: Debe ingresar el alimento y seleccionar la frecuencia de consumo
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -36,7 +39,7 @@
             <textarea  matInput
                       formControlName="comentario"></textarea>
           </mat-form-field>
-          <button mat-raised-button color="warn" (click)="removeFrecuencia(i)">
+          <button mat-fab color="warn" matTooltip="Eliminar alimento" (click)="removeFrecuencia(i)">
             <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
           </button>
         </mat-grid-tile> 
@@ -44,14 +47,9 @@
     </div>
   </mat-grid-list>
   <div class="grid-layout">
-    <button mat-raised-button class="green" (click)="addFrecuencia()">
-      Agregar
+    <button mat-fab class="green" matTooltip="Agregar alimento" (click)="addFrecuencia()">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
     </button>
   </div>
 </form>
-
-<h1>Valid</h1>
-<pre>{{ formularioFrecuencia.valid }}</pre>
-<br>
-<h1>Valor del formulario</h1>
-<pre>{{ formularioFrecuencia.value | json }}</pre>
+<br><br>

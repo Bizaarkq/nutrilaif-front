@@ -8,15 +8,16 @@ import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class FrecuenciaConsumoComponent {
   //Formulario a utilizar para la frecuencia de consumo
-  //@Input() formularioFrecuencia!: FormGroup;
+  @Input() formularioFrecuencia!: FormGroup;
   //Titulos utilizados en el componente de frecuencia de consumo
-  formularioFrecuencia!: FormGroup;
+  //formularioFrecuencia!: FormGroup;
   titulos: string[] = ['Alimento', 'Frecuencia de consumo', 'Comentarios'];
 
   constructor( private fb:FormBuilder ) { }
 
   ngOnInit(): void {
     this.createForm();
+    this.addFrecuencia();
   }
 
   createForm(): void {
@@ -48,4 +49,8 @@ export class FrecuenciaConsumoComponent {
     this.frecuencias.removeAt( i );
   }
   
+  //Metodo para validar campos de la frecuencia de consumo
+  validarCampos(){
+    return (this.newFrecuencia().invalid) ? true : false;
+  }
 }
