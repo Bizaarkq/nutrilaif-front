@@ -17,7 +17,8 @@ export const endpoints = {
         elimarAlimentos: environment.apiUrl + '/catalogo/alimento/delete' 
     },
     paciente: {
-        listaPacientes: environment.apiUrl + '/paciente/listar',
+        listaPacientes: environment.apiUrl + '/paciente/list',
+        eliminarPaciente: environment.apiUrl + '/paciente/delete'
     }
 };
 
