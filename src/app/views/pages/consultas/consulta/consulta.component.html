@@ -3,7 +3,7 @@
   <mat-step [stepControl]="paciente">
     <form [formGroup]="paciente" >
       <ng-template matStepLabel>Datos Paciente</ng-template>
-          <app-datos-personales [pacienteForm]="paciente"></app-datos-personales> 
+          <app-datos-personales [pacienteForm]="paciente" [isSubsecuente]="esSubsecuente"></app-datos-personales> 
       <div>
         <button mat-button matStepperNext type="button">Siguiente</button>
       </div>

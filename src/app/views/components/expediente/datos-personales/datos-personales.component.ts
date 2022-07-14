@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
+import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 @Component({
   selector: 'app-datos-personales',
   templateUrl: './datos-personales.component.html',
@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 export class DatosPersonalesComponent implements OnInit {
 
   @Input() pacienteForm !: FormGroup;
-
+  @Input() isSubsecuente : boolean = false;
   //Formulario de datos de paciente
 
   /*camposPacientes: string[] = [
@@ -30,19 +30,30 @@ export class DatosPersonalesComponent implements OnInit {
   //Variable para manejar el formulario de datos personales
   //formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
-  constructor(private fb: FormBuilder) { 
-  }
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private pacienteService: DatosPersonalesService) { }
+
+  ngOnInit(): void { 
     this.createForm();
 
     if(this.pacienteForm.get('id_paciente')?.value){
-      
+      this.pacienteService.getDatosPersonales(this.pacienteForm.get('id_paciente')?.value).subscribe({
+        next: (results: any) => {
+          console.log(results);
+          this.pacienteForm.patchValue(results[0]);
+        },
+        error: (err: any) => {}
+      });
+    }
+
+    if(this.isSubsecuente){
+      this.pacienteForm.disable();
     }
   }
 
   createForm(): void {
 
     this.pacienteForm = this.fb.group({
+      id_paciente       : [this.pacienteForm.get('id_paciente')?.value ? this.pacienteForm.get('id_paciente')?.value : null],
       numero_exp        : ['', [Validators.required, Validators.minLength(6)]],
       nombre            : ['', [Validators.required, Validators.minLength(10)]],
       //El campo apellido solo esta en la base de datos pero aca no se esta usando

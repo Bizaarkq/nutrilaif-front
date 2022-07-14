@@ -23,7 +23,7 @@ export class InicioComponent implements OnInit {
       linkImagen: 'assets/images/expediente.jpeg',
       cols: 1,
       rows: 1,
-      link: '/expediente/listar',
+      link: '/expedientes',
       alt: 'Expedientes de pacientes'
     },
     {
