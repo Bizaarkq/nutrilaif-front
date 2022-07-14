@@ -28,6 +28,15 @@
       </form>
     </mat-step>
   </ng-container>
+  <mat-step [stepControl]="frecuencia_consumo">
+    <form [formGroup]="frecuencia_consumo" >
+      <ng-template matStepLabel>Frecuencia de Consumo</ng-template>
+          <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
 </mat-stepper>
 <button mat-raised-button color="primary">Guardar</button>
 <section [formGroup]="consultaForm">
