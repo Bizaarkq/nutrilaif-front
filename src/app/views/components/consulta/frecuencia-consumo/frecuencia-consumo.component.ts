@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,30 +7,11 @@ import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from
   styleUrls: ['./frecuencia-consumo.component.css']
 })
 export class FrecuenciaConsumoComponent {
-
-  camposFrecuencia: string[] = [
-    'nombre1',
-    'frequencia1',
-    'comentario1',
-    'nombre2',
-    'frequencia2',
-    'comentario2',
-    'nombre3',
-    'frequencia3',
-    'comentario3',
-    'nombre4',
-    'frequencia4',
-    'comentario4',
-    'nombre5',
-    'frequencia5',
-    'comentario5',
-    'nombre6',
-    'frequencia6',
-    'comentario6',
-  ];
-
-  //Formulario
-  frecuenciaConsumo!:FormGroup;
+  //Formulario a utilizar para la frecuencia de consumo
+  //@Input() formularioFrecuencia!: FormGroup;
+  //Titulos utilizados en el componente de frecuencia de consumo
+  formularioFrecuencia!: FormGroup;
+  titulos: string[] = ['Alimento', 'Frecuencia de consumo', 'Comentarios'];
 
   constructor( private fb:FormBuilder ) { }
 
@@ -39,8 +20,32 @@ export class FrecuenciaConsumoComponent {
   }
 
   createForm(): void {
-    const group:any = {};
-    this.camposFrecuencia.forEach(property => group[property] = new FormControl());
-    this.frecuenciaConsumo = new FormGroup(group);
+    this.formularioFrecuencia = this.fb.group({
+      frecuencia: this.fb.array( [] )
+    });
   }
+  //Metodo get intermedio para obtener el FormArray de un FormGroup
+  get frecuencias():FormArray{
+    return this.formularioFrecuencia.get('frecuencia') as FormArray;
+  }
+
+  //Metodo encargado de crear un formGroup 
+  newFrecuencia(): FormGroup {
+    return this.fb.group({
+      alimento  : ['', Validators.required],
+      frequencia: ['', Validators.required],
+      comentario: ['', ]
+    })
+  }
+
+  //Metodo para agregar un formGroup a el arreglo de frecuencias de consumo
+  addFrecuencia(){
+    this.frecuencias.push( this.newFrecuencia() );
+  }
+
+  //Metodo para eliminar un elemento del arreglo de frecuencias de consumo
+  removeFrecuencia( i:number ){
+    this.frecuencias.removeAt( i );
+  }
+  
 }
