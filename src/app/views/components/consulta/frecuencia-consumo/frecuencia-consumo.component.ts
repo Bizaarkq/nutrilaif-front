@@ -7,10 +7,11 @@ import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from
   styleUrls: ['./frecuencia-consumo.component.css']
 })
 export class FrecuenciaConsumoComponent {
+  //formularioFrecuencia!: FormGroup;
+  
   //Formulario a utilizar para la frecuencia de consumo
   @Input() formularioFrecuencia!: FormGroup;
   //Titulos utilizados en el componente de frecuencia de consumo
-  //formularioFrecuencia!: FormGroup;
   titulos: string[] = ['Alimento', 'Frecuencia de consumo', 'Comentarios'];
 
   constructor( private fb:FormBuilder ) { }
