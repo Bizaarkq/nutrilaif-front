@@ -10,7 +10,7 @@ export class GeneralLayoutComponent implements OnInit {
   items: any = [
     {
       'label': 'Expedientes',
-      'link': '/expediente/listar'
+      'link': '/expedientes'
     },
     {
       'label': 'Consultas',

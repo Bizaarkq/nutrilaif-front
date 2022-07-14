@@ -21,7 +21,7 @@ import { MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -46,7 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ], 
   exports: [
     MatFormFieldModule,
@@ -67,7 +68,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

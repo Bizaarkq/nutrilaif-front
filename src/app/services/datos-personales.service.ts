@@ -11,7 +11,7 @@ export class DatosPersonalesService {
     private http:HttpClient
   ) {}
 
-  getDatosPersonales(id: string){
+  getDatosPersonales(id = null){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
@@ -20,6 +20,22 @@ export class DatosPersonalesService {
 
     let url = id === '' || id === null ? endpoints.paciente.listaPacientes : endpoints.paciente.listaPacientes + '/' + id;
     return this.http.get(url, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
+
+  deletePaciente(id: string){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    let url = endpoints.paciente.eliminarPaciente + '/' + id;
+    return this.http.delete(url, {headers})
     .pipe(
       map((results: any) => {
         return results;

@@ -23,13 +23,15 @@ import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared.module';
+import { ListadoExpedienteComponent } from './views/pages/expediente/listado-expediente/listado-expediente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GeneralLayoutComponent,
     InicioComponent,
-    ConsultaComponent
+    ConsultaComponent,
+    ListadoExpedienteComponent
   ],
   imports: [
     BrowserModule,
