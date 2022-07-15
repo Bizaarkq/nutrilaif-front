@@ -59,22 +59,12 @@
         <mat-grid-tile>
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Departamento</mat-label>
-                <select matNativeControl formControlName="departamento" required>
-                    <option value="Ahuachapan">Ahuachapan</option>
-                    <option value="San Salvador">San Salvador</option>
-                    <option value="La Paz">La Paz</option>
-                    <option value="La Union">La Union</option>
-                    <option value="Cabañas">Cabañas</option>
-                    <option value="Chalatenango">Chalatenango</option>
-                    <option value="Cuscatlan">Cuscatlan</option>
-                    <option value="La Libertad">La Libertad</option>
-                    <option value="Morazan">Morazan</option>
-                    <option value="Santa Ana">Santa Ana</option>
-                    <option value="San Miguel">San Miguel</option>
-                    <option value="San Vicente">San Vicente</option>
-                    <option value="Usulutan">Usulutan</option>
-                    <option value="Sonsonate">Sonsonate</option>
-                </select>   
+                <mat-select formControlName="departamento" required (selectionChange)="getMunicipios(departa.value)" #departa> 
+                    <mat-option value="">--</mat-option>
+                    <mat-option *ngFor="let depart of departamentos" [value]="depart.id">
+                        {{depart.nombre}}
+                    </mat-option>
+                </mat-select>   
                 <mat-error *ngIf="validarCampo('departamento')">Seleccione un departamento</mat-error>                    
             </mat-form-field>    
         </mat-grid-tile>
@@ -82,10 +72,12 @@
         <mat-grid-tile>
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Municipio</mat-label>
-                <select matNativeControl formControlName="municipio" required>
-                    <option value="Ahuachapan">Ahuachapan</option>
-                    <option value="San Salvador">San Salvador</option>
-                </select> 
+                <mat-select matNativeControl formControlName="municipio" required>
+                    <mat-option value="">--</mat-option>
+                    <mat-option *ngFor="let municipio of municipios" [value]="municipio.id">
+                        {{municipio.nombre}}
+                    </mat-option>
+                </mat-select> 
                 <mat-error *ngIf="validarCampo('municipio')">Seleccione un municipio</mat-error>
             </mat-form-field>
         </mat-grid-tile>

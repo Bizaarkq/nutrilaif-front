@@ -19,6 +19,11 @@ export const endpoints = {
     paciente: {
         listaPacientes: environment.apiUrl + '/paciente/list',
         eliminarPaciente: environment.apiUrl + '/paciente/delete'
+    },
+    catalogo: {
+        menu: environment.apiUrl + '/catalogo/menu',
+        departamentos: environment.apiUrl + '/catalogo/departamentos',
+        municipios: environment.apiUrl + '/catalogo/municipios',
     }
 };
 
