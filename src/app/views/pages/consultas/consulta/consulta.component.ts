@@ -23,6 +23,7 @@ export class ConsultaComponent implements OnInit {
   accion: any;
   esBorrador: any;
   esSubsecuente: boolean = false;
+  visibleSpinner = false;
   datosMedicos!:FormGroup;
   examenesLabs!:FormGroup; 
   datosAntropo!:FormGroup; 
@@ -52,6 +53,7 @@ export class ConsultaComponent implements OnInit {
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
     if (this.accion === 'editar' && this.id !== null) {
+      this.visibleSpinner = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
           console.log(data.es_subsecuente);
@@ -64,8 +66,10 @@ export class ConsultaComponent implements OnInit {
             this.isPrimeraConsulta();
           }
           this.consultaForm.patchValue(data);
+          this.visibleSpinner = false;
         },
         error: (err) => {
+          this.visibleSpinner = false;
           this.snack.open(
             'La información no pudo ser recuperada, intente nuevamente',
             'Ok',

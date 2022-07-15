@@ -16,10 +16,13 @@ export interface Tile {
   styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit {
+
   tiles: Tile[] = [];
+  visibleSpinner = false;
   constructor(private generalService:GeneralService) {}
 
   ngOnInit(): void {
+    this.visibleSpinner=true;
     this.generalService.getMenu().subscribe({
       next: (data:any) => {
         data.map((item:any) => {
@@ -33,8 +36,11 @@ export class InicioComponent implements OnInit {
             alt: item.alt
           });
         });
+        this.visibleSpinner=false;
       },
-      error: (err:any) => {}
+      error: (err:any) => {
+        this.visibleSpinner=false;
+      }
     });
   }
 }
