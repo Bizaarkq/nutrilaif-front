@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
+import { GeneralService } from 'src/app/services/general.service';
 @Component({
   selector: 'app-datos-personales',
   templateUrl: './datos-personales.component.html',
@@ -10,6 +11,9 @@ export class DatosPersonalesComponent implements OnInit {
 
   @Input() pacienteForm !: FormGroup;
   @Input() isSubsecuente : boolean = false;
+  departamentos: any;
+  municipios: any;
+  visibleSpinner = false;
   //Formulario de datos de paciente
 
   /*camposPacientes: string[] = [
@@ -30,18 +34,21 @@ export class DatosPersonalesComponent implements OnInit {
   //Variable para manejar el formulario de datos personales
   //formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
-  constructor(private fb: FormBuilder, private pacienteService: DatosPersonalesService) { }
+  constructor(private fb: FormBuilder, private pacienteService: DatosPersonalesService, private generalService: GeneralService) { }
 
   ngOnInit(): void { 
     this.createForm();
-
+    this.getDepartamentos();
     if(this.pacienteForm.get('id_paciente')?.value){
+      this.visibleSpinner=true;
       this.pacienteService.getDatosPersonales(this.pacienteForm.get('id_paciente')?.value).subscribe({
         next: (results: any) => {
-          console.log(results);
           this.pacienteForm.patchValue(results[0]);
+          this.visibleSpinner=false;
         },
-        error: (err: any) => {}
+        error: (err: any) => {
+          this.visibleSpinner=false;
+        }
       });
     }
 
@@ -80,6 +87,22 @@ export class DatosPersonalesComponent implements OnInit {
   validarCampo( campo:string ){
     return this.pacienteForm.controls[campo].errors && 
       this.pacienteForm.controls[campo].touched;
+  }
+
+  getDepartamentos(){
+    this.generalService.getDepartamentos().subscribe({
+      next: (results: any) => {
+        this.departamentos = results;
+      },
+    });
+  }
+
+  getMunicipios(departamento: any){
+    this.generalService.getMunicipios(departamento).subscribe({
+      next: (results: any) => {
+        this.municipios = results;
+      }
+    });
   }
   
 }

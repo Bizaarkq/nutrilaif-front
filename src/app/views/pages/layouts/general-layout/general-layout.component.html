@@ -1,14 +1,19 @@
-<mat-sidenav-container
-    class="menu" (backdropClick)="sidenav.close()">
+<mat-sidenav-container class="menu" (backdropClick)="sidenav.close()">
   <mat-sidenav #sidenav (keydown.escape)="sidenav.close()" disableClose>
-    <p><span style="padding-right: 5em; padding-left: 1em;">Menú</span><button mat-button (click)="sidenav.close()"><mat-icon>close</mat-icon></button></p>
+    <p><span style="padding-right: 5em; padding-left: 1em;">Menú</span><button mat-button (click)="sidenav.close()">
+        <mat-icon>close</mat-icon>
+      </button></p>
     <mat-nav-list>
-      <mat-list-item *ngFor="let i of items"><a matLine [routerLink]="i.link">{{i.label}}</a></mat-list-item>
-  </mat-nav-list>
+      <mat-list-item *ngFor="let i of items" [routerLink]="i.link">{{i.label}}</mat-list-item>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar><button mat-button (click)="sidenav.open()"><mat-icon>menu</mat-icon></button><h3>Nutrilaif</h3></mat-toolbar>
+    <mat-toolbar><button mat-button (click)="sidenav.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <a mat-button routerLink="/inicio" ><h3 >Nutrilaif</h3></a>
+    </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
