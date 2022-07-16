@@ -7,18 +7,68 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tabla-dieta.component.css']
 })
 export class TablaDietaComponent implements OnInit {
+  //Formulario de dieta recibido desde la pagina de consulta
   @Input() formularioDieta !: FormGroup;
-  
-  //Variable para los titulos de la tabla de Dias de la semana 
-  //dias:string [] = ['Lunes', 'Martes', 'Miércoles','Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  //Arreglo de elementos para llenar el formulario
+  valores = {
+    lDesayuno           : '',
+    lRefrigerioDesayuno : '',
+    lAlmuerzo           : '',
+    lRefrigerioAlmuerzo : '',
+
+    mDesayuno           : '',
+    lCena               : '',
+    mRefrigerioDesayuno : '',
+    mAlmuerzo           : '',
+    mRefrigerioAlmuerzo : '',
+    mCena               : '',
+
+    miRefrigerioDesayuno: '',
+    miAlmuerzo          : '',
+    miRefrigerioAlmuerzo: '',
+    miCena              : '',
+
+    juDesayuno          : '',
+    juRefrigerioDesayuno: '',
+    juAlmuerzo          : '',
+    juRefrigerioAlmuerzo: '',
+    juCena              : '',
+
+    vDesayuno           : '',
+    vRefrigerioDesayuno : '',
+    vAlmuerzo           : '',
+    vRefrigerioAlmuerzo : '',
+    vCena               : '',
+
+    sDesayuno           : '',
+    sRefrigerioDesayuno : '',
+    sAlmuerzo           : '',
+    sRefrigerioAlmuerzo : '',
+    sCena               : '',
+
+    dDesayuno           : '',
+    dRefrigerioDesayuno : '',
+    dAlmuerzo           : '',
+    dRefrigerioAlmuerzo : '',
+    dCena               : '',
+  }
   constructor( private fb: FormBuilder) { }
 
   ngOnInit(): void {
     //Metodo que crea el formulario al iniciar el componente
+    //this.addControles();
     this.createForm();
 
   }
-
+  addControles(){
+    let keys = Object.keys(this.valores);
+    let vals = Object.values(this.valores);
+    for(let i=0; i<keys.length; i++){
+      this.formularioDieta.addControl(`${keys[i]}`, this.fb.control(
+        '', Validators.required
+      ));
+    }
+  }
   createForm(): void {
     //Formulario reactivo de dieta --- Explicacion de variables: primera letra relacionada al dia de semana, luego la palabra del tiempo de comida
     this.formularioDieta = this.fb.group({
