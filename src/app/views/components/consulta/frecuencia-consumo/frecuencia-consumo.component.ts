@@ -17,15 +17,9 @@ export class FrecuenciaConsumoComponent {
   constructor( private fb:FormBuilder ) { }
 
   ngOnInit(): void {
-    this.createForm();
     this.addFrecuencia();
   }
 
-  createForm(): void {
-    this.formularioFrecuencia = this.fb.group({
-      frecuencia: this.fb.array( [] )
-    });
-  }
   //Metodo get intermedio para obtener el FormArray de un FormGroup
   get frecuencias():FormArray{
     return this.formularioFrecuencia.get('frecuencia') as FormArray;

@@ -32,7 +32,9 @@ export class ConsultaComponent implements OnInit {
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
-  frecuencia_consumo: FormGroup = this.FB.group({});
+  frecuencia_consumo: FormGroup = this.FB.group({
+    frecuencia: this.FB.array( [] )
+  });
   planificacion_dieta: FormGroup = this.FB.group({});
 
   consultaForm:FormGroup = this.FB.group({});
