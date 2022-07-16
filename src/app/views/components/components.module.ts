@@ -12,6 +12,7 @@ import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.co
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
 import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
 import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
 
@@ -24,6 +25,7 @@ import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
     DialogAlimentoComponent,
     RecordatorioComponent,
     TablaDietaComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
     ListarAlimentosComponent,
     DialogAlimentoComponent,
     RecordatorioComponent,
-    TablaDietaComponent
+    TablaDietaComponent,
+    SpinnerComponent
   ]
 })
 export class ComponentsModule { }

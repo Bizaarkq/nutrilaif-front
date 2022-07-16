@@ -22,6 +22,8 @@ export class ConsultaComponent implements OnInit {
   id: any;
   accion: any;
   esBorrador: any;
+  esSubsecuente: boolean = false;
+  visibleSpinner = false;
   datosMedicos!:FormGroup;
   examenesLabs!:FormGroup; 
   datosAntropo!:FormGroup; 
@@ -48,10 +50,11 @@ export class ConsultaComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.accion = this.route.snapshot.paramMap.get('accion');
-    this.id_paciente = this.route.snapshot.data['id_paciente'];
+    this.id_paciente = history.state['id_paciente'];
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
-    
+
     if (this.accion === 'editar' && this.id !== null) {
+      this.visibleSpinner = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
           console.log(data.es_subsecuente);
@@ -59,15 +62,15 @@ export class ConsultaComponent implements OnInit {
           if (!this.esBorrador) this.consultaForm.disable();
 
           if(data.es_subsecuente){
-            console.log("subsecs");
             this.isSubsecuente();
           }else{
-            console.log("primeracons");
             this.isPrimeraConsulta();
           }
           this.consultaForm.patchValue(data);
+          this.visibleSpinner = false;
         },
         error: (err) => {
+          this.visibleSpinner = false;
           this.snack.open(
             'La información no pudo ser recuperada, intente nuevamente',
             'Ok',
@@ -80,7 +83,6 @@ export class ConsultaComponent implements OnInit {
     } else if (this.accion == 'nueva' && this.id_paciente != null) {
       this.isSubsecuente();
     }else if (this.accion == 'nueva' && this.id_paciente === null ||this.id_paciente === undefined ) {
-      console.log("nuena e id_paciente es nulo o indefinido");
       this.isPrimeraConsulta();
     }
 
@@ -92,14 +94,17 @@ export class ConsultaComponent implements OnInit {
 
   log(val: any) {
     this.contador++;
-    console.log(this.contador, val);
   }
   guardar() {
-    console.log(this.consultaForm.value);
-  
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
-        console.log('todo bien');
+        this.snack.open(
+          'La consulta se guardadó correctamente',
+          'Ok',
+          {
+            duration: 3000,
+          }
+        );
       },
       error: (err) => {
         this.snack.open(
@@ -114,7 +119,6 @@ export class ConsultaComponent implements OnInit {
   }
 
   isPrimeraConsulta(){
-    console.log("entra aca");
       this.datosMedicos = this.consulta.primeraConsulta('datos_medicos');
       this.examenesLabs = this.consulta.primeraConsulta('examen_labs');
       this.datosAntropo = this.consulta.primeraConsulta('datos_antropo');
@@ -134,12 +138,10 @@ export class ConsultaComponent implements OnInit {
         subconsulta_form: this.subConsultaForm,
         es_borrador: false
       });
-
-      console.log(this.consultaForm);
   }
 
   isSubsecuente(){
-    console.log("es subsecuente");
+    this.esSubsecuente = true;
     this.datosMedicos = this.consulta.subsecuente('datos_medicos');
     this.examenesLabs = this.consulta.subsecuente('examen_labs');
     this.datosAntropo = this.consulta.subsecuente('datos_antropo');
