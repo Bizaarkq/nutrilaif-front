@@ -16,7 +16,7 @@ export class ListadoExpedienteComponent implements OnInit {
   tablaData !: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  visibleSpinner = false;
 
   constructor( private pacienteService:DatosPersonalesService, private router:Router) { }
   
@@ -25,6 +25,7 @@ export class ListadoExpedienteComponent implements OnInit {
   }
 
   cargarExpedientes(){
+    this.visibleSpinner=true;
     this.pacienteService.getDatosPersonales()
     .subscribe({
       next:(res)=>{
@@ -32,8 +33,9 @@ export class ListadoExpedienteComponent implements OnInit {
         this.tablaData = new MatTableDataSource(res);
         this.tablaData.paginator = this.paginator;
         this.tablaData.sort = this.sort;
+        this.visibleSpinner=false;
       }
-    })
+    });
   }
 
   filtroExpediente(event:any){

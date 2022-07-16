@@ -13,6 +13,7 @@ export class DatosPersonalesComponent implements OnInit {
   @Input() isSubsecuente : boolean = false;
   departamentos: any;
   municipios: any;
+  visibleSpinner = false;
   //Formulario de datos de paciente
 
   /*camposPacientes: string[] = [
@@ -39,12 +40,15 @@ export class DatosPersonalesComponent implements OnInit {
     this.createForm();
     this.getDepartamentos();
     if(this.pacienteForm.get('id_paciente')?.value){
+      this.visibleSpinner=true;
       this.pacienteService.getDatosPersonales(this.pacienteForm.get('id_paciente')?.value).subscribe({
         next: (results: any) => {
-          console.log(results);
           this.pacienteForm.patchValue(results[0]);
+          this.visibleSpinner=false;
         },
-        error: (err: any) => {}
+        error: (err: any) => {
+          this.visibleSpinner=false;
+        }
       });
     }
 

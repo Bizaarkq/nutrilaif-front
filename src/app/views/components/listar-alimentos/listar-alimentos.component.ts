@@ -16,7 +16,8 @@ import { DialogAlimentoComponent } from '../dialog-alimento/dialog-alimento.comp
 export class ListarAlimentosComponent implements OnInit {
   displayedColumns: string[] = ['codigo', 'nombre', 'calorias', 'grasas', 'proteinas', 'carbohidratos', 'hierro', 'potasio', 'calcio', 'sodio', 'acciones'];
   dataSource!: MatTableDataSource<any>;
-  
+  visibleSpinner = false;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -36,12 +37,14 @@ export class ListarAlimentosComponent implements OnInit {
     })
   }
   cargarAlimentos(){
+    this.visibleSpinner = true;
     this.api.getAlimentos()
     .subscribe({
       next:(res)=>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.visibleSpinner = false;
       },
       error:()=>{
         alert("No se pueden obtener los alimentos");

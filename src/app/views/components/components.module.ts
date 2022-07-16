@@ -11,6 +11,7 @@ import { FrecuenciaConsumoComponent } from './consulta/frecuencia-consumo/frecue
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
 import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
 
@@ -22,6 +23,7 @@ import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.comp
     ListarAlimentosComponent,
     DialogAlimentoComponent,
     RecordatorioComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.comp
     DatosPersonalesComponent,
     ListarAlimentosComponent,
     DialogAlimentoComponent,
-    RecordatorioComponent
+    RecordatorioComponent,
+    SpinnerComponent
   ]
 })
 export class ComponentsModule { }
