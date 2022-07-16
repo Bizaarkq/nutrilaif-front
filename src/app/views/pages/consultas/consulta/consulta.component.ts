@@ -134,6 +134,7 @@ export class ConsultaComponent implements OnInit {
         paciente: this.paciente,
         recordatorio: this.recordatorio,
         frecuencia_consumo: this.frecuencia_consumo,
+        dieta: this.dieta,
         planificacion_dieta: this.planificacion_dieta,
         subconsulta_form: this.subConsultaForm,
         es_borrador: false
@@ -158,6 +159,7 @@ export class ConsultaComponent implements OnInit {
       recordatorio: this.recordatorio,
       frecuencia_consumo: this.frecuencia_consumo,
       planificacion_dieta: this.planificacion_dieta,
+      dieta: this.dieta,
       subconsulta_form: this.subConsultaForm,
       es_borrador: false
     });
