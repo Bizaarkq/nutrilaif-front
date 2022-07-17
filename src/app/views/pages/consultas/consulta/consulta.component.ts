@@ -19,6 +19,8 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ConsultaComponent implements OnInit {
   //consultaForm = this.primeraConsulta.primeraConsulta();
+  //Arreglo para los titulos mostrados en los step
+  labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
   id: any;
   accion: any;
   esBorrador: any;

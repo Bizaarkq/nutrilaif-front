@@ -126,16 +126,16 @@ export class ConsultaForm{
   mapeadoForm(){
     return {
       "diagnostico": {
-        label: "Diagnostico",
-        placeholder: "Diagnostico"
+        label: "Diagnósticos médicos",
+        placeholder: "Diagnóstico"
       },
       "medicamento_suplemento": {
-        label: "Medicamento suplemento",
-        placeholder: "Medicamento suplemento"
+        label: "Medicamento/Suplemento",
+        placeholder: "Medicamento/suplemento"
       },
       "otros_datos": {
-        label: "Otros datos",
-        placeholder: "Otros datos"
+        label: "Otros datos importantes",
+        placeholder: "Otros datos importantes"
       },
       "hemoglobina": {
         label: "Hemoglobina",
@@ -146,64 +146,64 @@ export class ConsultaForm{
         placeholder: "Linfocitos"
       },
       "hba_1c": {
-        label: "Hba 1c",
-        placeholder: "Hba 1c"
+        label: "HbA 1c",
+        placeholder: "HbA 1c"
       },
       "creatinina": {
         label: "Creatinina",
         placeholder: "Creatinina"
       },
       "trigliceridos": {
-        label: "Trigliceridos",
-        placeholder: "Trigliceridos"
+        label: "Triglicéridos",
+        placeholder: "Triglicéridos"
       },
       "colesterol_total": {
-        label: "Colterol Total",
-        placeholder: "Colterol Total"
+        label: "Colesterol Total",
+        placeholder: "Colesterol Total"
       },
       "chdl":{
-        label: "Chdl",
-        placeholder: "Chdl"
+        label: "c-HDL",
+        placeholder: "c-HDL"
       },
       "cldl":{
-        label: "Cldl",
-        placeholder: "Cldl"
+        label: "c-LDL",
+        placeholder: "c-LDL"
       },
       "glucosa_ayuno": {
-        label: "Glucosa ayuno",
-        placeholder: "Glucosa ayuno"
+        label: "Glucosa en ayuno",
+        placeholder: "Glucosa en ayuno"
       },
       "glucosa_post_pondrial": {
-        label: "Glucosa post-pondrial",
-        placeholder: "Glucosa post-pondrial"
+        label: "Glucosa post pondríal",
+        placeholder: "Glucosa post pondríal"
       },
       "acido_urico": {
-        label: "Acido urico",
-        placeholder: "Acido urico"
+        label: "Ácido úrico",
+        placeholder: "Ácido úrico"
       },
       "albumina": {
-        label: "Albumina",
-        placeholder: "Albumina"
+        label: "Albúmina",
+        placeholder: "Albúmina"
       },
       "peso_actual": {
         label: "Peso actual",
         placeholder: "Peso actual"
       },
       "peso_ideal": {
-        label: "Peso Ideal",
+        label: "Peso ideal",
         placeholder: "Peso ideal"
       },
       "p_grasa_corporal": {
-        label: "Peso grasa corporal",
-        placeholder: "Peso grsasa corporal"
+        label: "Porcentaje grasa corporal",
+        placeholder: "Porcentaje grsasa corporal"
       },
       "p_masa_muscular": {
-        label: "Peso masa muscular",
-        placeholder: "Peso masa muscular"
+        label: "Porcentaje masa muscular",
+        placeholder: "Porcentaje masa muscular"
       },
       "p_grasa_visceral": {
-        label: "Peso grasa visceral",
-        placeholder: "Peso grasa visceral"
+        label: "Porcentaje grasa visceral",
+        placeholder: "Porcentaje grasa visceral"
       },
       "peso_meta": {
         label: "Peso meta",
@@ -214,51 +214,52 @@ export class ConsultaForm{
         placeholder: "Talla"
       },
       "c_cintura": {
-        label: "Cintura",
-        placeholder: "Cintura"
+        label: "C. Cintura",
+        placeholder: "C. Cintura"
       },
       "imc": {
         label: "Imc",
         placeholder: "Imc"
       },
       "edad_metabolica": {
-        label: "Edad Metabolica",
-        placeholder: "Edad Metabolica"
+        label: "Edad metabólica",
+        placeholder: "Edad metabólica"
       },
       "c_brazo_relaj": {
-        label: "Cintura"
+        label: "C. Brazo relajado",
+        placeholder: "C. Brazo relajado"
       },
       "c_cadera": {
-        label: "Cadera",
-        placeholder: "Cadera"
+        label: "C. Cadera",
+        placeholder: "C. Cadera"
       },
       "c_muneca": {
-        label: "Muñeca",
-        placeholder: "Muñeca"
+        label: "C. Muñeca",
+        placeholder: "C. Muñeca"
       },
       "preferencia_alimen": {
-        label: "Preferencia alimentaria",
-        placeholder: "Preferencia alimentaria"
+        label: "Preferencias alimentarias",
+        placeholder: "Preferencias alimentarias"
       },
       "alimentos_no_gustan": {
-        label: "Alimentos que no gustan",
-        placeholder: "Alimentos que no gustan"
+        label: "Alimentos que no le gustan",
+        placeholder: "Alimentos que no le gustan"
       }, 
       "intolerancia_alergia": {
-        label: "Intolerancia alergia",
-        placeholder: "Intolerancia alergia"
+        label: "Intolerancias o alergias",
+        placeholder: "Intolerancias o alergias"
       },
       "actividad_fisica": {
-        label: "Actividad fisica",
-        placeholder: "Actividad fisica"
+        label: "Actividad física",
+        placeholder: "Actividad física"
       },
       "alcohol": {
         label: "Alcohol",
         placeholder: "Alcohol"
       },
       "tabaco": {
-        label: "Tabaco",
-        placeholder: "Tabaco"
+        label: "Tabaquismo",
+        placeholder: "Tabaquismo"
       }
     }
   }
