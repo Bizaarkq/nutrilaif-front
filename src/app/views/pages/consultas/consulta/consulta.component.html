@@ -31,8 +31,17 @@
   </ng-container>
   <mat-step [stepControl]="frecuencia_consumo">
     <form [formGroup]="frecuencia_consumo" >
-      <ng-template matStepLabel>Frecuencia de Consumo</ng-template>
-          <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
+      <ng-template matStepLabel>Frecuencia de consumo</ng-template>
+      <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step *ngIf="accion==='editar'" [stepControl]="dieta">
+    <form [formGroup]="dieta" >
+      <ng-template matStepLabel>Dieta</ng-template>
+      <app-tabla-dieta [formularioDieta]="dieta"></app-tabla-dieta>    
       <div>
         <button mat-button matStepperNext type="button">Siguiente</button>
       </div>

@@ -11,6 +11,7 @@ import { FrecuenciaConsumoComponent } from './consulta/frecuencia-consumo/frecue
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
 import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
+import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
@@ -23,6 +24,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     ListarAlimentosComponent,
     DialogAlimentoComponent,
     RecordatorioComponent,
+    TablaDietaComponent,
     SpinnerComponent,
   ],
   imports: [
@@ -36,6 +38,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     ListarAlimentosComponent,
     DialogAlimentoComponent,
     RecordatorioComponent,
+    TablaDietaComponent,
     SpinnerComponent
   ]
 })

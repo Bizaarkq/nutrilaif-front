@@ -37,6 +37,7 @@ export class ConsultaComponent implements OnInit {
     frecuencia: this.FB.array( [] )
   });
   planificacion_dieta: FormGroup = this.FB.group({});
+  dieta: FormGroup = this.FB.group({});
 
   consultaForm:FormGroup = this.FB.group({});
 
@@ -137,6 +138,7 @@ export class ConsultaComponent implements OnInit {
         paciente: this.paciente,
         recordatorio: this.recordatorio,
         frecuencia_consumo: this.frecuencia_consumo,
+        dieta: this.dieta,
         planificacion_dieta: this.planificacion_dieta,
         subconsulta_form: this.subConsultaForm,
         es_borrador: false
@@ -162,6 +164,7 @@ export class ConsultaComponent implements OnInit {
       recordatorio: this.recordatorio,
       frecuencia_consumo: this.frecuencia_consumo,
       planificacion_dieta: this.planificacion_dieta,
+      dieta: this.dieta,
       subconsulta_form: this.subConsultaForm,
       es_borrador: false
     });
