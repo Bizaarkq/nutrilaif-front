@@ -24,6 +24,7 @@ import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.com
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared.module';
 import { ListadoExpedienteComponent } from './views/pages/expediente/listado-expediente/listado-expediente.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,9 @@ import { ListadoExpedienteComponent } from './views/pages/expediente/listado-exp
     MatSnackBarModule,
     MatCheckboxModule
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
