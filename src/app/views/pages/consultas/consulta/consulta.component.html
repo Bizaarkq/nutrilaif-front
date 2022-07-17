@@ -16,7 +16,7 @@
         <ng-template matStepLabel>{{group.key}}</ng-template>
         <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
           <mat-form-field appearance="legacy">
-            <mat-label>{{ control.key }}</mat-label>
+            <mat-label>{{ consultaMap(control.key).placeholder }}</mat-label>
             <input
               matInput
               formControlName="{{ control.key }}"

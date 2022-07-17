@@ -125,7 +125,141 @@ export class ConsultaForm{
 
   mapeadoForm(){
     return {
-      
+      "diagnostico": {
+        label: "Diagnostico",
+        placeholder: "Diagnostico"
+      },
+      "medicamento_suplemento": {
+        label: "Medicamento suplemento",
+        placeholder: "Medicamento suplemento"
+      },
+      "otros_datos": {
+        label: "Otros datos",
+        placeholder: "Otros datos"
+      },
+      "hemoglobina": {
+        label: "Hemoglobina",
+        placeholder: "Hemoglobina"
+      },
+      "linfocitos": {
+        label: "Linfocitos",
+        placeholder: "Linfocitos"
+      },
+      "hba_1c": {
+        label: "Hba 1c",
+        placeholder: "Hba 1c"
+      },
+      "creatinina": {
+        label: "Creatinina",
+        placeholder: "Creatinina"
+      },
+      "trigliceridos": {
+        label: "Trigliceridos",
+        placeholder: "Trigliceridos"
+      },
+      "colesterol_total": {
+        label: "Colterol Total",
+        placeholder: "Colterol Total"
+      },
+      "chdl":{
+        label: "Chdl",
+        placeholder: "Chdl"
+      },
+      "cldl":{
+        label: "Cldl",
+        placeholder: "Cldl"
+      },
+      "glucosa_ayuno": {
+        label: "Glucosa ayuno",
+        placeholder: "Glucosa ayuno"
+      },
+      "glucosa_post_pondrial": {
+        label: "Glucosa post-pondrial",
+        placeholder: "Glucosa post-pondrial"
+      },
+      "acido_urico": {
+        label: "Acido urico",
+        placeholder: "Acido urico"
+      },
+      "albumina": {
+        label: "Albumina",
+        placeholder: "Albumina"
+      },
+      "peso_actual": {
+        label: "Peso actual",
+        placeholder: "Peso actual"
+      },
+      "peso_ideal": {
+        label: "Peso Ideal",
+        placeholder: "Peso ideal"
+      },
+      "p_grasa_corporal": {
+        label: "Peso grasa corporal",
+        placeholder: "Peso grsasa corporal"
+      },
+      "p_masa_muscular": {
+        label: "Peso masa muscular",
+        placeholder: "Peso masa muscular"
+      },
+      "p_grasa_visceral": {
+        label: "Peso grasa visceral",
+        placeholder: "Peso grasa visceral"
+      },
+      "peso_meta": {
+        label: "Peso meta",
+        placeholder: "Peso meta"
+      },
+      "talla": {
+        label: "Talla",
+        placeholder: "Talla"
+      },
+      "c_cintura": {
+        label: "Cintura",
+        placeholder: "Cintura"
+      },
+      "imc": {
+        label: "Imc",
+        placeholder: "Imc"
+      },
+      "edad_metabolica": {
+        label: "Edad Metabolica",
+        placeholder: "Edad Metabolica"
+      },
+      "c_brazo_relaj": {
+        label: "Cintura"
+      },
+      "c_cadera": {
+        label: "Cadera",
+        placeholder: "Cadera"
+      },
+      "c_muneca": {
+        label: "Muñeca",
+        placeholder: "Muñeca"
+      },
+      "preferencia_alimen": {
+        label: "Preferencia alimentaria",
+        placeholder: "Preferencia alimentaria"
+      },
+      "alimentos_no_gustan": {
+        label: "Alimentos que no gustan",
+        placeholder: "Alimentos que no gustan"
+      }, 
+      "intolerancia_alergia": {
+        label: "Intolerancia alergia",
+        placeholder: "Intolerancia alergia"
+      },
+      "actividad_fisica": {
+        label: "Actividad fisica",
+        placeholder: "Actividad fisica"
+      },
+      "alcohol": {
+        label: "Alcohol",
+        placeholder: "Alcohol"
+      },
+      "tabaco": {
+        label: "Tabaco",
+        placeholder: "Tabaco"
+      }
     }
   }
 

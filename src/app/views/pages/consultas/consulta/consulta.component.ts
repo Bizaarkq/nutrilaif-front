@@ -24,6 +24,7 @@ export class ConsultaComponent implements OnInit {
   esBorrador: any;
   esSubsecuente: boolean = false;
   visibleSpinner = false;
+  consultaMap:any;
   datosMedicos!:FormGroup;
   examenesLabs!:FormGroup; 
   datosAntropo!:FormGroup; 
@@ -47,6 +48,7 @@ export class ConsultaComponent implements OnInit {
   ) {}
     contador=0;
   ngOnInit(): void {
+    this.consultaMap = this.consulta.mapeadoForm();
     this.id = this.route.snapshot.paramMap.get('id');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = history.state['id_paciente'];
