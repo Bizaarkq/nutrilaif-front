@@ -3,23 +3,24 @@
 <mat-stepper [linear]="false" #stepper>
   <mat-step [stepControl]="paciente">
     <form [formGroup]="paciente" >
-      <ng-template matStepLabel>Datos Paciente</ng-template>
+      <ng-template matStepLabel>Datos del Paciente</ng-template>
           <app-datos-personales [pacienteForm]="paciente" [isSubsecuente]="esSubsecuente"></app-datos-personales> 
       <div>
         <button mat-button matStepperNext type="button">Siguiente</button>
       </div>
     </form>
   </mat-step>
-  <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue">
+  <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue; let i=index">
     <mat-step [stepControl]="group.value">
       <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
-        <ng-template matStepLabel>{{group.key}}</ng-template>
+        <ng-template matStepLabel >{{ labelTitulos[i] }}</ng-template>
         <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
           <mat-form-field appearance="legacy">
-            <mat-label>{{ control.key }}</mat-label>
+            <mat-label>{{ consultaMap[control.key].label }}</mat-label>
             <input
               matInput
               formControlName="{{ control.key }}"
+              placeholder="{{ consultaMap[control.key].placeholder }}"
               />
           </mat-form-field>
         </ng-container>
@@ -53,5 +54,3 @@
   <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
 </section>
 </form>
-
-<pre>{{ consultaForm.value | json }}</pre>
