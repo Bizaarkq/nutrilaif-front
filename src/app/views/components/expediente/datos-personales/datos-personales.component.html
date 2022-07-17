@@ -1,19 +1,19 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
-<mat-grid-list cols="2" rowHeight="70px">
+<mat-grid-list cols="12" rowHeight="80px">
     <form [formGroup]="pacienteForm">
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>N° de Expediente</mat-label><!--UTILIZAMOS EL ATRIBUTO FORMCONTROLNAME PARA RELACIONAR EL ELEMENTO A UNA VARIABLE O ATRIBUTO DEL ARCHIVO DE TYPSCRIPT-->
-                <input autocomplete="off" matInput type="text" placeholder="Ingrese el número de expediente" formControlName="numero_exp" value=""><!--Utilizamos el atributo autocomplete='OFF' para desactivar el autocompletado en los campos-->
+                <input [readonly]="true" autocomplete="off" matInput type="text" formControlName="numero_exp" value=""><!--Utilizamos el atributo autocomplete='OFF' para desactivar el autocompletado en los campos-->
                 <mat-error *ngIf="validarCampo('numero_exp')">Ingrese un Número de expediente válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Fecha actual</mat-label>
-                <input autocomplete="enabled" matInput [matDatepicker]="picker" placeholder="Ingrese la fecha de creación del expediente" formControlName="fechaExpediente">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Fecha de creación del expediente</mat-label>
+                <input autocomplete="enabled" matInput [max]="fechaCreacion" [matDatepicker]="picker" placeholder="Ingrese la fecha de creación del expediente" formControlName="fechaExpediente">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -21,44 +21,27 @@
             </mat-form-field>
         </mat-grid-tile>
 
+        <mat-grid-tile [colspan]="8" [rowspan]="1">
+        </mat-grid-tile>
 
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Nombre del paciente</mat-label>
                 <input formControlName="nombre" autocomplete="enabled" matInput type="text" placeholder="Ingrese el nombre del paciente">
                 <mat-error *ngIf="validarCampo('nombre')">Ingrese un nombre válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Fecha de nacimiento</mat-label>
-                <input autocomplete="enabled" matInput [matDatepicker]="pickerN" placeholder="Ingrese la fecha nacimiento" formControlName="fecha_nacimiento">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="pickerN"></mat-datepicker-toggle>
-                <mat-datepicker #pickerN></mat-datepicker>
-                <mat-error *ngIf="validarCampo('fecha_nacimiento')">No se ha seleccionado ninguna fecha</mat-error>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Apellidos del paciente</mat-label>
+                <input formControlName="apellido" autocomplete="enabled" matInput type="text" placeholder="Ingrese los apellidos del paciente">
+                <mat-error *ngIf="validarCampo('apellido')">Ingrese un nombre válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Edad</mat-label>
-                <input formControlName="edad" autocomplete="enabled" matInput type="number" placeholder="Edad" value="">                     
-                <mat-error *ngIf="validarCampo('edad')">Ingrese una edad válida</mat-error>
-            </mat-form-field>
-        </mat-grid-tile>
-
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Telefono</mat-label>
-                <input formControlName="telefono" autocomplete="enabled" matInput type="number" placeholder="Telefono" value="">                     
-                <mat-error *ngIf="validarCampo('telefono')">Ingrese un número de télefono válido</mat-error>
-            </mat-form-field>
-        </mat-grid-tile>
-
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Departamento</mat-label>
                 <mat-select formControlName="departamento" required (selectionChange)="getMunicipios(departa.value)" #departa> 
                     <mat-option value="">--</mat-option>
@@ -70,8 +53,8 @@
             </mat-form-field>    
         </mat-grid-tile>
         
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Municipio</mat-label>
                 <mat-select matNativeControl formControlName="municipio" required>
                     <mat-option value="">--</mat-option>
@@ -82,36 +65,72 @@
                 <mat-error *ngIf="validarCampo('municipio')">Seleccione un municipio</mat-error>
             </mat-form-field>
         </mat-grid-tile>
-        
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Ocupación</mat-label>
-                <input formControlName="ocupacion" autocomplete="enabled" matInput type="text" placeholder="Ocupacion" value="">                     
+
+        <mat-grid-tile [colspan]="8" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <input formControlName="direccion" autocomplete="enabled" matInput type="text" placeholder="Ingrese la dirección del paciente" value="">
+                <mat-error *ngIf="validarCampo('direccion')">Ingrese la dirección</mat-error>
             </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Correo electrónico</mat-label>
-                <input formControlName="correo" autocomplete="off" matInput type="email" placeholder="Correo electronico" value="">                     
-                <mat-error *ngIf="validarCampo('correo')">Ingrese un correo válido</mat-error>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input 
+                    matInput 
+                    [matDatepicker]="pickerN" 
+                    placeholder="Ingrese la fecha nacimiento" 
+                    formControlName="fecha_nacimiento"
+                    (dateChange)="getEdad($event)"
+                >
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="pickerN"></mat-datepicker-toggle>
+                <mat-datepicker #pickerN></mat-datepicker>
+                <mat-error *ngIf="validarCampo('fecha_nacimiento')">No se ha seleccionado ninguna fecha</mat-error>
             </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Edad</mat-label>
+                <input [readonly]="true" formControlName="edad" matInput type="number" placeholder="Edad" value="">                     
+                <mat-error *ngIf="validarCampo('edad')">Ingrese una edad válida</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Sexo</mat-label>
-                <select matNativeControl formControlName="sexo" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                </select> 
+                <mat-select matNativeControl formControlName="sexo" required>
+                    <mat-option value="">--</mat-option>
+                    <mat-option value="Masculino">Masculino</mat-option>
+                    <mat-option value="Femenino">Femenino</mat-option>
+                </mat-select> 
                 <mat-error *ngIf="validarCampo('sexo')">Seleccione el género</mat-error>                      
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Dirección</mat-label>
-                <input formControlName="direccion" autocomplete="enabled" matInput type="text" placeholder="Ingrese el nombre del paciente" value="">
-                <mat-error *ngIf="validarCampo('direccion')">Ingrese la dirección</mat-error>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Telefono</mat-label>
+                <input formControlName="telefono" autocomplete="enabled" matInput type="text" placeholder="Telefono" value="">                     
+                <mat-error *ngIf="validarCampo('telefono')">Ingrese un número de télefono válido</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Ocupación</mat-label>
+                <input formControlName="ocupacion" autocomplete="enabled" matInput type="text" placeholder="Ocupacion" value="">                     
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Correo electrónico</mat-label>
+                <input formControlName="correo" autocomplete="off" matInput type="email" placeholder="Correo electronico" value="">                     
+                <mat-error *ngIf="validarCampo('correo')">Ingrese un correo válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
     </form>

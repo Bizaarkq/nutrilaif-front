@@ -9,120 +9,128 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class TablaDietaComponent implements OnInit {
   //Formulario de dieta recibido desde la pagina de consulta
   @Input() formularioDieta !: FormGroup;
-  //Arreglo de elementos para llenar el formulario
-  valores = {
-    lDesayuno           : '',
-    lRefrigerioDesayuno : '',
-    lAlmuerzo           : '',
-    lRefrigerioAlmuerzo : '',
-
-    mDesayuno           : '',
-    lCena               : '',
-    mRefrigerioDesayuno : '',
-    mAlmuerzo           : '',
-    mRefrigerioAlmuerzo : '',
-    mCena               : '',
-
-    miRefrigerioDesayuno: '',
-    miAlmuerzo          : '',
-    miRefrigerioAlmuerzo: '',
-    miCena              : '',
-
-    juDesayuno          : '',
-    juRefrigerioDesayuno: '',
-    juAlmuerzo          : '',
-    juRefrigerioAlmuerzo: '',
-    juCena              : '',
-
-    vDesayuno           : '',
-    vRefrigerioDesayuno : '',
-    vAlmuerzo           : '',
-    vRefrigerioAlmuerzo : '',
-    vCena               : '',
-
-    sDesayuno           : '',
-    sRefrigerioDesayuno : '',
-    sAlmuerzo           : '',
-    sRefrigerioAlmuerzo : '',
-    sCena               : '',
-
-    dDesayuno           : '',
-    dRefrigerioDesayuno : '',
-    dAlmuerzo           : '',
-    dRefrigerioAlmuerzo : '',
-    dCena               : '',
+  //Formulario de dieta
+  camposDieta = {
+    "lDesayuno"           : {
+      "validators": [Validators.required],
+    },
+    "lRefrigerioDesayuno" : {
+      "validators": [Validators.required],
+    },
+    "lAlmuerzo"           : {
+      "validators": [Validators.required],
+    },
+    "lRefrigerioAlmuerzo" : {
+      "validators": [Validators.required],
+    },
+    "lCena"               : {
+      "validators": [Validators.required],
+    },
+    "mDesayuno"           : {
+      "validators": [Validators.required],
+    },
+    "mRefrigerioDesayuno" : {
+      "validators": [Validators.required],
+    },
+    "mAlmuerzo"           : {
+      "validators": [Validators.required],
+    },
+    "mRefrigerioAlmuerzo" : {
+      "validators": [Validators.required],
+    },
+    "mCena"               : {
+      "validators": [Validators.required],
+    },
+    "miDesayuno"          : {
+      "validators": [Validators.required],
+    },
+    "miRefrigerioDesayuno": {
+      "validators": [Validators.required],
+    },
+    "miAlmuerzo"          : {
+      "validators": [Validators.required],
+    },
+    "miRefrigerioAlmuerzo": {
+      "validators": [Validators.required],
+    },
+    "miCena"              : {
+      "validators": [Validators.required],
+    },
+    "juDesayuno"          : {
+      "validators": [Validators.required],
+    },
+    "juRefrigerioDesayuno": {
+      "validators": [Validators.required],
+    },
+    "juAlmuerzo"          : {
+      "validators": [Validators.required],
+    },
+    "juRefrigerioAlmuerzo": {
+      "validators": [Validators.required],
+    },
+    "juCena"              : {
+      "validators": [Validators.required],
+    },
+    "vDesayuno"           : {
+      "validators": [Validators.required],
+    },
+    "vRefrigerioDesayuno" : {
+      "validators": [Validators.required],
+    },
+    "vAlmuerzo"           : {
+      "validators": [Validators.required],
+    },
+    "vRefrigerioAlmuerzo" : {
+      "validators": [Validators.required],
+    },
+    "vCena"               : {
+      "validators": [Validators.required],
+    },
+    "sDesayuno"           : {
+      "validators": [Validators.required],
+    },
+    "sRefrigerioDesayuno" : {
+      "validators": [Validators.required],
+    },
+    "sAlmuerzo"           : {
+      "validators": [Validators.required],
+    },
+    "sRefrigerioAlmuerzo" : {
+      "validators": [Validators.required],
+    },
+    "sCena"               : {
+      "validators": [Validators.required],
+    },
+    "dDesayuno"   : {
+      "validators":  [Validators.required],
+    },
+    "dRefrigerioDesayuno" : {
+      "validators":  [Validators.required],
+    },
+    "dAlmuerzo"           : {
+      "validators":  [Validators.required],
+    },
+    "dRefrigerioAlmuerzo" : {
+      "validators":  [Validators.required],
+    },
+    "dCena"               : {
+      "validators":  [Validators.required],
+    }
   }
   constructor( private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    //Metodo que crea el formulario al iniciar el componente
-    //this.addControles();
-    this.createForm();
-
+    //Metodo que crea el formulario al iniciar el componente agregando los controles necesarios para el componente
+    this.addControls();
   }
-  addControles(){
-    let keys = Object.keys(this.valores);
-    let vals = Object.values(this.valores);
-    for(let i=0; i<keys.length; i++){
-      this.formularioDieta.addControl(`${keys[i]}`, this.fb.control(
-        '', Validators.required
-      ));
-    }
-  }
-  createForm(): void {
+  
+  addControls(){
     //Formulario reactivo de dieta --- Explicacion de variables: primera letra relacionada al dia de semana, luego la palabra del tiempo de comida
-    this.formularioDieta = this.fb.group({
-      //Lunes
-      lDesayuno: ['', Validators.required],
-      lRefrigerioDesayuno: ['', Validators.required],
-      lAlmuerzo: ['', Validators.required],
-      lRefrigerioAlmuerzo: ['', Validators.required],
-      lCena: ['', Validators.required],
-
-      //Martes
-      mDesayuno: ['', Validators.required],
-      mRefrigerioDesayuno: ['', Validators.required],
-      mAlmuerzo: ['', Validators.required],
-      mRefrigerioAlmuerzo: ['', Validators.required],
-      mCena: ['', Validators.required],
-
-      //Miercoles
-      miDesayuno: ['', Validators.required],
-      miRefrigerioDesayuno: ['', Validators.required],
-      miAlmuerzo: ['', Validators.required],
-      miRefrigerioAlmuerzo: ['', Validators.required],
-      miCena: ['', Validators.required],
-
-      //Jueves
-      juDesayuno: ['', Validators.required],
-      juRefrigerioDesayuno: ['', Validators.required],
-      juAlmuerzo: ['', Validators.required],
-      juRefrigerioAlmuerzo: ['', Validators.required],
-      juCena: ['', Validators.required],
-
-      //Viernes
-      vDesayuno: ['', Validators.required],
-      vRefrigerioDesayuno: ['', Validators.required],
-      vAlmuerzo: ['', Validators.required],
-      vRefrigerioAlmuerzo: ['', Validators.required],
-      vCena: ['', Validators.required],
-
-      //Sabado
-      sDesayuno: ['', Validators.required],
-      sRefrigerioDesayuno: ['', Validators.required],
-      sAlmuerzo: ['', Validators.required],
-      sRefrigerioAlmuerzo: ['', Validators.required],
-      sCena: ['', Validators.required],
-
-      //Domingo
-      dDesayuno: ['', Validators.required],
-      dRefrigerioDesayuno: ['', Validators.required],
-      dAlmuerzo: ['', Validators.required],
-      dRefrigerioAlmuerzo: ['', Validators.required],
-      dCena: ['', Validators.required],
-
-    });
+    Object.entries(this.camposDieta).forEach(([key, value]) => {
+      this.formularioDieta.addControl(key, this.fb.control('', value.validators))
+    })
   }
+  
   validarCampo( campo:string ){
     return this.formularioDieta.controls[campo].errors && 
       this.formularioDieta.controls[campo].touched;

@@ -1,4 +1,23 @@
-.example-full-width {
+.large-form-control{
     width: 100%;
+    margin: 0 1em;
+}
+
+.small-form-control{
+    width: 50%;
     padding-left: 15px;
+}
+
+.medium-form-control{
+    width: 75%;
+    padding-left: 15px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }

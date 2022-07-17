@@ -33,7 +33,9 @@ export class ConsultaComponent implements OnInit {
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
-  frecuencia_consumo: FormGroup = this.FB.group({});
+  frecuencia_consumo: FormGroup = this.FB.group({
+    frecuencia: this.FB.array( [] )
+  });
   planificacion_dieta: FormGroup = this.FB.group({});
   dieta: FormGroup = this.FB.group({});
 
@@ -44,7 +46,8 @@ export class ConsultaComponent implements OnInit {
     private consulta: ConsultaForm,
     private consultaService: ConsultaService,
     private route: ActivatedRoute,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private cd: ChangeDetectorRef
   ) {}
     contador=0;
   ngOnInit(): void {
@@ -99,16 +102,17 @@ export class ConsultaComponent implements OnInit {
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
         this.snack.open(
-          'La consulta se guardadó correctamente',
+          res.mensaje,
           'Ok',
           {
             duration: 3000,
           }
         );
+        this.paciente.controls['numero_exp'].setValue(res.data);
       },
       error: (err) => {
         this.snack.open(
-          'La consulta no pudo ser guardada, intente nuevamente',
+          err.mensaje,
           'Ok',
           {
             duration: 3000,
@@ -139,6 +143,7 @@ export class ConsultaComponent implements OnInit {
         subconsulta_form: this.subConsultaForm,
         es_borrador: false
       });
+      this.cd.detectChanges();
   }
 
   isSubsecuente(){
@@ -163,6 +168,7 @@ export class ConsultaComponent implements OnInit {
       subconsulta_form: this.subConsultaForm,
       es_borrador: false
     });
+    this.cd.detectChanges();
   }
 
 }
