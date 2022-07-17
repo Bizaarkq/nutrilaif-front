@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { GeneralService } from 'src/app/services/general.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-datos-personales',
   templateUrl: './datos-personales.component.html',
@@ -14,27 +15,71 @@ export class DatosPersonalesComponent implements OnInit {
   departamentos: any;
   municipios: any;
   visibleSpinner = false;
+  fechaCreacion = new Date().getDate();
   //Formulario de datos de paciente
 
-  /*camposPacientes: string[] = [
-    'numero_exp', 
-    'nombre',
-    'apellido',
-    'fecha_nacimiento',
-    'correo',
-    'sexo',
-    'telefono',
-    'direccion',
-    'departamento', 
-    'municipio',
-    'edad',
-    'ocupacion',
-    'fechaExpediente',
-  ];*/
+  camposPacientes = {
+    "numero_exp": {
+      "label": "Número de Expediente",
+      "validators":  null,
+    }, 
+    'nombre': {
+      "label": "Nombre",
+      "validators":  [Validators.required, Validators.minLength(10)],
+    },
+    'apellido': {
+      "label": "Apellido",
+      "validators":  [Validators.required, Validators.minLength(8)],
+    },
+    'fecha_nacimiento': {
+      "label": "Fecha de Nacimiento",
+      "validators":  [Validators.required],
+    },
+    'correo': {
+      "label": "Correo",
+      "validators":  [Validators.required, Validators.email],
+    },
+    'sexo': {
+      "label": "Sexo",
+      "validators":  [Validators.required],
+    },
+    'telefono': {
+      "label": "Teléfono",
+      "validators":  [Validators.required, Validators.minLength(8)],
+    },
+    'direccion': {
+      "label": "Dirección",
+      "validators":  [Validators.required, Validators.minLength(5)],
+    },
+    'departamento': {
+      "label": "Departamento",
+      "validators":  [Validators.required],
+    }, 
+    'municipio': {
+      "label": "Municipio",
+      "validators":  [Validators.required],
+    },
+    'edad': {
+      "label": "Edad",
+      "validators":  null,
+    },
+    'ocupacion': {
+      "label": "Ocupación",
+      "validators":  [],
+    },
+    'fechaExpediente': {
+      "label": "Fecha de Expediente",
+      "validators":  null,
+    },
+  };
   //Variable para manejar el formulario de datos personales
   //formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
-  constructor(private fb: FormBuilder, private pacienteService: DatosPersonalesService, private generalService: GeneralService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private pacienteService: DatosPersonalesService, 
+    private generalService: GeneralService,
+    private datePipe: DatePipe) { }
 
   ngOnInit(): void { 
     this.createForm();
@@ -58,30 +103,10 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   createForm(): void {
-
-    this.pacienteForm = this.fb.group({
-      id_paciente       : [this.pacienteForm.get('id_paciente')?.value ? this.pacienteForm.get('id_paciente')?.value : null],
-      numero_exp        : ['', [Validators.required, Validators.minLength(6)]],
-      nombre            : ['', [Validators.required, Validators.minLength(10)]],
-      //El campo apellido solo esta en la base de datos pero aca no se esta usando
-      apellido          : ['', [Validators.minLength(8)]],
-      fecha_nacimiento  : ['', [Validators.required]],
-      correo            : ['', [Validators.required, Validators.email]],
-      sexo              : ['', [Validators.required]],
-      telefono          : ['', [Validators.required, Validators.minLength(8)]],
-      direccion         : ['', [Validators.required, Validators.minLength(5)]],
-      departamento      : ['', [Validators.required]],
-      municipio         : ['', [Validators.required]],
-      edad              : ['', [Validators.required]],
-      ocupacion         : [''],
-      fechaExpediente   : ['', Validators.required]
-    })
-
-    const group:any = {};
-    //this.camposPacientes.forEach(property => group[property] = new FormControl());
-    //this.camposPacientes.forEach(property => this.pacienteForm.addControl(property, new FormControl('')));
-    console.log(this.pacienteForm.value);
-
+    Object.entries(this.camposPacientes).forEach(([key, value]) => {
+      this.pacienteForm.addControl(key, this.fb.control('', value.validators));
+    });
+    this.pacienteForm.controls['fechaExpediente'].setValue(this.fechaCreacion);
   }
 
   validarCampo( campo:string ){
@@ -103,6 +128,12 @@ export class DatosPersonalesComponent implements OnInit {
         this.municipios = results;
       }
     });
+  }
+
+  getEdad(fecha: any){
+    const anioActual = new Date().getTime();
+    let fechaNacimiento = new Date(fecha.value).getTime();
+    this.pacienteForm.controls['edad'].setValue(Math.floor((anioActual - fechaNacimiento) / (1000 * 60 * 60 * 24 * 365)));
   }
   
 }

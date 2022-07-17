@@ -4,7 +4,7 @@
         <mat-icon>close</mat-icon>
       </button></p>
     <mat-nav-list>
-      <mat-list-item *ngFor="let i of items" [routerLink]="i.link">{{i.label}}</mat-list-item>
+      <mat-list-item *ngFor="let i of items" (click)="sidenav.close()" [routerLink]="i.link">{{i.label}}</mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
