@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ConsultaForm{
     switch(option){
       case "datos_medicos":
           form = this.FB.group({
-          diagnostico: [''],
+          diagnostico: ['',[Validators.required]],
           medicamento_suplemento: [''],
           otros_datos: ['']
         });
@@ -34,16 +34,16 @@ export class ConsultaForm{
         break;
       case "datos_antropo":
           form = this.FB.group({
-          peso_actual: [''],
-          peso_ideal: [''],
-          p_grasa_corporal: [''],
-          p_masa_muscular: [''],
-          p_grasa_visceral: [''],
-          peso_meta: [''],
+          peso_actual: ['',[Validators.required]],
+          peso_ideal: ['',[Validators.required]],
+          p_grasa_corporal: ['',[Validators.required]],
+          p_masa_muscular: ['',[Validators.required]],
+          p_grasa_visceral: ['',[Validators.required]],
+          peso_meta: ['',[Validators.required]],
           talla: [''],
           c_cintura: [''],
-          imc: [''],
-          edad_metabolica: [''],
+          imc: ['',[Validators.required]],
+          edad_metabolica: ['',[Validators.required]],
           c_brazo_relaj: [''],
           c_cadera: [''],
           c_muneca: ['']
@@ -54,7 +54,7 @@ export class ConsultaForm{
           preferencia_alimen: [''],
           alimentos_no_gustan: [''],
           intolerancia_alergia: [''],
-          actividad_fisica: [''],
+          actividad_fisica: ['',[Validators.required]],
           alcohol: [''],
           tabaco: [''],
         });
@@ -94,12 +94,12 @@ export class ConsultaForm{
         break;
       case "datos_antropo":
           form = this.FB.group({
-          peso_actual: [''],
-          p_grasa_corporal: [''],
-          p_masa_muscular: [''],
-          p_grasa_visceral: [''],
+          peso_actual: ['',[Validators.required]],
+          p_grasa_corporal: ['',[Validators.required]],
+          p_masa_muscular: ['',[Validators.required]],
+          p_grasa_visceral: ['',[Validators.required]],
           c_cintura: [''],
-          imc: [''],
+          imc: ['',[Validators.required]],
           edad_metabolica: [''],
           c_brazo_relaj: [''],
           c_cadera: [''],
@@ -108,8 +108,8 @@ export class ConsultaForm{
         break;
       case "historia_dietetica":
           form = this.FB.group({
-          agua: [''],
-          actividad_fisica: [''],
+          agua: ['',[Validators.required]],
+          actividad_fisica: ['',[Validators.required]],
           observacion_menu_anterior: [''],
           saciedad: [''],
           alimentos_quiere: [''],
