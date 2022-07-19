@@ -7,10 +7,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tabla-dieta.component.css']
 })
 export class TablaDietaComponent implements OnInit {
+  fechaCreacion = new Date().getDate();
   //Formulario de dieta recibido desde la pagina de consulta
   @Input() formularioDieta !: FormGroup;
   //Formulario de dieta
   camposDieta = {
+    "fechaCreacionDieta"        :{
+      "validators": null
+    },
     "lDesayuno"           : {
       "validators": [Validators.required],
     },
