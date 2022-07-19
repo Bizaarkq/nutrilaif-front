@@ -119,7 +119,7 @@ export class DatosPersonalesComponent implements OnInit {
     });
     
     if(!this.expediente){
-      this.pacienteForm.controls['fechaExpediente'].setValue(this.datePipe.transform(this.fechaCreacion.getTime(), 'yyyy-MM-dd'));
+      this.pacienteForm.controls['fechaExpediente'].setValue(this.fechaCreacion);
     }
   }
 
@@ -148,13 +148,7 @@ export class DatosPersonalesComponent implements OnInit {
     const anioActual = new Date().getTime();
     let fechaNacimiento = new Date(fecha.value).getTime();
     this.pacienteForm.controls['edad'].setValue(Math.floor((anioActual - fechaNacimiento) / (1000 * 60 * 60 * 24 * 365)));
-    this.formatDate(fecha, 'fecha_nacimiento');
-    console.log(fecha.value);
-    console.log(this.pacienteForm.value);
-  }
 
-  formatDate(date: any, control: string){
-    this.pacienteForm.controls[control].setValue(this.datePipe.transform(date.value, 'yyyy-MM-dd'));
   }
 
   
