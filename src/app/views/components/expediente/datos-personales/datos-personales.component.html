@@ -82,7 +82,18 @@
 
         <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
-                
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input 
+                    matInput 
+                    [matDatepicker]="pickerN" 
+                    placeholder="Ingrese la fecha nacimiento" 
+                    formControlName="fecha_nacimiento"
+                    (dateChange)="getEdad($event)"
+                >
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="pickerN"></mat-datepicker-toggle>
+                <mat-datepicker #pickerN></mat-datepicker>
+                <mat-error *ngIf="validarCampo('fecha_nacimiento')">No se ha seleccionado ninguna fecha</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./recordatorio.component.css']
 })
 export class RecordatorioComponent implements OnInit {
+  @Input() formRecordatorio !: FormGroup;
 
   camposRecordatorio = {
     //Desayuno
@@ -84,7 +85,6 @@ export class RecordatorioComponent implements OnInit {
     }
   }
   
-  formRecordatorio = this.fb.group({});
   constructor(private fb:FormBuilder) {}
 
   ngOnInit(): void {
