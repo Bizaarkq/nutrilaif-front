@@ -4,7 +4,7 @@
   <mat-step [stepControl]="paciente">
     <form [formGroup]="paciente" >
       <ng-template matStepLabel>Datos del Paciente</ng-template>
-          <app-datos-personales [pacienteForm]="paciente" [isSubsecuente]="esSubsecuente"></app-datos-personales> 
+          <app-datos-personales [pacienteForm]="paciente" [loadFromParent]="true"></app-datos-personales> 
       <div>
         <button mat-button matStepperNext type="button">Siguiente</button>
       </div>
@@ -15,7 +15,7 @@
       <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
         <ng-template matStepLabel >{{ labelTitulos[i] }}</ng-template>
         <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
-          <mat-form-field appearance="legacy">
+          <mat-form-field appearance="outline">
             <mat-label>{{ consultaMap[control.key].label }}</mat-label>
             <input
               matInput

@@ -55,9 +55,10 @@ export class ConsultaComponent implements OnInit {
     contador=0;
   ngOnInit(): void {
     this.consultaMap = this.consulta.mapeadoForm();
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
-    this.id_paciente = history.state['id_paciente'];
+    this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    console.log(this.id, this.id_paciente);
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
     if (this.accion === 'editar' && this.id !== null) {

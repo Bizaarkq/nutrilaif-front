@@ -1,34 +1,31 @@
+
+<app-datos-personales [loadFromParent]="false" [editable]="true"></app-datos-personales>
+
+
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <div style="max-width:750px; margin: 0 auto;">
 <mat-form-field appearance="standard">
     <mat-label>Buscar expediente</mat-label>
-    <input matInput (keyup)="filtroExpediente($event)" #input>
+    <input matInput (keyup)="filtroConsultas($event)" #input>
 </mat-form-field>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="tablaData" matSort style="width:100%;">
 
-      <!-- Columna de numero expediente -->
-      <ng-container matColumnDef="num_expediente">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="num_expediente" > N° Expediente </th>
-        <td mat-cell *matCellDef="let element"> {{element.numero_exp}} </td>
+      <!-- Columna de fecha de consulta -->
+      <ng-container matColumnDef="fecha_consulta">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="fecha_consulta" > Fecha de la consulta </th>
+        <td mat-cell *matCellDef="let element"> {{element.created_at | date : 'EEEE, MMMM d, y'}} </td>
       </ng-container>
-      <!-- Columna de nombre de paciente -->
-      <ng-container matColumnDef="nombre_completo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="nombre"> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-      </ng-container>
+
       <!-- Columna de acciones -->
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element" style="text-align: right">
-            <a [routerLink]="[ '/consulta/nueva', element.id ]"  mat-mini-fab color="accent" matTooltip="Agregar Consulta">
-              <mat-icon>add</mat-icon>
+            <a *ngIf="element.es_borrador" [routerLink]="[ '/consulta/editar', id_paciente, element.id  ]"  mat-mini-fab color="accent" matTooltip="Editar Consulta">
+              <mat-icon>edit</mat-icon>
             </a>
-            <a [routerLink]="[ '/expediente', element.id ]" mat-mini-fab color="primary" matTooltip="Ver Expediente"> 
+            <a mat-mini-fab color="primary" matTooltip="Ver Consulta"> 
                 <mat-icon>visibility</mat-icon>
-            </a>
-            <a mat-mini-fab color="warn" matTooltip="Eliminar Expediente" (click)="eliminarExpediente(element)">
-                <mat-icon>delete</mat-icon>
             </a>
         </td>
       </ng-container>
