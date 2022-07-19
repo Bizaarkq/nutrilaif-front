@@ -16,7 +16,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -37,7 +42,12 @@ import {MatCardModule} from '@angular/material/card';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
+    MatRadioModule,
     MatCardModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ], 
   exports: [
     MatFormFieldModule,
@@ -54,7 +64,12 @@ import {MatCardModule} from '@angular/material/card';
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
+    MatRadioModule,
     MatCardModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

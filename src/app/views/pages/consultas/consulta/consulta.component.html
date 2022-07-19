@@ -1,0 +1,56 @@
+<app-spinner [visible]="visibleSpinner"></app-spinner>
+<form [formGroup]="consultaForm" (submit)="guardar()">
+<mat-stepper [linear]="false" #stepper>
+  <mat-step [stepControl]="paciente">
+    <form [formGroup]="paciente" >
+      <ng-template matStepLabel>Datos del Paciente</ng-template>
+          <app-datos-personales [pacienteForm]="paciente" [isSubsecuente]="esSubsecuente"></app-datos-personales> 
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue; let i=index">
+    <mat-step [stepControl]="group.value">
+      <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
+        <ng-template matStepLabel >{{ labelTitulos[i] }}</ng-template>
+        <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
+          <mat-form-field appearance="legacy">
+            <mat-label>{{ consultaMap[control.key].label }}</mat-label>
+            <input
+              matInput
+              formControlName="{{ control.key }}"
+              placeholder="{{ consultaMap[control.key].placeholder }}"
+              />
+          </mat-form-field>
+        </ng-container>
+        <div>
+          <button mat-button matStepperNext type="button">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+  </ng-container>
+  <mat-step [stepControl]="frecuencia_consumo">
+    <form [formGroup]="frecuencia_consumo" >
+      <ng-template matStepLabel>Frecuencia de consumo</ng-template>
+      <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step *ngIf="accion==='editar'" [stepControl]="dieta">
+    <form [formGroup]="dieta" >
+      <ng-template matStepLabel>Dieta</ng-template>
+      <app-tabla-dieta [formularioDieta]="dieta"></app-tabla-dieta>    
+      <div>
+        <button mat-button matStepperNext type="button">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>
+<button mat-raised-button color="primary">Guardar</button>
+<section [formGroup]="consultaForm">
+  <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
+</section>
+</form>

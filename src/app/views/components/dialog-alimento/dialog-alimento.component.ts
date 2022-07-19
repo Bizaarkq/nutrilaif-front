@@ -23,21 +23,23 @@ export class DialogAlimentoComponent implements OnInit {
     'calcio',
     'sodio'
   ];
+  codigoDisabled:boolean = false;
   
   ngOnInit(): void {
+    this.codigoDisabled = this.editData ? true : false;
     //this.createForm();
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
-      codigo: ['', Validators.required],
-      nombre: ['', Validators.required],
-      calorias: ['', Validators.required],
-      grasas: ['', Validators.required],
-      proteinas: ['', Validators.required],
-      carbohidratos: ['', Validators.required],
-      hierro: ['', Validators.required],
-      potasio: ['', Validators.required],
-      calcio: ['', Validators.required],
-      sodio: ['', Validators.required],
+      codigo: [{value:'', disabled: this.codigoDisabled}, Validators.required],
+      nombre: ['', [Validators.required]],
+      calorias: ['', [Validators.required,Validators.min(0)]],
+      grasas: ['', [Validators.required,Validators.min(0)]],
+      proteinas: ['', [Validators.required,Validators.min(0)]],
+      carbohidratos: ['', [Validators.required,Validators.min(0)]],
+      hierro: ['', [Validators.required,Validators.min(0)]],
+      potasio: ['', [Validators.required,Validators.min(0)]],
+      calcio: ['', [Validators.required,Validators.min(0)]],
+      sodio: ['', [Validators.required,Validators.min(0)]],
     })
     //Codigo para obtener los datos de un alimento seleccionado
     if(this.editData){
@@ -93,7 +95,7 @@ export class DialogAlimentoComponent implements OnInit {
 
   editarAlimento(){
     if(!this.formDatosAlimento.invalid){
-      this.api.editarAlimentos(this.formDatosAlimento.value)
+      this.api.editarAlimentos(this.formDatosAlimento.getRawValue())
       .subscribe({
         next:(res)=>{
           alert("Alimento editado correctamente");

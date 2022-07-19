@@ -1,0 +1,20 @@
+.example-card {
+    width: 100%;
+    width: 40%;
+}
+  
+.mat-card-actions{
+    text-align: center;
+}
+
+.green {
+    background-color: #116530;
+    color: white;
+}
+
+img {
+    height: 250px;
+    width: 300px
+}
+
+

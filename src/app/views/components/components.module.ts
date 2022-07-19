@@ -7,9 +7,12 @@ import { SharedModule } from '../../shared/shared.module';
 //Componentes
 import { DatosPersonalesComponent } from './expediente/datos-personales/datos-personales.component';
 import { ListarExpedientesComponent } from './expediente/listar-expedientes/listar-expedientes.component';
+import { FrecuenciaConsumoComponent } from './consulta/frecuencia-consumo/frecuencia-consumo.component';
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
-import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion-dieta.component';
+import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
+import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
 
@@ -17,9 +20,12 @@ import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion
   declarations: [
     DatosPersonalesComponent,
     ListarExpedientesComponent,
+    FrecuenciaConsumoComponent,
     ListarAlimentosComponent,
     DialogAlimentoComponent,
-    PlanificacionDietaComponent,
+    RecordatorioComponent,
+    TablaDietaComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -27,8 +33,13 @@ import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion
   ],
   exports: [
     DatosPersonalesComponent,
+    FrecuenciaConsumoComponent,
+    DatosPersonalesComponent,
     ListarAlimentosComponent,
-    DialogAlimentoComponent
+    DialogAlimentoComponent,
+    RecordatorioComponent,
+    TablaDietaComponent,
+    SpinnerComponent
   ]
 })
 export class ComponentsModule { }

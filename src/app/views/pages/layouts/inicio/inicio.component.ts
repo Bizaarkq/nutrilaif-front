@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
+import { GeneralService } from 'src/app/services/general.service';
 export interface Tile {
   cols: number;
   rows: number;
   text: string;
   link: string;
-  color: string;
+  linkImagen: string;
+  subtitulo: string;
+  alt: string;
 }
 
 @Component({
@@ -14,37 +16,31 @@ export interface Tile {
   styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit {
-  tiles: Tile[] = [
-    {
-      text: 'Expediente',
-      cols: 3,
-      rows: 1,
-      link: '/expediente/listar',
-      color: 'lightblue'
-    },
-    {
-      text: 'Consulta',
-      cols: 1,
-      rows: 2,
-      link: '/consulta/listar',
-      color: 'lightgreen'
-    },
-    {
-      text: 'Catalogo',
-      cols: 1,
-      rows: 1,
-      link: '/catalogo',
-      color:  'lightpink'
-    },
-    {
-      text: 'Citas',
-      cols: 2,
-      rows: 1,
-      link: '/citas',
-      color: '#DDBDF1'
-    },
-  ];
-  constructor() {}
 
-  ngOnInit(): void {}
+  tiles: Tile[] = [];
+  visibleSpinner = false;
+  constructor(private generalService:GeneralService) {}
+
+  ngOnInit(): void {
+    this.visibleSpinner=true;
+    this.generalService.getMenu().subscribe({
+      next: (data:any) => {
+        data.map((item:any) => {
+          this.tiles.push({
+            text: item.label,
+            subtitulo: item.sub_label,
+            linkImagen: item.ruta_imagen,
+            cols: item.cols,
+            rows: item.rows,
+            link: item.link,
+            alt: item.alt
+          });
+        });
+        this.visibleSpinner=false;
+      },
+      error: (err:any) => {
+        this.visibleSpinner=false;
+      }
+    });
+  }
 }

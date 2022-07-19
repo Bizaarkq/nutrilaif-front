@@ -1,0 +1,44 @@
+@use '@angular/material' as mat;
+
+#divSpinner {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    align-items: center;
+    overflow: auto;
+    z-index: 999 !important;
+}
+
+#subDivSpinner {
+    max-height: 100%;
+    margin: auto;
+    text-align: center;
+    margin-top: 40vh;
+}
+
+.mat-progress-spinner {
+        display: inline !important;
+}
+
+.mat-spinner::ng-deep circle {
+    stroke: inherit;
+}
+
+.custom-spinner {
+    animation: change-color 1.5s infinite;
+}
+
+@keyframes change-color {
+    0% {
+        stroke: #B2FF59;
+    }
+    50% {
+        stroke: #8BC34A;
+    }
+    100% {
+        stroke: #EEFF41;
+    }
+}

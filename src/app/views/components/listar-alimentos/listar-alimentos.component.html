@@ -1,3 +1,4 @@
+<app-spinner [visible]="visibleSpinner"></app-spinner>
 <div class="container">
   <mat-toolbar>
     <span>Alimentos</span>
@@ -71,7 +72,7 @@
           <a class="pointer" style="color: #195f2e;" matTooltip="Editar alimento" (click)="editarAlimento(element)">
             <mat-icon>edit</mat-icon>
           </a>
-          <a class="pointer" style="color: #ce1212;" matTooltip="Eliminar alimento" (click)="eliminarAlimento(element.id)">
+          <a class="pointer" style="color: #ce1212;" matTooltip="Eliminar alimento" (click)="eliminarAlimento(element)">
             <mat-icon>delete</mat-icon>
           </a>
         </td>

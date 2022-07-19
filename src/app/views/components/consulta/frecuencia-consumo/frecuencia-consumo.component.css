@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-form-field{
+  width: 100%;
+}
+
+.mat-fab.green{
+  background-color: #116530;
+  color: white;
+  float: right;
+}
+
+.grid-layout{
+  width: 92%;
+}
+
+.label{
+  font-size: 18px;
+  font-weight: 400;
+}

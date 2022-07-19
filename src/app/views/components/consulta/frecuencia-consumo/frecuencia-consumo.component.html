@@ -1,0 +1,55 @@
+<!--TITULOS DEL FORMULARIO-->
+<mat-grid-list rowHeight="6:1" cols="3">
+  <mat-grid-tile *ngFor="let item of titulos">
+    <mat-label class="label">{{ item }}</mat-label>
+  </mat-grid-tile>
+</mat-grid-list>
+<!--FORMULARIO DE FRECUENCIA DE CONSUMO-->
+<form [formGroup]="formularioFrecuencia">
+  <!--ELEMENTO A REPETIR-->
+  <mat-grid-list formArrayName="frecuencia" rowHeight="6:1" cols="3">
+    <div *ngFor="let freq of frecuencias.controls; let i=index">
+      <div [formGroupName]="i">
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Alimento</mat-label>
+            <input autocomplete="off" 
+                    matInput placeholder="Ingrese el alimento"
+                    formControlName="alimento">
+            <mat-error *ngIf="validarCampos()">
+              Error: Debe ingresar el alimento y seleccionar la frecuencia de consumo
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-radio-group  aria-label="Select an option" formControlName="frequencia">
+            <mat-radio-button value="0">0</mat-radio-button>
+            <mat-radio-button value="1">1</mat-radio-button>
+            <mat-radio-button value="2">2</mat-radio-button>
+            <mat-radio-button value="3">3</mat-radio-button>
+            <mat-radio-button value="4">4</mat-radio-button>
+            <mat-radio-button value="5">5</mat-radio-button>
+            <mat-radio-button value="6">6</mat-radio-button>
+            <mat-radio-button value="7">7</mat-radio-button>
+          </mat-radio-group>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Comentarios</mat-label>
+            <textarea  matInput
+                      formControlName="comentario"></textarea>
+          </mat-form-field>
+          <button mat-fab color="warn" matTooltip="Eliminar alimento" (click)="removeFrecuencia(i)">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+          </button>
+        </mat-grid-tile> 
+      </div>
+    </div>
+  </mat-grid-list>
+  <div class="grid-layout">
+    <button mat-fab class="green" matTooltip="Agregar alimento" (click)="addFrecuencia()">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+    </button>
+  </div>
+</form>
+<br><br>
