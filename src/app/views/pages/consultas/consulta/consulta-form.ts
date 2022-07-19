@@ -260,6 +260,26 @@ export class ConsultaForm{
       "tabaco": {
         label: "Tabaquismo",
         placeholder: "Tabaquismo"
+      },
+      "agua":{
+        label: "Agua",
+        placeholder: "Cantidad de agua"
+      },
+      "observacion_menu_anterior": {
+        label: "Observación del menú anterior",
+        placeholder: "Observación del menú anterior",
+      },
+      "saciedad": {
+        label: "Saciedad",
+        placeholder: "Saciedad"
+      },
+      "alimentos_quiere":{
+        label: "Alimentos que quiere",
+        placeholder: "Alimentos que quiere"
+      },
+      "diagnostico_nutricional": {
+        label: "Diagnóstico nutricional",
+        placeholder: "Diagnóstico nutricional"
       }
     }
   }

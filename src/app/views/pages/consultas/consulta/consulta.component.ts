@@ -33,6 +33,7 @@ export class ConsultaComponent implements OnInit {
   historiaDiet!:FormGroup; 
   subConsultaForm!:FormGroup;
   id_paciente:any;
+  loadingDataEdicion: boolean = false;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -55,18 +56,18 @@ export class ConsultaComponent implements OnInit {
     contador=0;
   ngOnInit(): void {
     this.consultaMap = this.consulta.mapeadoForm();
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
-    this.id_paciente = history.state['id_paciente'];
+    this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    console.log(this.id, this.id_paciente);
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
-    if (this.accion === 'editar' && this.id !== null) {
+    if ((this.accion === 'editar' || this.accion === 'ver') && this.id !== null) {
       this.visibleSpinner = true;
+      this.loadingDataEdicion = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
-          console.log(data.es_subsecuente);
-          this.esBorrador = data.es_borrador === 1 ? true : false;
-          if (!this.esBorrador) this.consultaForm.disable();
+          this.esBorrador = data.es_borrador;
 
           if(data.es_subsecuente){
             this.isSubsecuente();
@@ -74,10 +75,11 @@ export class ConsultaComponent implements OnInit {
             this.isPrimeraConsulta();
           }
           this.consultaForm.patchValue(data);
-          this.visibleSpinner = false;
+          if (!this.esBorrador || this.accion === 'ver'){
+            this.consultaForm.disable();
+          };
         },
         error: (err) => {
-          this.visibleSpinner = false;
           this.snack.open(
             'La información no pudo ser recuperada, intente nuevamente',
             'Ok',
@@ -86,6 +88,10 @@ export class ConsultaComponent implements OnInit {
             }
           );
         },
+        complete: () => {
+          this.loadingDataEdicion = false;
+          this.visibleSpinner = false;
+        }
       });
     } else if (this.accion == 'nueva' && this.id_paciente != null) {
       this.isSubsecuente();
@@ -100,9 +106,11 @@ export class ConsultaComponent implements OnInit {
   }
 
   log(val: any) {
-    this.contador++;
+    console.log(val);
   }
+  
   guardar() {
+    this.visibleSpinner = true;
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
         this.snack.open(
@@ -123,6 +131,9 @@ export class ConsultaComponent implements OnInit {
           }
         );
       },
+      complete: () => {
+        this.visibleSpinner = false;
+      }
     });
   }
 

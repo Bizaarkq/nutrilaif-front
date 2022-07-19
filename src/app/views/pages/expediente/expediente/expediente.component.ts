@@ -1,33 +1,37 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
+import { ActivatedRoute } from '@angular/router';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-listado-expediente',
-  templateUrl: './listado-expediente.component.html',
-  styleUrls: ['./listado-expediente.component.css']
+  selector: 'app-expediente',
+  templateUrl: './expediente.component.html',
+  styleUrls: ['./expediente.component.css']
 })
-export class ListadoExpedienteComponent implements OnInit {
+export class ExpedienteComponent implements OnInit {
 
-  columnas: string[] = ['num_expediente', 'nombre_completo', 'acciones'];
+  columnas: string[] = ['fecha_consulta', 'acciones'];
   tablaData !: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   visibleSpinner = false;
+  id_paciente: any;
 
-  constructor( private pacienteService:DatosPersonalesService, private router:Router) { }
-  
+  constructor(
+    private consultaServie: ConsultaService,
+    private router: ActivatedRoute
+  ) { }
+
   ngOnInit(): void {
-    this.cargarExpedientes();
+    this.id_paciente = this.router.snapshot.paramMap.get('id_paciente');
+    this.cargarConsultas(this.id_paciente);
   }
 
-  cargarExpedientes(){
-    this.visibleSpinner=true;
-    this.pacienteService.getDatosPersonales()
-    .subscribe({
+  cargarConsultas(id_paciente: any){
+    this.consultaServie.getListadoConsultas(id_paciente).subscribe({
       next:(res)=>{
         this.tablaData = new MatTableDataSource(res);
         this.tablaData.paginator = this.paginator;
@@ -37,7 +41,7 @@ export class ListadoExpedienteComponent implements OnInit {
     });
   }
 
-  filtroExpediente(event:any){
+  filtroConsultas(event:any){
     const filterValue = (event.target as HTMLInputElement).value;
     this.tablaData.filter = filterValue.trim().toLowerCase();
 
@@ -45,15 +49,4 @@ export class ListadoExpedienteComponent implements OnInit {
       this.tablaData.paginator.firstPage();
     }
   }
-
-  eliminarExpediente(paciente: any){
-    this.visibleSpinner=true;
-    this.pacienteService.deletePaciente(paciente.id).subscribe({
-      next:(res)=>{
-        this.cargarExpedientes();
-      },
-      error:(err)=>{}
-    });
-  }
-
 }

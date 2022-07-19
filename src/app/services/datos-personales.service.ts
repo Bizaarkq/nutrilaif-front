@@ -11,7 +11,7 @@ export class DatosPersonalesService {
     private http:HttpClient
   ) {}
 
-  getDatosPersonales(id = null){
+  getDatosPersonales(id:any = null){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
