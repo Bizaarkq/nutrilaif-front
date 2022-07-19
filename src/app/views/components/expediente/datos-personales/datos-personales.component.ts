@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { GeneralService } from 'src/app/services/general.service';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-datos-personales',
   templateUrl: './datos-personales.component.html',
@@ -11,65 +12,67 @@ import { DatePipe } from '@angular/common';
 export class DatosPersonalesComponent implements OnInit {
 
   @Input() pacienteForm !: FormGroup;
-  @Input() isSubsecuente : boolean = false;
+  @Input() loadFromParent : boolean = false;
+  @Input() editable: boolean = true;
+  @Input() expediente: boolean = false;
   departamentos: any;
   municipios: any;
   visibleSpinner = false;
-  fechaCreacion = new Date().getDate();
+  fechaCreacion = new Date();
   //Formulario de datos de paciente
 
   camposPacientes = {
     "numero_exp": {
       "label": "Número de Expediente",
-      "validators":  null,
+      "validators":  null
     }, 
     'nombre': {
       "label": "Nombre",
-      "validators":  [Validators.required, Validators.minLength(10)],
+      "validators":  [Validators.required, Validators.minLength(10)]
     },
     'apellido': {
       "label": "Apellido",
-      "validators":  [Validators.required, Validators.minLength(8)],
+      "validators":  [Validators.required, Validators.minLength(8)]
     },
     'fecha_nacimiento': {
       "label": "Fecha de Nacimiento",
-      "validators":  [Validators.required],
+      "validators":  [Validators.required]
     },
     'correo': {
       "label": "Correo",
-      "validators":  [Validators.required, Validators.email],
+      "validators":  [Validators.required, Validators.email]
     },
     'sexo': {
       "label": "Sexo",
-      "validators":  [Validators.required],
+      "validators":  [Validators.required]
     },
     'telefono': {
       "label": "Teléfono",
-      "validators":  [Validators.required, Validators.minLength(8)],
+      "validators":  [Validators.required, Validators.minLength(8)]
     },
     'direccion': {
       "label": "Dirección",
-      "validators":  [Validators.required, Validators.minLength(5)],
+      "validators":  [Validators.required, Validators.minLength(5)]
     },
     'departamento': {
       "label": "Departamento",
-      "validators":  [Validators.required],
+      "validators":  [Validators.required]
     }, 
     'municipio': {
       "label": "Municipio",
-      "validators":  [Validators.required],
+      "validators":  [Validators.required]
     },
     'edad': {
       "label": "Edad",
-      "validators":  null,
+      "validators":  null
     },
     'ocupacion': {
       "label": "Ocupación",
-      "validators":  [],
+      "validators":  []
     },
     'fechaExpediente': {
       "label": "Fecha de Expediente",
-      "validators":  null,
+      "validators":  null
     },
   };
   //Variable para manejar el formulario de datos personales
@@ -79,15 +82,26 @@ export class DatosPersonalesComponent implements OnInit {
     private fb: FormBuilder, 
     private pacienteService: DatosPersonalesService, 
     private generalService: GeneralService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void { 
+    if(this.expediente){
+      this.pacienteForm = this.fb.group({});
+    }
     this.createForm();
     this.getDepartamentos();
-    if(this.pacienteForm.get('id_paciente')?.value){
+
+    const id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    if( id_paciente !== null ){
       this.visibleSpinner=true;
-      this.pacienteService.getDatosPersonales(this.pacienteForm.get('id_paciente')?.value).subscribe({
+      this.pacienteService.getDatosPersonales(id_paciente).subscribe({
         next: (results: any) => {
+          
+          if(results[0].municipio !== null && results[0].departamento !== null){
+            this.getMunicipios(results[0].departamento);
+          }
+
           this.pacienteForm.patchValue(results[0]);
           this.visibleSpinner=false;
         },
@@ -97,16 +111,16 @@ export class DatosPersonalesComponent implements OnInit {
       });
     }
 
-    if(this.isSubsecuente){
-      this.pacienteForm.disable();
-    }
   }
 
   createForm(): void {
     Object.entries(this.camposPacientes).forEach(([key, value]) => {
-      this.pacienteForm.addControl(key, this.fb.control('', value.validators));
+      this.pacienteForm.addControl(key, this.fb.control({value: '', disabled: !this.editable}, value.validators));
     });
-    this.pacienteForm.controls['fechaExpediente'].setValue(this.fechaCreacion);
+    
+    if(!this.expediente){
+      this.pacienteForm.controls['fechaExpediente'].setValue(this.datePipe.transform(this.fechaCreacion.getTime(), 'yyyy-MM-dd'));
+    }
   }
 
   validarCampo( campo:string ){
@@ -134,6 +148,14 @@ export class DatosPersonalesComponent implements OnInit {
     const anioActual = new Date().getTime();
     let fechaNacimiento = new Date(fecha.value).getTime();
     this.pacienteForm.controls['edad'].setValue(Math.floor((anioActual - fechaNacimiento) / (1000 * 60 * 60 * 24 * 365)));
+    this.formatDate(fecha, 'fecha_nacimiento');
+    console.log(fecha.value);
+    console.log(this.pacienteForm.value);
   }
+
+  formatDate(date: any, control: string){
+    this.pacienteForm.controls[control].setValue(this.datePipe.transform(date.value, 'yyyy-MM-dd'));
+  }
+
   
 }

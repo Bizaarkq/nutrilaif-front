@@ -8,6 +8,7 @@ import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/gen
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
 import { ConsultaComponent } from './views/pages/consultas/consulta/consulta.component';
 import { ListadoExpedienteComponent } from './views/pages/expediente/listado-expediente/listado-expediente.component';
+import { ExpedienteComponent } from './views/pages/expediente/expediente/expediente.component';
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
 import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
@@ -34,7 +35,12 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'consulta/:accion/:id',
+        path: 'consulta/:accion/:id_paciente/:id_consulta',
+        canActivate: [AuthGuard],
+        component: ConsultaComponent
+      },
+      {
+        path: 'consulta/:accion/:id_paciente',
         canActivate: [AuthGuard],
         component: ConsultaComponent
       },
@@ -52,6 +58,11 @@ const routes: Routes = [
         path: 'expedientes',
         canActivate: [AuthGuard],
         component: ListadoExpedienteComponent
+      },
+      {
+        path: 'expediente/:id_paciente',
+        canActivate: [AuthGuard],
+        component: ExpedienteComponent
       }
     ],
   },

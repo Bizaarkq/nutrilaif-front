@@ -13,8 +13,14 @@
         <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Fecha de creación del expediente</mat-label>
-                <input autocomplete="enabled" matInput [max]="fechaCreacion" [matDatepicker]="picker" placeholder="Ingrese la fecha de creación del expediente" formControlName="fechaExpediente">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <input 
+                    (dateChange)="formatDate($event, 'fechaExpediente')" 
+                    matInput 
+                    [max]="fechaCreacion" 
+                    [matDatepicker]="picker" 
+                    placeholder="Ingrese la fecha de creación del expediente" 
+                    formControlName="fechaExpediente">
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="validarCampo('fechaExpediente')">No se ha seleccionado ninguna fecha</mat-error>
@@ -93,8 +99,8 @@
                 <mat-label>Sexo</mat-label>
                 <mat-select matNativeControl formControlName="sexo" required>
                     <mat-option value="">--</mat-option>
-                    <mat-option value="Masculino">Masculino</mat-option>
-                    <mat-option value="Femenino">Femenino</mat-option>
+                    <mat-option value="H">Masculino</mat-option>
+                    <mat-option value="M">Femenino</mat-option>
                 </mat-select> 
                 <mat-error *ngIf="validarCampo('sexo')">Seleccione el género</mat-error>                      
             </mat-form-field>

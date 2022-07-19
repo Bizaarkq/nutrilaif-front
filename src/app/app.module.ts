@@ -25,6 +25,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared.module';
 import { ListadoExpedienteComponent } from './views/pages/expediente/listado-expediente/listado-expediente.component';
 import { DatePipe } from '@angular/common';
+import { ExpedienteComponent } from './views/pages/expediente/expediente/expediente.component';
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
+import { LOCALE_ID } from '@angular/core';
+registerLocaleData(localeES, 'es');
 
 @NgModule({
   declarations: [
@@ -32,7 +37,8 @@ import { DatePipe } from '@angular/common';
     GeneralLayoutComponent,
     InicioComponent,
     ConsultaComponent,
-    ListadoExpedienteComponent
+    ListadoExpedienteComponent,
+    ExpedienteComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,8 @@ import { DatePipe } from '@angular/common';
     MatCheckboxModule
   ],
   providers: [
-    DatePipe
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'es-ES' }
   ],
   bootstrap: [AppComponent]
 })

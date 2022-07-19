@@ -8,7 +8,8 @@ export const endpoints = {
     consulta: {
         guardarConsulta: environment.apiUrl + '/consulta/save',
         editarConsulta: environment.apiUrl + '/consulta/update',
-        getConsulta: environment.apiUrl + '/consulta/get'
+        getConsulta: environment.apiUrl + '/consulta/get',
+        listaConsultas: environment.apiUrl + '/consulta/list',
     },
     alimento: {
         listaAlimentos: environment.apiUrl + '/catalogo/alimento/listar',
