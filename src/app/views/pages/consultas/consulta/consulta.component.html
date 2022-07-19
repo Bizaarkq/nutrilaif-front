@@ -1,6 +1,6 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <form [formGroup]="consultaForm" (submit)="guardar()">
-<mat-stepper [linear]="false" #stepper>
+<mat-stepper orientation="vertical" [linear]="false" #stepper>
   <mat-step [stepControl]="paciente">
     <form [formGroup]="paciente" >
       <ng-template matStepLabel>Datos del Paciente</ng-template>
