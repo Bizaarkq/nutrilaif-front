@@ -1,11 +1,9 @@
-
-<app-datos-personales [loadFromParent]="false" [editable]="true"></app-datos-personales>
-
+<app-datos-personales [expediente]="true" [editable]="false"></app-datos-personales>
 
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <div style="max-width:750px; margin: 0 auto;">
 <mat-form-field appearance="standard">
-    <mat-label>Buscar expediente</mat-label>
+    <mat-label>Buscar consulta</mat-label>
     <input matInput (keyup)="filtroConsultas($event)" #input>
 </mat-form-field>
 <div class="mat-elevation-z8">
@@ -24,7 +22,7 @@
             <a *ngIf="element.es_borrador" [routerLink]="[ '/consulta/editar', id_paciente, element.id  ]"  mat-mini-fab color="accent" matTooltip="Editar Consulta">
               <mat-icon>edit</mat-icon>
             </a>
-            <a mat-mini-fab color="primary" matTooltip="Ver Consulta"> 
+            <a mat-mini-fab color="primary" [routerLink]="[ '/consulta/ver', id_paciente, element.id  ]"   matTooltip="Ver Consulta"> 
                 <mat-icon>visibility</mat-icon>
             </a>
         </td>

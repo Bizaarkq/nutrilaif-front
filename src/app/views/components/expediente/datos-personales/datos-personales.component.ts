@@ -13,7 +13,8 @@ export class DatosPersonalesComponent implements OnInit {
 
   @Input() pacienteForm !: FormGroup;
   @Input() loadFromParent : boolean = false;
-  @Input() editable: boolean = false;
+  @Input() editable: boolean = true;
+  @Input() expediente: boolean = false;
   departamentos: any;
   municipios: any;
   visibleSpinner = false;
@@ -23,68 +24,55 @@ export class DatosPersonalesComponent implements OnInit {
   camposPacientes = {
     "numero_exp": {
       "label": "Número de Expediente",
-      "validators":  null,
-      "editable": this.editable
+      "validators":  null
     }, 
     'nombre': {
       "label": "Nombre",
-      "validators":  [Validators.required, Validators.minLength(10)],
-      "editable": this.editable
+      "validators":  [Validators.required, Validators.minLength(10)]
     },
     'apellido': {
       "label": "Apellido",
-      "validators":  [Validators.required, Validators.minLength(8)],
-      "editable": this.editable
+      "validators":  [Validators.required, Validators.minLength(8)]
     },
     'fecha_nacimiento': {
       "label": "Fecha de Nacimiento",
-      "validators":  [Validators.required],
-      "editable": this.editable
+      "validators":  [Validators.required]
     },
     'correo': {
       "label": "Correo",
-      "validators":  [Validators.required, Validators.email],
-      "editable": this.editable
+      "validators":  [Validators.required, Validators.email]
     },
     'sexo': {
       "label": "Sexo",
-      "validators":  [Validators.required],
-      "editable": this.editable
+      "validators":  [Validators.required]
     },
     'telefono': {
       "label": "Teléfono",
-      "validators":  [Validators.required, Validators.minLength(8)],
-      "editable": this.editable
+      "validators":  [Validators.required, Validators.minLength(8)]
     },
     'direccion': {
       "label": "Dirección",
-      "validators":  [Validators.required, Validators.minLength(5)],
-      "editable": this.editable
+      "validators":  [Validators.required, Validators.minLength(5)]
     },
     'departamento': {
       "label": "Departamento",
-      "validators":  [Validators.required],
-      "editable": this.editable
+      "validators":  [Validators.required]
     }, 
     'municipio': {
       "label": "Municipio",
-      "validators":  [Validators.required],
-      "editable": this.editable
+      "validators":  [Validators.required]
     },
     'edad': {
       "label": "Edad",
-      "validators":  null,
-      "editable": this.editable
+      "validators":  null
     },
     'ocupacion': {
       "label": "Ocupación",
-      "validators":  [],
-      "editable": this.editable
+      "validators":  []
     },
     'fechaExpediente': {
       "label": "Fecha de Expediente",
-      "validators":  null,
-      "editable": this.editable
+      "validators":  null
     },
   };
   //Variable para manejar el formulario de datos personales
@@ -98,15 +86,14 @@ export class DatosPersonalesComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void { 
-    if(this.editable){
+    if(this.expediente){
       this.pacienteForm = this.fb.group({});
     }
-
     this.createForm();
     this.getDepartamentos();
 
-    if(!this.loadFromParent){
-      const id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    const id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    if( id_paciente !== null ){
       this.visibleSpinner=true;
       this.pacienteService.getDatosPersonales(id_paciente).subscribe({
         next: (results: any) => {
@@ -124,17 +111,14 @@ export class DatosPersonalesComponent implements OnInit {
       });
     }
 
-
   }
 
   createForm(): void {
     Object.entries(this.camposPacientes).forEach(([key, value]) => {
-      this.pacienteForm.addControl(key, this.fb.control({value: '', disabled: !value.editable}, value.validators));
+      this.pacienteForm.addControl(key, this.fb.control({value: '', disabled: !this.editable}, value.validators));
     });
     
-    if(this.editable){
-      //this.pacienteForm.disable({ onlySelf: true });
-    }else{
+    if(!this.expediente){
       this.pacienteForm.controls['fechaExpediente'].setValue(this.datePipe.transform(this.fechaCreacion.getTime(), 'yyyy-MM-dd'));
     }
   }

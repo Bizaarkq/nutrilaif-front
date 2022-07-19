@@ -4,12 +4,13 @@
   <mat-step [stepControl]="paciente">
     <form [formGroup]="paciente" >
       <ng-template matStepLabel>Datos del Paciente</ng-template>
-          <app-datos-personales [pacienteForm]="paciente" [loadFromParent]="true"></app-datos-personales> 
+          <app-datos-personales [pacienteForm]="paciente" [editable]="!(accion==='editar' || accion==='ver')"></app-datos-personales> 
       <div>
-        <button mat-button matStepperNext type="button">Siguiente</button>
+        <button mat-raised-button matStepperNext color="accent">Siguiente</button>
       </div>
     </form>
   </mat-step>
+  <ng-container *ngIf="!loadingDataEdicion">
   <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue; let i=index">
     <mat-step [stepControl]="group.value">
       <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
@@ -25,32 +26,38 @@
           </mat-form-field>
         </ng-container>
         <div>
-          <button mat-button matStepperNext type="button">Siguiente</button>
+          <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+          <button mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
       </form>
     </mat-step>
   </ng-container>
+</ng-container>
   <mat-step [stepControl]="frecuencia_consumo">
     <form [formGroup]="frecuencia_consumo" >
       <ng-template matStepLabel>Frecuencia de consumo</ng-template>
       <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
       <div>
-        <button mat-button matStepperNext type="button">Siguiente</button>
+        <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+        <button mat-raised-button matStepperNext color="accent">Siguiente</button>
       </div>
     </form>
   </mat-step>
-  <mat-step *ngIf="accion==='editar'" [stepControl]="dieta">
+  <mat-step *ngIf="accion==='editar' || accion==='ver'" [stepControl]="dieta">
     <form [formGroup]="dieta" >
       <ng-template matStepLabel>Dieta</ng-template>
       <app-tabla-dieta [formularioDieta]="dieta"></app-tabla-dieta>    
       <div>
-        <button mat-button matStepperNext type="button">Siguiente</button>
+        <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
       </div>
     </form>
   </mat-step>
 </mat-stepper>
-<button mat-raised-button color="primary">Guardar</button>
-<section [formGroup]="consultaForm">
-  <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
-</section>
+<span>
+  <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
+    <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
+  </section>
+  <button mat-raised-button color="primary">Guardar</button>
+</span>
+
 </form>
