@@ -4,7 +4,7 @@
   <mat-step [stepControl]="paciente">
     <form [formGroup]="paciente" >
       <ng-template matStepLabel>Datos del Paciente</ng-template>
-          <app-datos-personales [pacienteForm]="paciente" [editable]="!(accion==='editar' || accion==='ver')"></app-datos-personales> 
+          <app-datos-personales [pacienteForm]="paciente" [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"></app-datos-personales> 
       <div>
         <button mat-raised-button matStepperNext color="accent">Siguiente</button>
       </div>
