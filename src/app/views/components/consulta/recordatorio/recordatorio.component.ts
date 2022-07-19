@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,35 +7,98 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./recordatorio.component.css']
 })
 export class RecordatorioComponent implements OnInit {
+  @Input() formRecordatorio !: FormGroup;
 
-  camposRecordatorio: string[] = [
+  camposRecordatorio = {
     //Desayuno
-    'desayunoHora', 
-    'comentarioDes',
-    'recordatorioDesH',
-    'recordatorioDesC',
+    "desayunoHora"          : {
+      "label": "Hora del desayuno",
+      "validators": [Validators.required]
+    },
+    "recordatorioDesayuno"  : {
+      "label": "Recordatorio del desayuno",
+      "validators": [Validators.required]
+    },
+    //Refrigerio del desayuno
+    "desayunoRefrigerioHora": {
+      "label": "Hora del refrigerio",
+      "validators": [Validators.required]
+    },
+    "recordatorioRefrigerioDesayuno": {
+      "label": "Recordatorio del refrigerio del desayuno",
+      "validators": [Validators.required]
+    },
     //Almuerzo
-    'almuerzoHora',
-    'comentarioAlm',
-    'recordatorioAlmH',
-    'recordatorioAlmC',
+    "almuerzoHora"          : {
+      "label": "Hora del almuerzo",
+      "validators": [Validators.required]
+    },
+    "recordatorioAlmuerzo"  : {
+      "label": "Recordatorio del almuerzo",
+      "validators": [Validators.required]
+    },
+    //Refrigerio del almuerzo
+    "almuerzoRefrigerioHora"    : {
+      "label": "Refrigerio almuerzo",
+      "validators": [Validators.required]
+    },
+    "recordatorioRefrigerioAlmuerzo": {
+      "label": "Recordatorio del almuerzo",
+      "validators": [Validators.required]
+    },
     //Cena
-    'cenaHora', 
-    'comentarioCena',
-  ]
-
-  formRecordatorio!: FormGroup;
-  constructor(private fb:FormBuilder) { 
-    
+    "cenaHora"              : {
+      "label": "Hora de la cena",
+      "validators": [Validators.required]
+    },
+    "recordatorioCena"      : {
+      "label": "Recordatorio de la cena",
+      "validators": [Validators.required]
+    }, 
+    //Otros campos
+    "caloriasTotales"       : {
+      "validators": [Validators.required]
+    },
+    "cumplimientoCalorias"  : {
+      "validators": [Validators.required]
+    },
+    "cho"                   : {
+      "validators": [Validators.required]
+    },
+    "cumplimientoCho"       : {
+      "validators": [Validators.required]
+    },
+    "chon"                  : {
+      "validators": [Validators.required]
+    },
+    "cumplimientoChon"      : {
+      "validators": [Validators.required]
+    },
+    "cooh"                  : {
+      "validators": [Validators.required]
+    },
+    "cumplimientoCooh"      : {
+      "validators": [Validators.required]
+    },
+    "consumoAgua"           : {
+      "validators": [Validators.required]
+    }
   }
+  
+  constructor(private fb:FormBuilder) {}
 
   ngOnInit(): void {
     this.createForm();
   }
 
   createForm():void{
-    const group:any = {};
-    this.camposRecordatorio.forEach(property => group[property] = new FormControl());
-    this.formRecordatorio = new FormGroup(group);
+    Object.entries(this.camposRecordatorio).forEach(([key, value]) => {
+      this.formRecordatorio.addControl(key, this.fb.control('', value.validators));
+    });
+  }
+
+  validarCampo( campo:string ){
+    return this.formRecordatorio.controls[campo].errors && 
+            this.formRecordatorio.controls[campo].touched
   }
 }

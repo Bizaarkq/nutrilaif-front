@@ -43,6 +43,16 @@
       </div>
     </form>
   </mat-step>
+  <mat-step [stepControl]="recordatorio">
+    <form [formGroup]="recordatorio" >
+      <ng-template matStepLabel>Recordatorio de 24 Horas</ng-template>
+      <app-recordatorio [formRecordatorio]="recordatorio"></app-recordatorio>
+      <div>
+        <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+        <button mat-raised-button matStepperNext color="accent">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
   <mat-step *ngIf="accion==='editar' || accion==='ver'" [stepControl]="dieta">
     <form [formGroup]="dieta" >
       <ng-template matStepLabel>Dieta</ng-template>
@@ -61,3 +71,5 @@
 </span>
 
 </form>
+
+<span>{{ consultaForm.value | json }}</span>
