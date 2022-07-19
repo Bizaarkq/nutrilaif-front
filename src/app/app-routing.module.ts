@@ -11,6 +11,7 @@ import { ListadoExpedienteComponent } from './views/pages/expediente/listado-exp
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
 import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
+import { PlanificacionDietaComponent } from './views/components/planificacion-dieta/planificacion-dieta.component';
 
 const routes: Routes = [
   {
@@ -52,7 +53,12 @@ const routes: Routes = [
         path: 'expedientes',
         canActivate: [AuthGuard],
         component: ListadoExpedienteComponent
-      }
+      },
+      {
+        path: 'planDieta',
+        component: PlanificacionDietaComponent,
+        canActivate: [AuthGuard]
+      },
     ],
   },
   {

@@ -13,6 +13,7 @@ import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.compo
 import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.component';
 import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion-dieta.component';
 
 
 
@@ -26,6 +27,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     RecordatorioComponent,
     TablaDietaComponent,
     SpinnerComponent,
+    PlanificacionDietaComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     DialogAlimentoComponent,
     RecordatorioComponent,
     TablaDietaComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PlanificacionDietaComponent,
   ]
 })
 export class ComponentsModule { }
