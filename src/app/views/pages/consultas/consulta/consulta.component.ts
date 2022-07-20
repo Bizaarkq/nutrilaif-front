@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ConsultaForm } from './consulta-form';
 import { ConsultaService } from 'src/app/services/consulta.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -34,6 +34,7 @@ export class ConsultaComponent implements OnInit {
   subConsultaForm!:FormGroup;
   id_paciente:any;
   loadingDataEdicion: boolean = false;
+  numeroExpediente: any = null;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -51,7 +52,8 @@ export class ConsultaComponent implements OnInit {
     private consultaService: ConsultaService,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router
   ) {}
     contador=0;
   ngOnInit(): void {
@@ -59,7 +61,7 @@ export class ConsultaComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
-    console.log(this.id, this.id_paciente);
+
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
     if ((this.accion === 'editar' || this.accion === 'ver') && this.id !== null) {
@@ -113,19 +115,35 @@ export class ConsultaComponent implements OnInit {
     this.visibleSpinner = true;
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
+        let duracion = 3000;
+        if(res.data !== null){
+          this.snack.open(
+            'N° de Expediente para el nuevo paciente: ' + res.data, '',
+            {
+              duration: duracion,
+            }
+          );
+
+          duracion -= 2000;
+        }
+
         this.snack.open(
-          res.mensaje,
-          'Ok',
+          res.mensaje, '',
           {
-            duration: 3000,
+            duration: duracion,
           }
         );
+        
         this.paciente.controls['numero_exp'].setValue(res.data);
+        this.numeroExpediente = res.data;
+        setTimeout(() => {
+          this.router.navigate(['/expedientes']);
+        }, 3000);
       },
       error: (err) => {
         this.snack.open(
           err.mensaje,
-          'Ok',
+          '',
           {
             duration: 3000,
           }
@@ -185,5 +203,5 @@ export class ConsultaComponent implements OnInit {
     });
     this.cd.detectChanges();
   }
-
+  
 }

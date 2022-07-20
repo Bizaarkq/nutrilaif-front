@@ -1,6 +1,6 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
-<mat-grid-list cols="12" rowHeight="80px">
+<mat-grid-list cols="12" rowHeight="90px">
     <form [formGroup]="pacienteForm">
         <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
@@ -84,6 +84,7 @@
                 <mat-label>Fecha de nacimiento</mat-label>
                 <input 
                     matInput 
+                    [max]="fechaCreacion"
                     [matDatepicker]="pickerN" 
                     placeholder="Ingrese la fecha nacimiento" 
                     formControlName="fecha_nacimiento"

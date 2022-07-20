@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ListadoExpedienteComponent implements OnInit {
 
-  columnas: string[] = ['num_expediente', 'nombre_completo', 'acciones'];
+  columnas: string[] = ['num_expediente', 'nombre_completo', 'telefono','correo','acciones'];
   tablaData !: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
