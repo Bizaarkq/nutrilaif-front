@@ -5,17 +5,29 @@
       "diagnostico": {
         "label": "Diagnósticos médicos",
         "placeholder": "Diagnóstico",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "medicamento_suplemento": {
         "label": "Medicamento/Suplemento",
         "placeholder": "Medicamento/suplemento",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "otros_datos": {
         "label": "Otros datos importantes",
         "placeholder": "Otros datos importantes",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       }
     }
   },
@@ -90,67 +102,67 @@
       "peso_actual": {
         "label": "Peso actual",
         "placeholder": "Peso actual",
-        "type": "input"
+        "type": "number"
       },
       "peso_ideal": {
         "label": "Peso ideal",
         "placeholder": "Peso ideal",
-        "type": "input"
+        "type": "number"
       },
       "p_grasa_corporal": {
         "label": "Porcentaje grasa corporal",
         "placeholder": "Porcentaje grsasa corporal",
-        "type": "input"
+        "type": "number"
       },
       "p_masa_muscular": {
         "label": "Porcentaje masa muscular",
         "placeholder": "Porcentaje masa muscular",
-        "type": "input"
+        "type": "number"
       },
       "p_grasa_visceral": {
         "label": "Porcentaje grasa visceral",
         "placeholder": "Porcentaje grasa visceral",
-        "type": "input"
+        "type": "number"
       },
       "peso_meta": {
         "label": "Peso meta",
         "placeholder": "Peso meta",
-        "type": "input"
+        "type": "number"
       },
       "talla": {
         "label": "Talla",
         "placeholder": "Talla",
-        "type": "input"
+        "type": "number"
       },
       "c_cintura": {
         "label": "C. Cintura",
         "placeholder": "C. Cintura",
-        "type": "input"
+        "type": "number"
       },
       "imc": {
         "label": "Imc",
         "placeholder": "Imc",
-        "type": "input"
+        "type": "number"
       },
       "edad_metabolica": {
         "label": "Edad metabólica",
         "placeholder": "Edad metabólica",
-        "type": "input"
+        "type": "number"
       },
       "c_brazo_relaj": {
         "label": "C. Brazo relajado",
         "placeholder": "C. Brazo relajado",
-        "type": "input"
+        "type": "number"
       },
       "c_cadera": {
         "label": "C. Cadera",
         "placeholder": "C. Cadera",
-        "type": "input"
+        "type": "number"
       },
       "c_muneca": {
         "label": "C. Muñeca",
         "placeholder": "C. Muñeca",
-        "type": "input"
+        "type": "number"
       }
     }
   },
@@ -160,22 +172,38 @@
       "preferencia_alimen": {
         "label": "Preferencias alimentarias",
         "placeholder": "Preferencias alimentarias",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "alimentos_no_gustan": {
         "label": "Alimentos que no le gustan",
         "placeholder": "Alimentos que no le gustan",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "intolerancia_alergia": {
         "label": "Intolerancias o alergias",
         "placeholder": "Intolerancias o alergias",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "actividad_fisica": {
         "label": "Actividad física",
         "placeholder": "Actividad física",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "alcohol": {
         "label": "Alcohol",
@@ -190,7 +218,8 @@
             "label": "Si",
             "value": 1
           }
-        ]
+        ],
+        "cols": "2"
       },
       "tabaco": {
         "label": "Tabaquismo",
@@ -205,17 +234,23 @@
             "label": "Si",
             "value": 1
           }
-        ]
+        ],
+        "cols": "2"
       },
       "agua": {
         "label": "Agua",
         "placeholder": "Cantidad de agua",
-        "type": "input"
+        "type": "number",
+        "cols": "2"
       },
       "observacion_menu_anterior": {
         "label": "Observación del menú anterior",
         "placeholder": "Observación del menú anterior",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "saciedad": {
         "label": "Saciedad",
@@ -230,17 +265,26 @@
             "label": "Si",
             "value": 1
           }
-        ]
+        ],
+        "cols": "2"
       },
       "alimentos_quiere": {
         "label": "Alimentos que quisiera incorporar",
         "placeholder": "Alimentos que quisiera incorporar",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "diagnostico_nutricional": {
         "label": "Diagnóstico nutricional",
         "placeholder": "Diagnóstico nutricional",
-        "type": "input"
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
       },
       "estrenimiento": {
         "label": "Estreñimiento",
