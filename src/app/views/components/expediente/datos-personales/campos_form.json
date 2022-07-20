@@ -49,6 +49,6 @@
   },
   "fechaExpediente": {
     "label": "Fecha de Expediente",
-    "validators": null
+    "validators": ["required"]
   }
 }
