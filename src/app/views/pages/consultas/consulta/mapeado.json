@@ -233,8 +233,8 @@
         ]
       },
       "alimentos_quiere": {
-        "label": "Alimentos que quiere",
-        "placeholder": "Alimentos que quiere",
+        "label": "Alimentos que quisiera incorporar",
+        "placeholder": "Alimentos que quisiera incorporar",
         "type": "input"
       },
       "diagnostico_nutricional": {
@@ -256,6 +256,26 @@
             "value": 1
           }
         ]
+      },
+      "antecedentes_familiares": {
+        "label": "Antecedentes familiares",
+        "placeholder": "Antecedentes familiares",
+        "type": "input"
+      },
+      "donde_come": {
+        "label": "Dónde come",
+        "placeholder": "Donde realiza los tiempos de comida",
+        "type": "input"
+      },
+      "quien_cocina": {
+        "label": "Quién prepara los alimentos",
+        "placeholder": "Quién prepara los alimentos",
+        "type": "input"
+      },
+      "horas_sueno": {
+        "label": "Horas de sueño",
+        "placeholder": "Horas de sueño",
+        "type": "input"
       }
     }
   }
