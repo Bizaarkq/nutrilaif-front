@@ -78,7 +78,6 @@ export class DatosPersonalesComponent implements OnInit {
         )
       );
     });
-    console.log(this.pacienteForm);
     if(!this.expediente){
       this.pacienteForm.controls['fechaExpediente'].setValue(this.fechaCreacion);
     }
