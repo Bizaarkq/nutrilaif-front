@@ -58,6 +58,11 @@ export class ConsultaForm{
           actividad_fisica: ['',[Validators.required]],
           alcohol: [''],
           tabaco: [''],
+          antecedentes_familiares: [''],
+          donde_come: [''],
+          quien_cocina: [''],
+          estrenimiento: [''],
+          horas_sueno: [''],
         });
         break;
       default:
