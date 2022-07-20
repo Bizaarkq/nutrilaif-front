@@ -1,0 +1,69 @@
+{
+    "desayunoHora"          : {
+      "label": "Hora del desayuno",
+      "validators": ["required"]
+    },
+    "recordatorioDesayuno"  : {
+      "label": "Recordatorio del desayuno",
+      "validators": ["required"]
+    },
+    "desayunoRefrigerioHora": {
+      "label": "Hora del refrigerio",
+      "validators": ["required"]
+    },
+    "recordatorioRefrigerioDesayuno": {
+      "label": "Recordatorio del refrigerio del desayuno",
+      "validators": ["required"]
+    },
+    "almuerzoHora"          : {
+      "label": "Hora del almuerzo",
+      "validators": ["required"]
+    },
+    "recordatorioAlmuerzo"  : {
+      "label": "Recordatorio del almuerzo",
+      "validators": ["required"]
+    },
+    "almuerzoRefrigerioHora"    : {
+      "label": "Refrigerio almuerzo",
+      "validators": ["required"]
+    },
+    "recordatorioRefrigerioAlmuerzo": {
+      "label": "Recordatorio del almuerzo",
+      "validators": ["required"]
+    },
+    "cenaHora"              : {
+      "label": "Hora de la cena",
+      "validators": ["required"]
+    },
+    "recordatorioCena"      : {
+      "label": "Recordatorio de la cena",
+      "validators": ["required"]
+    },
+    "caloriasTotales"       : {
+      "validators": ["required"]
+    },
+    "cumplimientoCalorias"  : {
+      "validators": ["required"]
+    },
+    "cho"                   : {
+      "validators": ["required"]
+    },
+    "cumplimientoCho"       : {
+      "validators": ["required"]
+    },
+    "chon"                  : {
+      "validators": ["required"]
+    },
+    "cumplimientoChon"      : {
+      "validators": ["required"]
+    },
+    "cooh"                  : {
+      "validators": ["required"]
+    },
+    "cumplimientoCooh"      : {
+      "validators": ["required"]
+    },
+    "consumoAgua"           : {
+      "validators": ["required"]
+    }
+  }

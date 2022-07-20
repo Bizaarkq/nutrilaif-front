@@ -14,15 +14,30 @@
   <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue; let i=index">
     <mat-step [stepControl]="group.value">
       <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
-        <ng-template matStepLabel >{{ labelTitulos[i] }}</ng-template>
+        <ng-template matStepLabel >{{ consultaMap[group.key].label_step }}</ng-template>
         <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
           <mat-form-field appearance="outline">
-            <mat-label>{{ consultaMap[control.key].label }}</mat-label>
-            <input
+            <mat-label>{{ consultaMap[group.key].controls[control.key].label }}</mat-label>
+
+            <span [ngSwitch]="consultaMap[group.key].controls[control.key].type">
+            <p *ngSwitchCase="'input'">
+              <input
               matInput
               formControlName="{{ control.key }}"
-              placeholder="{{ consultaMap[control.key].placeholder }}"
+              placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}"
               />
+            </p>
+            <p *ngSwitchCase="'select'">
+              <mat-select formControlName="{{ control.key }}" >
+                <mat-option *ngFor="let option of consultaMap[group.key].controls[control.key].options" [value]="option.value">
+                  {{option.label}}
+                </mat-option>
+              </mat-select>
+            </p>
+            <p *ngSwitchDefault>
+            
+            </p>
+            </span>
           </mat-form-field>
         </ng-container>
         <div>
@@ -33,20 +48,20 @@
     </mat-step>
   </ng-container>
 </ng-container>
-  <mat-step [stepControl]="frecuencia_consumo">
-    <form [formGroup]="frecuencia_consumo" >
-      <ng-template matStepLabel>Frecuencia de consumo</ng-template>
-      <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
+  <mat-step [stepControl]="recordatorio">
+    <form [formGroup]="recordatorio" >
+      <ng-template matStepLabel>Recordatorio de 24 Horas</ng-template>
+      <app-recordatorio [formRecordatorio]="recordatorio"></app-recordatorio>
       <div>
         <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
         <button mat-raised-button matStepperNext color="accent">Siguiente</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="recordatorio">
-    <form [formGroup]="recordatorio" >
-      <ng-template matStepLabel>Recordatorio de 24 Horas</ng-template>
-      <app-recordatorio [formRecordatorio]="recordatorio"></app-recordatorio>
+  <mat-step [stepControl]="frecuencia_consumo">
+    <form [formGroup]="frecuencia_consumo" >
+      <ng-template matStepLabel>Frecuencia de consumo</ng-template>
+      <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo"></app-frecuencia-consumo>
       <div>
         <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
         <button mat-raised-button matStepperNext color="accent">Siguiente</button>
