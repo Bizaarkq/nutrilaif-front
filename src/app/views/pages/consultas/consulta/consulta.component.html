@@ -98,12 +98,10 @@
       </form>
     </mat-step>
   </mat-stepper>
-  <span>
+  <div style="text-align: center;">
     <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
-      <p>
-        <mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox>
-      </p>
+      <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
     </section>
-    <button mat-raised-button color="primary" [disabled]="consultaForm.invalid">Guardar</button>
-  </span>
+    <button mat-fab color="primary" [disabled]="consultaForm.invalid"><mat-icon>save</mat-icon></button>
+  </div>
 </form>
