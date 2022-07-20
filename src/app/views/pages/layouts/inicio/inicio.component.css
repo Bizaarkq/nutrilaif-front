@@ -1,6 +1,6 @@
 .example-card {
-    width: 100%;
-    width: 40%;
+    width: 60%;
+    height: 60%;
 }
   
 .mat-card-actions{
@@ -12,9 +12,8 @@
     color: white;
 }
 
-img {
-    height: 250px;
-    width: 300px
+.image-container {
+    text-align: center;
 }
 
 
