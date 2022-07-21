@@ -1,0 +1,326 @@
+{
+  "datos_medicos": {
+    "label_step": "Datos Médicos",
+    "controls": {
+      "diagnostico": {
+        "label": "Diagnósticos médicos",
+        "placeholder": "Diagnóstico",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "medicamento_suplemento": {
+        "label": "Medicamento/Suplemento",
+        "placeholder": "Medicamento/suplemento",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "otros_datos": {
+        "label": "Otros datos importantes",
+        "placeholder": "Otros datos importantes",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      }
+    }
+  },
+  "examen_labs": {
+    "label_step": "Exámenes de laboratorio",
+    "controls": {
+      "hemoglobina": {
+        "label": "Hemoglobina",
+        "placeholder": "Hemoglobina",
+        "type": "input"
+      },
+      "linfocitos": {
+        "label": "Linfocitos",
+        "placeholder": "Linfocitos",
+        "type": "input"
+      },
+      "hba_1c": {
+        "label": "HbA 1c",
+        "placeholder": "HbA 1c",
+        "type": "input"
+      },
+      "creatinina": {
+        "label": "Creatinina",
+        "placeholder": "Creatinina",
+        "type": "input"
+      },
+      "trigliceridos": {
+        "label": "Triglicéridos",
+        "placeholder": "Triglicéridos",
+        "type": "input"
+      },
+      "colesterol_total": {
+        "label": "Colesterol Total",
+        "placeholder": "Colesterol Total",
+        "type": "input"
+      },
+      "chdl": {
+        "label": "c-HDL",
+        "placeholder": "c-HDL",
+        "type": "input"
+      },
+      "cldl": {
+        "label": "c-LDL",
+        "placeholder": "c-LDL",
+        "type": "input"
+      },
+      "glucosa_ayuno": {
+        "label": "Glucosa en ayuno",
+        "placeholder": "Glucosa en ayuno",
+        "type": "input"
+      },
+      "glucosa_post_pondrial": {
+        "label": "Glucosa post pondríal",
+        "placeholder": "Glucosa post pondríal",
+        "type": "input"
+      },
+      "acido_urico": {
+        "label": "Ácido úrico",
+        "placeholder": "Ácido úrico",
+        "type": "input"
+      },
+      "albumina": {
+        "label": "Albúmina",
+        "placeholder": "Albúmina",
+        "type": "input"
+      }
+    }
+  },
+  "datos_antropo": {
+    "label_step": "Datos Antropométricos",
+    "controls": {
+      "peso_actual": {
+        "label": "Peso actual",
+        "placeholder": "Peso actual",
+        "type": "number"
+      },
+      "peso_ideal": {
+        "label": "Peso ideal",
+        "placeholder": "Peso ideal",
+        "type": "number"
+      },
+      "p_grasa_corporal": {
+        "label": "Porcentaje grasa corporal",
+        "placeholder": "Porcentaje grsasa corporal",
+        "type": "number"
+      },
+      "p_masa_muscular": {
+        "label": "Porcentaje masa muscular",
+        "placeholder": "Porcentaje masa muscular",
+        "type": "number"
+      },
+      "p_grasa_visceral": {
+        "label": "Porcentaje grasa visceral",
+        "placeholder": "Porcentaje grasa visceral",
+        "type": "number"
+      },
+      "peso_meta": {
+        "label": "Peso meta",
+        "placeholder": "Peso meta",
+        "type": "number"
+      },
+      "talla": {
+        "label": "Talla",
+        "placeholder": "Talla",
+        "type": "number"
+      },
+      "c_cintura": {
+        "label": "C. Cintura",
+        "placeholder": "C. Cintura",
+        "type": "number"
+      },
+      "imc": {
+        "label": "Imc",
+        "placeholder": "Imc",
+        "type": "number"
+      },
+      "edad_metabolica": {
+        "label": "Edad metabólica",
+        "placeholder": "Edad metabólica",
+        "type": "number"
+      },
+      "c_brazo_relaj": {
+        "label": "C. Brazo relajado",
+        "placeholder": "C. Brazo relajado",
+        "type": "number"
+      },
+      "c_cadera": {
+        "label": "C. Cadera",
+        "placeholder": "C. Cadera",
+        "type": "number"
+      },
+      "c_muneca": {
+        "label": "C. Muñeca",
+        "placeholder": "C. Muñeca",
+        "type": "number"
+      }
+    }
+  },
+  "historia_dietetica": {
+    "label_step": "Historia Dietética",
+    "controls": {
+      "preferencia_alimen": {
+        "label": "Preferencias alimentarias",
+        "placeholder": "Preferencias alimentarias",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "alimentos_no_gustan": {
+        "label": "Alimentos que no le gustan",
+        "placeholder": "Alimentos que no le gustan",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "intolerancia_alergia": {
+        "label": "Intolerancias o alergias",
+        "placeholder": "Intolerancias o alergias",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "actividad_fisica": {
+        "label": "Actividad física",
+        "placeholder": "Actividad física",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "alcohol": {
+        "label": "Alcohol",
+        "placeholder": "Alcohol",
+        "type": "select",
+        "options": [
+          {
+            "label": "No",
+            "value": 0
+          },
+          {
+            "label": "Si",
+            "value": 1
+          }
+        ],
+        "cols": "2"
+      },
+      "tabaco": {
+        "label": "Tabaquismo",
+        "placeholder": "Tabaquismo",
+        "type": "select",
+        "options": [
+          {
+            "label": "No",
+            "value": 0
+          },
+          {
+            "label": "Si",
+            "value": 1
+          }
+        ],
+        "cols": "2"
+      },
+      "agua": {
+        "label": "Agua",
+        "placeholder": "Cantidad de agua",
+        "type": "number",
+        "cols": "2"
+      },
+      "observacion_menu_anterior": {
+        "label": "Observación del menú anterior",
+        "placeholder": "Observación del menú anterior",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "saciedad": {
+        "label": "Saciedad",
+        "placeholder": "Saciedad",
+        "type": "select",
+        "options": [
+          {
+            "label": "No",
+            "value": 0
+          },
+          {
+            "label": "Si",
+            "value": 1
+          }
+        ],
+        "cols": "2"
+      },
+      "alimentos_quiere": {
+        "label": "Alimentos que quisiera incorporar",
+        "placeholder": "Alimentos que quisiera incorporar",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "diagnostico_nutricional": {
+        "label": "Diagnóstico nutricional",
+        "placeholder": "Diagnóstico nutricional",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control"
+      },
+      "estrenimiento": {
+        "label": "Estreñimiento",
+        "placeholder": "Estreñimiento",
+        "type": "select",
+        "options": [
+          {
+            "label": "No",
+            "value": 0
+          },
+          {
+            "label": "Si",
+            "value": 1
+          }
+        ]
+      },
+      "antecedentes_familiares": {
+        "label": "Antecedentes familiares",
+        "placeholder": "Antecedentes familiares",
+        "type": "input"
+      },
+      "donde_come": {
+        "label": "Dónde come",
+        "placeholder": "Donde realiza los tiempos de comida",
+        "type": "input"
+      },
+      "quien_cocina": {
+        "label": "Quién prepara los alimentos",
+        "placeholder": "Quién prepara los alimentos",
+        "type": "input"
+      },
+      "horas_sueno": {
+        "label": "Horas de sueño",
+        "placeholder": "Horas de sueño",
+        "type": "input"
+      }
+    }
+  }
+}

@@ -24,7 +24,7 @@ export class ListarAlimentosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarAlimentos();
   }
-  constructor(private dialog:MatDialog, private api:AlimentosService){
+  constructor(private dialog:MatDialog, private api:AlimentosService, private snack: MatSnackBar){
 
   }
   openDialog() {
@@ -47,7 +47,13 @@ export class ListarAlimentosComponent implements OnInit {
         this.visibleSpinner = false;
       },
       error:()=>{
-        alert("No se pueden obtener los alimentos");
+        this.snack.open(
+          "No se pueden obtener los alimentos",
+          'OK',
+          {
+            duration: 5000,
+          }
+        );
       }
     })
   }
@@ -66,14 +72,29 @@ export class ListarAlimentosComponent implements OnInit {
   }
 
   eliminarAlimento(alimento:any){
+    this.visibleSpinner=true;
     this.api.eliminarAlimento(alimento.codigo)
     .subscribe({
       next:(res)=>{
-        alert("Alimento eliminado");
+        this.visibleSpinner=false;
+        this.snack.open(
+          res.mensaje,
+          'OK',
+          {
+            duration: 3000,
+          }
+        );
         this.cargarAlimentos();
       },
-      error:()=>{
-        alert("Error al eliminar alimento");
+      error:(res)=>{
+        this.visibleSpinner=false;
+        this.snack.open(
+          res.mensaje,
+          'OK',
+          {
+            duration: 3000,
+          }
+        );
       }
     })
   }

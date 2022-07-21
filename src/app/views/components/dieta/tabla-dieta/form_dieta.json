@@ -1,0 +1,110 @@
+{
+    "fechaCreacionDieta"        :{
+      "validators": null
+    },
+    "lDesayuno"           : {
+      "validators": ["required"]
+    },
+    "lRefrigerioDesayuno" : {
+      "validators": ["required"]
+    },
+    "lAlmuerzo"           : {
+      "validators": ["required"]
+    },
+    "lRefrigerioAlmuerzo" : {
+      "validators": ["required"]
+    },
+    "lCena"               : {
+      "validators": ["required"]
+    },
+    "mDesayuno"           : {
+      "validators": ["required"]
+    },
+    "mRefrigerioDesayuno" : {
+      "validators": ["required"]
+    },
+    "mAlmuerzo"           : {
+      "validators": ["required"]
+    },
+    "mRefrigerioAlmuerzo" : {
+      "validators": ["required"]
+    },
+    "mCena"               : {
+      "validators": ["required"]
+    },
+    "miDesayuno"          : {
+      "validators": ["required"]
+    },
+    "miRefrigerioDesayuno": {
+      "validators": ["required"]
+    },
+    "miAlmuerzo"          : {
+      "validators": ["required"]
+    },
+    "miRefrigerioAlmuerzo": {
+      "validators": ["required"]
+    },
+    "miCena"              : {
+      "validators": ["required"]
+    },
+    "juDesayuno"          : {
+      "validators": ["required"]
+    },
+    "juRefrigerioDesayuno": {
+      "validators": ["required"]
+    },
+    "juAlmuerzo"          : {
+      "validators": ["required"]
+    },
+    "juRefrigerioAlmuerzo": {
+      "validators": ["required"]
+    },
+    "juCena"              : {
+      "validators": ["required"]
+    },
+    "vDesayuno"           : {
+      "validators": ["required"]
+    },
+    "vRefrigerioDesayuno" : {
+      "validators": ["required"]
+    },
+    "vAlmuerzo"           : {
+      "validators": ["required"]
+    },
+    "vRefrigerioAlmuerzo" : {
+      "validators": ["required"]
+    },
+    "vCena"               : {
+      "validators": ["required"]
+    },
+    "sDesayuno"           : {
+      "validators": ["required"]
+    },
+    "sRefrigerioDesayuno" : {
+      "validators": ["required"]
+    },
+    "sAlmuerzo"           : {
+      "validators": ["required"]
+    },
+    "sRefrigerioAlmuerzo" : {
+      "validators": ["required"]
+    },
+    "sCena"               : {
+      "validators": ["required"]
+    },
+    "dDesayuno"   : {
+      "validators":  ["required"]
+    },
+    "dRefrigerioDesayuno" : {
+      "validators":  ["required"]
+    },
+    "dAlmuerzo"           : {
+      "validators":  ["required"]
+    },
+    "dRefrigerioAlmuerzo" : {
+      "validators":  ["required"]
+    },
+    "dCena"               : {
+      "validators":  ["required"]
+    }
+  }

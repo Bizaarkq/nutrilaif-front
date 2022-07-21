@@ -7,11 +7,11 @@
 <!--FORMULARIO DE FRECUENCIA DE CONSUMO-->
 <form [formGroup]="formularioFrecuencia">
   <!--ELEMENTO A REPETIR-->
-  <mat-grid-list formArrayName="frecuencia" rowHeight="6:1" cols="3">
+  <mat-grid-list formArrayName="frecuencia" rowHeight="95px" cols="3">
     <div *ngFor="let freq of frecuencias.controls; let i=index">
       <div [formGroupName]="i">
         <mat-grid-tile>
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Alimento</mat-label>
             <input autocomplete="off" 
                     matInput placeholder="Ingrese el alimento"
@@ -34,19 +34,21 @@
           </mat-radio-group>
         </mat-grid-tile>
         <mat-grid-tile>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Comentarios</mat-label>
             <textarea  matInput
-                      formControlName="comentario"></textarea>
+                      formControlName="comentario"
+                      style="resize: none;"
+                      ></textarea>
           </mat-form-field>
-          <button mat-fab color="warn" matTooltip="Eliminar alimento" (click)="removeFrecuencia(i)">
+          <button mat-mini-fab color="warn" style="margin-left: 5px;" matTooltip="Eliminar alimento" (click)="removeFrecuencia(i)">
             <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
           </button>
         </mat-grid-tile> 
       </div>
     </div>
   </mat-grid-list>
-  <div class="grid-layout">
+  <div class="grid-layout" *ngIf="!modoLectura">
     <button mat-fab class="green" matTooltip="Agregar alimento" (click)="addFrecuencia()">
       <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
     </button>
