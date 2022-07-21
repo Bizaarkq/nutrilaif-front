@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ConsultaForm } from './consulta-form';
 import { ConsultaService } from 'src/app/services/consulta.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -19,7 +19,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ConsultaComponent implements OnInit {
   //consultaForm = this.primeraConsulta.primeraConsulta();
-  //Arreglo para los titulos mostrados en los step
+  //Arreglo para algunos titulos mostrados en los step
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
   id: any;
   accion: any;
@@ -33,6 +33,8 @@ export class ConsultaComponent implements OnInit {
   historiaDiet!:FormGroup; 
   subConsultaForm!:FormGroup;
   id_paciente:any;
+  loadingDataEdicion: boolean = false;
+  numeroExpediente: any = null;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -50,34 +52,42 @@ export class ConsultaComponent implements OnInit {
     private consultaService: ConsultaService,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router
   ) {}
     contador=0;
   ngOnInit(): void {
     this.consultaMap = this.consulta.mapeadoForm();
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
-    this.id_paciente = history.state['id_paciente'];
+    this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
-    if (this.accion === 'editar' && this.id !== null) {
+    if ((this.accion === 'editar' || this.accion === 'ver') && this.id !== null) {
       this.visibleSpinner = true;
+      this.loadingDataEdicion = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
-          console.log(data.es_subsecuente);
-          this.esBorrador = data.es_borrador === 1 ? true : false;
-          if (!this.esBorrador) this.consultaForm.disable();
+          this.esBorrador = data.es_borrador;
 
           if(data.es_subsecuente){
             this.isSubsecuente();
           }else{
             this.isPrimeraConsulta();
           }
+
           this.consultaForm.patchValue(data);
-          this.visibleSpinner = false;
+          (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
+          
+          data.frecuencia_consumo.frecuencia.forEach((f:any) => (
+            this.frecuencia_consumo.get('frecuencia') as FormArray).push(this.FB.group(f))
+          );
+          if (!this.esBorrador || this.accion === 'ver'){
+            this.consultaForm.disable();
+          };
         },
         error: (err) => {
-          this.visibleSpinner = false;
           this.snack.open(
             'La información no pudo ser recuperada, intente nuevamente',
             'Ok',
@@ -86,6 +96,10 @@ export class ConsultaComponent implements OnInit {
             }
           );
         },
+        complete: () => {
+          this.loadingDataEdicion = false;
+          this.visibleSpinner = false;
+        }
       });
     } else if (this.accion == 'nueva' && this.id_paciente != null) {
       this.isSubsecuente();
@@ -100,29 +114,50 @@ export class ConsultaComponent implements OnInit {
   }
 
   log(val: any) {
-    this.contador++;
+    console.log(val);
   }
+  
   guardar() {
+    this.visibleSpinner = true;
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
+        let duracion = 3000;
+        if(res.data !== null){
+          this.snack.open(
+            'N° de Expediente para el nuevo paciente: ' + res.data, '',
+            {
+              duration: duracion,
+            }
+          );
+
+          duracion -= 2000;
+        }
+
         this.snack.open(
-          res.mensaje,
-          'Ok',
+          res.mensaje, '',
           {
-            duration: 3000,
+            duration: duracion,
           }
         );
+        
         this.paciente.controls['numero_exp'].setValue(res.data);
+        this.numeroExpediente = res.data;
+        setTimeout(() => {
+          this.router.navigate(['/expedientes']);
+        }, 3000);
       },
       error: (err) => {
         this.snack.open(
           err.mensaje,
-          'Ok',
+          '',
           {
             duration: 3000,
           }
         );
       },
+      complete: () => {
+        this.visibleSpinner = false;
+      }
     });
   }
 
@@ -174,5 +209,5 @@ export class ConsultaComponent implements OnInit {
     });
     this.cd.detectChanges();
   }
-
+  
 }

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlimentosService } from 'src/app/services/alimentos.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dialog-alimento',
@@ -10,6 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 })
 export class DialogAlimentoComponent implements OnInit {
   //Formulario para manejar el formulario de alimentos
+  visibleSpinner = false;
   formDatosAlimento:any = FormGroup;
   camposAlimento: string[] = [
     'codigo',
@@ -58,7 +60,7 @@ export class DialogAlimentoComponent implements OnInit {
   }
   
   actionBtn:string = 'Agregar';
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder, private snack: MatSnackBar,
     private api:AlimentosService,
     @Inject(MAT_DIALOG_DATA) public editData:any, //Para recibir datos enviados al hacer clic en el boton de editar del componente listar-alimentos
     private dialogRef:MatDialogRef<DialogAlimentoComponent>,
@@ -74,17 +76,32 @@ export class DialogAlimentoComponent implements OnInit {
   // }
 
   addAlimento(){
+    this.visibleSpinner=true;
     if(!this.editData){
       if(!this.formDatosAlimento.invalid){
           this.api.addAlimentos(this.formDatosAlimento.value)
           .subscribe({
             next:(res)=>{
-              alert("Alimento agregado correctamente");
+              this.visibleSpinner=false;
+              this.snack.open(
+                res.mensaje,
+                'OK',
+                {
+                  duration: 3000,
+                }
+              );
               this.formDatosAlimento.reset();
               this.dialogRef.close('guardar');
             },
-            error:()=>{
-              alert("Error al agregar alimento");
+            error:(res)=>{
+              this.visibleSpinner=false;
+              this.snack.open(
+                res.mensaje,
+                'OK',
+                {
+                  duration: 3000,
+                }
+              );
             }
           })
       }
@@ -94,16 +111,32 @@ export class DialogAlimentoComponent implements OnInit {
   }
 
   editarAlimento(){
+    this.visibleSpinner=true;
     if(!this.formDatosAlimento.invalid){
       this.api.editarAlimentos(this.formDatosAlimento.getRawValue())
       .subscribe({
         next:(res)=>{
-          alert("Alimento editado correctamente");
+          this.visibleSpinner=false;
+          this.snack.open(
+            res.mensaje,
+            'OK',
+            {
+              duration: 3000,
+            }
+          );
           this.formDatosAlimento.reset();
           this.dialogRef.close('actualizar');
         },
-        error:()=>{
-          alert("Error al editar un alimento");
+        error:(res)=>{
+          this.visibleSpinner=false;
+          this.snack.open(
+            res.mensaje,
+            'OK',
+            {
+              duration: 3000,
+            }
+          );
+          
         }
       })
     }

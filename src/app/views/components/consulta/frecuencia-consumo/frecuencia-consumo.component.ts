@@ -11,6 +11,7 @@ export class FrecuenciaConsumoComponent {
   
   //Formulario a utilizar para la frecuencia de consumo
   @Input() formularioFrecuencia!: FormGroup;
+  @Input() modoLectura:boolean = false;
   //Titulos utilizados en el componente de frecuencia de consumo
   titulos: string[] = ['Alimento', 'Frecuencia de consumo', 'Comentarios'];
 

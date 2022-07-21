@@ -12,11 +12,12 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$front-nutri-primary: mat.define-palette(mat.$indigo-palette);
-$front-nutri-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$front-nutri-primary: mat.define-palette(mat.$green-palette, 900);
+$front-nutri-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $front-nutri-warn: mat.define-palette(mat.$red-palette);
+$front-nutri-success: mat.define-palette(mat.$lime-palette, 700);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -25,6 +26,7 @@ $front-nutri-theme: mat.define-light-theme((
     primary: $front-nutri-primary,
     accent: $front-nutri-accent,
     warn: $front-nutri-warn,
+    success: $front-nutri-success,
   )
 ));
 

@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-listado-expediente',
@@ -12,13 +13,13 @@ import { Router } from '@angular/router';
 })
 export class ListadoExpedienteComponent implements OnInit {
 
-  columnas: string[] = ['num_expediente', 'nombre_completo', 'acciones'];
+  columnas: string[] = ['num_expediente', 'nombre_completo', 'telefono','correo','acciones'];
   tablaData !: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   visibleSpinner = false;
 
-  constructor( private pacienteService:DatosPersonalesService, private router:Router) { }
+  constructor( private pacienteService:DatosPersonalesService, private router:Router, private snack: MatSnackBar) { }
   
   ngOnInit(): void {
     this.cargarExpedientes();
@@ -29,7 +30,6 @@ export class ListadoExpedienteComponent implements OnInit {
     this.pacienteService.getDatosPersonales()
     .subscribe({
       next:(res)=>{
-        console.log(res);
         this.tablaData = new MatTableDataSource(res);
         this.tablaData.paginator = this.paginator;
         this.tablaData.sort = this.sort;
@@ -48,13 +48,31 @@ export class ListadoExpedienteComponent implements OnInit {
   }
 
   eliminarExpediente(paciente: any){
-    console.log(paciente);
+    this.visibleSpinner=true;
     this.pacienteService.deletePaciente(paciente.id).subscribe({
       next:(res)=>{
-        console.log(res);
+        this.visibleSpinner=false;
+              this.snack.open(
+                res.mensaje,
+                'OK',
+                {
+                  duration: 3000,
+                }
+              );
         this.cargarExpedientes();
+
       },
-      error:(err)=>{}
+      error:(err)=>{
+        this.visibleSpinner=false;
+        this.snack.open(
+          err.mensaje,
+          'OK',
+          {
+            duration: 3000,
+          }
+        );
+              
+      }
     });
   }
 

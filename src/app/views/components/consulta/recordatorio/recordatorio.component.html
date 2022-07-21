@@ -1,98 +1,191 @@
-<div>
+<mat-grid-list cols="12" rowHeight="250px">
     <form [formGroup]="formRecordatorio">
-        <mat-card class="example-card">
-            <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Desayuno</mat-card-title>
-            <mat-card-subtitle>
-                <mat-form-field appearance="fill">
-                    <mat-label>Hora</mat-label>
-                    <input formControlName="desayunoHora" matInput placeholder="Ex. Pizza" type="time" value="Sushi">
-                </mat-form-field>
-            </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Recordatorio</mat-label>
-                    <textarea formControlName="comentarioDes" matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
 
-        <mat-card class="example-card">
-            <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Recordatorio Desayuno</mat-card-title>
-            <mat-card-subtitle>
-                <mat-form-field appearance="fill">
-                    <mat-label>Hora</mat-label>
-                    <input  formControlName="recordatorioDesH" matInput placeholder="Ex. Pizza" type="time" value="Sushi">
-                </mat-form-field>
-            </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Recordatorio</mat-label>
-                    <textarea  formControlName="recordatorioDesC" matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Desayuno</mat-card-title>
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora del desayuno</mat-label>
+                            <input formControlName="desayunoHora" matInput type="time">
+                            <mat-error *ngIf="validarCampo('desayunoHora')">Hora ingresada es incorrecta</mat-error>
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Recordatorio del desayuno</mat-label>
+                        <textarea formControlName="recordatorioDesayuno" matInput 
+                                placeholder="Ingrese el recordatorio asociado al desayuno"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioDesayuno')">Debe ingresar el recordatorio</mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
 
-        <mat-card class="example-card">
-            <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Almuerzo</mat-card-title>
-            <mat-card-subtitle>
-                <mat-form-field appearance="fill">
-                    <mat-label>Hora</mat-label>
-                    <input formControlName="almuerzoHora" matInput placeholder="Ex. Pizza" type="time" value="Sushi">
-                </mat-form-field>
-            </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Comentario</mat-label>
-                    <textarea formControlName="comentarioAlm" matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Refrigerio del desayuno</mat-card-title>
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora del refrigerio</mat-label>
+                            <input formControlName="desayunoRefrigerioHora" matInput type="time">
+                            <mat-error *ngIf="validarCampo('desayunoRefrigerioHora')">Hora ingresada es incorrecta</mat-error>
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Recordatorio del refrigerio</mat-label>
+                        <textarea formControlName="recordatorioRefrigerioDesayuno" matInput 
+                                placeholder="Ingrese el refrigerio asociado al desayuno"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioRefrigerioDesayuno')">Debe ingresar el recordatorio</mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
 
-        <mat-card class="example-card">
-            <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Recordatorio almuerzo</mat-card-title>
-            <mat-card-subtitle>
-                <mat-form-field appearance="fill">
-                    <mat-label>Hora</mat-label>
-                    <input formControlName="recordatorioAlmH" matInput placeholder="Ex. Pizza" type="time" value="Sushi">
-                </mat-form-field>
-            </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Comentario</mat-label>
-                    <textarea formControlName="recordatorioAlmC" matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Almuerzo</mat-card-title>
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora del almuerzo</mat-label>
+                            <input formControlName="almuerzoHora" matInput type="time">
+                            <mat-error *ngIf="validarCampo('almuerzoHora')">Hora ingresada es incorrecta</mat-error>
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Recordatorio del almuerzo</mat-label>
+                        <textarea formControlName="recordatorioAlmuerzo" matInput 
+                                placeholder="Ingrese el recordatorio del almuerzo"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioAlmuerzo')">Debe ingresar el recordatorio</mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
 
-        <mat-card class="example-card">
-            <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Cena</mat-card-title>
-            <mat-card-subtitle>
-                <mat-form-field appearance="fill">
-                    <mat-label>Hora</mat-label>
-                    <input formControlName="cenaHora" matInput placeholder="Ex. Pizza" type="time" value="Sushi">
-                </mat-form-field>
-            </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Comentario</mat-label>
-                    <textarea formControlName="comentarioCena" matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Refrigerio del almuerzo</mat-card-title>
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora del refrigerio</mat-label>
+                            <input formControlName="almuerzoRefrigerioHora" matInput type="time">
+                            <mat-error *ngIf="validarCampo('almuerzoRefrigerioHora')">Hora ngresada es incorrecta</mat-error>
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Recordatorio del refrigerio</mat-label>
+                        <textarea formControlName="recordatorioRefrigerioAlmuerzo" matInput 
+                            placeholder="Ingrese el refrigerio asociado al almuerzo"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioRefrigerioAlmuerzo')">Debe ingresar el recordatorio</mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Cena</mat-card-title>
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione la hora de la cena</mat-label>
+                            <input formControlName="cenaHora" matInput type="time">
+                            <mat-error *ngIf="validarCampo('cenaHora')">Hora ingresada es incorrecta</mat-error>
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Recordatorio de la cena</mat-label>
+                        <textarea formControlName="recordatorioCena" matInput 
+                            placeholder="Ingrese el recordatorio de la cena"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioCena')">Debe ingresar el recordatorio</mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="9" [rowspan]="2">
+            <mat-card class="example-card">
+                <div class="container">
+                    <mat-card-content>
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>Calorias totales (kcal)</mat-label>
+                            <input matInput placeholder="Calorías totales" type="number" 
+                                formControlName="caloriasTotales" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('caloriasTotales')">Debe ingresar las calorías totales</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>% de cumplimiento</mat-label>
+                            <input matInput placeholder="% de cumplimiento" type="number" 
+                                formControlName="cumplimientoCalorias" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoCalorias')">Debe ingresar el % de cumplimiento de las calorías totales</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>CHO (g)</mat-label>
+                            <input matInput placeholder="Ingrese los carbohidratos totales" type="number" 
+                                formControlName="cho" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cho')">Debe ingresar los carbohidratos correctamente</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>% de cumplimiento</mat-label>
+                            <input matInput placeholder="% de cumplimiento de los carbohidratos" type="number" 
+                                formControlName="cumplimientoCho" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoCho')">Debe ingresar el % de los carbohidratos totales</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>CHON (g)</mat-label>
+                            <input matInput placeholder="Ingrese las proteínas totales" type="number" 
+                                formControlName="chon" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('chon')">Debe ingresar las proteínas totales</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>% de cumplimiento</mat-label>
+                            <input matInput placeholder="% de cumplimiento de las proteínas" type="number" 
+                                formControlName="cumplimientoChon" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoChon')">Debe ingresar el % de las proteínas totales</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>COOH (g)</mat-label>
+                            <input matInput placeholder="Ingrese el COOH total" type="number" 
+                                formControlName="cooh" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cooh')">Debe ingresar el COOH total</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>% de cumplimiento</mat-label>
+                            <input matInput placeholder="% de cumplimiento" type="number" 
+                                formControlName="cumplimientoCooh" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoCooh')">Debe ingresar el % de cumplimiento del COOH total</mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field class="width-form" appearance="outline">
+                            <mat-label>Agua consumida por día</mat-label>
+                            <input matInput placeholder="Ingrese el total de agua consumida por día" type="number" 
+                                formControlName="consumoAgua" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('consumoAgua')">Debe ingresar el total de agua consumido por día</mat-error>
+                        </mat-form-field>
+                    </mat-card-content>
+                </div>
+            </mat-card>
+
+        </mat-grid-tile>
     </form>
-</div>
+</mat-grid-list>
