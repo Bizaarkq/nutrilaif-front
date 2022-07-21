@@ -1,52 +1,52 @@
 <pre>{{formPlanDieta.value|json}}</pre>
 <div class="container">
     <mat-toolbar>
-<!--------------Planificación de la dieta-------------->
+        <!--------------Planificación de la dieta-------------->
         <span>Planificacion de la dieta</span>
     </mat-toolbar>
     <mat-card style="margin-top: 10px;">
-    <form [formGroup]="formPlanDieta" (submit)="AgregarPlanDieta()">
-        <mat-grid-list cols="3" rowHeight="60px">
-            <mat-grid-tile [colspan] = "2" [rowspan]="1">
-                <mat-form-field class="ancho">
-                    <mat-label>Requerimiento Energético</mat-label>
-                    <input matInput formControlName="requerimiento_energetico">
-                  </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "1" [rowspan]="2">
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "2" [rowspan]="1">
-                <mat-form-field class="ancho">
-                    <mat-label>Calorias a preescribir</mat-label>
-                    <input matInput formControlName="calorias_prescribir">
-                  </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "1" [rowspan]="1">
-                <mat-form-field class="ancho">
-                    <mat-label>CHO</mat-label>
-                    <input matInput formControlName="choc">
-                  </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "1" [rowspan]="1">
-                <mat-form-field class="ancho">
-                    <mat-label>CHON</mat-label>
-                    <input matInput formControlName="chon">
-                  </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "1" [rowspan]="1">
-                <mat-form-field class="ancho">
-                    <mat-label>CHOO</mat-label>
-                    <input matInput formControlName="cooh">
-                  </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "3" [rowspan]="1">
-                <mat-form-field class="ancho">
-                    <mat-label>Preescripción de la dieta</mat-label>
-                    <input matInput formControlName="preescripcion_dieta">
-                  </mat-form-field>
-            </mat-grid-tile>
-        </mat-grid-list>        
-    </form>
+        <form [formGroup]="formPlanDieta" (submit)="AgregarPlanDieta()">
+            <mat-grid-list cols="3" rowHeight="60px">
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Requerimiento Energético</mat-label>
+                        <input matInput formControlName="requerimiento_energetico">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="2">
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Calorias a preescribir (Cal)</mat-label>
+                        <input matInput formControlName="calorias_prescribir">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>CHO</mat-label>
+                        <input matInput formControlName="choc">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>CHON</mat-label>
+                        <input matInput formControlName="chon">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>CHOO</mat-label>
+                        <input matInput formControlName="cooh">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Preescripción de la dieta</mat-label>
+                        <input matInput formControlName="preescripcion_dieta">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
     </mat-card>
 </div>
 
@@ -58,13 +58,13 @@
 
 <mat-grid-list rowHeight="6:1" cols="8">
     <mat-grid-tile *ngFor="let item of columns; let i=index">
-      <mat-label class="label">{{ item }}</mat-label>
+        <mat-label class="label">{{ item }}</mat-label>
     </mat-grid-tile>
 </mat-grid-list>
 <div class="container">
     <mat-card>
         <form [formGroup]="distribucion_alimento" (submit)="AgregarPlanDieta()">
-            <mat-grid-list cols="9" rowHeight="60px" *ngFor="let item_alimentos of alimentos">    
+            <mat-grid-list cols="9" rowHeight="60px" *ngFor="let item_alimentos of alimentos">
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     {{item_alimentos}}
                 </mat-grid-tile>
@@ -72,49 +72,49 @@
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="n_int">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="chos">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="choc">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="chon">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="cooh">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="kcal">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="na" >
-                      </mat-form-field>
+                        <input matInput placeholder="gramos" formControlName="na">
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="comentario" >
-                      </mat-form-field>
+                        <input matInput placeholder="gramos" formControlName="comentario">
+                    </mat-form-field>
                 </mat-grid-tile>
             </mat-grid-list>
         </form>
@@ -124,7 +124,7 @@
 <!--------------Totales de la lista de intercambio-------------->
 <div class="container">
     <mat-card>
-        <form [formGroup]="formtotal_alimento" (submit)="AgregarPlanDieta()" >
+        <form [formGroup]="formtotal_alimento" (submit)="AgregarPlanDieta()">
             <mat-grid-list cols="7" rowHeight="60px">
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     Total
@@ -151,7 +151,7 @@
                     Margen de error
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                   -
+                    -
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     Margen de error CHO
@@ -181,13 +181,13 @@
 </strong>
 <mat-grid-list rowHeight="6:1" cols="8">
     <mat-grid-tile *ngFor="let item of columns; let i=index">
-      <mat-label class="label">{{ item }}</mat-label>
+        <mat-label class="label">{{ item }}</mat-label>
     </mat-grid-tile>
 </mat-grid-list>
 <div class="container">
     <mat-card>
         <form [formGroup]="patron_menu" (submit)="AgregarPlanDieta()">
-            <mat-grid-list cols="9" rowHeight="60px" *ngFor="let item_patron of alimentos">    
+            <mat-grid-list cols="9" rowHeight="60px" *ngFor="let item_patron of alimentos">
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     {{item_patron}}
                 </mat-grid-tile>
@@ -195,49 +195,49 @@
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="n_int">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="chos">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="choc">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="chon">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="cooh">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
                         <input matInput placeholder="gramos" formControlName="kcal">
-                      </mat-form-field>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="na" >
-                      </mat-form-field>
+                        <input matInput placeholder="gramos" formControlName="na">
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
                     <mat-form-field class="ancho">
                         <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="comentario" >
-                      </mat-form-field>
+                        <input matInput placeholder="gramos" formControlName="comentario">
+                    </mat-form-field>
                 </mat-grid-tile>
             </mat-grid-list>
         </form>
