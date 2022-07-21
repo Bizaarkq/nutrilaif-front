@@ -12,7 +12,7 @@
       <!-- Columna de fecha de consulta -->
       <ng-container matColumnDef="fecha_consulta">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="fecha_consulta" > Fecha de la consulta </th>
-        <td mat-cell *matCellDef="let element"> {{element.created_at | date : 'EEEE, MMMM d, y'}} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.fecha_creacion }} </td>
       </ng-container>
 
       <!-- Columna de acciones -->
