@@ -76,7 +76,13 @@ export class ConsultaComponent implements OnInit {
           }else{
             this.isPrimeraConsulta();
           }
+
           this.consultaForm.patchValue(data);
+          (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
+          
+          data.frecuencia_consumo.frecuencia.forEach((f:any) => (
+            this.frecuencia_consumo.get('frecuencia') as FormArray).push(this.FB.group(f))
+          );
           if (!this.esBorrador || this.accion === 'ver'){
             this.consultaForm.disable();
           };
