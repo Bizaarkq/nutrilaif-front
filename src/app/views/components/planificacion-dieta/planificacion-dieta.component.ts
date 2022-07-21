@@ -40,8 +40,28 @@ export class PlanificacionDietaComponent implements OnInit {
     "comentario": [''],  
   });
 
+  patron_menu: FormGroup = this.FB.group({
+    "n_int": [''],
+    "chos": [''], 
+    "choc": [''], 
+    "chon": [''], 
+    "cooh": [''], 
+    "kcal": [''], 
+    "na": [''], 
+    "comentario": [''],  
+  });
+
   formPlanDieta:FormGroup = this.FB.group({
     requerimiento_energetico:[''],
+    calorias_prescribir:[''],
+    choc:[''],
+    chon:[''],
+    cooh:[''],
+    preescripcion_dieta:[''],
+  });
+
+  formtotal_alimento:FormGroup = this.FB.group({
+    total_int:[''],
     calorias_prescribir:[''],
     choc:[''],
     chon:[''],
@@ -55,11 +75,12 @@ export class PlanificacionDietaComponent implements OnInit {
       'vegetales',
       'frutas',
       'panes',
-      'carnes_magras',
-      'carnes_semi_grasas',
-      'carnes_grasas',
+      'carnes magras',
+      'carnes semi grasas',
+      'carnes grasas',
       'grasas'
   ];
+
 
 distribucionNutriente:FormGroup = this.FB.group({});
 
