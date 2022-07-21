@@ -16,4 +16,6 @@ table {
 
 textarea{
     resize: none;
+    height: 5em;
 }
+

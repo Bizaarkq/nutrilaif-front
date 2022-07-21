@@ -4,7 +4,7 @@
     "controls": {
       "diagnostico": {
         "label": "Diagnósticos médicos",
-        "placeholder": "P. ej. Cefalea",
+        "placeholder": "Cefalea",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -14,7 +14,7 @@
       },
       "medicamento_suplemento": {
         "label": "Medicamento/Suplemento",
-        "placeholder": "P. ej. Inyección de vitaminas",
+        "placeholder": "Inyección de vitaminas",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -24,7 +24,7 @@
       },
       "otros_datos": {
         "label": "Otros datos importantes",
-        "placeholder": "P. ej. Síntomas de cansancio",
+        "placeholder": "Síntomas de cansancio",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -116,79 +116,79 @@
     "controls": {
       "peso_actual": {
         "label": "Peso actual (Kg)",
-        "placeholder": "P. ej. 99.99",
+        "placeholder": "99.99",
         "type": "number",
         "autocomplete": "off"
       },
       "peso_ideal": {
         "label": "Peso ideal (Kg)",
-        "placeholder": "P. ej. 99.99",
+        "placeholder": "99.99",
         "type": "number",
         "autocomplete": "off"
       },
       "p_grasa_corporal": {
         "label": "Porcentaje grasa corporal",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "p_masa_muscular": {
         "label": "Porcentaje masa muscular",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "p_grasa_visceral": {
         "label": "Porcentaje grasa visceral",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "peso_meta": {
         "label": "Peso meta (Kg)",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "talla": {
         "label": "Talla (m)",
-        "placeholder": "P. ej. 9.99",
+        "placeholder": "9.99",
         "type": "number",
         "autocomplete": "off"
       },
       "c_cintura": {
         "label": "C. Cintura (cm)",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "imc": {
         "label": "Imc (Kg/m2)",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "edad_metabolica": {
         "label": "Edad metabólica",
-        "placeholder": "P. ej. 99",
+        "placeholder": "99",
         "type": "number",
         "autocomplete": "off"
       },
       "c_brazo_relaj": {
         "label": "C. Brazo relajado (cm)",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "c_cadera": {
         "label": "C. Cadera (cm)",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       },
       "c_muneca": {
         "label": "C. Muñeca (cm)",
-        "placeholder": "P. ej. 99.9",
+        "placeholder": "99.9",
         "type": "number",
         "autocomplete": "off"
       }
@@ -199,7 +199,7 @@
     "controls": {
       "preferencia_alimen": {
         "label": "Preferencias alimentarias",
-        "placeholder": "P. ej. Hamburguesa",
+        "placeholder": "Hamburguesa",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -209,7 +209,7 @@
       },
       "alimentos_no_gustan": {
         "label": "Alimentos que no le gustan",
-        "placeholder": "P. ej. remolacha",
+        "placeholder": "remolacha",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -219,7 +219,7 @@
       },
       "intolerancia_alergia": {
         "label": "Intolerancias o alergias",
-        "placeholder": "P. ej. Café provoca acidez",
+        "placeholder": "Café provoca acidez",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -229,7 +229,7 @@
       },
       "actividad_fisica": {
         "label": "Actividad física",
-        "placeholder": "P. ej. Todos los días",
+        "placeholder": "Todos los días",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -273,14 +273,14 @@
       },
       "agua": {
         "label": "Agua",
-        "placeholder": "P. ej. 2.5 litros al día",
+        "placeholder": "2.5 litros al día",
         "type": "number",
         "cols": "2",
         "autocomplete": "off"
       },
       "observacion_menu_anterior": {
         "label": "Observación del menú anterior",
-        "placeholder": "P. ej. Disminuir raciones de un alimento",
+        "placeholder": "Disminuir raciones de un alimento",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -307,7 +307,7 @@
       },
       "alimentos_quiere": {
         "label": "Alimentos que quisiera incorporar",
-        "placeholder": "P. ej. Hamburguesa",
+        "placeholder": "Hamburguesa",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -317,7 +317,7 @@
       },
       "diagnostico_nutricional": {
         "label": "Diagnóstico nutricional",
-        "placeholder": "P. ej. Normal según IMC",
+        "placeholder": "Normal según IMC",
         "type": "textarea",
         "cols": "12",
         "rows": "2",
@@ -343,25 +343,25 @@
       },
       "antecedentes_familiares": {
         "label": "Antecedentes familiares",
-        "placeholder": "P. ej. Padre hipertenso",
+        "placeholder": "Padre hipertenso",
         "type": "input",
         "autocomplete": "off"
       },
       "donde_come": {
         "label": "Dónde come",
-        "placeholder": "P. ej. Desayuno en el trabajo",
+        "placeholder": "Desayuno en el trabajo",
         "type": "input",
         "autocomplete": "off"
       },
       "quien_cocina": {
         "label": "Quién prepara los alimentos",
-        "placeholder": "P. ej. La madre",
+        "placeholder": "La madre",
         "type": "input",
         "autocomplete": "off"
       },
       "horas_sueno": {
         "label": "Horas de sueño",
-        "placeholder": "P. ej. 9",
+        "placeholder": "9",
         "type": "input",
         "autocomplete": "off"
       }

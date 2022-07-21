@@ -17,7 +17,7 @@
                     matInput 
                     [max]="fechaCreacion" 
                     [matDatepicker]="picker" 
-                    placeholder="P. ej. 21/7/2022" 
+                    placeholder="21/7/2022" 
                     formControlName="fechaExpediente"
                     autocomplete="off">
                 <mat-hint>DD/MM/YYYY</mat-hint>
@@ -34,7 +34,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Nombre del paciente</mat-label>
                 <input formControlName="nombre" autocomplete="enabled" matInput type="text" 
-                    placeholder="P. ej. Alejandro Daniel">
+                    placeholder="Alejandro Daniel">
                 <mat-error *ngIf="validarCampo('nombre')">Ingrese un nombre válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
@@ -43,7 +43,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Apellidos del paciente</mat-label>
                 <input formControlName="apellido" autocomplete="enabled" matInput type="text" 
-                    placeholder="P. ej. Hernández García">
+                    placeholder="Hernández García">
                 <mat-error *ngIf="validarCampo('apellido')">Ingrese un apellido válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
@@ -78,7 +78,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Dirección</mat-label>
                 <input formControlName="direccion" autocomplete="enabled" matInput type="text" 
-                    placeholder="P. ej. Avenida Ramos, Pasaje 1 " value="">
+                    placeholder="Avenida Ramos, Pasaje 1 " value="">
                 <mat-error *ngIf="validarCampo('direccion')">Ingrese la dirección del paciente</mat-error>
             </mat-form-field>
         </mat-grid-tile>
@@ -90,7 +90,7 @@
                     matInput 
                     [max]="fechaCreacion"
                     [matDatepicker]="pickerN" 
-                    placeholder="P. ej. 21/7/2000" 
+                    placeholder="21/7/2000" 
                     formControlName="fecha_nacimiento"
                     (dateChange)="getEdad($event)"
                     autocomplete="off"
@@ -126,7 +126,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Telefono</mat-label>
                 <input formControlName="telefono" autocomplete="enabled" matInput type="text" 
-                placeholder="P.ej. 99999999" maxlength="8">                     
+                placeholder="99999999" maxlength="8">                     
                 <mat-error *ngIf="validarCampo('telefono')">El número no es válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
@@ -135,7 +135,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Ocupación</mat-label>
                 <input formControlName="ocupacion" autocomplete="enabled" matInput type="text" 
-                    placeholder="P. ej. Estudiante">                     
+                    placeholder="Estudiante">                     
             </mat-form-field>
         </mat-grid-tile>
 
@@ -143,7 +143,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Correo electrónico</mat-label>
                 <input formControlName="correo" autocomplete="off" matInput type="email" 
-                    placeholder="P. ej. ejemplo@gmail.com" value="">                     
+                    placeholder="ejemplo@gmail.com" value="">                     
                 <mat-error *ngIf="validarCampo('correo')">Ingrese un correo electrónico válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
