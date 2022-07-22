@@ -1,245 +1,126 @@
-<pre>{{formPlanDieta.value|json}}</pre>
-<div class="container">
-    <mat-toolbar>
-        <!--------------Planificación de la dieta-------------->
-        <span>Planificacion de la dieta</span>
-    </mat-toolbar>
-    <mat-card style="margin-top: 10px;">
-        <form [formGroup]="formPlanDieta" (submit)="AgregarPlanDieta()">
-            <mat-grid-list cols="3" rowHeight="60px">
-                <mat-grid-tile [colspan]="2" [rowspan]="1">
-                    <mat-form-field class="ancho">
-                        <mat-label>Requerimiento Energético</mat-label>
-                        <input matInput formControlName="requerimiento_energetico">
-                    </mat-form-field>
+
+<ng-container *ngFor="let form of formPlanAlimenticio.manejo_planificacion | keyvalue">
+    <h3>{{form.value.header}}</h3>
+    <form [formGroup]="passToFormGroup(form.key)">
+        <mat-grid-list cols="12" rowHeight="80px">
+            <ng-container *ngFor="let control of form.value.controls | keyvalue">
+                <mat-grid-tile [colspan]="control.value.cols" [rowspan]="control.value.rows">
+                    <div class="tile-content">
+                        <mat-form-field class="{{control.value.class}}" appearance="outline">
+                            <mat-label>{{control.value.label}}</mat-label>
+                            <span [ngSwitch]="control.value.type">
+                                <span *ngSwitchCase="'textarea'">
+                                    <textarea matInput style="height: auto; resize: none;" rows="5"
+                                        placeholder="{{control.value.placeholder}}" formControlName="{{ control.key }}">
+                                                </textarea>
+                                </span>
+                                <span *ngSwitchCase="'text'">
+                                    <input matInput type="text" placeholder="{{control.value.placeholder}}"
+                                        formControlName="{{ control.key }}" />
+                                </span>
+                                <span *ngSwitchCase="'number'">
+                                    <input matInput type="number" placeholder="{{control.value.placeholder}}"
+                                        formControlName="{{ control.key }}" />
+                                </span>
+                            </span>
+                        </mat-form-field>
+                    </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="2">
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="1">
-                    <mat-form-field class="ancho">
-                        <mat-label>Calorias a preescribir (Cal)</mat-label>
-                        <input matInput formControlName="calorias_prescribir">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <mat-form-field class="ancho">
-                        <mat-label>CHO</mat-label>
-                        <input matInput formControlName="choc">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <mat-form-field class="ancho">
-                        <mat-label>CHON</mat-label>
-                        <input matInput formControlName="chon">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <mat-form-field class="ancho">
-                        <mat-label>CHOO</mat-label>
-                        <input matInput formControlName="cooh">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="3" [rowspan]="1">
-                    <mat-form-field class="ancho">
-                        <mat-label>Preescripción de la dieta</mat-label>
-                        <input matInput formControlName="preescripcion_dieta">
-                    </mat-form-field>
-                </mat-grid-tile>
-            </mat-grid-list>
+            </ng-container>
+        </mat-grid-list>
+    </form>
+</ng-container>
+
+
+
+<ng-container>
+    <h3>Distribución de nutrientes por la lista de intercambio</h3>
+     <!-- headers -->
+    <mat-grid-list cols="8" rowHeight="80px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>Alimento</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>N° de int.</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1"
+            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+            <h4>{{campo.value.label}}</h4>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>{{alimento.value}}</h4>
+        </mat-grid-tile>
+        <form [formGroup]="passToFormGroup('alimentos', alimento.key)">
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="99.99" [value]="numInter(alimento.key)" type="number"
+                        formControlName="n_int">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1"
+                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <span [ngSwitch]="campo.value.type">
+                        <span *ngSwitchCase="'text'">
+                            <input matInput placeholder="comentarios" type="text" formControlName="{{campo.key}}">
+                        </span>
+                        <span *ngSwitchCase="'number'">
+                            <input matInput placeholder="99.99" type="number" formControlName="{{campo.key}}">
+                        </span>
+                    </span>
+
+                </mat-form-field>
+            </mat-grid-tile>
         </form>
-    </mat-card>
-</div>
+    </mat-grid-list>
+</ng-container>
 
-<!--------------Distribución por lista de intercambio-------------->
-<pre>{{distribucion_alimento.value|json}}</pre>
-<strong>
-    <mat-card>Distribución de nutrientes por lista de intercambio</mat-card>
-</strong>
+<ng-container>
+    <h3>Distribución de nutrientes por la lista de intercambio</h3>
+     <!-- headers -->
+    <mat-grid-list cols="8" rowHeight="80px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>Alimento</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>N° de int.</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1"
+            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron | keyvalue">
+            <h4>{{campo.value.label}}</h4>
+        </mat-grid-tile>
+    </mat-grid-list>
 
-<mat-grid-list rowHeight="6:1" cols="8">
-    <mat-grid-tile *ngFor="let item of columns; let i=index">
-        <mat-label class="label">{{ item }}</mat-label>
-    </mat-grid-tile>
-</mat-grid-list>
-<div class="container">
-    <mat-card>
-        <form [formGroup]="distribucion_alimento" (submit)="AgregarPlanDieta()">
-            <mat-grid-list cols="9" rowHeight="60px" *ngFor="let item_alimentos of alimentos">
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    {{item_alimentos}}
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="n_int">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="chos">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="choc">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="chon">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="cooh">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="kcal">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="na">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="comentario">
-                    </mat-form-field>
-                </mat-grid-tile>
-            </mat-grid-list>
+    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>{{alimento.value}}</h4>
+        </mat-grid-tile>
+        <form [formGroup]="passToFormGroup('alimentos', alimento.key)">
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="99.99" [value]="numInter(alimento.key)" type="number"
+                        formControlName="n_int">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1"
+                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron | keyvalue">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="99.99" type="number" formControlName="{{campo.key}}">
+                </mat-form-field>
+            </mat-grid-tile>
         </form>
-    </mat-card>
-</div>
-
-<!--------------Totales de la lista de intercambio-------------->
-<div class="container">
-    <mat-card>
-        <form [formGroup]="formtotal_alimento" (submit)="AgregarPlanDieta()">
-            <mat-grid-list cols="7" rowHeight="60px">
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Total
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    -
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Total de CHO
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Total de CHON
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Total de COOH
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Total de Kcal
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Total de Na
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Margen de error
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    -
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Margen de error CHO
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Margen de error CHON
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Margen de error COOH
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Margen de error Kcal
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    Margen de error Na
-                </mat-grid-tile>
-            </mat-grid-list>
-        </form>
-    </mat-card>
-</div>
-
-
-<!--------------Patron de menú-------------->
-<pre>{{patron_menu.value|json}}</pre>
-<strong>
-    <mat-card>Patrón de menú</mat-card>
-</strong>
-<mat-grid-list rowHeight="6:1" cols="8">
-    <mat-grid-tile *ngFor="let item of columns; let i=index">
-        <mat-label class="label">{{ item }}</mat-label>
-    </mat-grid-tile>
-</mat-grid-list>
-<div class="container">
-    <mat-card>
-        <form [formGroup]="patron_menu" (submit)="AgregarPlanDieta()">
-            <mat-grid-list cols="9" rowHeight="60px" *ngFor="let item_patron of alimentos">
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    {{item_patron}}
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="n_int">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="chos">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="choc">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="chon">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="cooh">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="kcal">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="na">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
-                    <mat-form-field class="ancho">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="gramos" formControlName="comentario">
-                    </mat-form-field>
-                </mat-grid-tile>
-            </mat-grid-list>
-        </form>
-    </mat-card>
-</div>
+    </mat-grid-list>
+</ng-container>

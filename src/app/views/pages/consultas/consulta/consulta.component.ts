@@ -121,30 +121,35 @@ export class ConsultaComponent implements OnInit {
     this.visibleSpinner = true;
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
-        let duracion = 3000;
-        if(res.data !== null){
+        let duracion = 5000;
+        if(res.data != null){
           this.snack.open(
             'N° de Expediente para el nuevo paciente: ' + res.data, '',
+            {
+              duration: duracion/2,
+            }
+          );
+
+          setTimeout(() => {
+             this.snack.open(res.mensaje, '', {
+               duration: duracion / 2,
+             });
+          }, duracion/2);
+          
+        }else{
+          this.snack.open(
+            res.mensaje, '',
             {
               duration: duracion,
             }
           );
-
-          duracion -= 2000;
         }
 
-        this.snack.open(
-          res.mensaje, '',
-          {
-            duration: duracion,
-          }
-        );
-        
         this.paciente.controls['numero_exp'].setValue(res.data);
         this.numeroExpediente = res.data;
         setTimeout(() => {
           this.router.navigate(['/expedientes']);
-        }, 3000);
+        }, duracion);
       },
       error: (err) => {
         this.snack.open(

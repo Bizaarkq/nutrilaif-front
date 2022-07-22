@@ -8,7 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {PlanificacionDieta} from 'src/app/interfaces/PlanificacionDieta'
+import {PlanificacionDieta} from 'src/app/interfaces/PlanificacionDieta';
+import planAlimenticioForm from './plan-alimenticio.json';
 
 @Component({
   selector: 'app-planificacion-dieta',
@@ -18,6 +19,9 @@ import {PlanificacionDieta} from 'src/app/interfaces/PlanificacionDieta'
 export class PlanificacionDietaComponent implements OnInit {
 
   @Input() planAlimenticio !: FormGroup;
+  //Variable para manejar el formulario de datos personales
+  formPlanAlimenticio = planAlimenticioForm;
+  numero_intercambio:any;
 
   constructor(
     private authService: AuthService,
@@ -85,14 +89,40 @@ export class PlanificacionDietaComponent implements OnInit {
 distribucionNutriente:FormGroup = this.FB.group({});
 
 ngOnInit(): void {
-    this.alimentos.forEach(nombre_alimento => this.distribucionNutriente.addControl(nombre_alimento, this.FB.control('')));
-    this.planAlimenticio.addControl('distribucion_nutriente', this.distribucionNutriente);
-    console.log(this.planAlimenticio);
+    Object.entries(this.formPlanAlimenticio.manejo_planificacion).forEach(([key, value]) => {
+      this.planAlimenticio.addControl(key, this.FB.group({}));
+      Object.entries(value.controls).forEach(([key2, value2]) => {
+        (this.planAlimenticio.controls[key] as FormGroup).addControl(key2, this.FB.control(''));
+      });
+    });
+
+    this.planAlimenticio.addControl('alimentos', this.FB.group({}));
+    Object.entries(this.formPlanAlimenticio.tablas.alimentos).forEach(([key, value]) => {
+      (this.planAlimenticio.controls['alimentos'] as FormGroup).addControl(key, this.FB.group({}));
+      Object.entries(this.formPlanAlimenticio.tablas.form_alimento).forEach(([key2, value2]) => {
+        
+        Object.entries(value2).forEach(([key3, value3]) => {
+          (
+            (this.planAlimenticio.controls['alimentos'] as FormGroup).controls[key] as FormGroup
+          ).addControl(
+            key3,
+            this.FB.control(
+              '',
+              value3.validators.map(function (validator) {
+                if ('params' in validator) {
+                  return (Validators as any)[validator.type](validator.params);
+                } else {
+                  return (Validators as any)[validator.type];
+                }
+              })
+            )
+          );
+        });
+      });
+    });
 }
     
   AgregarPlanDieta(){
-    console.log(this.formPlanDieta)
-
     const planDieta: PlanificacionDieta ={
       requerimiento_energetico: this.formPlanDieta.value.requerimiento_energetico,
       calorias_prescribir: this.formPlanDieta.value.calorias_prescribir,
@@ -100,8 +130,19 @@ ngOnInit(): void {
       chon: this.formPlanDieta.value.chon,
       cooh:this.formPlanDieta.value.cooh,
       preescripcion_dieta: this.formPlanDieta.value.preescripcion_dieta
-    }
-    console.log(planDieta)
+    };
+  }
+
+  passToFormGroup(form: string, sub_form:string = '') {
+    if (sub_form === '') {
+      return this.planAlimenticio.get(form) as FormGroup;
+    }else{
+      return (this.planAlimenticio.get(form) as FormGroup).get(sub_form) as FormGroup;
+    } 
+  }
+
+  numInter( form: any){
+    return (this.planAlimenticio.controls['alimentos'] as FormGroup).controls[form].value.n_int;
   }
 }
 
