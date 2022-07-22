@@ -61,11 +61,6 @@ const routes: Routes = [
         component: ListadoExpedienteComponent
       },
       {
-        path: 'planDieta',
-        component: PlanificacionDietaComponent,
-        canActivate: [AuthGuard]
-      },
-      {
         path: 'expediente/:id_paciente',
         canActivate: [AuthGuard],
         component: ExpedienteComponent
