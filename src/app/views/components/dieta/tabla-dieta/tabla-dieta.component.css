@@ -1,7 +1,7 @@
 th{
     padding: 0.5em;
     font-size: 18px;
-    background-color: rgb(50, 187, 57);
+    background-color: rgb(66, 211, 73);
 }
 tr{
     text-align: center;
@@ -13,3 +13,9 @@ table {
 .mat-form-field {
     width: 100%;
 }
+
+textarea{
+    resize: none;
+    height: 5em;
+}
+

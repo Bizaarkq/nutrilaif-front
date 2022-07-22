@@ -29,13 +29,13 @@
                   <span [ngSwitch]="consultaMap[group.key].controls[control.key].type">
                     <p *ngSwitchCase="'input'">
                       <input matInput formControlName="{{ control.key }}"
-                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" />
+                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" autocomplete="{{ consultaMap[group.key].controls[control.key].autocomplete }}" />
                     </p>
                     <p *ngSwitchCase="'textarea'">
                       <textarea matInput style="height: auto; resize: none;" 
                         rows="{{consultaMap[group.key].controls[control.key].height}}"
                         formControlName="{{ control.key }}"
-                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}"></textarea>
+                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" autocomplete="{{ consultaMap[group.key].controls[control.key].autocomplete }}"></textarea>
                     </p>
                     <p *ngSwitchCase="'select'">
                       <mat-select formControlName="{{ control.key }}">
@@ -48,7 +48,7 @@
 
                     <p *ngSwitchCase="'number'">
                       <input matInput type="number" formControlName="{{ control.key }}"
-                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" />
+                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" autocomplete="{{ consultaMap[group.key].controls[control.key].autocomplete }}"/>
                     </p>
                     <p *ngSwitchDefault>
 
