@@ -1,0 +1,28 @@
+.ancho {
+    width: 95%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.tile-content {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100% !important;
+    height: 100%;
+}
+
+.large-form-control{
+    width: 100% !important;
+}
+
+.medium-form-control{
+    width:85%;
+}

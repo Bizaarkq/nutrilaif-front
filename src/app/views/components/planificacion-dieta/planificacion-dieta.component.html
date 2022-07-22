@@ -1,0 +1,126 @@
+
+<ng-container *ngFor="let form of formPlanAlimenticio.manejo_planificacion | keyvalue">
+    <h3>{{form.value.header}}</h3>
+    <form [formGroup]="passToFormGroup(form.key)">
+        <mat-grid-list cols="12" rowHeight="80px">
+            <ng-container *ngFor="let control of form.value.controls | keyvalue">
+                <mat-grid-tile [colspan]="control.value.cols" [rowspan]="control.value.rows">
+                    <div class="tile-content">
+                        <mat-form-field class="{{control.value.class}}" appearance="outline">
+                            <mat-label>{{control.value.label}}</mat-label>
+                            <span [ngSwitch]="control.value.type">
+                                <span *ngSwitchCase="'textarea'">
+                                    <textarea matInput style="height: auto; resize: none;" rows="5"
+                                        placeholder="{{control.value.placeholder}}" formControlName="{{ control.key }}">
+                                                </textarea>
+                                </span>
+                                <span *ngSwitchCase="'text'">
+                                    <input matInput type="text" placeholder="{{control.value.placeholder}}"
+                                        formControlName="{{ control.key }}" />
+                                </span>
+                                <span *ngSwitchCase="'number'">
+                                    <input matInput type="number" placeholder="{{control.value.placeholder}}"
+                                        formControlName="{{ control.key }}" />
+                                </span>
+                            </span>
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+    </form>
+</ng-container>
+
+
+
+<ng-container>
+    <h3>Distribución de nutrientes por la lista de intercambio</h3>
+     <!-- headers -->
+    <mat-grid-list cols="8" rowHeight="80px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>Alimento</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>N° de int.</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1"
+            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+            <h4>{{campo.value.label}}</h4>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>{{alimento.value}}</h4>
+        </mat-grid-tile>
+        <form [formGroup]="passToFormGroup('alimentos', alimento.key)">
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="99.99" [value]="numInter(alimento.key)" type="number"
+                        formControlName="n_int">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1"
+                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <span [ngSwitch]="campo.value.type">
+                        <span *ngSwitchCase="'text'">
+                            <input matInput placeholder="comentarios" type="text" formControlName="{{campo.key}}">
+                        </span>
+                        <span *ngSwitchCase="'number'">
+                            <input matInput placeholder="99.99" type="number" formControlName="{{campo.key}}">
+                        </span>
+                    </span>
+
+                </mat-form-field>
+            </mat-grid-tile>
+        </form>
+    </mat-grid-list>
+</ng-container>
+
+<ng-container>
+    <h3>Distribución de nutrientes por la lista de intercambio</h3>
+     <!-- headers -->
+    <mat-grid-list cols="8" rowHeight="80px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>Alimento</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>N° de int.</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1"
+            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron | keyvalue">
+            <h4>{{campo.value.label}}</h4>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>{{alimento.value}}</h4>
+        </mat-grid-tile>
+        <form [formGroup]="passToFormGroup('alimentos', alimento.key)">
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="99.99" [value]="numInter(alimento.key)" type="number"
+                        formControlName="n_int">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan]="1" [rowspan]="1"
+                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron | keyvalue">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput placeholder="99.99" type="number" formControlName="{{campo.key}}">
+                </mat-form-field>
+            </mat-grid-tile>
+        </form>
+    </mat-grid-list>
+</ng-container>

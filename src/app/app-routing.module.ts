@@ -12,6 +12,7 @@ import { ExpedienteComponent } from './views/pages/expediente/expediente/expedie
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
 import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
+import { PlanificacionDietaComponent } from './views/components/planificacion-dieta/planificacion-dieta.component';
 
 const routes: Routes = [
   {

@@ -1,0 +1,238 @@
+{
+  "manejo_planificacion": {
+    "manejo_nutricional": {
+      "header": "Manejo Nutricional",
+      "controls": {
+        "manejo_nutricional": {
+          "label": "Manejo Nutricional",
+          "type": "textarea",
+          "placeholder": "Ingrese el Manejo Nutricional",
+          "cols": "12",
+          "rows": "2",
+          "class": "large-form-control"
+        }
+      }
+    },
+    "planificacion_dieta": {
+      "header": "Planificación de la Dieta",
+      "controls": {
+        "requerimiento_energetico": {
+          "label": "Requerimiento Energético",
+          "type": "text",
+          "placeholder": "Ingrese el requerimiento energético",
+          "cols": "12",
+          "rows": "1",
+          "class": "large-form-control"
+        },
+        "calorias_prescribir": {
+          "label": "Calorías (Kcal)",
+          "type": "number",
+          "placeholder": "99999.99",
+          "cols": "2",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "choc_percent": {
+          "label": "CHO C (%)",
+          "type": "number",
+          "placeholder": "99.99",
+          "cols": "1",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "choc_gr": {
+          "label": "CHO C (gr)",
+          "type": "number",
+          "placeholder": "999.99",
+          "cols": "1",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "chon_percent": {
+          "label": "CHO N (%)",
+          "type": "number",
+          "placeholder": "99.99",
+          "cols": "1",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "chon_gr": {
+          "label": "CHO N (gr)",
+          "type": "number",
+          "placeholder": "999.99",
+          "cols": "1",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "cooh_percent": {
+          "label": "COOH (%)",
+          "type": "number",
+          "placeholder": "99.99",
+          "cols": "1",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "cooh_gr": {
+          "label": "COOH (gr)",
+          "type": "number",
+          "placeholder": "999.99",
+          "cols": "1",
+          "rows": "1",
+          "class": "medium-form-control"
+        },
+        "prescripcion_dieta": {
+          "label": "Prescripción de la Dieta",
+          "type": "textarea",
+          "placeholder": "Ingrese la prescripción de la dieta",
+          "cols": "12",
+          "rows": "2",
+          "class": "large-form-control"
+        }
+      }
+    }
+  },
+  "mapeo_forms": {
+    "controls_distribucion": "Distribución de nutrientes por la lista de intercambio",
+    "controls_patron": "Patrón de menú"
+  },
+  "tablas": {
+    "alimentos": {
+      "leche": "Leche",
+      "suplemento": "Suplemento",
+      "vegetales": "Vegetales",
+      "frutas": "Frutas",
+      "panes_cereales": "Panes y Cereales",
+      "carnes_magras": "Carnes Magras",
+      "carnes_semi_magras": "Carnes Semi-Magras",
+      "carnes_grasas": "Carnes Grasas",
+      "grasas": "Grasas"
+    },
+    "form_alimento": {
+      "compartido": {
+        "n_int": {
+          "label": "Número de Intercambio",
+          "type": "number",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        }
+      },
+      "controls_distribucion": {
+        "choc": {
+          "label": "CHO C (g)",
+          "type": "number",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "chon": {
+          "label": "CHO N (g)",
+          "type": "number",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "cooh": {
+          "label": "COOH (g)",
+          "type": "number",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "kcal": {
+          "label": "Kcal",
+          "type": "number",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "na": {
+          "label": "Na",
+          "type": "number",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "xtras": {
+          "label": "Comentarios",
+          "type": "text",
+          "validators": []
+        }
+      },
+      "controls_patron": {
+        "adesayuno": {
+          "label": "Desayuno",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "aprimer_refrigerio": {
+          "label": "Refrigerio",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "balmuerzo": {
+          "label": "Almuerzo",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "bsegundo_refrigerio": {
+          "label": "Refrigerio",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "ccena": {
+          "label": "Cena",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        },
+        "ctercer_refrigerio": {
+          "label": "Refrigerio",
+          "validators": [
+            {
+              "type": "pattern",
+              "params": "[0-9]+([\\,\\.][0-9]+)?"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
