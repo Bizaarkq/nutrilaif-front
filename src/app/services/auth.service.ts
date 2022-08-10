@@ -51,4 +51,8 @@ export class AuthService {
       )
   }
 
+  cerrarSesion(){
+    localStorage.clear();
+  }
+
 }

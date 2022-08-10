@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
@@ -11,7 +13,11 @@ export class GeneralLayoutComponent implements OnInit {
   items: any = [];
 
 
-  constructor(private generalService:GeneralService) { }
+  constructor(
+    private generalService:GeneralService,
+    private authService: AuthService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
     this.generalService.getMenu().subscribe({
@@ -25,5 +31,10 @@ export class GeneralLayoutComponent implements OnInit {
       },
       error: (err:any) => {}
     });
+  }
+
+  cerrarSesion(){
+    this.authService.cerrarSesion();
+    this.router.navigate(['auth/login']);
   }
 }
