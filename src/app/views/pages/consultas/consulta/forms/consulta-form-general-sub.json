@@ -256,14 +256,6 @@
     "label_step": "Historia dietética",
     "controls": [
       {
-        "name": "agua",
-        "label": "Agua",
-        "placeholder": "2.5 litros al día",
-        "type": "number",
-        "cols": "2",
-        "autocomplete": "off"
-      },
-      {
         "name": "actividad_fisica",
         "label": "Actividad física",
         "placeholder": "Todos los días",
