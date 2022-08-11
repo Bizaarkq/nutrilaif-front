@@ -144,6 +144,13 @@
         "type": "input",
         "autocomplete": "off",
         "validators": []
+      },
+      {
+        "name": "otros",
+        "label": "Otro Exámen",
+        "placeholder": "Ingrese el valor del exámen",
+        "type": "input",
+        "autocomplete": "off"
       }
     ]
   },
