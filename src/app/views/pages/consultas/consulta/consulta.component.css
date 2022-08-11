@@ -11,6 +11,14 @@ input[type="number"] {
     width: 100%;
 }
 
+.xl-form-control{
+    width: 95%;
+}
+
+.small-margin-right{
+    margin-right: 1em;
+}
+
 .medium-form-control{
     width:75%;
 }

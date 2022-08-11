@@ -12,34 +12,34 @@
       </form>
     </mat-step>
     <ng-container *ngIf="!loadingDataEdicion">
-      <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue; let i=index">
-        <mat-step [stepControl]="group.value">
-          <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)">
-            <ng-template matStepLabel>{{ consultaMap[group.key].label_step }}</ng-template>
+      <ng-container *ngFor="let group of subConsulta | keyvalue; let i=index">
+        <mat-step [stepControl]="getControlSubConsulta(group.value['step'])">
+          <form *ngIf="subConsultaForm.controls[group.value['step']]" [formGroup]="passToFormGroup(group.value['step'])">
+            <ng-template matStepLabel>{{ group.value['label_step'] }}</ng-template>
             <mat-grid-list cols="12" rowHeight="90px">
-              <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
-                <mat-grid-tile 
-                  [colspan]="consultaMap[group.key].controls[control.key].cols ?? 3"
-                  [rowspan]="consultaMap[group.key].controls[control.key].rows ?? 1"
+              <ng-container *ngFor="let control of group.value['controls']">
+                 <mat-grid-tile 
+                  [colspan]="control.cols ?? 3"
+                  [rowspan]="control.rows ?? 1"
                   >
                   <div class="tile-content">
-                <mat-form-field class="{{consultaMap[group.key].controls[control.key].class ?? 'medium-form-control'}}" appearance="outline">
-                  <mat-label>{{ consultaMap[group.key].controls[control.key].label }}</mat-label>
-
-                  <span [ngSwitch]="consultaMap[group.key].controls[control.key].type">
+                <mat-form-field class="{{ control.class ?? 'medium-form-control'}}" appearance="outline">
+                  <mat-label>{{ control.label }}</mat-label>
+                  
+                  <span [ngSwitch]="control.type">
                     <p *ngSwitchCase="'input'">
-                      <input matInput formControlName="{{ control.key }}"
-                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" autocomplete="{{ consultaMap[group.key].controls[control.key].autocomplete }}" />
+                      <input id="{{ control.name }}" matInput formControlName="{{ control.name }}" 
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}" />
                     </p>
                     <p *ngSwitchCase="'textarea'">
-                      <textarea matInput style="height: auto; resize: none;" 
-                        rows="{{consultaMap[group.key].controls[control.key].height}}"
-                        formControlName="{{ control.key }}"
-                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" autocomplete="{{ consultaMap[group.key].controls[control.key].autocomplete }}"></textarea>
+                      <textarea id="{{ control.name }}"  matInput style="height: auto; resize: none;" 
+                        rows="{{ control.height }}"
+                        formControlName="{{ control.name }}"
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"></textarea>
                     </p>
                     <p *ngSwitchCase="'select'">
-                      <mat-select formControlName="{{ control.key }}">
-                        <mat-option *ngFor="let option of consultaMap[group.key].controls[control.key].options"
+                      <mat-select id="{{ control.name }}"  formControlName="{{ control.name }}">
+                        <mat-option *ngFor="let option of control.options"
                           [value]="option.value">
                           {{option.label}}
                         </mat-option>
@@ -47,14 +47,14 @@
                     </p>
 
                     <p *ngSwitchCase="'number'">
-                      <input matInput type="number" formControlName="{{ control.key }}"
-                        placeholder="{{ consultaMap[group.key].controls[control.key].placeholder }}" autocomplete="{{ consultaMap[group.key].controls[control.key].autocomplete }}"/>
+                      <input id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"/>
                     </p>
                     <p *ngSwitchDefault>
 
                     </p>
                   </span>
-                </mat-form-field>
+                </mat-form-field> 
               </div>
               </mat-grid-tile>
               </ng-container>
