@@ -19,15 +19,14 @@ export class RecordatorioComponent implements OnInit {
 
   createForm():void{
     Object.entries(this.camposRecordatorio).forEach(([key, value]) => {
-      this.formRecordatorio.addControl(key, this.fb.control('', 
+      this.formRecordatorio.addControl(key, this.fb.control('', 'validators' in  value ?
       value.validators?.map(function (validator) {
-        if (!validator.includes(':')) {
-          return (Validators as any)[validator];
+        if (!('params' in validator)) {
+          return (Validators as any)[validator['type']];
         } else {
-          let parametros = validator.split(':');
-          return (Validators as any)[parametros[0]](parametros[1]);
+          return (Validators as any)[validator['type']]((validator as any).params);
         }
-      })
+      }) : null
       ));
     });
   }

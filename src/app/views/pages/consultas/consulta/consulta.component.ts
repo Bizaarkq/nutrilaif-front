@@ -11,6 +11,8 @@ import { ConsultaService } from 'src/app/services/consulta.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
+import ConsultaGeneralForm from './forms/consulta-form-general.json';
+import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.json';
 
 @Component({
   selector: 'app-consulta',
@@ -18,7 +20,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./consulta.component.css'],
 })
 export class ConsultaComponent implements OnInit {
-  //consultaForm = this.primeraConsulta.primeraConsulta();
+  subConsulta: object = {};
   //Arreglo para algunos titulos mostrados en los step
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
   id: any;
@@ -31,7 +33,7 @@ export class ConsultaComponent implements OnInit {
   examenesLabs!:FormGroup; 
   datosAntropo!:FormGroup; 
   historiaDiet!:FormGroup; 
-  subConsultaForm!:FormGroup;
+  subConsultaForm :FormGroup = this.FB.group({});
   id_paciente:any;
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
@@ -55,7 +57,7 @@ export class ConsultaComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private router: Router
   ) {}
-    contador=0;
+
   ngOnInit(): void {
     this.consultaMap = this.consulta.mapeadoForm();
     this.id = this.route.snapshot.paramMap.get('id_consulta');
@@ -72,11 +74,11 @@ export class ConsultaComponent implements OnInit {
           this.esBorrador = data.es_borrador;
 
           if(data.es_subsecuente){
-            this.isSubsecuente();
+            this.subConsulta = ConsultaGeneralSubSecuenteForm;
           }else{
-            this.isPrimeraConsulta();
+            this.subConsulta = ConsultaGeneralForm;
           }
-
+          this.createSubForm();
           this.consultaForm.patchValue(data);
           (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
           
@@ -102,15 +104,21 @@ export class ConsultaComponent implements OnInit {
         }
       });
     } else if (this.accion == 'nueva' && this.id_paciente != null) {
-      this.isSubsecuente();
+      this.subConsulta = ConsultaGeneralSubSecuenteForm;
+      this.createSubForm();
     }else if (this.accion == 'nueva' && this.id_paciente === null ||this.id_paciente === undefined ) {
-      this.isPrimeraConsulta();
+      this.subConsulta = ConsultaGeneralForm;
+      this.createSubForm();
     }
 
   }
 
   passToFormGroup(form: string) {
     return this.subConsultaForm.get(form) as FormGroup;
+  }
+
+  getControlSubConsulta(form:string){
+    return this.subConsultaForm.controls[form] as FormControl;
   }
 
   log(val: any) {
@@ -166,18 +174,23 @@ export class ConsultaComponent implements OnInit {
     });
   }
 
-  isPrimeraConsulta(){
-      this.datosMedicos = this.consulta.primeraConsulta('datos_medicos');
-      this.examenesLabs = this.consulta.primeraConsulta('examen_labs');
-      this.datosAntropo = this.consulta.primeraConsulta('datos_antropo');
-      this.historiaDiet = this.consulta.primeraConsulta('historia_dietetica');
-
-      this.subConsultaForm = this.FB.group({
-        datos_medicos: this.datosMedicos,
-        examen_labs: this.examenesLabs,
-        datos_antropo: this.datosAntropo,
-        historia_dietetica: this.historiaDiet,
+  createSubForm(){
+      Object.entries(this.subConsulta).forEach(([key, value]) => {
+        this.subConsultaForm.addControl(value.step, this.FB.group({}));
+        value.controls.forEach((control: any) => {
+          (this.subConsultaForm.controls[value.step] as FormGroup).addControl(control.name, this.FB.control(
+            '', 'validators' in control ?
+            control.validators.map(function (validator : any) {
+              if( 'params' in validator ){
+                return (Validators as any)[validator['type']]((validator as any).params);
+              }else{
+                return (Validators as any)[validator.type];
+              }
+            }) : null
+          ));
+        });
       });
+
       this.consultaForm = this.FB.group({
         paciente: this.paciente,
         recordatorio: this.recordatorio,
@@ -188,31 +201,6 @@ export class ConsultaComponent implements OnInit {
         es_borrador: false
       });
       this.cd.detectChanges();
-  }
-
-  isSubsecuente(){
-    this.esSubsecuente = true;
-    this.datosMedicos = this.consulta.subsecuente('datos_medicos');
-    this.examenesLabs = this.consulta.subsecuente('examen_labs');
-    this.datosAntropo = this.consulta.subsecuente('datos_antropo');
-    this.historiaDiet = this.consulta.subsecuente('historia_dietetica');
-
-    this.subConsultaForm = this.FB.group({
-      datos_medicos: this.datosMedicos,
-      examen_labs: this.examenesLabs,
-      datos_antropo: this.datosAntropo,
-      historia_dietetica: this.historiaDiet,
-    });
-    this.consultaForm = this.FB.group({
-      paciente: this.paciente,
-      recordatorio: this.recordatorio,
-      frecuencia_consumo: this.frecuencia_consumo,
-      planificacion_dieta: this.planificacion_dieta,
-      dieta: this.dieta,
-      subconsulta_form: this.subConsultaForm,
-      es_borrador: false
-    });
-    this.cd.detectChanges();
   }
   
 }
