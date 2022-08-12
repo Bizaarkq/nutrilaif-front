@@ -1,6 +1,10 @@
-<mat-grid-list cols="12" rowHeight="250px">
-    <form [formGroup]="formRecordatorio">
-
+<form [formGroup]="formRecordatorio">
+    <mat-form-field class="width-form" appearance="outline">
+        <mat-label>Agua consumida por día</mat-label>
+        <input matInput placeholder="1.5 litros" type="input" formControlName="consumoAgua" autocomplete="off">
+        <mat-error *ngIf="validarCampo('consumoAgua')">Debe ingresar el total de agua consumido por día</mat-error>
+    </mat-form-field>
+    <mat-grid-list cols="12" rowHeight="300px">
         <mat-grid-tile [colspan]="3" [rowspan]="1">
             <mat-card class="example-card">
                 <mat-card-header>
@@ -16,9 +20,10 @@
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Recordatorio del desayuno</mat-label>
-                        <textarea formControlName="recordatorioDesayuno" matInput 
-                                placeholder="Francés y vegetales"></textarea>
-                        <mat-error *ngIf="validarCampo('recordatorioDesayuno')">Debe ingresar el recordatorio</mat-error>
+                        <textarea formControlName="recordatorioDesayuno" matInput
+                            placeholder="Francés y vegetales"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioDesayuno')">Debe ingresar el recordatorio
+                        </mat-error>
                     </mat-form-field>
                 </mat-card-content>
             </mat-card>
@@ -32,16 +37,18 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Seleccione hora del refrigerio</mat-label>
                             <input formControlName="desayunoRefrigerioHora" matInput type="time">
-                            <mat-error *ngIf="validarCampo('desayunoRefrigerioHora')">Hora ingresada es incorrecta</mat-error>
+                            <mat-error *ngIf="validarCampo('desayunoRefrigerioHora')">Hora ingresada es incorrecta
+                            </mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Recordatorio del refrigerio</mat-label>
-                        <textarea formControlName="recordatorioRefrigerioDesayuno" matInput 
-                                placeholder="Sandia o guayaba"></textarea>
-                        <mat-error *ngIf="validarCampo('recordatorioRefrigerioDesayuno')">Debe ingresar el recordatorio</mat-error>
+                        <textarea formControlName="recordatorioRefrigerioDesayuno" matInput
+                            placeholder="Sandia o guayaba"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioRefrigerioDesayuno')">Debe ingresar el recordatorio
+                        </mat-error>
                     </mat-form-field>
                 </mat-card-content>
             </mat-card>
@@ -62,9 +69,10 @@
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Recordatorio del almuerzo</mat-label>
-                        <textarea formControlName="recordatorioAlmuerzo" matInput 
-                                placeholder="Sopa de pollo"></textarea>
-                        <mat-error *ngIf="validarCampo('recordatorioAlmuerzo')">Debe ingresar el recordatorio</mat-error>
+                        <textarea formControlName="recordatorioAlmuerzo" matInput
+                            placeholder="Sopa de pollo"></textarea>
+                        <mat-error *ngIf="validarCampo('recordatorioAlmuerzo')">Debe ingresar el recordatorio
+                        </mat-error>
                     </mat-form-field>
                 </mat-card-content>
             </mat-card>
@@ -78,16 +86,18 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Seleccione hora del refrigerio</mat-label>
                             <input formControlName="almuerzoRefrigerioHora" matInput type="time">
-                            <mat-error *ngIf="validarCampo('almuerzoRefrigerioHora')">Hora ngresada es incorrecta</mat-error>
+                            <mat-error *ngIf="validarCampo('almuerzoRefrigerioHora')">Hora ngresada es incorrecta
+                            </mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Recordatorio del refrigerio</mat-label>
-                        <textarea formControlName="recordatorioRefrigerioAlmuerzo" matInput 
+                        <textarea formControlName="recordatorioRefrigerioAlmuerzo" matInput
                             placeholder="Café con leche"></textarea>
-                        <mat-error *ngIf="validarCampo('recordatorioRefrigerioAlmuerzo')">Debe ingresar el recordatorio</mat-error>
+                        <mat-error *ngIf="validarCampo('recordatorioRefrigerioAlmuerzo')">Debe ingresar el recordatorio
+                        </mat-error>
                     </mat-form-field>
                 </mat-card-content>
             </mat-card>
@@ -108,8 +118,7 @@
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Recordatorio de la cena</mat-label>
-                        <textarea formControlName="recordatorioCena" matInput 
-                            placeholder="Sopa de frijoles"></textarea>
+                        <textarea formControlName="recordatorioCena" matInput placeholder="Sopa de frijoles"></textarea>
                         <mat-error *ngIf="validarCampo('recordatorioCena')">Debe ingresar el recordatorio</mat-error>
                     </mat-form-field>
                 </mat-card-content>
@@ -122,70 +131,67 @@
                     <mat-card-content>
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>Calorias totales (kcal)</mat-label>
-                            <input matInput placeholder="999" type="number" 
-                                formControlName="caloriasTotales" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('caloriasTotales')">Debe ingresar las calorías totales</mat-error>
+                            <input matInput placeholder="999" type="number" formControlName="caloriasTotales"
+                                autocomplete="off">
+                            <mat-error *ngIf="validarCampo('caloriasTotales')">Debe ingresar las calorías totales
+                            </mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>Porcentaje de cumplimiento</mat-label>
-                            <input matInput placeholder="99" type="number" 
-                                formControlName="cumplimientoCalorias" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('cumplimientoCalorias')">Debe ingresar el porcentaje de cumplimiento</mat-error>
+                            <input matInput placeholder="99" type="number" formControlName="cumplimientoCalorias"
+                                autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoCalorias')">Debe ingresar el porcentaje de
+                                cumplimiento</mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>CHO (g)</mat-label>
-                            <input matInput placeholder="999" type="number" 
-                                formControlName="cho" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('cho')">Debe ingresar los carbohidratos correctamente</mat-error>
+                            <input matInput placeholder="999" type="number" formControlName="cho" autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cho')">Debe ingresar los carbohidratos correctamente
+                            </mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>Porcentaje de cumplimiento</mat-label>
-                            <input matInput placeholder="99" type="number" 
-                                formControlName="cumplimientoCho" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('cumplimientoCho')">Debe ingresar el Porcentaje de cumplimiento</mat-error>
+                            <input matInput placeholder="99" type="number" formControlName="cumplimientoCho"
+                                autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoCho')">Debe ingresar el Porcentaje de
+                                cumplimiento</mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>CHON (g)</mat-label>
-                            <input matInput placeholder="99" type="number" 
-                                formControlName="chon" autocomplete="off">
+                            <input matInput placeholder="99" type="number" formControlName="chon" autocomplete="off">
                             <mat-error *ngIf="validarCampo('chon')">Debe ingresar las proteínas totales</mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>Porcentaje de cumplimiento</mat-label>
-                            <input matInput placeholder="99" type="number" 
-                                formControlName="cumplimientoChon" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('cumplimientoChon')">Debe ingresar el Porcentaje de cumplimiento</mat-error>
+                            <input matInput placeholder="99" type="number" formControlName="cumplimientoChon"
+                                autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoChon')">Debe ingresar el Porcentaje de
+                                cumplimiento</mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>COOH (g)</mat-label>
-                            <input matInput placeholder="99" type="number" 
-                                formControlName="cooh" autocomplete="off">
+                            <input matInput placeholder="99" type="number" formControlName="cooh" autocomplete="off">
                             <mat-error *ngIf="validarCampo('cooh')">Debe ingresar el COOH total</mat-error>
                         </mat-form-field>
-    
+
                         <mat-form-field class="width-form" appearance="outline">
                             <mat-label>Porcentaje de cumplimiento</mat-label>
-                            <input matInput placeholder="99" type="number" 
-                                formControlName="cumplimientoCooh" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('cumplimientoCooh')">Debe ingresar el Porcentaje de cumplimiento</mat-error>
-                        </mat-form-field>
-    
-                        <mat-form-field class="width-form" appearance="outline">
-                            <mat-label>Agua consumida por día</mat-label>
-                            <input matInput placeholder="1.5 litros" type="number" 
-                                formControlName="consumoAgua" autocomplete="off">
-                            <mat-error *ngIf="validarCampo('consumoAgua')">Debe ingresar el total de agua consumido por día</mat-error>
+                            <input matInput placeholder="99" type="number" formControlName="cumplimientoCooh"
+                                autocomplete="off">
+                            <mat-error *ngIf="validarCampo('cumplimientoCooh')">Debe ingresar el Porcentaje de
+                                cumplimiento</mat-error>
                         </mat-form-field>
                     </mat-card-content>
                 </div>
             </mat-card>
 
         </mat-grid-tile>
-    </form>
-</mat-grid-list>
+
+    </mat-grid-list>
+</form>
