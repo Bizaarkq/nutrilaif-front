@@ -358,18 +358,8 @@
         "placeholder": "Estreñimiento",
         "cols": "4",
         "class": "large-form-control small-margin-right",
-        "type": "select",
-        "autocomplete": "off",
-        "options": [
-          {
-            "label": "No",
-            "value": 0
-          },
-          {
-            "label": "Si",
-            "value": 1
-          }
-        ]
+        "type": "input",
+        "autocomplete": "off"
       },
       {
         "name": "horas_sueno",

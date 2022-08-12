@@ -260,7 +260,7 @@
         "label": "Actividad física",
         "placeholder": "Todos los días",
         "type": "input",
-        "cols": "10",
+        "cols": "12",
         "class": "large-form-control",
         "autocomplete": "off"
       },
@@ -279,18 +279,8 @@
         "name": "saciedad",
         "label": "Saciedad",
         "placeholder": "Saciedad",
-        "type": "select",
-        "options": [
-          {
-            "label": "No",
-            "value": 0
-          },
-          {
-            "label": "Si",
-            "value": 1
-          }
-        ],
-        "cols": "2",
+        "type": "input",
+        "cols": "6",
         "autocomplete": "off"
       },
       {
