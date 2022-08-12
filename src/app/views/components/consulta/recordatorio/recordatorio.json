@@ -3,6 +3,10 @@
       "label": "Hora del desayuno",
       "validators": ["required"]
     },
+    "desayunoHoraFin"          : {
+      "label": "Hora del desayuno",
+      "validators": []
+    },
     "recordatorioDesayuno"  : {
       "label": "Recordatorio del desayuno",
       "validators": ["required"]
@@ -10,6 +14,10 @@
     "desayunoRefrigerioHora": {
       "label": "Hora del refrigerio",
       "validators": ["required"]
+    },
+    "desayunoRefrigerioHoraFin": {
+      "label": "Hora del refrigerio",
+      "validators": []
     },
     "recordatorioRefrigerioDesayuno": {
       "label": "Recordatorio del refrigerio del desayuno",
@@ -19,6 +27,10 @@
       "label": "Hora del almuerzo",
       "validators": ["required"]
     },
+    "almuerzoHoraFin"          : {
+      "label": "Hora del almuerzo",
+      "validators": []
+    },
     "recordatorioAlmuerzo"  : {
       "label": "Recordatorio del almuerzo",
       "validators": ["required"]
@@ -27,6 +39,10 @@
       "label": "Refrigerio almuerzo",
       "validators": ["required"]
     },
+    "almuerzoRefrigerioHoraFin"    : {
+      "label": "Refrigerio almuerzo",
+      "validators": []
+    },
     "recordatorioRefrigerioAlmuerzo": {
       "label": "Recordatorio del almuerzo",
       "validators": ["required"]
@@ -34,6 +50,10 @@
     "cenaHora"              : {
       "label": "Hora de la cena",
       "validators": ["required"]
+    },
+    "cenaHoraFin"              : {
+      "label": "Hora de la cena",
+      "validators": []
     },
     "recordatorioCena"      : {
       "label": "Recordatorio de la cena",
