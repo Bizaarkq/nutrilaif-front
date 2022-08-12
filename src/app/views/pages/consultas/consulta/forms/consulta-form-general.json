@@ -159,6 +159,7 @@
         "label": "Peso actual (Kg)",
         "placeholder": "99.99",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -171,6 +172,7 @@
         "label": "Peso meta (Kg)",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "autocomplete": "off"
       },
       {
@@ -178,6 +180,7 @@
         "label": "Edad metabólica",
         "placeholder": "99",
         "type": "number",
+        "cols": "4",
         "autocomplete": "off"
       },
       {
@@ -185,6 +188,7 @@
         "label": "Peso ideal (Kg)",
         "placeholder": "99.99",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -197,6 +201,7 @@
         "label": "Porcentaje grasa corporal",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -209,6 +214,7 @@
         "label": "C. Muñeca (cm)",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "autocomplete": "off"
       },
       {
@@ -216,6 +222,7 @@
         "label": "Talla (m)",
         "placeholder": "9.99",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -228,6 +235,7 @@
         "label": "Porcentaje grasa visceral",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -240,6 +248,7 @@
         "label": "C. Brazo relajado (cm)",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "autocomplete": "off"
       },
       {
@@ -247,6 +256,7 @@
         "label": "Imc (Kg/m2)",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -259,6 +269,7 @@
         "label": "Porcentaje masa muscular",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "autocomplete": "off"
       },
       {
@@ -266,6 +277,7 @@
         "label": "C. Cintura (cm)",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -278,6 +290,7 @@
         "label": "C. Cadera (cm)",
         "placeholder": "99.9",
         "type": "number",
+        "cols": "4",
         "validators": [
           {
             "type": "required"
@@ -290,7 +303,7 @@
         "label": "Diagnóstico nutricional",
         "placeholder": "Normal según IMC",
         "type": "textarea",
-        "cols": "12",
+        "cols": "11",
         "rows": "2",
         "height": "5",
         "class": "large-form-control",
