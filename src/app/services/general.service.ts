@@ -53,5 +53,18 @@ export class GeneralService {
       })
     );
   }
+  getBase(){
+    let token = localStorage.getItem("access_token");
+    const headers=new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+    return this.http.get(endpoints.catalogo.listaBase, {headers})
+    .pipe(
+      map((results:any)=>{
+        return results;
+      })
+    );
+    }
 
 }
