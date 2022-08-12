@@ -1,3 +1,4 @@
+
 <form [formGroup]="formRecordatorio">
     <mat-form-field class="width-form" appearance="outline">
         <mat-label>Agua consumida por día</mat-label>
@@ -16,6 +17,14 @@
                             <mat-error *ngIf="validarCampo('desayunoHora')">Hora ingresada es incorrecta</mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
+<!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora en que finaliza el desayuno</mat-label>
+                            <input formControlName="desayunoHoraFin" matInput type="time">
+                        </mat-form-field>
+                    </mat-card-subtitle>
+<!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
@@ -41,6 +50,14 @@
                             </mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora en que finaliza el refrigerio</mat-label>
+                            <input formControlName="desayunoRefrigerioHoraFin" matInput type="time">
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
@@ -65,6 +82,14 @@
                             <mat-error *ngIf="validarCampo('almuerzoHora')">Hora ingresada es incorrecta</mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora en que finaliza el almuerzo</mat-label>
+                            <input formControlName="almuerzoHoraFin" matInput type="time">
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
@@ -90,6 +115,14 @@
                             </mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora en que finaliza el refrigerio</mat-label>
+                            <input formControlName="almuerzoRefrigerioHoraFin" matInput type="time">
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
@@ -114,6 +147,14 @@
                             <mat-error *ngIf="validarCampo('cenaHora')">Hora ingresada es incorrecta</mat-error>
                         </mat-form-field>
                     </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                    <mat-card-subtitle>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione hora en que finaliza la cena</mat-label>
+                            <input formControlName="cenaHoraFin" matInput type="time">
+                        </mat-form-field>
+                    </mat-card-subtitle>
+                    <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
                 </mat-card-header>
                 <mat-card-content>
                     <mat-form-field class="example-full-width" appearance="outline">
