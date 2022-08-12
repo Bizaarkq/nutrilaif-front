@@ -181,7 +181,11 @@ export class ConsultaComponent implements OnInit {
           (this.subConsultaForm.controls[value.step] as FormGroup).addControl(control.name, this.FB.control(
             '', 'validators' in control ?
             control.validators.map(function (validator : any) {
+              if( 'params' in validator ){
+                return (Validators as any)[validator['type']]((validator as any).params);
+              }else{
                 return (Validators as any)[validator.type];
+              }
             }) : null
           ));
         });

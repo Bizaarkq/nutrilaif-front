@@ -5,11 +5,7 @@
     "controls": [
       {
         "name": "diagnostico",
-        "validators": [
-          {
-            "type": "required"
-          }
-        ],
+        "validators": [],
         "label": "Nuevo diagnóstico médico",
         "placeholder": "Cefalea",
         "type": "textarea",
@@ -313,6 +309,11 @@
         "type": "input",
         "cols": "12",
         "class": "large-form-control",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
         "autocomplete": "off"
       },
       {
