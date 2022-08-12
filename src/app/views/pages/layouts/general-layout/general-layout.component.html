@@ -14,7 +14,9 @@
         <mat-icon>menu</mat-icon>
       </button>
       <a mat-button routerLink="/inicio" ><h3 >Nutrilaif</h3></a>
-      <button id="cerrarSesion" mat-button (click)="cerrarSesion()"><h3>Cerrar Sesión <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon></h3></button>
+      <button id="cerrarSesion" mat-button (click)="cerrarSesion()" matTooltip="Cerrar Sesión">
+        <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>
+      </button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
