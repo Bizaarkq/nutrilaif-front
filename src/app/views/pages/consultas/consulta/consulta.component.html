@@ -81,7 +81,7 @@
     <mat-step [stepControl]="frecuencia_consumo">
       <form [formGroup]="frecuencia_consumo">
         <ng-template matStepLabel>Frecuencia de consumo</ng-template>
-        <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'"></app-frecuencia-consumo>
+        <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'" [precargar]="accion==='nueva'"></app-frecuencia-consumo>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
