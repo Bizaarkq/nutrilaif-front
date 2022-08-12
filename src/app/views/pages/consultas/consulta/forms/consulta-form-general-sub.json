@@ -288,6 +288,17 @@
           }
         ],
         "autocomplete": "off"
+      },
+      {
+        "name": "diagnostico_nutricional",
+        "label": "Diagnóstico nutricional",
+        "placeholder": "Normal según IMC",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
       }
     ]
   },
@@ -327,17 +338,6 @@
         "name": "alimentos_quiere",
         "label": "Alimentos que quisiera incorporar",
         "placeholder": "Hamburguesa",
-        "type": "textarea",
-        "cols": "12",
-        "rows": "2",
-        "height": "5",
-        "class": "large-form-control",
-        "autocomplete": "off"
-      },
-      {
-        "name": "diagnostico_nutricional",
-        "label": "Diagnóstico nutricional",
-        "placeholder": "Normal según IMC",
         "type": "textarea",
         "cols": "12",
         "rows": "2",

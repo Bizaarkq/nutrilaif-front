@@ -288,6 +288,17 @@
           }
         ],
         "autocomplete": "off"
+      },
+      {
+        "name": "diagnostico_nutricional",
+        "label": "Diagnóstico nutricional",
+        "placeholder": "Normal según IMC",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
       }
     ]
   },
@@ -408,7 +419,7 @@
         "type": "input",
         "autocomplete": "off",
         "cols": "2",
-        "class": "large-form-control"
+        "class": "large-form-control small-margin-right"
       }
     ]
   }
