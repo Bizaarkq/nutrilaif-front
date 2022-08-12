@@ -21,7 +21,6 @@ export class RecordatorioComponent implements OnInit {
     Object.entries(this.camposRecordatorio).forEach(([key, value]) => {
       this.formRecordatorio.addControl(key, this.fb.control('', 'validators' in  value ?
       value.validators?.map(function (validator) {
-        console.log(!('params' in validator));
         if (!('params' in validator)) {
           return (Validators as any)[validator['type']];
         } else {
