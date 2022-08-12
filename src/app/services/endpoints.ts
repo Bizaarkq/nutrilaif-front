@@ -3,7 +3,8 @@ import { environment } from "src/environments/environment";
 export const endpoints = {
     auth: {
         login: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/token',
-        infoUser: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/userinfo'
+        infoUser: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/userinfo',
+        logout: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/logout'
     },
     consulta: {
         guardarConsulta: environment.apiUrl + '/consulta/save',

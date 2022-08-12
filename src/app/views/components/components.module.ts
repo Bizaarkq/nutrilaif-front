@@ -14,6 +14,7 @@ import { RecordatorioComponent } from './consulta/recordatorio/recordatorio.comp
 import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion-dieta.component';
+import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/modal-extender-sesion.component';
 
 
 
@@ -28,6 +29,7 @@ import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion
     TablaDietaComponent,
     SpinnerComponent,
     PlanificacionDietaComponent,
+    ModalExtenderSesionComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,7 @@ import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion
     TablaDietaComponent,
     SpinnerComponent,
     PlanificacionDietaComponent,
+    ModalExtenderSesionComponent
   ]
 })
 export class ComponentsModule { }
