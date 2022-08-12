@@ -1,7 +1,7 @@
 <form [formGroup]="formRecordatorio">
     <mat-form-field class="width-form" appearance="outline">
         <mat-label>Agua consumida por día</mat-label>
-        <input matInput placeholder="1.5 litros" type="input" formControlName="consumoAgua" autocomplete="off">
+        <input matInput placeholder="1.5 litros" formControlName="consumoAgua" autocomplete="off">
         <mat-error *ngIf="validarCampo('consumoAgua')">Debe ingresar el total de agua consumido por día</mat-error>
     </mat-form-field>
     <mat-grid-list cols="12" rowHeight="300px">
