@@ -47,9 +47,15 @@ export class GeneralLayoutComponent implements OnInit {
     this.sesionActiva = false;
     this.authService.cerrarSesion().subscribe({
       next: () => {
-        
+        this.snack.open('Sesión finalizada con éxito', 'Ok',{
+          duration: 3000
+        });
       }, 
-      error: () => {}
+      error: () => {
+        this.snack.open('Error al cerrar sesión', 'Ok',{
+          duration: 3000
+        });
+      }
     });
     this.router.navigate(['auth/login']);
   }
@@ -73,6 +79,9 @@ export class GeneralLayoutComponent implements OnInit {
               next: res => {
                 localStorage.setItem('acces_token', res.access_token);
                 localStorage.setItem('refresh_token', res.refresh_token);
+                this.snack.open('Sesión extendida correctamente', 'Ok',{
+                  duration: 3000
+                });
               },
               error: err => {
                 this.snack.open(

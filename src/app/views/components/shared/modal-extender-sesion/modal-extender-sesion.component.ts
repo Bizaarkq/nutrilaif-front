@@ -14,7 +14,6 @@ export class ModalExtenderSesionComponent implements OnInit {
   constructor(private authService: AuthService, 
     public dialog: MatDialogRef<ModalExtenderSesionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
