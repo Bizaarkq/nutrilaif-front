@@ -47,7 +47,8 @@ export class DatosPersonalesComponent implements OnInit {
       this.pacienteService.getDatosPersonales(id_paciente).subscribe({
         next: (results: any) => {
           
-          if(results[0].municipio !== null && results[0].departamento !== null){
+          if(results[0].municipio !== null && results[0].departamento !== null && results[0].pais !== null){
+            this.getDepartamentos(results[0].pais);
             this.getMunicipios(results[0].departamento);
           }
 
