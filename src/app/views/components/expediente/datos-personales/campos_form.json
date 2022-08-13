@@ -31,6 +31,10 @@
     "label": "Dirección",
     "validators": ["required", "minLength:5"]
   },
+  "pais": {
+    "label": "País",
+    "validators": ["required"]
+  },
   "departamento": {
     "label": "Departamento",
     "validators": ["required"]

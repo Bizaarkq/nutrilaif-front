@@ -24,14 +24,28 @@ export class GeneralService {
     );
   }
 
-  getDepartamentos(){
+  getPaises(){
+    let token = localStorage.getItem("access_token");
+    const headers=new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+    return this.http.get(endpoints.catalogo.paises, {headers})
+    .pipe(
+      map((results:any)=>{
+        return results;
+      })
+    );
+  }
+
+  getDepartamentos(cod_pais:any){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     });
 
-    return this.http.get(endpoints.catalogo.departamentos, {headers})
+    return this.http.get(endpoints.catalogo.departamentos + '/' + cod_pais, {headers})
     .pipe(
       map((results: any) => {
         return results;
