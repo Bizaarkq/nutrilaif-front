@@ -16,6 +16,7 @@ export class DatosPersonalesComponent implements OnInit {
   @Input() loadFromParent : boolean = false;
   @Input() editable: boolean = true;
   @Input() expediente: boolean = false;
+  paises: any;
   departamentos: any;
   municipios: any;
   visibleSpinner = false;
@@ -38,7 +39,7 @@ export class DatosPersonalesComponent implements OnInit {
       this.pacienteForm = this.fb.group({});
     }
     this.createForm();
-    this.getDepartamentos();
+    this.getPaises();
 
     const id_paciente = this.route.snapshot.paramMap.get('id_paciente');
     if( id_paciente !== null ){
@@ -46,7 +47,8 @@ export class DatosPersonalesComponent implements OnInit {
       this.pacienteService.getDatosPersonales(id_paciente).subscribe({
         next: (results: any) => {
           
-          if(results[0].municipio !== null && results[0].departamento !== null){
+          if(results[0].municipio !== null && results[0].departamento !== null && results[0].pais !== null){
+            this.getDepartamentos(results[0].pais);
             this.getMunicipios(results[0].departamento);
           }
 
@@ -88,8 +90,18 @@ export class DatosPersonalesComponent implements OnInit {
       this.pacienteForm.controls[campo].touched;
   }
 
-  getDepartamentos(){
-    this.generalService.getDepartamentos().subscribe({
+  getPaises(){
+    this.generalService.getPaises().subscribe({
+      next: (results: any) => {
+        this.paises = results;
+      }
+    });
+  }
+
+  getDepartamentos(pais: any){
+    this.pacienteForm.controls['departamento'].setValue(null);
+    this.pacienteForm.controls['municipio'].setValue(null);
+    this.generalService.getDepartamentos(pais).subscribe({
       next: (results: any) => {
         this.departamentos = results;
       },
@@ -97,6 +109,7 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   getMunicipios(departamento: any){
+    this.pacienteForm.controls['municipio'].setValue(null);
     this.generalService.getMunicipios(departamento).subscribe({
       next: (results: any) => {
         this.municipios = results;

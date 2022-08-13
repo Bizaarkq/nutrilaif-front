@@ -23,6 +23,7 @@ export const endpoints = {
     },
     catalogo: {
         menu: environment.apiUrl + '/catalogo/menu',
+        paises: environment.apiUrl + '/catalogo/paises',
         departamentos: environment.apiUrl + '/catalogo/departamentos',
         municipios: environment.apiUrl + '/catalogo/municipios',
         listaBase: environment.apiUrl+'/catalogo/listaBase'
