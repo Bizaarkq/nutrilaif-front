@@ -62,7 +62,7 @@ export class AuthService {
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });
-
+    localStorage.clear();
     return this.http
       .post(endpoints.auth.logout, formSesion, { headers })
       .pipe(
