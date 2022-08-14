@@ -1,6 +1,8 @@
+
+<div class="page">
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <form [formGroup]="consultaForm" (submit)="guardar()">
-  <mat-stepper orientation="vertical" [linear]="false" #stepper>
+  <mat-stepper orientation="vertical" [linear]="false" #stepper >
     <mat-step [stepControl]="paciente">
       <form [formGroup]="paciente">
         <ng-template matStepLabel>Datos del Paciente</ng-template>
@@ -84,7 +86,7 @@
         <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'" [precargar]="accion==='nueva'"></app-frecuencia-consumo>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
-          <button mat-raised-button matStepperNext color="accent">Siguiente</button>
+          <button *ngIf="!(accion==='nueva')" mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -108,10 +110,20 @@
       </form>
     </mat-step>
   </mat-stepper>
-  <div style="text-align: center;">
+  <div class="fila-guardado">
     <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
-      <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
+      <mat-form-field appearance="outline">
+        <mat-label>Guardado</mat-label>
+        <mat-select formControlName="estado" (selectionChange)="opcionDeGuardado(estado.value)" #estado> 
+          <mat-option *ngIf="!estados"value="">--</mat-option>
+          <mat-option *ngFor="let estado of estados"
+            [value]="estado.codigo">
+            {{estado.opcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </section>
-    <button mat-fab color="primary" [disabled]="consultaForm.invalid"><mat-icon>save</mat-icon></button>
+    <button mat-raised-button class="boton-guardado" color="primary" [disabled]="!permitirGuardado"><mat-icon>save</mat-icon></button>
   </div>
 </form>
+</div>

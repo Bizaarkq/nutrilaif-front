@@ -52,7 +52,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>País</mat-label>
                 <mat-select formControlName="pais" required (selectionChange)="getDepartamentos(pais.value)" #pais> 
-                    <mat-option value="">--</mat-option>
+                    <mat-option *ngIf="!paises" value="">--</mat-option>
                     <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
                         {{pais.nombre}}
                     </mat-option>
@@ -65,7 +65,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Departamento/Estado</mat-label>
                 <mat-select formControlName="departamento" required (selectionChange)="getMunicipios(departa.value)" #departa> 
-                    <mat-option value="">--</mat-option>
+                    <mat-option *ngIf="!departamentos" value="">--</mat-option>
                     <mat-option *ngFor="let depart of departamentos" [value]="depart.id">
                         {{depart.nombre}}
                     </mat-option>
@@ -78,7 +78,7 @@
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Municipio/Ciudad</mat-label>
                 <mat-select matNativeControl formControlName="municipio" required>
-                    <mat-option value="">--</mat-option>
+                    <mat-option *ngIf="!municipios" value="">--</mat-option>
                     <mat-option *ngFor="let municipio of municipios" [value]="municipio.id">
                         {{municipio.nombre}}
                     </mat-option>

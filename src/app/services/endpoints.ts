@@ -26,7 +26,8 @@ export const endpoints = {
         paises: environment.apiUrl + '/catalogo/paises',
         departamentos: environment.apiUrl + '/catalogo/departamentos',
         municipios: environment.apiUrl + '/catalogo/municipios',
-        listaBase: environment.apiUrl+'/catalogo/listaBase'
+        listaBase: environment.apiUrl+'/catalogo/listaBase',
+        estados: environment.apiUrl + '/catalogo/estados',
     }
 };
 

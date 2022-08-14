@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ConsultaForm } from './consulta-form';
 import { ConsultaService } from 'src/app/services/consulta.service';
+import { GeneralService } from 'src/app/services/general.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
@@ -28,7 +29,6 @@ export class ConsultaComponent implements OnInit {
   esBorrador: any;
   esSubsecuente: boolean = false;
   visibleSpinner = false;
-  consultaMap:any;
   datosMedicos!:FormGroup;
   examenesLabs!:FormGroup; 
   datosAntropo!:FormGroup; 
@@ -37,6 +37,8 @@ export class ConsultaComponent implements OnInit {
   id_paciente:any;
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
+  estados:any;
+  permitirGuardado: boolean = false;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -55,11 +57,11 @@ export class ConsultaComponent implements OnInit {
     private route: ActivatedRoute,
     private snack: MatSnackBar,
     private cd: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private generalService: GeneralService
   ) {}
 
   ngOnInit(): void {
-    this.consultaMap = this.consulta.mapeadoForm();
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
@@ -72,6 +74,8 @@ export class ConsultaComponent implements OnInit {
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
           this.esBorrador = data.es_borrador;
+
+          this.cargarEstados(data.estado);
 
           if(data.es_subsecuente){
             this.subConsulta = ConsultaGeneralSubSecuenteForm;
@@ -103,11 +107,13 @@ export class ConsultaComponent implements OnInit {
           this.visibleSpinner = false;
         }
       });
-    } else if (this.accion == 'nueva' && this.id_paciente != null) {
-      this.subConsulta = ConsultaGeneralSubSecuenteForm;
-      this.createSubForm();
-    }else if (this.accion == 'nueva' && this.id_paciente === null ||this.id_paciente === undefined ) {
-      this.subConsulta = ConsultaGeneralForm;
+    } else if (this.accion == 'nueva') {
+      this.cargarEstados();
+      if(this.id_paciente){
+        this.subConsulta = ConsultaGeneralSubSecuenteForm;
+      }else{
+        this.subConsulta = ConsultaGeneralForm;
+      }
       this.createSubForm();
     }
 
@@ -198,9 +204,27 @@ export class ConsultaComponent implements OnInit {
         dieta: this.dieta,
         planificacion_dieta: this.planificacion_dieta,
         subconsulta_form: this.subConsultaForm,
-        es_borrador: false
+        es_borrador: false,
+        estado: ''
       });
       this.cd.detectChanges();
   }
-  
+
+  cargarEstados(estadoActual: any = null){
+    this.generalService.getEstados(estadoActual).subscribe({
+      next: (data) => {
+        this.estados = data;
+      }
+    });
+  }
+
+  opcionDeGuardado(estado:any){
+    if(estado.includes('BORRADOR')){
+      this.permitirGuardado = true;
+    }else if (this.consultaForm.valid){
+      this.permitirGuardado = true;
+    }else{
+      this.permitirGuardado = false;
+    }
+  }
 }
