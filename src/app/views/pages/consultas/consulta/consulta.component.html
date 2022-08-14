@@ -1,4 +1,3 @@
-
 <div class="page">
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <form [formGroup]="consultaForm" (submit)="guardar()">
@@ -90,7 +89,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step *ngIf="accion==='editar' || accion==='ver'" [stepControl]="planificacion_dieta">
+    <mat-step *ngIf="(accion==='editar' && !(estadoActual === 'BORRADOR.CONSULTA' || !estadoActual))|| accion==='ver'" [stepControl]="planificacion_dieta">
       <form [formGroup]="planificacion_dieta">
         <ng-template matStepLabel>Plan Alimenticio</ng-template>
         <app-planificacion-dieta [planAlimenticio]="planificacion_dieta"></app-planificacion-dieta>
@@ -100,7 +99,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step *ngIf="accion==='editar' || accion==='ver'" [stepControl]="dieta">
+    <mat-step *ngIf="(accion==='editar' && !(estadoActual === 'BORRADOR.CONSULTA' || !estadoActual)) || accion==='ver'" [stepControl]="dieta">
       <form [formGroup]="dieta">
         <ng-template matStepLabel>Dieta</ng-template>
         <app-tabla-dieta [formularioDieta]="dieta"></app-tabla-dieta>
