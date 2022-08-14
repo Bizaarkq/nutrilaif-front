@@ -118,7 +118,7 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1">
             <mat-form-field class="small-form-control" appearance="outline">
                 <mat-label>Edad</mat-label>
-                <input [readonly]="true" formControlName="edad" matInput type="number" placeholder="Edad" value="">                     
+                <input [readonly]="true" formControlName="edad" id="edad" matInput type="number" placeholder="Edad" value="">                     
                 <mat-error *ngIf="validarCampo('edad')">Ingrese una edad válida</mat-error>
             </mat-form-field>
         </mat-grid-tile>

@@ -6,7 +6,7 @@
       <form [formGroup]="paciente">
         <ng-template matStepLabel>Datos del Paciente</ng-template>
         <app-datos-personales [pacienteForm]="paciente"
-          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"></app-datos-personales>
+          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"(edad)="setEdad($event)"></app-datos-personales>
         <div class="buttons">
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
@@ -48,13 +48,14 @@
                     </p>
 
                     <p *ngSwitchCase="'number'">
-                      <input id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
+                      <input (change)="control.eventos['change']" id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
                         placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"/>
                     </p>
                     <p *ngSwitchDefault>
 
                     </p>
                   </span>
+                  <mat-hint *ngIf="control.name === 'imc'">{{imcString}}</mat-hint>
                 </mat-form-field> 
               </div>
               </mat-grid-tile>
