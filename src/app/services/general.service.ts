@@ -79,6 +79,25 @@ export class GeneralService {
         return results;
       })
     );
-    }
+  }
 
+  getEstados(codigo: any = null){
+    let url = codigo ? endpoints.catalogo.estados + '/' + codigo : endpoints.catalogo.estados; 
+    return this.doGetRequest(url);
+  }
+
+  doGetRequest(url: string){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    return this.http.get(url, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
 }

@@ -6,8 +6,8 @@ import {
   Validators,
   FormArray,
 } from '@angular/forms';
-import { ConsultaForm } from './consulta-form';
 import { ConsultaService } from 'src/app/services/consulta.service';
+import { GeneralService } from 'src/app/services/general.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
@@ -25,18 +25,15 @@ export class ConsultaComponent implements OnInit {
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
   id: any;
   accion: any;
-  esBorrador: any;
   esSubsecuente: boolean = false;
   visibleSpinner = false;
-  consultaMap:any;
-  datosMedicos!:FormGroup;
-  examenesLabs!:FormGroup; 
-  datosAntropo!:FormGroup; 
-  historiaDiet!:FormGroup; 
   subConsultaForm :FormGroup = this.FB.group({});
   id_paciente:any;
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
+  estados:any;
+  estadoActual:any;
+  permitirGuardado: boolean = false;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -50,16 +47,15 @@ export class ConsultaComponent implements OnInit {
 
   constructor(
     private FB: FormBuilder,
-    private consulta: ConsultaForm,
     private consultaService: ConsultaService,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
     private cd: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private generalService: GeneralService
   ) {}
 
   ngOnInit(): void {
-    this.consultaMap = this.consulta.mapeadoForm();
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
@@ -71,8 +67,9 @@ export class ConsultaComponent implements OnInit {
       this.loadingDataEdicion = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
-          this.esBorrador = data.es_borrador;
 
+          this.cargarEstados(data.estado);
+          this.estadoActual = data.estado;
           if(data.es_subsecuente){
             this.subConsulta = ConsultaGeneralSubSecuenteForm;
           }else{
@@ -85,7 +82,7 @@ export class ConsultaComponent implements OnInit {
           data.frecuencia_consumo.frecuencia.forEach((f:any) => (
             this.frecuencia_consumo.get('frecuencia') as FormArray).push(this.FB.group(f))
           );
-          if (!this.esBorrador || this.accion === 'ver'){
+          if ( data.estado === 'ARCHIVADA' || this.accion === 'ver'){
             this.consultaForm.disable();
           };
         },
@@ -103,11 +100,13 @@ export class ConsultaComponent implements OnInit {
           this.visibleSpinner = false;
         }
       });
-    } else if (this.accion == 'nueva' && this.id_paciente != null) {
-      this.subConsulta = ConsultaGeneralSubSecuenteForm;
-      this.createSubForm();
-    }else if (this.accion == 'nueva' && this.id_paciente === null ||this.id_paciente === undefined ) {
-      this.subConsulta = ConsultaGeneralForm;
+    } else if (this.accion == 'nueva') {
+      this.cargarEstados();
+      if(this.id_paciente){
+        this.subConsulta = ConsultaGeneralSubSecuenteForm;
+      }else{
+        this.subConsulta = ConsultaGeneralForm;
+      }
       this.createSubForm();
     }
 
@@ -129,35 +128,46 @@ export class ConsultaComponent implements OnInit {
     this.visibleSpinner = true;
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
-        let duracion = 5000;
-        if(res.data != null){
+        if(res.code === 99){
           this.snack.open(
-            'N° de Expediente para el nuevo paciente: ' + res.data, '',
+            res.mensaje,
+            '',
             {
-              duration: duracion/2,
+              duration: 3000,
             }
           );
-
-          setTimeout(() => {
-             this.snack.open(res.mensaje, '', {
-               duration: duracion / 2,
-             });
-          }, duracion/2);
-          
         }else{
-          this.snack.open(
-            res.mensaje, '',
-            {
-              duration: duracion,
-            }
-          );
-        }
+          let duracion = 5000;
+          if(res.data != null){
+            this.snack.open(
+              'N° de Expediente para el nuevo paciente: ' + res.data, '',
+              {
+                duration: duracion/2,
+              }
+            );
+            
+            setTimeout(() => {
+               this.snack.open(res.mensaje, '', {
+                 duration: duracion / 2,
+               });
+            }, duracion/2);
+            
+          }else{
+            this.snack.open(
+              res.mensaje, '',
+              {
+                duration: duracion,
+              }
+            );
+          }
+        
+          this.paciente.controls['numero_exp'].setValue(res.data);
+          this.numeroExpediente = res.data;
+          setTimeout(() => {
+            this.router.navigate(['/expedientes']);
+          }, duracion);
 
-        this.paciente.controls['numero_exp'].setValue(res.data);
-        this.numeroExpediente = res.data;
-        setTimeout(() => {
-          this.router.navigate(['/expedientes']);
-        }, duracion);
+        }
       },
       error: (err) => {
         this.snack.open(
@@ -198,9 +208,26 @@ export class ConsultaComponent implements OnInit {
         dieta: this.dieta,
         planificacion_dieta: this.planificacion_dieta,
         subconsulta_form: this.subConsultaForm,
-        es_borrador: false
+        estado: ''
       });
       this.cd.detectChanges();
   }
-  
+
+  cargarEstados(estadoActual: any = null){
+    this.generalService.getEstados(estadoActual).subscribe({
+      next: (data) => {
+        this.estados = data;
+      }
+    });
+  }
+
+  opcionDeGuardado(estado:any){
+    if(estado.includes('BORRADOR')){
+      this.permitirGuardado = true;
+    }else if (this.consultaForm.valid){
+      this.permitirGuardado = true;
+    }else{
+      this.permitirGuardado = false;
+    }
+  }
 }
