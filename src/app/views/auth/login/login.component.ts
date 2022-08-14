@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('refresh_expires_in', res.refresh_expires_in);
             
             this.router.navigate(['/inicio']);
-            console.log(res);
           },
           error: err =>{
             this.snack.open('Usuario o Contraseña incorrectos', 'Ok',{
