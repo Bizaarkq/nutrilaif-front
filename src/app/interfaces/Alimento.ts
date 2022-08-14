@@ -1,6 +1,6 @@
 export interface Alimento{
     id:number,
-    codigo:number,
+    cod_codigo:number,
     pais:string,
     nombre:string,
     calorias:number,
