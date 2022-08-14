@@ -15,7 +15,7 @@ export class DialogAlimentoComponent implements OnInit {
   formDatosAlimento:any = FormGroup;
   camposAlimento: string[] = [
     'codigo',
-    'pais',
+    'cod_pais',
     'nombre',
     'calorias',
     'grasas',
@@ -34,7 +34,7 @@ export class DialogAlimentoComponent implements OnInit {
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
       codigo: [{value:'', disabled: this.codigoDisabled}, Validators.required],
-      pais: ['', [Validators.required]],
+      cod_pais: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       calorias: ['', [Validators.required,Validators.min(0)]],
       grasas: ['', [Validators.required,Validators.min(0)]],
@@ -49,7 +49,7 @@ export class DialogAlimentoComponent implements OnInit {
     if(this.editData){
       this.actionBtn = 'Actualizar';
       this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
-      this.formDatosAlimento.controls['pais'].setValue(this.editData.pais);
+      this.formDatosAlimento.controls['cod_pais'].setValue(this.editData.cod_pais);
       this.formDatosAlimento.controls['nombre'].setValue(this.editData.nombre);
       this.formDatosAlimento.controls['calorias'].setValue(this.editData.calorias);
       this.formDatosAlimento.controls['grasas'].setValue(this.editData.grasas);
