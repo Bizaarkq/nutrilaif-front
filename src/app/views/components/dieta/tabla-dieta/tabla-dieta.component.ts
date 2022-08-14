@@ -44,4 +44,7 @@ export class TablaDietaComponent implements OnInit {
   getErrorMessage() {
     return 'You must enter a value';
   }
+  limpiar(){
+    this.formularioDieta.reset();
+  }
 }
