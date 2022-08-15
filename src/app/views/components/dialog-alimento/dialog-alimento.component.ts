@@ -62,7 +62,10 @@ export class DialogAlimentoComponent implements OnInit {
       this.formDatosAlimento.controls['calcio'].setValue(this.editData.calcio);
       this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);
     }
+    this.getPaises();
   }
+
+
   
   actionBtn:string = 'Agregar';
   constructor(private fb: FormBuilder, private snack: MatSnackBar,
