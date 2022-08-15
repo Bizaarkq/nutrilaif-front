@@ -13,6 +13,7 @@ import { ExpedienteComponent } from './views/pages/expediente/expediente/expedie
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
 import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
 import { PlanificacionDietaComponent } from './views/components/planificacion-dieta/planificacion-dieta.component';
+import { CalendarioComponent } from './views/pages/citas/calendario/calendario.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,11 @@ const routes: Routes = [
         path: 'expediente/:id_paciente',
         canActivate: [AuthGuard],
         component: ExpedienteComponent
+      },
+      {
+        path: 'citas',
+        canActivate: [AuthGuard],
+        component: CalendarioComponent
       }
     ],
   },
