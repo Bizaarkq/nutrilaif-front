@@ -5,14 +5,9 @@
 export const environment = {
   production: false,
 
-//realm: 'nutri_dev',
-  realm: 'nutrilaif',
-  client: 'nutri-auth',
-  authUrl: 'http://128.199.12.118:8080/auth',
- // apiUrl: 'http://128.199.12.118:80/api'
-  apiUrl: 'http://localhost:8000/api'
 
-};
+}; 
+
 
 
 /*
