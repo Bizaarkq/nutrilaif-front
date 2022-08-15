@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GeneralService } from 'src/app/services/general.service';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ConnectableObservable } from 'rxjs';
 
 @Component({
   selector: 'app-frecuencia-consumo',
@@ -8,17 +10,21 @@ import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class FrecuenciaConsumoComponent {
   //formularioFrecuencia!: FormGroup;
-  
   //Formulario a utilizar para la frecuencia de consumo
   @Input() formularioFrecuencia!: FormGroup;
   @Input() modoLectura:boolean = false;
+  @Input() precargar:boolean=false;
   //Titulos utilizados en el componente de frecuencia de consumo
   titulos: string[] = ['Alimento', 'Frecuencia de consumo', 'Comentarios'];
 
-  constructor( private fb:FormBuilder ) { }
+  constructor( 
+    private fb:FormBuilder,
+    private generalService:GeneralService ) { }
 
   ngOnInit(): void {
-    this.addFrecuencia();
+    if(this.precargar){
+      this.getBase();
+    }
   }
 
   //Metodo get intermedio para obtener el FormArray de un FormGroup
@@ -27,9 +33,9 @@ export class FrecuenciaConsumoComponent {
   }
 
   //Metodo encargado de crear un formGroup 
-  newFrecuencia(): FormGroup {
+  newFrecuencia(alimento:any=null): FormGroup {
     return this.fb.group({
-      alimento  : ['', Validators.required],
+      alimento  : [alimento===null?'':alimento, Validators.required],
       frequencia: ['', Validators.required],
       comentario: ['', ]
     })
@@ -39,7 +45,7 @@ export class FrecuenciaConsumoComponent {
   addFrecuencia(){
     this.frecuencias.push( this.newFrecuencia() );
   }
-
+  
   //Metodo para eliminar un elemento del arreglo de frecuencias de consumo
   removeFrecuencia( i:number ){
     this.frecuencias.removeAt( i );
@@ -48,5 +54,17 @@ export class FrecuenciaConsumoComponent {
   //Metodo para validar campos de la frecuencia de consumo
   validarCampos(){
     return (this.newFrecuencia().invalid) ? true : false;
+  }
+  getBase(){
+    this.generalService.getBase().subscribe({
+      next:(results:any)=>{
+        const listaBase=results.map(function(alimento:any){
+          return alimento.nombre;
+        });
+        listaBase.forEach((element:any) => {
+          this.frecuencias.push(this.newFrecuencia(element));
+        });
+      },
+    });
   }
 }

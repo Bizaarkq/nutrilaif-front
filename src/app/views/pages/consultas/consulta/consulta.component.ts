@@ -6,11 +6,13 @@ import {
   Validators,
   FormArray,
 } from '@angular/forms';
-import { ConsultaForm } from './consulta-form';
 import { ConsultaService } from 'src/app/services/consulta.service';
+import { GeneralService } from 'src/app/services/general.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
+import ConsultaGeneralForm from './forms/consulta-form-general.json';
+import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.json';
 
 @Component({
   selector: 'app-consulta',
@@ -18,23 +20,20 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./consulta.component.css'],
 })
 export class ConsultaComponent implements OnInit {
-  //consultaForm = this.primeraConsulta.primeraConsulta();
+  subConsulta: object = {};
   //Arreglo para algunos titulos mostrados en los step
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
   id: any;
   accion: any;
-  esBorrador: any;
   esSubsecuente: boolean = false;
   visibleSpinner = false;
-  consultaMap:any;
-  datosMedicos!:FormGroup;
-  examenesLabs!:FormGroup; 
-  datosAntropo!:FormGroup; 
-  historiaDiet!:FormGroup; 
-  subConsultaForm!:FormGroup;
+  subConsultaForm :FormGroup = this.FB.group({});
   id_paciente:any;
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
+  estados:any;
+  estadoActual:any;
+  permitirGuardado: boolean = false;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -48,16 +47,15 @@ export class ConsultaComponent implements OnInit {
 
   constructor(
     private FB: FormBuilder,
-    private consulta: ConsultaForm,
     private consultaService: ConsultaService,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
     private cd: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private generalService: GeneralService
   ) {}
-    contador=0;
+
   ngOnInit(): void {
-    this.consultaMap = this.consulta.mapeadoForm();
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
@@ -69,21 +67,22 @@ export class ConsultaComponent implements OnInit {
       this.loadingDataEdicion = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
-          this.esBorrador = data.es_borrador;
 
+          this.cargarEstados(data.estado);
+          this.estadoActual = data.estado;
           if(data.es_subsecuente){
-            this.isSubsecuente();
+            this.subConsulta = ConsultaGeneralSubSecuenteForm;
           }else{
-            this.isPrimeraConsulta();
+            this.subConsulta = ConsultaGeneralForm;
           }
-
+          this.createSubForm();
           this.consultaForm.patchValue(data);
           (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
           
           data.frecuencia_consumo.frecuencia.forEach((f:any) => (
             this.frecuencia_consumo.get('frecuencia') as FormArray).push(this.FB.group(f))
           );
-          if (!this.esBorrador || this.accion === 'ver'){
+          if ( data.estado === 'ARCHIVADA' || this.accion === 'ver'){
             this.consultaForm.disable();
           };
         },
@@ -101,16 +100,24 @@ export class ConsultaComponent implements OnInit {
           this.visibleSpinner = false;
         }
       });
-    } else if (this.accion == 'nueva' && this.id_paciente != null) {
-      this.isSubsecuente();
-    }else if (this.accion == 'nueva' && this.id_paciente === null ||this.id_paciente === undefined ) {
-      this.isPrimeraConsulta();
+    } else if (this.accion == 'nueva') {
+      this.cargarEstados();
+      if(this.id_paciente){
+        this.subConsulta = ConsultaGeneralSubSecuenteForm;
+      }else{
+        this.subConsulta = ConsultaGeneralForm;
+      }
+      this.createSubForm();
     }
 
   }
 
   passToFormGroup(form: string) {
     return this.subConsultaForm.get(form) as FormGroup;
+  }
+
+  getControlSubConsulta(form:string){
+    return this.subConsultaForm.controls[form] as FormControl;
   }
 
   log(val: any) {
@@ -121,35 +128,46 @@ export class ConsultaComponent implements OnInit {
     this.visibleSpinner = true;
     this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
       next: (res) => {
-        let duracion = 5000;
-        if(res.data != null){
+        if(res.code === 99){
           this.snack.open(
-            'N° de Expediente para el nuevo paciente: ' + res.data, '',
+            res.mensaje,
+            '',
             {
-              duration: duracion/2,
+              duration: 3000,
             }
           );
-
-          setTimeout(() => {
-             this.snack.open(res.mensaje, '', {
-               duration: duracion / 2,
-             });
-          }, duracion/2);
-          
         }else{
-          this.snack.open(
-            res.mensaje, '',
-            {
-              duration: duracion,
-            }
-          );
-        }
+          let duracion = 5000;
+          if(res.data != null){
+            this.snack.open(
+              'N° de Expediente para el nuevo paciente: ' + res.data, '',
+              {
+                duration: duracion/2,
+              }
+            );
+            
+            setTimeout(() => {
+               this.snack.open(res.mensaje, '', {
+                 duration: duracion / 2,
+               });
+            }, duracion/2);
+            
+          }else{
+            this.snack.open(
+              res.mensaje, '',
+              {
+                duration: duracion,
+              }
+            );
+          }
+        
+          this.paciente.controls['numero_exp'].setValue(res.data);
+          this.numeroExpediente = res.data;
+          setTimeout(() => {
+            this.router.navigate(['/expedientes']);
+          }, duracion);
 
-        this.paciente.controls['numero_exp'].setValue(res.data);
-        this.numeroExpediente = res.data;
-        setTimeout(() => {
-          this.router.navigate(['/expedientes']);
-        }, duracion);
+        }
       },
       error: (err) => {
         this.snack.open(
@@ -166,18 +184,23 @@ export class ConsultaComponent implements OnInit {
     });
   }
 
-  isPrimeraConsulta(){
-      this.datosMedicos = this.consulta.primeraConsulta('datos_medicos');
-      this.examenesLabs = this.consulta.primeraConsulta('examen_labs');
-      this.datosAntropo = this.consulta.primeraConsulta('datos_antropo');
-      this.historiaDiet = this.consulta.primeraConsulta('historia_dietetica');
-
-      this.subConsultaForm = this.FB.group({
-        datos_medicos: this.datosMedicos,
-        examen_labs: this.examenesLabs,
-        datos_antropo: this.datosAntropo,
-        historia_dietetica: this.historiaDiet,
+  createSubForm(){
+      Object.entries(this.subConsulta).forEach(([key, value]) => {
+        this.subConsultaForm.addControl(value.step, this.FB.group({}));
+        value.controls.forEach((control: any) => {
+          (this.subConsultaForm.controls[value.step] as FormGroup).addControl(control.name, this.FB.control(
+            '', 'validators' in control ?
+            control.validators.map(function (validator : any) {
+              if( 'params' in validator ){
+                return (Validators as any)[validator['type']]((validator as any).params);
+              }else{
+                return (Validators as any)[validator.type];
+              }
+            }) : null
+          ));
+        });
       });
+
       this.consultaForm = this.FB.group({
         paciente: this.paciente,
         recordatorio: this.recordatorio,
@@ -185,34 +208,26 @@ export class ConsultaComponent implements OnInit {
         dieta: this.dieta,
         planificacion_dieta: this.planificacion_dieta,
         subconsulta_form: this.subConsultaForm,
-        es_borrador: false
+        estado: ''
       });
       this.cd.detectChanges();
   }
 
-  isSubsecuente(){
-    this.esSubsecuente = true;
-    this.datosMedicos = this.consulta.subsecuente('datos_medicos');
-    this.examenesLabs = this.consulta.subsecuente('examen_labs');
-    this.datosAntropo = this.consulta.subsecuente('datos_antropo');
-    this.historiaDiet = this.consulta.subsecuente('historia_dietetica');
-
-    this.subConsultaForm = this.FB.group({
-      datos_medicos: this.datosMedicos,
-      examen_labs: this.examenesLabs,
-      datos_antropo: this.datosAntropo,
-      historia_dietetica: this.historiaDiet,
+  cargarEstados(estadoActual: any = null){
+    this.generalService.getEstados(estadoActual).subscribe({
+      next: (data) => {
+        this.estados = data;
+      }
     });
-    this.consultaForm = this.FB.group({
-      paciente: this.paciente,
-      recordatorio: this.recordatorio,
-      frecuencia_consumo: this.frecuencia_consumo,
-      planificacion_dieta: this.planificacion_dieta,
-      dieta: this.dieta,
-      subconsulta_form: this.subConsultaForm,
-      es_borrador: false
-    });
-    this.cd.detectChanges();
   }
-  
+
+  opcionDeGuardado(estado:any){
+    if(estado.includes('BORRADOR')){
+      this.permitirGuardado = true;
+    }else if (this.consultaForm.valid){
+      this.permitirGuardado = true;
+    }else{
+      this.permitirGuardado = false;
+    }
+  }
 }

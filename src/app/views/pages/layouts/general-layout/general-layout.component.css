@@ -5,4 +5,10 @@
     left: 0;
     right: 0;
   }
-  
+
+#cerrarSesion {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 0;
+}

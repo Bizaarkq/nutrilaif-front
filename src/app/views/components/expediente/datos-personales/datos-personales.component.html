@@ -50,9 +50,22 @@
 
         <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
-                <mat-label>Departamento</mat-label>
+                <mat-label>País</mat-label>
+                <mat-select formControlName="pais" required (selectionChange)="getDepartamentos(pais.value)" #pais> 
+                    <mat-option *ngIf="!paises" value="">--</mat-option>
+                    <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
+                        {{pais.nombre}}
+                    </mat-option>
+                </mat-select>   
+                <mat-error *ngIf="validarCampo('pais')">Seleccione un país</mat-error>                    
+            </mat-form-field>    
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field class="large-form-control" appearance="outline">
+                <mat-label>Departamento/Estado</mat-label>
                 <mat-select formControlName="departamento" required (selectionChange)="getMunicipios(departa.value)" #departa> 
-                    <mat-option value="">--</mat-option>
+                    <mat-option *ngIf="!departamentos" value="">--</mat-option>
                     <mat-option *ngFor="let depart of departamentos" [value]="depart.id">
                         {{depart.nombre}}
                     </mat-option>
@@ -63,9 +76,9 @@
         
         <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
-                <mat-label>Municipio</mat-label>
+                <mat-label>Municipio/Ciudad</mat-label>
                 <mat-select matNativeControl formControlName="municipio" required>
-                    <mat-option value="">--</mat-option>
+                    <mat-option *ngIf="!municipios" value="">--</mat-option>
                     <mat-option *ngFor="let municipio of municipios" [value]="municipio.id">
                         {{municipio.nombre}}
                     </mat-option>
@@ -74,7 +87,7 @@
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="8" [rowspan]="1">
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Dirección</mat-label>
                 <input formControlName="direccion" autocomplete="enabled" matInput type="text" 
@@ -103,7 +116,7 @@
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <mat-form-field class="large-form-control" appearance="outline">
+            <mat-form-field class="small-form-control" appearance="outline">
                 <mat-label>Edad</mat-label>
                 <input [readonly]="true" formControlName="edad" matInput type="number" placeholder="Edad" value="">                     
                 <mat-error *ngIf="validarCampo('edad')">Ingrese una edad válida</mat-error>
@@ -123,7 +136,7 @@
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <mat-form-field class="large-form-control" appearance="outline">
+            <mat-form-field class="small-form-control" appearance="outline">
                 <mat-label>Telefono</mat-label>
                 <input formControlName="telefono" autocomplete="enabled" matInput type="text" 
                 placeholder="9999-9999">                     
@@ -147,6 +160,10 @@
                 <mat-error *ngIf="validarCampo('correo')">Ingrese un correo electrónico válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
+        <mat-grid-tile [colspan]="8" [rowspan]="1" >
+            <button mat-raised-button color="primary" >Editar Expediente</button>
+        </mat-grid-tile>
     </form>
 </mat-grid-list>
+
 

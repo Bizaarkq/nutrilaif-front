@@ -3,7 +3,8 @@ import { environment } from "src/environments/environment";
 export const endpoints = {
     auth: {
         login: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/token',
-        infoUser: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/userinfo'
+        infoUser: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/userinfo',
+        logout: environment.authUrl + '/realms/' + environment.realm + '/protocol/openid-connect/logout'
     },
     consulta: {
         guardarConsulta: environment.apiUrl + '/consulta/save',
@@ -23,8 +24,11 @@ export const endpoints = {
     },
     catalogo: {
         menu: environment.apiUrl + '/catalogo/menu',
+        paises: environment.apiUrl + '/catalogo/paises',
         departamentos: environment.apiUrl + '/catalogo/departamentos',
         municipios: environment.apiUrl + '/catalogo/municipios',
+        listaBase: environment.apiUrl+'/catalogo/listaBase',
+        estados: environment.apiUrl + '/catalogo/estados',
     }
 };
 

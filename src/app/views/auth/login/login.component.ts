@@ -44,6 +44,10 @@ export class LoginComponent implements OnInit {
         {
           next: res => {
             localStorage.setItem('access_token', res.access_token);
+            localStorage.setItem('refresh_token', res.refresh_token);
+            localStorage.setItem('expires_in', res.expires_in);
+            localStorage.setItem('refresh_expires_in', res.refresh_expires_in);
+            
             this.router.navigate(['/inicio']);
           },
           error: err =>{

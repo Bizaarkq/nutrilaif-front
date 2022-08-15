@@ -51,4 +51,48 @@ export class AuthService {
       )
   }
 
+  cerrarSesion(){
+    const headers = new HttpHeaders({
+      'content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    const formSesion = new HttpParams({
+      fromObject: {
+        client_id: environment.client,
+        refresh_token: localStorage.getItem('refresh_token') ?? ''
+      },
+    });
+    localStorage.clear();
+    return this.http
+      .post(endpoints.auth.logout, formSesion, { headers })
+      .pipe(
+        map((results: any) => {
+          return results;
+        })
+      );
+  }
+
+  extenderSesion(){
+    //const tokenRefresh = localStorage.get
+    const headers = new HttpHeaders({
+      'content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    const formSesion = new HttpParams({
+      fromObject: {
+        grant_type: 'refresh_token',
+        client_id: environment.client,
+        refresh_token: localStorage.getItem('refresh_token') ?? ''
+      },
+    });
+
+    return this.http
+      .post(endpoints.auth.login, formSesion, { headers })
+      .pipe(
+        map((results: any) => {
+          return results;
+        })
+      );
+  }
+
 }

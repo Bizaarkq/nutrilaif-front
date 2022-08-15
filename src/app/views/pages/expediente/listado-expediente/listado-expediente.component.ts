@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ListadoExpedienteComponent implements OnInit {
 
-  columnas: string[] = ['num_expediente', 'nombre_completo', 'telefono','correo','acciones'];
+  columnas: string[] = ['num_expediente', 'nombre_completo', 'apellidos','telefono','correo','acciones'];
   tablaData !: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

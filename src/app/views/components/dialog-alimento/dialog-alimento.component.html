@@ -6,10 +6,19 @@
             <input matInput type="number" formControlName="codigo" 
                 placeholder="9999" autocomplete="off">
         </mat-form-field>
-        <mat-form-field class="" appearance="fill">
+
+        <mat-form-field class="" appearance="fill" formControlName="cod_pais" >
             <mat-label>Pais</mat-label>
-            <input matInput type="text" formControlName="cod_pais" placeholder="Ingrese el país al que pertenecen los nutrientes del alimento" value="" autocomplete="off">
+            <input matInput type="text" placeholder="Ingrese el país al que pertenecen los nutrientes del alimento" value="" autocomplete="off">
         </mat-form-field>
+
+        <mat-select formControlName="pais"> 
+            <mat-option *ngIf="!paises" value="">--</mat-option>
+            <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
+                {{pais.nombre}}
+            </mat-option>
+        </mat-select> 
+
         <mat-form-field class="" appearance="fill">
             <mat-label>Nombre</mat-label>
             <input matInput type="text" formControlName="nombre"
