@@ -6,7 +6,7 @@
       <form [formGroup]="paciente">
         <ng-template matStepLabel>Datos del Paciente</ng-template>
         <app-datos-personales [pacienteForm]="paciente"
-          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"></app-datos-personales>
+          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"(edad)="setEdad($event)"></app-datos-personales>
         <div class="buttons">
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
@@ -55,6 +55,7 @@
 
                     </p>
                   </span>
+                  <mat-hint *ngIf="control.name === 'imc'">{{imcString}}</mat-hint>
                 </mat-form-field> 
               </div>
               </mat-grid-tile>
