@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,6 +16,7 @@ import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.js
 import { MatDialog } from '@angular/material/dialog';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
 import { deComponent } from 'src/app/services/deactivate.guard';
+import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
 
 @Component({
   selector: 'app-consulta',
@@ -34,6 +35,8 @@ export class ConsultaComponent implements OnInit, deComponent {
   id_paciente:any;
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
+  edad:any;
+  imcString:string='';
   estados:any;
   estadoActual:any;
   permitirGuardado: boolean = false;
@@ -55,14 +58,16 @@ export class ConsultaComponent implements OnInit, deComponent {
     private snack: MatSnackBar,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private generalService: GeneralService,
     private dialog: MatDialog,
+    private elRef:ElementRef,
+    private generalService: GeneralService
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    
 
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
@@ -113,7 +118,8 @@ export class ConsultaComponent implements OnInit, deComponent {
       }
       this.createSubForm();
     }
-
+    this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
+    this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
   }
 
   passToFormGroup(form: string) {
@@ -217,6 +223,88 @@ export class ConsultaComponent implements OnInit, deComponent {
       this.cd.detectChanges();
   }
 
+  getValorDeControl(form:string, subform: string, control:string ){
+    return ((this.consultaForm.controls[form] as FormGroup).controls[subform] as FormGroup).controls[control].value;
+  }
+  setValorControl(form:string, subform: string, control:string, valor:any){
+    ((this.consultaForm.controls[form] as FormGroup).controls[subform] as FormGroup).controls[control].setValue(valor);
+  }
+  
+calcular(){
+  let elevarTalla= this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
+  elevarTalla*=elevarTalla;
+  let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
+  let boolAnciano=this.getEdad();
+  mult=mult/elevarTalla;
+  this.setValorControl('subconsulta_form', 'datos_antropo', 'imc', mult);
+  if(boolAnciano > 60){
+    if(mult <= 23){
+      this.imcString="Desnutrición";
+    }
+    else{
+      if(mult <= 28){
+        this.imcString="Normal";
+      }
+      else{
+        if(mult <= 32){
+          this.imcString="Sobrepeso";
+        }
+        else{
+          this.imcString="Obesidad";
+        }
+      }
+    }
+  }
+  else{
+    if(mult < 16){
+      this.imcString="Desnutrición severa";
+    }
+    else{
+      if(mult < 17){
+        this.imcString="Desnutrición moderada";
+      }
+      else{
+        if(mult < 18.55){
+          this.imcString="Desnutrición leve";
+        }
+        else{
+          if(mult < 25){
+            this.imcString="Normal";
+          }
+          else{
+            if(mult < 30){
+              this.imcString="Sobrepeso";
+            }
+            else{
+              if(mult < 35){
+                this.imcString="Obesidad grado 1";
+              }
+              else{
+                if(mult < 40){
+                  this.imcString="Obesidad grado 2";
+                }
+                else{
+                  if(mult < 50){
+                    this.imcString="Obesidad grado mórbida";
+                  }
+                  else{
+                    this.imcString="Obesidad extrema";
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  }
+  setEdad(edad:any){
+    this.edad=edad;
+  }
+  getEdad(){
+    return this.edad;    
+  }
   cargarEstados(estadoActual: any = null){
     this.generalService.getEstados(estadoActual).subscribe({
       next: (data) => {
