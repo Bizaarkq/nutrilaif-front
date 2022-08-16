@@ -13,13 +13,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 import ConsultaGeneralForm from './forms/consulta-form-general.json';
 import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.json';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
+import { deComponent } from 'src/app/services/deactivate.guard';
 
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
   styleUrls: ['./consulta.component.css'],
 })
-export class ConsultaComponent implements OnInit {
+export class ConsultaComponent implements OnInit, deComponent {
   subConsulta: object = {};
   //Arreglo para algunos titulos mostrados en los step
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
@@ -52,7 +55,8 @@ export class ConsultaComponent implements OnInit {
     private snack: MatSnackBar,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -230,4 +234,29 @@ export class ConsultaComponent implements OnInit {
       this.permitirGuardado = false;
     }
   }
+
+  async decisionDialog(){
+    if(!this.consultaForm.touched){
+      return true;
+    }
+    const decision = await this.abrirDialog();
+    return decision;
+
+  }
+
+  async abrirDialog(){
+    const dialog = this.dialog.open(ModalExtenderSesionComponent, {
+      width: '30%',
+      data: {
+        titulo:'¿Desea abandonar la página actual?',
+        mensaje: 'Si abandonas la página actual perderás los datos registrados en la consulta.',
+        boton: 'Confirmar'
+      }
+    });
+    return dialog.afterClosed().toPromise()
+    .then(result => {
+      return Promise.resolve(result);
+    });
+  }
+  
 }
