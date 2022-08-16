@@ -48,7 +48,7 @@
                     </p>
 
                     <p *ngSwitchCase="'number'">
-                      <input (change)="control.eventos['change']" id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
+                      <input id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
                         placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"/>
                     </p>
                     <p *ngSwitchDefault>

@@ -165,9 +165,6 @@
             "type": "required"
           }
         ],
-        "eventos":{
-          "change":"calcularIMC()"
-        },
         "autocomplete": "off"
       },
       {
