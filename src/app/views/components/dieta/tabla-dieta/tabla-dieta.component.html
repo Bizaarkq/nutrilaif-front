@@ -15,7 +15,14 @@
                         </mat-form-field>
                     </td>
                     <td>
-                        <button type="reset" (click)="limpiar()">Limpiar dieta</button>
+                        <button mat-icon-button color="accent" *ngIf="subSec" id="botonLimpiar" (click)="limpiar()">
+                            <mat-icon>cleaning_services</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="accent" *ngIf="subSec" id="botonEditar" (click)="editarDieta()">
+                            <mat-icon>edit_note</mat-icon>
+                        </button>
                     </td>
                 </tr>
                 <br>
