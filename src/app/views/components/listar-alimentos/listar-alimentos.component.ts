@@ -14,7 +14,7 @@ import { DialogAlimentoComponent } from '../dialog-alimento/dialog-alimento.comp
   styleUrls: ['./listar-alimentos.component.css']
 })
 export class ListarAlimentosComponent implements OnInit {
-  displayedColumns: string[] = ['codigo', 'cod_pais', 'nombre', 'calorias', 'grasas', 'proteinas', 'carbohidratos', 'hierro', 'potasio', 'calcio', 'sodio', 'acciones'];
+  displayedColumns: string[] = ['codigo', 'nombre', 'calorias', 'grasas', 'proteinas', 'carbohidratos', 'hierro', 'potasio', 'calcio', 'sodio', 'acciones'];
   dataSource!: MatTableDataSource<any>;
   visibleSpinner = false;
 

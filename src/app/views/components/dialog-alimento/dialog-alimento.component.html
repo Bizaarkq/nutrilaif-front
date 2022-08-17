@@ -7,16 +7,6 @@
                 placeholder="9999" autocomplete="off">
         </mat-form-field>
         <mat-form-field class="" appearance="outline">
-            <mat-label>País</mat-label>
-            <mat-select formControlName="pais"> 
-                <mat-option *ngIf="!paises" value="">--</mat-option>
-                <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
-                    {{pais.nombre}}
-                </mat-option>
-            </mat-select>   
-            <mat-error>Seleccione un país</mat-error>                    
-        </mat-form-field>    
-        <mat-form-field class="" appearance="fill">
             <mat-label>Nombre</mat-label>
             <input matInput type="text" formControlName="nombre"
                 placeholder="LECHE DE VACA, DESCREMADA" autocomplete="off">
