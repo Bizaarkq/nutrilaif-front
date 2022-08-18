@@ -102,7 +102,6 @@ export class DatosPersonalesComponent implements OnInit {
               duration:5000,
             }
           );
-          this.pacienteForm.reset();
         },
        error:(res)=>{
         this.visibleSpinner=false;
@@ -115,7 +114,7 @@ export class DatosPersonalesComponent implements OnInit {
         );
        },
       })
-
+      
     }
     //const idPaciente = this.pacienteChoosen.id_paciente;
     //this.pacienteService.update(this.id_paciente,change)
