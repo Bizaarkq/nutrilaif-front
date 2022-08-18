@@ -13,9 +13,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 import ConsultaGeneralForm from './forms/consulta-form-general.json';
 import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.json';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
-import { deComponent } from 'src/app/services/deactivate.guard';
 import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
 
 @Component({
@@ -23,7 +20,7 @@ import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
   templateUrl: './consulta.component.html',
   styleUrls: ['./consulta.component.css'],
 })
-export class ConsultaComponent implements OnInit, deComponent {
+export class ConsultaComponent implements OnInit {
   subConsulta: object = {};
   //Arreglo para algunos titulos mostrados en los step
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
@@ -58,7 +55,6 @@ export class ConsultaComponent implements OnInit, deComponent {
     private snack: MatSnackBar,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private dialog: MatDialog,
     private elRef:ElementRef,
     private generalService: GeneralService
   ) {}
@@ -322,29 +318,4 @@ calcular(){
       this.permitirGuardado = false;
     }
   }
-
-  async decisionDialog(){
-    if(!this.consultaForm.touched){
-      return true;
-    }
-    const decision = await this.abrirDialog();
-    return decision;
-
-  }
-
-  async abrirDialog(){
-    const dialog = this.dialog.open(ModalExtenderSesionComponent, {
-      width: '30%',
-      data: {
-        titulo:'¿Desea abandonar la página actual?',
-        mensaje: 'Si abandonas la página actual perderás los datos registrados en la consulta.',
-        boton: 'Confirmar'
-      }
-    });
-    return dialog.afterClosed().toPromise()
-    .then(result => {
-      return Promise.resolve(result);
-    });
-  }
-  
 }

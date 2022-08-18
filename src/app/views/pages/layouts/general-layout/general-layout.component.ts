@@ -24,7 +24,7 @@ export class GeneralLayoutComponent implements OnInit {
     private authService: AuthService,
     private router:Router,
     private dialog:MatDialog,
-    private snack: MatSnackBar,
+    private snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
