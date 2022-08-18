@@ -22,8 +22,3 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
-
-button{
-    margin-left: 30cm;
-    width: 20%;
-}

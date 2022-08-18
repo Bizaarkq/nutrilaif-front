@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { endpoints } from './endpoints';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { UrlTree } from '@angular/router';
+//import { url } from 'inspector';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +29,37 @@ export class DatosPersonalesService {
     );
   }
 
+  getDatos(id:string){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+    let url = id === '' || id === null ? endpoints.paciente.getExpediente : endpoints.paciente.getExpediente + '/' + id;
+    return this.http.get(url, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
+
+  update( dto:any){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    //let url = id === '' || id === null ? endpoints.paciente.editarPaciente : endpoints.paciente.editarPaciente + '/' + id;
+    return this.http.post(endpoints.paciente.editarPaciente, dto,{headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
+
   deletePaciente(id: string){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
@@ -42,6 +75,4 @@ export class DatosPersonalesService {
       })
     );
   }
-
-
 }
