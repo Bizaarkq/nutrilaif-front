@@ -8,7 +8,7 @@
         </mat-form-field>
         <mat-form-field class="" appearance="outline">
             <mat-label>País</mat-label>
-            <mat-select formControlName="pais"> 
+            <mat-select formControlName="cod_pais"> 
                 <mat-option *ngIf="!paises" value="">--</mat-option>
                 <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
                     {{pais.nombre}}
