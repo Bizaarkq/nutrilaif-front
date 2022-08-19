@@ -23,9 +23,11 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-#btnForm{
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 5cm;
-    
+div{
+    align-content: center;
+    width: 98%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
 }
+
