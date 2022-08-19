@@ -1,4 +1,4 @@
-import { Component, Input, IterableDiffers, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { GeneralService } from 'src/app/services/general.service';
@@ -17,6 +17,7 @@ export class DatosPersonalesComponent implements OnInit {
   @Input() pacienteForm !: FormGroup;
   @Input() editable: boolean = true;
   @Input() expediente: boolean = false;
+  @Output() edad = new EventEmitter<number>();
   paises: any;
   departamentos: any;
   municipios: any;
@@ -127,7 +128,9 @@ export class DatosPersonalesComponent implements OnInit {
   getEdad(fecha: any){
     const anioActual = new Date().getTime();
     let fechaNacimiento = new Date(fecha.value).getTime();
-    this.pacienteForm.controls['edad'].setValue(Math.floor((anioActual - fechaNacimiento) / (1000 * 60 * 60 * 24 * 365)));
+    let edadActual=Math.floor((anioActual - fechaNacimiento) / (1000 * 60 * 60 * 24 * 365));
+    this.pacienteForm.controls['edad'].setValue(edadActual);
+    this.edad.emit(edadActual);
   }
 
   updateExp(){

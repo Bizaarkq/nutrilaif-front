@@ -10,13 +10,17 @@ export class TablaDietaComponent implements OnInit {
   fechaCreacion = new Date().getDate();
   //Formulario de dieta recibido desde la pagina de consulta
   @Input() formularioDieta !: FormGroup;
+  @Input() subSec:boolean=false;
   //Formulario de dieta
   camposDieta = dietaForm;
+  accion:any;
   constructor( private fb: FormBuilder) { }
 
   ngOnInit(): void {
     //Metodo que crea el formulario al iniciar el componente agregando los controles necesarios para el componente
-    this.addControls();
+      this.addControls();
+      this.formularioDieta.disable();
+      this.accion===!('ver');
   }
   
   addControls(){
@@ -43,5 +47,11 @@ export class TablaDietaComponent implements OnInit {
 
   getErrorMessage() {
     return 'You must enter a value';
+  }
+  limpiar(){
+    this.formularioDieta.reset();
+  }
+  editarDieta(){
+    this.formularioDieta.enable();
   }
 }
