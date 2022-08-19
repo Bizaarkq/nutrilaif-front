@@ -3,6 +3,10 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Subject } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
+import { CitaService } from 'src/app/services/cita.service';
+import { CitaComponent } from 'src/app/views/components/modal/cita/cita.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -30,33 +34,20 @@ export class CalendarioComponent implements OnInit {
   CalendarView = CalendarView;
   viewDate: Date = new Date();
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
-  ];
-
   refresh = new Subject<void>();
 
   events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = false;
 
-  constructor() { }
+  constructor(
+    private citaService:CitaService,
+    private dialog:MatDialog,
+    private datePipe: DatePipe
+    ) { }
 
   ngOnInit(): void {
+    this.getCitas();
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -73,7 +64,41 @@ export class CalendarioComponent implements OnInit {
     }
   }
 
-
+  getCitas(){
+    this.citaService.getCitas().subscribe({
+      next: (res) =>{
+        console.log(res);
+        this.events = res.map((cita:any) =>{
+          return {
+            title: cita.titulo,
+            start: new Date(cita.fecha_cita_inicio),
+            end: new Date(cita.fecha_cita_fin),
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+            draggable: true,
+            meta: 
+            {
+              id : cita.id,
+              id_paciente: cita.id_paciente,
+              numero_exp: cita.numero_exp,
+              nombre: cita.nombre,
+              fecha_nacimiento: cita.fecha_nacimiento,
+              edad: cita.edad,
+              objetivo: cita.objetivo,
+              telefono: cita.telefono,
+              direccion: cita.direccion,
+              correo: cita.correo,
+              fecha_cita_inicio: cita.fecha_cita_inicio,
+              fecha_cita_fin: cita.fecha_cita_fin 
+            }
+          }
+        });
+      }
+    }
+    );
+  }
 
   eventTimesChanged({
     event,
@@ -86,6 +111,11 @@ export class CalendarioComponent implements OnInit {
           ...event,
           start: newStart,
           end: newEnd,
+          meta: {
+            ...event.meta,
+            fecha_cita_inicio: this.datePipe.transform(newStart, 'yyyy-MM-dd hh:mm:ss'),
+            fecha_cita_fin: this.datePipe.transform(newEnd, 'yyyy-MM-dd hh:mm:ss')
+          }
         };
       }
       return iEvent;
@@ -94,24 +124,71 @@ export class CalendarioComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
+    console.log(action, event);
+    const dialog = this.dialog.open(CitaComponent, {
+      width: '50%',
+      data: {
+        titulo : event.title,
+        id : event.meta.id,
+        id_paciente : event.meta.id_paciente,
+        numero_exp : event.meta.numero_exp,
+        nombre : event.meta.nombre,
+        fecha_nacimiento : event.meta.fecha_nacimiento,
+        edad : event.meta.edad,
+        objetivo : event.meta.objetivo,
+        telefono : event.meta.telefono,
+        direccion : event.meta.direccion,
+        correo : event.meta.correo,
+        fecha_cita_inicio : event.meta.fecha_cita_inicio,
+        fecha_cita_fin : event.meta.fecha_cita_fin
+        
+      }
+    });
 
+    dialog.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors['red'],
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
+
+    const dialog = this.dialog.open(CitaComponent, {
+      width: '50%',
+      data: null
+    });
+
+
+    dialog.afterClosed().subscribe(result => {
+      this.events = [
+        ...this.events,
+        {
+          title: result.titulo,
+          start: startOfDay(new Date()),
+          end: endOfDay(new Date()),
+          color: colors['red'],
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+          meta: {
+            id : result.id,
+            id_paciente: result.id_paciente,
+            numero_exp: result.numero_exp,
+            nombre: result.nombre,
+            fecha_nacimiento: result.fecha_nacimiento,
+            edad: result.edad,
+            objetivo: result.objetivo,
+            telefono: result.telefono,
+            direccion: result.direccion,
+            correo: result.correo,
+            fecha_cita_inicio: result.fecha_cita_inicio,
+            fecha_cita_fin: result.fecha_cita_fin 
+          }
         },
-      },
-    ];
+      ];
+    });
+    
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -126,4 +203,5 @@ export class CalendarioComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
+  
 }

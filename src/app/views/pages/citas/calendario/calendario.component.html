@@ -1,5 +1,15 @@
 <mat-grid-list cols="12" rowHeight="6em">
-    <mat-grid-tile [colspan]="4">
+    <mat-grid-tile [colspan]="2">
+      <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="addEvent()"
+      >
+      Agendar nueva cita
+  </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
         <button
             mat-stroked-button
             color="primary"
