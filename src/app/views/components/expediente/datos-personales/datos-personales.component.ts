@@ -28,20 +28,7 @@ export class DatosPersonalesComponent implements OnInit {
   data:any;
   camposPacientes = formPaciente;
 
-
-  //  idDatos:any;
-  //  @Input() consultaForm !: FormGroup;
-//  @Input() loadFromParent : boolean = false;
-  // accion:any;
-  //loadingDataEdicion: boolean = false;
- // estados:any;
- // estadoActual:any;
- //  row:any;
- //  numeroExpediente: any = null;
- // permitirGuardado: boolean = true;
   //Formulario de datos de paciente
- 
-
   //Variable para manejar el formulario de datos personales
   //formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
@@ -55,7 +42,6 @@ export class DatosPersonalesComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void { 
-  //  this.idDatos = this.route.snapshot.paramMap.get('numero_exp');
     if(this.expediente){
       this.pacienteForm = this.fb.group({});
     }
@@ -82,46 +68,6 @@ export class DatosPersonalesComponent implements OnInit {
       });
     }
 
-  }
-
-  updateExp(){
-    const change ={
-      nombre: 'Davi',
-    }
-    this.visibleSpinner = true;
-    if(!this.pacienteForm.invalid){
-
-      this.pacienteService.update(this.pacienteForm.getRawValue())
-      .subscribe({
-        next:(res)=>{
-          this.visibleSpinner=false;
-          this.snack.open(
-            res.mensaje,
-            'OK',
-            {
-              duration:5000,
-            }
-          );
-        },
-       error:(res)=>{
-        this.visibleSpinner=false;
-        this.snack.open(
-          res.mensaje,
-          'Error, creo',
-          {
-            duration: 5000,
-          }
-        );
-       },
-      })
-      
-    }
-    //const idPaciente = this.pacienteChoosen.id_paciente;
-    //this.pacienteService.update(this.id_paciente,change)
-    //.subscribe(data=> {
-    //  const prodFind = this.expediente.findIndex();
-    //  console.log('actualizado',data);
-    //})
   }
 
   createForm(): void {
@@ -184,15 +130,33 @@ export class DatosPersonalesComponent implements OnInit {
     this.pacienteForm.controls['edad'].setValue(Math.floor((anioActual - fechaNacimiento) / (1000 * 60 * 60 * 24 * 365)));
   }
 
-  getExpediente(id: string){
-    console.log()
-  }
+  updateExp(){
+    this.visibleSpinner = true;
+    if(!this.pacienteForm.invalid){
 
-  onShowDetail(id:string){
-    this.pacienteService.getDatos(id)
-    .subscribe(data =>{
-      console.log('paciente',data);
-    })
+      this.pacienteService.update(this.pacienteForm.getRawValue())
+      .subscribe({
+        next:(res)=>{
+          this.visibleSpinner=false;
+          this.snack.open(
+            res.mensaje,
+            'OK',
+            {
+              duration:5000,
+            }
+          );
+        },
+       error:(res)=>{
+        this.visibleSpinner=false;
+        this.snack.open(
+          res.mensaje,
+          'Error',
+          {
+            duration: 5000,
+          }
+        );
+       },
+      })
+    }
   }
-
-  }
+}

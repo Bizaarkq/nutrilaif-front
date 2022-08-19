@@ -44,14 +44,12 @@ export class DatosPersonalesService {
     );
   }
 
-  update( dto:any){
+  update(dto:any){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     });
-
-    //let url = id === '' || id === null ? endpoints.paciente.editarPaciente : endpoints.paciente.editarPaciente + '/' + id;
     return this.http.post(endpoints.paciente.editarPaciente, dto,{headers})
     .pipe(
       map((results: any) => {
@@ -66,7 +64,6 @@ export class DatosPersonalesService {
       'content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     });
-
     let url = endpoints.paciente.eliminarPaciente + '/' + id;
     return this.http.delete(url, {headers})
     .pipe(

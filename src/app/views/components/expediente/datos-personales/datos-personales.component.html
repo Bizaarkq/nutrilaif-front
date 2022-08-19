@@ -1,5 +1,4 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
-<!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
 <div>
     <button mat-icon-button color="primary" (click)="pacienteForm.enable()" *ngIf="expediente" matTooltip ="Editar Expediente" >
         <mat-icon>edit</mat-icon>
@@ -8,7 +7,7 @@
         <mat-icon>save</mat-icon>
     </button>
 </div>
-
+<!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
 <mat-grid-list cols="12" rowHeight="90px">
     <form [formGroup]="pacienteForm">
         <mat-grid-tile [colspan]="2" [rowspan]="1">
