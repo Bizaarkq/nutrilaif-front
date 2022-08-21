@@ -7,6 +7,7 @@ import { CitaService } from 'src/app/services/cita.service';
 import { CitaComponent } from 'src/app/views/components/modal/cita/cita.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -17,19 +18,18 @@ const colors: Record<string, EventColor> = {
     primary: '#1e90ff',
     secondary: '#D1E8FF',
   },
-  yellow: {
-    primary: '#FFC107',
-    secondary: '#ffeb3b',
+  green: {
+    primary: '#8bc34a',
+    secondary: '#dcedc8',
   },
 };
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['./calendario.component.css']
+  styleUrls: ['./calendario.component.css'],
 })
 export class CalendarioComponent implements OnInit {
-  
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
@@ -41,10 +41,11 @@ export class CalendarioComponent implements OnInit {
   activeDayIsOpen: boolean = false;
 
   constructor(
-    private citaService:CitaService,
-    private dialog:MatDialog,
-    private datePipe: DatePipe
-    ) { }
+    private citaService: CitaService,
+    private dialog: MatDialog,
+    private datePipe: DatePipe,
+    private snack: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.getCitas();
@@ -64,11 +65,10 @@ export class CalendarioComponent implements OnInit {
     }
   }
 
-  getCitas(){
+  getCitas() {
     this.citaService.getCitas().subscribe({
-      next: (res) =>{
-        console.log(res);
-        this.events = res.map((cita:any) =>{
+      next: (res) => {
+        this.events = res.map((cita: any) => {
           return {
             title: cita.titulo,
             start: new Date(cita.fecha_cita_inicio),
@@ -78,11 +78,9 @@ export class CalendarioComponent implements OnInit {
               afterEnd: true,
             },
             draggable: true,
-            meta: 
-            {
-              id : cita.id,
+            meta: {
+              id: cita.id,
               id_paciente: cita.id_paciente,
-              numero_exp: cita.numero_exp,
               nombre: cita.nombre,
               fecha_nacimiento: cita.fecha_nacimiento,
               edad: cita.edad,
@@ -91,13 +89,12 @@ export class CalendarioComponent implements OnInit {
               direccion: cita.direccion,
               correo: cita.correo,
               fecha_cita_inicio: cita.fecha_cita_inicio,
-              fecha_cita_fin: cita.fecha_cita_fin 
-            }
-          }
+              fecha_cita_fin: cita.fecha_cita_fin,
+            },
+          };
         });
-      }
-    }
-    );
+      },
+    });
   }
 
   eventTimesChanged({
@@ -105,90 +102,59 @@ export class CalendarioComponent implements OnInit {
     newStart,
     newEnd,
   }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-          meta: {
-            ...event.meta,
-            fecha_cita_inicio: this.datePipe.transform(newStart, 'yyyy-MM-dd hh:mm:ss'),
-            fecha_cita_fin: this.datePipe.transform(newEnd, 'yyyy-MM-dd hh:mm:ss')
-          }
-        };
+    let eventoEdit = {
+      ...event,
+      start: newStart,
+      end: newEnd,
+      color: colors['green'],
+      meta: {
+        ...event.meta,
+        fecha_cita_inicio: this.datePipe.transform(
+          newStart,
+          'yyyy-MM-dd hh:mm:ss'
+        ),
+        fecha_cita_fin: this.datePipe.transform(
+          newEnd,
+          'yyyy-MM-dd hh:mm:ss'
+        ),
+      },
+    };
+    this.citaService.updateCita(eventoEdit.meta).subscribe({
+      next: (res) => {
+        this.snack.open(res.mensaje, 'Ok', {
+          duration: 3000,
+        });
+        if(res.code == 200){
+          this.events = this.events.map((iEvent) => {
+            if (iEvent === event) {
+              return eventoEdit;
+            }
+            return iEvent;
+          });
+        }
       }
-      return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log(action, event);
-    const dialog = this.dialog.open(CitaComponent, {
-      width: '50%',
-      data: {
-        titulo : event.title,
-        id : event.meta.id,
-        id_paciente : event.meta.id_paciente,
-        numero_exp : event.meta.numero_exp,
-        nombre : event.meta.nombre,
-        fecha_nacimiento : event.meta.fecha_nacimiento,
-        edad : event.meta.edad,
-        objetivo : event.meta.objetivo,
-        telefono : event.meta.telefono,
-        direccion : event.meta.direccion,
-        correo : event.meta.correo,
-        fecha_cita_inicio : event.meta.fecha_cita_inicio,
-        fecha_cita_fin : event.meta.fecha_cita_fin
-        
-      }
-    });
-
-    dialog.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+    this.openDialog({
+      id: event.meta.id,
+      id_paciente: event.meta.id_paciente,
+      titulo: event.title,
+      nombre: event.meta.nombre,
+      fecha_nacimiento: event.meta.fecha_nacimiento,
+      edad: event.meta.edad,
+      objetivo: event.meta.objetivo,
+      telefono: event.meta.telefono,
+      direccion: event.meta.direccion,
+      correo: event.meta.correo,
+      fecha_cita_inicio: event.meta.fecha_cita_inicio,
+      fecha_cita_fin: event.meta.fecha_cita_fin,
+    }); 
   }
 
   addEvent(): void {
-
-    const dialog = this.dialog.open(CitaComponent, {
-      width: '50%',
-      data: null
-    });
-
-
-    dialog.afterClosed().subscribe(result => {
-      this.events = [
-        ...this.events,
-        {
-          title: result.titulo,
-          start: startOfDay(new Date()),
-          end: endOfDay(new Date()),
-          color: colors['red'],
-          draggable: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
-          },
-          meta: {
-            id : result.id,
-            id_paciente: result.id_paciente,
-            numero_exp: result.numero_exp,
-            nombre: result.nombre,
-            fecha_nacimiento: result.fecha_nacimiento,
-            edad: result.edad,
-            objetivo: result.objetivo,
-            telefono: result.telefono,
-            direccion: result.direccion,
-            correo: result.correo,
-            fecha_cita_inicio: result.fecha_cita_inicio,
-            fecha_cita_fin: result.fecha_cita_fin 
-          }
-        },
-      ];
-    });
-    
+    this.openDialog();
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -203,5 +169,42 @@ export class CalendarioComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  
+  openDialog(evento:any = null){
+    const dialog = this.dialog.open(CitaComponent, {
+      width: '50%',
+      data: evento
+    });
+
+    dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.events = [
+          ...this.events,
+          {
+            title: result.titulo,
+            start: new Date(result.fecha_cita_inicio),
+            end: new Date(result.fecha_cita_fin),
+            color: colors['green'],
+            draggable: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+            meta: {
+              id: result.id,
+              id_paciente: result.id_paciente,
+              nombre: result.nombre,
+              fecha_nacimiento: result.fecha_nacimiento,
+              edad: result.edad,
+              objetivo: result.objetivo,
+              telefono: result.telefono,
+              direccion: result.direccion,
+              correo: result.correo,
+              fecha_cita_inicio: result.fecha_cita_inicio,
+              fecha_cita_fin: result.fecha_cita_fin,
+            },
+          },
+        ];
+      }
+    });
+  }
 }

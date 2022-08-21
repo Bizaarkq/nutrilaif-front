@@ -25,9 +25,34 @@ export class CitaService {
     );
   }
 
+  doPostRequest(url: string, cuerpo: any){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    return this.http.post(url , cuerpo, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
+
   getCitas(){
     let url = endpoints.cita.listado;
     return this.doGetRequest(url);
+  }
+
+  guardarCita(cita:any){
+    let url = endpoints.cita.guardar;
+    return this.doPostRequest(url, cita);
+  }
+
+  updateCita(cita:any){
+    let url = endpoints.cita.updateFechaHora;
+    return this.doPostRequest(url, cita);
   }
 
 
