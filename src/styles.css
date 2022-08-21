@@ -22,3 +22,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cal-day-badge{
   background-color: green !important;
 }
+
+.invalid-position .cal-event {
+  background-color: #ad2121 !important;
+  color: #fff;
+}
