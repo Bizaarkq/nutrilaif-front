@@ -35,6 +35,7 @@ export const endpoints = {
         listado: environment.apiUrl + '/cita/list',
         guardar: environment.apiUrl + '/cita/save',
         updateFechaHora: environment.apiUrl + '/cita/update/fechora',
+        eliminar: environment.apiUrl + '/cita/delete'
     }
 };
 

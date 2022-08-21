@@ -7,6 +7,8 @@ import { map, startWith } from 'rxjs/operators';
 import { GeneralService } from 'src/app/services/general.service';
 import { CitaService } from 'src/app/services/cita.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalExtenderSesionComponent } from '../../shared/modal-extender-sesion/modal-extender-sesion.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-cita',
   templateUrl: './cita.component.html',
@@ -25,17 +27,6 @@ export class CitaComponent implements OnInit {
   nutric_aux: boolean = false;
   nutricionistas:any[] = [];
 
-  infoPaciente = [
-    'nombre',
-    'fecha_nacimiento',
-    'edad',
-    'objetivo',
-    'telefono',
-    'direccion',
-    'correo',
-  ];
-
-
   eventoForm: FormGroup = this.fb.group({
     id : [null],
     id_nutric: [null],
@@ -45,9 +36,9 @@ export class CitaComponent implements OnInit {
     fecha_nacimiento : [''],
     edad : [''],
     objetivo : [''],
-    telefono : [''],
+    telefono : ['', Validators.pattern('[2|6-7]\\d{3}-\\d{4}')],
     direccion : [''],
-    correo : [''],
+    correo : ['', Validators.email],
     fecha_cita_inicio : ['', Validators.required],
     fecha_cita_fin : ['', Validators.required]
   });
@@ -59,6 +50,7 @@ export class CitaComponent implements OnInit {
     private datepipe:DatePipe,
     private citaService: CitaService,
     private snack: MatSnackBar,
+    private modal: MatDialog,
     public dialog: MatDialogRef<CitaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -72,6 +64,12 @@ export class CitaComponent implements OnInit {
         this.eventoForm.controls['id_paciente'].updateValueAndValidity();
         this.nuevoPaciente = true;
       }
+
+      if(this.data.id_nutric){
+        this.nutric_aux = true;
+        this.eventoForm.controls['id_nutric'].patchValue(this.data.id_nutric);
+      } 
+
       this.eventoForm.patchValue(this.data);
       this.paciente.patchValue(this.data);
       this.setFechaHora(this.data.fecha_cita_inicio, this.data.fecha_cita_fin);
@@ -129,6 +127,7 @@ export class CitaComponent implements OnInit {
 
   setPacienteCita(paciente:any){
       this.eventoForm.controls['id_paciente'].patchValue(paciente.id);
+      this.eventoForm.controls['nombre'].patchValue(paciente.nombre_completo);
   }
 
   validarCampo( campo:string ){
@@ -143,20 +142,19 @@ export class CitaComponent implements OnInit {
   }
 
   cambiarValidacion(){
-      Object.entries(this.eventoForm.controls).forEach(([key, control]) => {
-        if(this.infoPaciente.includes(key)) {
-          this.nuevoPaciente ? control.setValidators(Validators.required) : control.clearValidators(); 
-          control.updateValueAndValidity();
-        }
-
-        if(key === 'id_paciente'){ 
-          control.setValue(null);
-          this.paciente.setValue(null);
-          this.nuevoPaciente ? control.clearValidators() : control.setValidators(Validators.required);
-          control.updateValueAndValidity();
-        } 
-
-      });
+    this.paciente.setValue(null);
+    this.eventoForm.controls['id_paciente'].setValue(null);
+    if(this.nuevoPaciente){
+      this.eventoForm.controls['id_paciente'].clearValidators();
+      this.eventoForm.controls['id_paciente'].updateValueAndValidity();
+      this.eventoForm.controls['nombre'].setValidators([Validators.required]);
+      this.eventoForm.controls['nombre'].updateValueAndValidity();
+    }else{
+      this.eventoForm.controls['id_paciente'].setValidators([Validators.required]);
+      this.eventoForm.controls['id_paciente'].updateValueAndValidity();
+      this.eventoForm.controls['nombre'].clearValidators();
+      this.eventoForm.controls['nombre'].updateValueAndValidity();
+    }
   }
 
   nutricionistaAux(){
@@ -172,15 +170,53 @@ export class CitaComponent implements OnInit {
         this.snack.open(
           res.mensaje, 'Ok', 
           {
-            duration: 3000,
+            duration: 5000,
           }
         );
 
         if(res.code === 200){
           this.eventoForm.controls['id'].setValue(res.data);
-          this.dialog.close(this.eventoForm.value);
+          this.data ? this.dialog.close({...this.eventoForm.value, editar: true}) : this.dialog.close({...this.eventoForm.value, guardado: true});
         }
       }
     });
+  }
+
+  eliminarCita(){
+    const modal = this.modal.open(ModalExtenderSesionComponent, {
+      width: '30%',
+      data: {
+        titulo:'¿Desea eliminar la cita?',
+        mensaje: 'Esta acción no se puede revertir',
+        boton: 'Eliminar cita'
+      }
+    });
+
+    modal.afterClosed().subscribe(result => {
+      if(result){
+        this.citaService.eliminarCita(this.eventoForm.controls['id'].value).subscribe({
+          next: (res) =>{
+            this.snack.open(
+              res.mensaje, 'Ok', 
+              {
+                duration: 3000,
+              }
+            );
+            if(res.code === 200){
+              this.dialog.close({eliminado: true});
+            }
+          },
+          error: (err) =>{
+            this.snack.open(
+              err.mensaje, 'Ok', 
+              {
+                duration: 3000,
+              }
+            );
+          }
+        });
+      }
+    });
+
   }
 }

@@ -80,6 +80,7 @@ export class CalendarioComponent implements OnInit {
             draggable: true,
             meta: {
               id: cita.id,
+              id_nutric: null, 
               id_paciente: cita.id_paciente,
               nombre: cita.nombre,
               fecha_nacimiento: cita.fecha_nacimiento,
@@ -97,11 +98,10 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged(eventTimesChangedEvent: CalendarEventTimesChangedEvent): void { 
+    delete eventTimesChangedEvent.event.cssClass;
+    if(this.validateEventTimesChanged(eventTimesChangedEvent, false)){
+      const {event, newStart, newEnd} = eventTimesChangedEvent;
     let eventoEdit = {
       ...event,
       start: newStart,
@@ -113,32 +113,50 @@ export class CalendarioComponent implements OnInit {
           newStart,
           'yyyy-MM-dd hh:mm:ss'
         ),
-        fecha_cita_fin: this.datePipe.transform(
-          newEnd,
-          'yyyy-MM-dd hh:mm:ss'
-        ),
+        fecha_cita_fin: this.datePipe.transform(newEnd, 'yyyy-MM-dd hh:mm:ss'),
       },
     };
+
+    this.events = this.events.map((iEvent) => {
+      if (iEvent === event) {
+        return eventoEdit;
+      }
+      return iEvent;
+    });
+
     this.citaService.updateCita(eventoEdit.meta).subscribe({
       next: (res) => {
         this.snack.open(res.mensaje, 'Ok', {
           duration: 3000,
         });
-        if(res.code == 200){
+        if (res.code == 99) {
           this.events = this.events.map((iEvent) => {
             if (iEvent === event) {
-              return eventoEdit;
+              return event;
             }
             return iEvent;
           });
         }
+      },
+      error: (err) => {
+        this.snack.open(err.mensaje, 'Ok', {
+          duration: 3000,
+        });
+        this.events = this.events.map((iEvent) => {
+          if (iEvent === event) {
+            return event;
+          }
+          return iEvent;
+        });
       }
     });
+    }
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.openDialog({
       id: event.meta.id,
+      id_nutric: event.meta.id_nutric,
       id_paciente: event.meta.id_paciente,
       titulo: event.title,
       nombre: event.meta.nombre,
@@ -150,15 +168,15 @@ export class CalendarioComponent implements OnInit {
       correo: event.meta.correo,
       fecha_cita_inicio: event.meta.fecha_cita_inicio,
       fecha_cita_fin: event.meta.fecha_cita_fin,
-    }); 
+    }, event);
   }
 
   addEvent(): void {
     this.openDialog();
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  deleteEvent(id:any) {
+    this.events = this.events.filter((event) => event.meta.id !== id);
   }
 
   setView(view: CalendarView) {
@@ -169,42 +187,92 @@ export class CalendarioComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  openDialog(evento:any = null){
+  openDialog(evento: any = null, originalEvent:any = null){
+
     const dialog = this.dialog.open(CitaComponent, {
       width: '50%',
-      data: evento
+      data: evento,
     });
 
     dialog.afterClosed().subscribe((result) => {
-      if (result) {
+      let eventFromModal = (result.guardado || result.editar) ? {
+        title: result.titulo,
+        start: new Date(result.fecha_cita_inicio),
+        end: new Date(result.fecha_cita_fin),
+        color: colors['green'],
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+        meta: {
+          id: result.id,
+          id_nutric: result.id_nutric,
+          id_paciente: result.id_paciente,
+          nombre: result.nombre,
+          fecha_nacimiento: result.fecha_nacimiento,
+          edad: result.edad,
+          objetivo: result.objetivo,
+          telefono: result.telefono,
+          direccion: result.direccion,
+          correo: result.correo,
+          fecha_cita_inicio: result.fecha_cita_inicio,
+          fecha_cita_fin: result.fecha_cita_fin,
+        },
+      } : result;
+
+      if (result.guardado == true) {
         this.events = [
           ...this.events,
-          {
-            title: result.titulo,
-            start: new Date(result.fecha_cita_inicio),
-            end: new Date(result.fecha_cita_fin),
-            color: colors['green'],
-            draggable: true,
-            resizable: {
-              beforeStart: true,
-              afterEnd: true,
-            },
-            meta: {
-              id: result.id,
-              id_paciente: result.id_paciente,
-              nombre: result.nombre,
-              fecha_nacimiento: result.fecha_nacimiento,
-              edad: result.edad,
-              objetivo: result.objetivo,
-              telefono: result.telefono,
-              direccion: result.direccion,
-              correo: result.correo,
-              fecha_cita_inicio: result.fecha_cita_inicio,
-              fecha_cita_fin: result.fecha_cita_fin,
-            },
-          },
+          eventFromModal,
         ];
+      }else if(result.editar == true){
+        this.events = this.events.map((iEvent) => {
+          if (iEvent === originalEvent) {
+            return eventFromModal;
+          }
+          return iEvent;
+        });  
+    }else if(result.eliminado == true){
+        this.deleteEvent(evento.id);
       }
     });
   }
+
+  validateEventTimesChanged = (
+    { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
+    addCssClass = true
+    ) => {
+    if (event.allDay) {
+      return true;
+    }
+
+    delete event.cssClass;
+    // don't allow dragging or resizing events to different days
+    const sameDay = isSameDay(newStart, newEnd as Date);
+
+    if (!sameDay) {
+      return false;
+    }
+
+    // don't allow dragging events to the same times as other events
+    const overlappingEvent = this.events.find((otherEvent: any) => {
+      return (
+        otherEvent !== event &&
+        !otherEvent.allDay &&
+        ((otherEvent.start <= newStart && newStart <= otherEvent.end) ||
+          (otherEvent.start <= (newEnd as Date) && newStart <= otherEvent.end))
+      );
+    });
+    
+    if (overlappingEvent) {
+      if (addCssClass) {
+        event.cssClass = 'invalid-position';
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  };
 }

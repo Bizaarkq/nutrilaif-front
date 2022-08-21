@@ -55,5 +55,20 @@ export class CitaService {
     return this.doPostRequest(url, cita);
   }
 
+  eliminarCita(id:any){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    let url = endpoints.cita.eliminar + '/' + id;
+    return this.http.delete(url, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
 
 }
