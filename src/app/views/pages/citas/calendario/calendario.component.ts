@@ -131,7 +131,7 @@ export class CalendarioComponent implements OnInit {
         });
         if (res.code == 99) {
           this.events = this.events.map((iEvent) => {
-            if (iEvent === event) {
+            if (iEvent === eventoEdit) {
               return event;
             }
             return iEvent;
