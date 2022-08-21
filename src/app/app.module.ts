@@ -32,6 +32,7 @@ import { LOCALE_ID } from '@angular/core';
 import { CalendarioComponent } from './views/pages/citas/calendario/calendario.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { DeactivateGuard } from './services/deactivate.guard';
 
 registerLocaleData(localeES, 'es');
 
@@ -70,7 +71,8 @@ registerLocaleData(localeES, 'es');
   ],
   providers: [
     DatePipe,
-    { provide: LOCALE_ID, useValue: 'es-ES' }
+    { provide: LOCALE_ID, useValue: 'es-ES' },
+    DeactivateGuard
   ],
   bootstrap: [AppComponent]
 })

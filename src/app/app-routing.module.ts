@@ -11,9 +11,8 @@ import { ListadoExpedienteComponent } from './views/pages/expediente/listado-exp
 import { ExpedienteComponent } from './views/pages/expediente/expediente/expediente.component';
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
-import { RecordatorioComponent } from './views/components/consulta/recordatorio/recordatorio.component';
-import { PlanificacionDietaComponent } from './views/components/planificacion-dieta/planificacion-dieta.component';
 import { CalendarioComponent } from './views/pages/citas/calendario/calendario.component';
+import { DeactivateGuard } from './services/deactivate.guard';
 
 const routes: Routes = [
   {
@@ -39,17 +38,22 @@ const routes: Routes = [
       {
         path: 'consulta/:accion/:id_paciente/:id_consulta',
         canActivate: [AuthGuard],
-        component: ConsultaComponent
+        component: ConsultaComponent,
+        canDeactivate: [DeactivateGuard]
+
       },
       {
         path: 'consulta/:accion/:id_paciente',
         canActivate: [AuthGuard],
-        component: ConsultaComponent
+        component: ConsultaComponent,
+        canDeactivate: [DeactivateGuard]
+
       },
       {
         path: 'consulta/:accion',
         canActivate: [AuthGuard],
-        component: ConsultaComponent
+        component: ConsultaComponent,
+        canDeactivate: [DeactivateGuard]
       },
       {
         path: 'alimentos',
