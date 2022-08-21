@@ -102,20 +102,22 @@ export class CalendarioComponent implements OnInit {
     delete eventTimesChangedEvent.event.cssClass;
     if(this.validateEventTimesChanged(eventTimesChangedEvent, false)){
       const {event, newStart, newEnd} = eventTimesChangedEvent;
-    let eventoEdit = {
-      ...event,
-      start: newStart,
-      end: newEnd,
-      color: colors['green'],
-      meta: {
-        ...event.meta,
-        fecha_cita_inicio: this.datePipe.transform(
-          newStart,
-          'yyyy-MM-dd hh:mm:ss'
-        ),
-        fecha_cita_fin: this.datePipe.transform(newEnd, 'yyyy-MM-dd hh:mm:ss'),
-      },
-    };
+      let eventoEdit = {
+        ...event,
+        start: newStart,
+        end: newEnd,
+        color: colors['green'],
+        meta: {
+          ...event.meta,
+          fecha_cita_inicio: this.datePipe.transform(
+            newStart,
+            'yyyy-MM-dd HH:mm:ss'
+          ),
+          fecha_cita_fin: this.datePipe.transform(
+            newEnd, 
+            'yyyy-MM-dd HH:mm:ss'),
+        },
+      };
 
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
