@@ -1,4 +1,12 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
+<div>
+    <button mat-icon-button color="primary" (click)="pacienteForm.enable()" *ngIf="expediente" matTooltip ="Editar Expediente" >
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button [disabled]="!this.pacienteForm.touched" method ="post" mat-icon-button color="primary" (click)="updateExp()" *ngIf="expediente" matTooltip ="Actualizar Expediente">
+        <mat-icon>save</mat-icon>
+    </button>
+</div>
 <!-- COMPONENTE GRID LIST CON 3 COLUMNAS-->
 <mat-grid-list cols="12" rowHeight="90px">
     <form [formGroup]="pacienteForm">
@@ -159,9 +167,6 @@
                     placeholder="ejemplo@gmail.com" value="">                     
                 <mat-error *ngIf="validarCampo('correo')">Ingrese un correo electrónico válido</mat-error>
             </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="8" [rowspan]="1" >
-            <button mat-raised-button color="primary" >Editar Expediente</button>
         </mat-grid-tile>
     </form>
 </mat-grid-list>
