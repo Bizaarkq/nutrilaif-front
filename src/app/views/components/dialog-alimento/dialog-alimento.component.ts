@@ -18,6 +18,7 @@ export class DialogAlimentoComponent implements OnInit {
   formDatosAlimento:any = FormGroup;
   camposAlimento: string[] = [
     'codigo',
+    'cod_pais',
     'nombre',
     'calorias',
     'grasas',
@@ -32,10 +33,12 @@ export class DialogAlimentoComponent implements OnInit {
   
   ngOnInit(): void {
     this.codigoDisabled = this.editData ? true : false;
+    this.getPaises();
     //this.createForm();
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
       codigo: [{value:'', disabled: this.codigoDisabled}, Validators.required],
+      cod_pais:['', [Validators.required]],
       nombre: ['', [Validators.required]],
       calorias: ['', [Validators.required,Validators.min(0)]],
       grasas: ['', [Validators.required,Validators.min(0)]],
@@ -49,7 +52,7 @@ export class DialogAlimentoComponent implements OnInit {
     //Codigo para obtener los datos de un alimento seleccionado
     if(this.editData){
       this.actionBtn = 'Actualizar';
-      this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
+     /* this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
       this.formDatosAlimento.controls['nombre'].setValue(this.editData.nombre);
       this.formDatosAlimento.controls['calorias'].setValue(this.editData.calorias);
       this.formDatosAlimento.controls['grasas'].setValue(this.editData.grasas);
@@ -58,7 +61,8 @@ export class DialogAlimentoComponent implements OnInit {
       this.formDatosAlimento.controls['hierro'].setValue(this.editData.hierro);
       this.formDatosAlimento.controls['potasio'].setValue(this.editData.potasio);
       this.formDatosAlimento.controls['calcio'].setValue(this.editData.calcio);
-      this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);
+      this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);*/
+      this.formDatosAlimento.patchValue(this.editData);
     }
   }
   
