@@ -26,3 +26,7 @@ input[type="number"] {
 .medium-form-control{
     width:85%;
 }
+
+.separacion{
+    margin-top: 25px;
+}
