@@ -194,6 +194,7 @@ export class CalendarioComponent implements OnInit {
     const dialog = this.dialog.open(CitaComponent, {
       width: '50%',
       data: evento,
+      autoFocus: false,
     });
 
     dialog.afterClosed().subscribe((result) => {
