@@ -104,4 +104,26 @@ export class PlanificacionDietaComponent implements OnInit {
     return !(numeroInt === total);
   }
 
+  calcularTotal(campo: any): number {
+    let total = 0;
+    Object.entries(this.planAlimenticio.controls['alimentos'].value).forEach(([key, value]) => {
+      total += Number((value as Array<any>)[campo]);
+    });
+    return total;
+  }
+
+  calcularMargenError(campo: any): number {
+    let margen = 0;
+    margen =
+      this.calcularTotal(campo) -
+      (campo === 'kcal'
+        ? this.planAlimenticio.controls['planificacion_dieta'].value[
+            'calorias_prescribir'
+          ]
+        : this.planAlimenticio.controls['planificacion_dieta'].value[
+            campo + '_gr'
+          ]);
+    return margen;
+  }
+
 }

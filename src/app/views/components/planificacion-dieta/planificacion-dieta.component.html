@@ -81,6 +81,35 @@
             </mat-grid-tile>
         </form>
     </mat-grid-list>
+
+    <mat-grid-list cols="8" rowHeight="80px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>Total</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.key === 'xtras' || campo.key === 'na')">
+                <mat-label></mat-label>
+                <input matInput placeholder="99.99" type="number" [value]="calcularTotal(campo.key)">
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="8" rowHeight="80px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4>Margen de error</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.key === 'xtras' || campo.key === 'na')">
+                <mat-label></mat-label>
+                <input matInput placeholder="99.99" type="number" [value]="calcularMargenError(campo.key)">
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
 </ng-container>
 <hr class="separacion">
 <ng-container>
