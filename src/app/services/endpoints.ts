@@ -31,6 +31,13 @@ export const endpoints = {
         municipios: environment.apiUrl + '/catalogo/municipios',
         listaBase: environment.apiUrl+'/catalogo/listaBase',
         estados: environment.apiUrl + '/catalogo/estados',
+        nutricionistas: environment.apiUrl + '/catalogo/nutricionistas',
+    },
+    cita: {
+        listado: environment.apiUrl + '/cita/list',
+        guardar: environment.apiUrl + '/cita/save',
+        updateFechaHora: environment.apiUrl + '/cita/update/fechora',
+        eliminar: environment.apiUrl + '/cita/delete'
     }
 };
 

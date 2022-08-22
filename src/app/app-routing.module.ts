@@ -11,6 +11,7 @@ import { ListadoExpedienteComponent } from './views/pages/expediente/listado-exp
 import { ExpedienteComponent } from './views/pages/expediente/expediente/expediente.component';
 
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
+import { CalendarioComponent } from './views/pages/citas/calendario/calendario.component';
 import { DeactivateGuard } from './services/deactivate.guard';
 
 const routes: Routes = [
@@ -68,6 +69,11 @@ const routes: Routes = [
         path: 'expediente/:id_paciente',
         canActivate: [AuthGuard],
         component: ExpedienteComponent
+      },
+      {
+        path: 'citas',
+        canActivate: [AuthGuard],
+        component: CalendarioComponent
       }
     ],
   },

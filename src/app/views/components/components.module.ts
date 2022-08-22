@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 //Modulo encargado de almacenar todas las importaciones del angular material
 import { SharedModule } from '../../shared/shared.module';
@@ -14,6 +15,7 @@ import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion-dieta.component';
 import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/modal-extender-sesion.component';
+import { CitaComponent } from './modal/cita/cita.component';
 
 
 
@@ -28,10 +30,12 @@ import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/mod
     SpinnerComponent,
     PlanificacionDietaComponent,
     ModalExtenderSesionComponent,
+    CitaComponent,
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   exports: [
     DatosPersonalesComponent,

@@ -29,7 +29,11 @@ import { ExpedienteComponent } from './views/pages/expediente/expediente/expedie
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es';
 import { LOCALE_ID } from '@angular/core';
+import { CalendarioComponent } from './views/pages/citas/calendario/calendario.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DeactivateGuard } from './services/deactivate.guard';
+
 registerLocaleData(localeES, 'es');
 
 @NgModule({
@@ -40,7 +44,7 @@ registerLocaleData(localeES, 'es');
     ConsultaComponent,
     ListadoExpedienteComponent,
     ExpedienteComponent,
-    
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,10 @@ registerLocaleData(localeES, 'es');
     MatStepperModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
   ],
   providers: [
     DatePipe,

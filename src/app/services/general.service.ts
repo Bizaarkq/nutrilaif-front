@@ -86,6 +86,11 @@ export class GeneralService {
     return this.doGetRequest(url);
   }
 
+  getNutricionistas(){
+    let url = endpoints.catalogo.nutricionistas;
+    return this.doGetRequest(url);
+  }
+
   doGetRequest(url: string){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({

@@ -1,7 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* angular-cli file: src/styles.css */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .example-spacer{
     flex: 1 1 auto;
+}
+
+.cal-open-day-events {
+    background-color: #f5f5f5 !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+.cal-current-time-marker{
+  background-color: green !important;
+}
+
+.cal-day-badge{
+  background-color: green !important;
+}
+
+.invalid-position .cal-event {
+  background-color: #ad2121 !important;
+  color: #fff;
 }
