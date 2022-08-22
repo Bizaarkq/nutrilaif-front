@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { AlimentosService } from 'src/app/services/alimentos.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GeneralService } from 'src/app/services/general.service';
+
 
 @Component({
   selector: 'app-dialog-alimento',
@@ -12,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DialogAlimentoComponent implements OnInit {
   //Formulario para manejar el formulario de alimentos
   visibleSpinner = false;
+  paises: any;
   formDatosAlimento:any = FormGroup;
   camposAlimento: string[] = [
     'codigo',
@@ -64,7 +67,8 @@ export class DialogAlimentoComponent implements OnInit {
     private api:AlimentosService,
     @Inject(MAT_DIALOG_DATA) public editData:any, //Para recibir datos enviados al hacer clic en el boton de editar del componente listar-alimentos
     private dialogRef:MatDialogRef<DialogAlimentoComponent>,
-    
+    private generalService: GeneralService,
+
   ) {
 
   }
@@ -140,6 +144,14 @@ export class DialogAlimentoComponent implements OnInit {
         }
       })
     }
+  }
+
+  getPaises(){
+    this.generalService.getPaises().subscribe({
+      next: (results: any) => {
+        this.paises = results;
+      }
+    });
   }
 
 }
