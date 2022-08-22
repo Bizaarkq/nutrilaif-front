@@ -99,7 +99,7 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+    <mat-grid-list cols="8" rowHeight="90px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
 
         <mat-grid-tile [colspan]="1" [rowspan]="1">
             <h4>{{alimento.value}}</h4>
@@ -109,9 +109,9 @@
             <mat-grid-tile [colspan]="1" [rowspan]="1">
                 <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" [class.mat-form-field-invalid]="verificarNumeroIntMenu(alimento.key)">
                     <mat-label></mat-label>
-                    <input matInput placeholder="99.99" [value]="numInter(alimento.key)" type="number"
+                    <input matInput placeholder="99" [value]="numInter(alimento.key)" type="number"
                         formControlName="n_int">
-                    <mat-hint class="mat-error" *ngIf="verificarNumeroIntMenu(alimento.key)">No coincide con los tiempos de comida</mat-hint>
+                    <mat-hint class="mat-error" *ngIf="verificarNumeroIntMenu(alimento.key)">La suma no coincide</mat-hint>
                 </mat-form-field>
             </mat-grid-tile>
 

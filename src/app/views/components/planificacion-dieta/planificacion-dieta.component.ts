@@ -93,12 +93,12 @@ export class PlanificacionDietaComponent implements OnInit {
 
   verificarNumeroIntMenu(form: any) :boolean {
     const numeroInt = this.numInter(form);
-    if (numeroInt === null) return false;
+    if (numeroInt === null || numeroInt === '') return false;
     let total = 0;
-    const formAlimento = (this.planAlimenticio.controls['alimentos'] as FormGroup).controls[form].value ;
+    const formAlimento = (this.planAlimenticio.controls['alimentos'] as FormGroup).controls[form].value;
     Object.entries(formAlimento).forEach(([key, value]) => {
       if( key in this.formPlanAlimenticio.tablas.form_alimento.controls_patron){
-        total += (value as number);
+        total += Number(value);
       }
     })
     return !(numeroInt === total);
