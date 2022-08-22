@@ -29,6 +29,7 @@ import { ExpedienteComponent } from './views/pages/expediente/expediente/expedie
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es';
 import { LOCALE_ID } from '@angular/core';
+import { DeactivateGuard } from './services/deactivate.guard';
 registerLocaleData(localeES, 'es');
 
 @NgModule({
@@ -38,7 +39,8 @@ registerLocaleData(localeES, 'es');
     InicioComponent,
     ConsultaComponent,
     ListadoExpedienteComponent,
-    ExpedienteComponent
+    ExpedienteComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -57,11 +59,13 @@ registerLocaleData(localeES, 'es');
     MatInputModule,
     MatStepperModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    
   ],
   providers: [
     DatePipe,
-    { provide: LOCALE_ID, useValue: 'es-ES' }
+    { provide: LOCALE_ID, useValue: 'es-ES' },
+    DeactivateGuard
   ],
   bootstrap: [AppComponent]
 })
