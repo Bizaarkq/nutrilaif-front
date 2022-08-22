@@ -1,5 +1,5 @@
 <div>
-    <form [formGroup]="formularioDieta">
+    <form [formGroup]="formularioDieta" >
         <table>
                 <tr>
                     <td colspan="2">
@@ -13,6 +13,16 @@
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="validarCampo('fechaCreacionDieta')">No se ha seleccionado ninguna fecha</mat-error>
                         </mat-form-field>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="accent" *ngIf="subSec" id="botonLimpiar" (click)="limpiar()">
+                            <mat-icon>cleaning_services</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="accent" *ngIf="subSec" id="botonEditar" (click)="editarDieta()">
+                            <mat-icon>edit_note</mat-icon>
+                        </button>
                     </td>
                 </tr>
                 <br>

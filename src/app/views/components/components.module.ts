@@ -6,7 +6,6 @@ import { SharedModule } from '../../shared/shared.module';
 
 //Componentes
 import { DatosPersonalesComponent } from './expediente/datos-personales/datos-personales.component';
-import { ListarExpedientesComponent } from './expediente/listar-expedientes/listar-expedientes.component';
 import { FrecuenciaConsumoComponent } from './consulta/frecuencia-consumo/frecuencia-consumo.component';
 import { ListarAlimentosComponent } from './listar-alimentos/listar-alimentos.component';
 import { DialogAlimentoComponent } from './dialog-alimento/dialog-alimento.component';
@@ -21,7 +20,6 @@ import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/mod
 @NgModule({
   declarations: [
     DatosPersonalesComponent,
-    ListarExpedientesComponent,
     FrecuenciaConsumoComponent,
     ListarAlimentosComponent,
     DialogAlimentoComponent,
