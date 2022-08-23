@@ -20,7 +20,9 @@ export const endpoints = {
     },
     paciente: {
         listaPacientes: environment.apiUrl + '/paciente/list',
-        eliminarPaciente: environment.apiUrl + '/paciente/delete'
+        editarPaciente: environment.apiUrl + '/paciente/update',
+        eliminarPaciente: environment.apiUrl + '/paciente/delete',
+        getExpediente: environment.apiUrl + '/paciente/get'
     },
     catalogo: {
         menu: environment.apiUrl + '/catalogo/menu',
@@ -29,6 +31,13 @@ export const endpoints = {
         municipios: environment.apiUrl + '/catalogo/municipios',
         listaBase: environment.apiUrl+'/catalogo/listaBase',
         estados: environment.apiUrl + '/catalogo/estados',
+        nutricionistas: environment.apiUrl + '/catalogo/nutricionistas',
+    },
+    cita: {
+        listado: environment.apiUrl + '/cita/list',
+        guardar: environment.apiUrl + '/cita/save',
+        updateFechaHora: environment.apiUrl + '/cita/update/fechora',
+        eliminar: environment.apiUrl + '/cita/delete'
     }
 };
 

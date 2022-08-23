@@ -23,7 +23,11 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-button{
-    margin-left: 30cm;
-    width: 20%;
+div{
+    align-content: center;
+    width: 98%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
 }
+

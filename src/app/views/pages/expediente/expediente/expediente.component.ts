@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-expediente',
@@ -20,6 +21,9 @@ export class ExpedienteComponent implements OnInit {
   visibleSpinner = false;
   id_paciente: any;
 
+  habilitar:boolean=false;
+  expedienteForm: FormControl = new FormControl();
+  
   constructor(
     private consultaServie: ConsultaService,
     private router: ActivatedRoute
@@ -49,4 +53,10 @@ export class ExpedienteComponent implements OnInit {
       this.tablaData.paginator.firstPage();
     }
   }
+
+  btnEditarExpediente(){
+    //this.habilitar = this.expedienteForm.value;
+    this.habilitar = true;
+  }
+
 }

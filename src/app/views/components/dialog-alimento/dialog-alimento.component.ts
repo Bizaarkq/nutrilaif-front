@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { AlimentosService } from 'src/app/services/alimentos.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GeneralService } from 'src/app/services/general.service';
+
 
 @Component({
   selector: 'app-dialog-alimento',
@@ -12,9 +14,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DialogAlimentoComponent implements OnInit {
   //Formulario para manejar el formulario de alimentos
   visibleSpinner = false;
+  paises: any;
   formDatosAlimento:any = FormGroup;
   camposAlimento: string[] = [
     'codigo',
+    'cod_pais',
     'nombre',
     'calorias',
     'grasas',
@@ -29,10 +33,12 @@ export class DialogAlimentoComponent implements OnInit {
   
   ngOnInit(): void {
     this.codigoDisabled = this.editData ? true : false;
+    this.getPaises();
     //this.createForm();
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
       codigo: [{value:'', disabled: this.codigoDisabled}, Validators.required],
+      cod_pais:['', [Validators.required]],
       nombre: ['', [Validators.required]],
       calorias: ['', [Validators.required,Validators.min(0)]],
       grasas: ['', [Validators.required,Validators.min(0)]],
@@ -46,7 +52,7 @@ export class DialogAlimentoComponent implements OnInit {
     //Codigo para obtener los datos de un alimento seleccionado
     if(this.editData){
       this.actionBtn = 'Actualizar';
-      this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
+     /* this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
       this.formDatosAlimento.controls['nombre'].setValue(this.editData.nombre);
       this.formDatosAlimento.controls['calorias'].setValue(this.editData.calorias);
       this.formDatosAlimento.controls['grasas'].setValue(this.editData.grasas);
@@ -55,7 +61,8 @@ export class DialogAlimentoComponent implements OnInit {
       this.formDatosAlimento.controls['hierro'].setValue(this.editData.hierro);
       this.formDatosAlimento.controls['potasio'].setValue(this.editData.potasio);
       this.formDatosAlimento.controls['calcio'].setValue(this.editData.calcio);
-      this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);
+      this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);*/
+      this.formDatosAlimento.patchValue(this.editData);
     }
   }
   
@@ -64,7 +71,8 @@ export class DialogAlimentoComponent implements OnInit {
     private api:AlimentosService,
     @Inject(MAT_DIALOG_DATA) public editData:any, //Para recibir datos enviados al hacer clic en el boton de editar del componente listar-alimentos
     private dialogRef:MatDialogRef<DialogAlimentoComponent>,
-    
+    private generalService: GeneralService,
+
   ) {
 
   }
@@ -140,6 +148,14 @@ export class DialogAlimentoComponent implements OnInit {
         }
       })
     }
+  }
+
+  getPaises(){
+    this.generalService.getPaises().subscribe({
+      next: (results: any) => {
+        this.paises = results;
+      }
+    });
   }
 
 }
