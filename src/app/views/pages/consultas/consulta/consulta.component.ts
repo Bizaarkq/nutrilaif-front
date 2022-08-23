@@ -121,7 +121,6 @@ redirigir: boolean=false;
     }
 
     setTimeout(() => {
-      console.log('yasta');
       this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
       this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
     }, 5000);
