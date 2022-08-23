@@ -366,7 +366,7 @@ calcular(){
     return dialog.afterClosed().subscribe(result => {
       this.redirigir=true;
       if(result){
-        this.router.navigate(['/citas',this.numeroExpediente]);
+        this.router.navigate(['/citas'], { queryParams: { expediente: this.numeroExpediente} });
       }
       else{
         this.router.navigate(['/expedientes']);
