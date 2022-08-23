@@ -2,29 +2,32 @@
   "manejo_planificacion": {
     "manejo_nutricional": {
       "header": "Manejo Nutricional",
-      "controls": {
-        "manejo_nutricional": {
+      "controls": [
+        {
+          "name": "manejo_nutricional",
           "label": "Manejo Nutricional",
           "type": "textarea",
           "placeholder": "Ingrese el Manejo Nutricional",
-          "cols": "12",
+          "cols": "14",
           "rows": "2",
           "class": "large-form-control"
         }
-      }
+      ]
     },
     "planificacion_dieta": {
       "header": "Planificación de la Dieta",
-      "controls": {
-        "requerimiento_energetico": {
+      "controls": [
+        {
+          "name":"requerimiento_energetico",
           "label": "Requerimiento Energético",
           "type": "text",
           "placeholder": "Ingrese el requerimiento energético",
-          "cols": "12",
+          "cols": "14",
           "rows": "1",
           "class": "large-form-control"
         },
-        "calorias_prescribir": {
+        {
+          "name":"calorias_prescribir",
           "label": "Calorías (Kcal)",
           "type": "number",
           "placeholder": "99999.99",
@@ -32,63 +35,70 @@
           "rows": "1",
           "class": "medium-form-control"
         },
-        "choc_percent": {
+        {
+          "name":"choc_percent",
           "label": "CHO C (%)",
           "type": "number",
           "placeholder": "99.99",
-          "cols": "1",
+          "cols": "2",
           "rows": "1",
           "class": "medium-form-control"
         },
-        "choc_gr": {
+        {
+          "name":"choc_gr",
           "label": "CHO C (gr)",
           "type": "number",
           "placeholder": "999.99",
-          "cols": "1",
+          "cols": "2",
           "rows": "1",
           "class": "medium-form-control"
         },
-        "chon_percent": {
+        {
+          "name":"chon_percent",
           "label": "CHO N (%)",
           "type": "number",
           "placeholder": "99.99",
-          "cols": "1",
+          "cols": "2",
           "rows": "1",
           "class": "medium-form-control"
         },
-        "chon_gr": {
+        {
+          "name":"chon_gr",
           "label": "CHO N (gr)",
           "type": "number",
           "placeholder": "999.99",
-          "cols": "1",
+          "cols": "2",
           "rows": "1",
           "class": "medium-form-control"
         },
-        "cooh_percent": {
+        {
+          "name":"cooh_percent",
           "label": "COOH (%)",
           "type": "number",
           "placeholder": "99.99",
-          "cols": "1",
+          "cols": "2",
           "rows": "1",
           "class": "medium-form-control"
         },
-        "cooh_gr": {
+        {
+          "name":"cooh_gr",
           "label": "COOH (gr)",
           "type": "number",
           "placeholder": "999.99",
-          "cols": "1",
+          "cols": "2",
           "rows": "1",
-          "class": "medium-form-control"
+          "class": "large-form-control"
         },
-        "prescripcion_dieta": {
+        {
+          "name":"prescripcion_dieta",
           "label": "Prescripción de la Dieta",
           "type": "textarea",
           "placeholder": "Ingrese la prescripción de la dieta",
-          "cols": "12",
+          "cols": "14",
           "rows": "2",
           "class": "large-form-control"
         }
-      }
+      ]
     }
   },
   "mapeo_forms": {
@@ -96,20 +106,48 @@
     "controls_patron": "Patrón de menú"
   },
   "tablas": {
-    "alimentos": {
-      "leche": "Leche",
-      "suplemento": "Suplemento",
-      "vegetales": "Vegetales",
-      "frutas": "Frutas",
-      "panes_cereales": "Panes y Cereales",
-      "carnes_magras": "Carnes Magras",
-      "carnes_semi_magras": "Carnes Semi-Magras",
-      "carnes_grasas": "Carnes Grasas",
-      "grasas": "Grasas"
-    },
+    "alimentos": [
+      {
+        "name":"leche",
+        "label":"Leche"
+      },
+      {
+        "name":"suplemento", 
+        "label":"Suplemento"
+      },
+      {
+        "name":"vegetales", 
+        "label":"Vegetales"
+      },
+      {
+        "name":"frutas",
+        "label": "Frutas"
+      },
+      {
+        "name":"panes_cereales",
+        "label": "Panes y Cereales"
+      },
+      {
+        "name":"carnes_magras",
+        "label": "Carnes Magras"
+      },
+      {
+        "name":"carnes_semi_magras",
+        "label": "Carnes Semi-Magras"
+      },
+      {
+        "name":"carnes_grasas",
+        "label": "Carnes Grasas"
+      },
+      {
+        "name":"grasas",
+        "label": "Grasas"
+      }
+    ],
     "form_alimento": {
-      "compartido": {
-        "n_int": {
+      "compartido": [
+        {
+          "name":"n_int",
           "label": "Número de Intercambio",
           "type": "number",
           "validators": [
@@ -119,9 +157,10 @@
             }
           ]
         }
-      },
-      "controls_distribucion": {
-        "choc": {
+      ],
+      "controls_distribucion": [
+        {
+          "name":"choc",
           "label": "CHO C (g)",
           "type": "number",
           "validators": [
@@ -131,7 +170,8 @@
             }
           ]
         },
-        "chon": {
+        {
+          "name":"chon",
           "label": "CHO N (g)",
           "type": "number",
           "validators": [
@@ -141,7 +181,8 @@
             }
           ]
         },
-        "cooh": {
+        {
+          "name":"cooh",
           "label": "COOH (g)",
           "type": "number",
           "validators": [
@@ -151,7 +192,8 @@
             }
           ]
         },
-        "kcal": {
+        {
+          "name":"kcal",
           "label": "Kcal",
           "type": "number",
           "validators": [
@@ -161,7 +203,8 @@
             }
           ]
         },
-        "na": {
+        {
+          "name":"na",
           "label": "Na",
           "type": "number",
           "validators": [
@@ -171,14 +214,16 @@
             }
           ]
         },
-        "xtras": {
+        {
+          "name":"xtras",
           "label": "Comentarios",
           "type": "text",
           "validators": []
         }
-      },
-      "controls_patron": {
-        "adesayuno": {
+      ],
+      "controls_patron": [
+        {
+          "name":"desayuno",
           "label": "Desayuno",
           "validators": [
             {
@@ -187,7 +232,8 @@
             }
           ]
         },
-        "aprimer_refrigerio": {
+        {
+          "name":"primer_refrigerio",
           "label": "Refrigerio",
           "validators": [
             {
@@ -196,7 +242,8 @@
             }
           ]
         },
-        "balmuerzo": {
+        {
+          "name":"almuerzo",
           "label": "Almuerzo",
           "validators": [
             {
@@ -205,7 +252,8 @@
             }
           ]
         },
-        "bsegundo_refrigerio": {
+        {
+          "name":"segundo_refrigerio",
           "label": "Refrigerio",
           "validators": [
             {
@@ -214,7 +262,8 @@
             }
           ]
         },
-        "ccena": {
+        {
+          "name":"cena",
           "label": "Cena",
           "validators": [
             {
@@ -223,7 +272,8 @@
             }
           ]
         },
-        "ctercer_refrigerio": {
+        {
+          "name":"tercer_refrigerio",
           "label": "Refrigerio",
           "validators": [
             {
@@ -232,7 +282,7 @@
             }
           ]
         }
-      }
+      ]
     }
   }
 }

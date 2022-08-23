@@ -1,26 +1,25 @@
-
 <ng-container *ngFor="let form of formPlanAlimenticio.manejo_planificacion | keyvalue">
     <h3>{{form.value.header}}</h3>
     <form [formGroup]="passToFormGroup(form.key)">
-        <mat-grid-list cols="12" rowHeight="80px">
-            <ng-container *ngFor="let control of form.value.controls | keyvalue">
-                <mat-grid-tile [colspan]="control.value.cols" [rowspan]="control.value.rows">
+        <mat-grid-list cols="14" rowHeight="80px">
+            <ng-container *ngFor="let control of form.value.controls">
+                <mat-grid-tile [colspan]="control.cols" [rowspan]="control.rows">
                     <div class="tile-content">
-                        <mat-form-field class="{{control.value.class}}" appearance="outline">
-                            <mat-label>{{control.value.label}}</mat-label>
-                            <span [ngSwitch]="control.value.type">
+                        <mat-form-field class="{{control.class}}" appearance="outline">
+                            <mat-label>{{control.label}}</mat-label>
+                            <span [ngSwitch]="control.type">
                                 <span *ngSwitchCase="'textarea'">
                                     <textarea matInput style="height: auto; resize: none;" rows="5"
-                                        placeholder="{{control.value.placeholder}}" formControlName="{{ control.key }}">
+                                        placeholder="{{control.placeholder}}" formControlName="{{ control.name }}">
                                                 </textarea>
                                 </span>
                                 <span *ngSwitchCase="'text'">
-                                    <input matInput type="text" placeholder="{{control.value.placeholder}}"
-                                        formControlName="{{ control.key }}" />
+                                    <input matInput type="text" placeholder="{{control.placeholder}}"
+                                        formControlName="{{ control.name }}" />
                                 </span>
                                 <span *ngSwitchCase="'number'">
-                                    <input matInput type="number" placeholder="{{control.value.placeholder}}"
-                                        formControlName="{{ control.key }}" />
+                                    <input matInput type="number" placeholder="{{control.placeholder}}"
+                                        formControlName="{{ control.name }}" />
                                 </span>
                             </span>
                         </mat-form-field>
@@ -44,36 +43,36 @@
             <h4>N° de int.</h4>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1"
-            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
-            <h4>{{campo.value.label}}</h4>
+            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion">
+            <h4>{{campo.label}}</h4>
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+    <mat-grid-list cols="8" rowHeight="80px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos">
 
         <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <h4>{{alimento.value}}</h4>
+            <h4>{{alimento.label}}</h4>
         </mat-grid-tile>
-        <form [formGroup]="passToFormGroup('alimentos', alimento.key)">
+        <form [formGroup]="passToFormGroup('alimentos', alimento.name)">
 
             <mat-grid-tile [colspan]="1" [rowspan]="1">
                 <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
                     <mat-label></mat-label>
-                    <input matInput placeholder="99.99" [value]="numInter(alimento.key)" type="number"
+                    <input matInput placeholder="99.99" [value]="numInter(alimento.name)" type="number"
                         formControlName="n_int">
                 </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile [colspan]="1" [rowspan]="1"
-                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
+                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion">
                 <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
                     <mat-label></mat-label>
-                    <span [ngSwitch]="campo.value.type">
+                    <span [ngSwitch]="campo.type">
                         <span *ngSwitchCase="'text'">
-                            <input matInput placeholder="comentarios" type="text" formControlName="{{campo.key}}">
+                            <input matInput placeholder="comentarios" type="text" formControlName="{{campo.name}}">
                         </span>
                         <span *ngSwitchCase="'number'">
-                            <input matInput placeholder="99.99" type="number" formControlName="{{campo.key}}">
+                            <input matInput placeholder="99.99" type="number" formControlName="{{campo.name}}">
                         </span>
                     </span>
 
@@ -88,10 +87,10 @@
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1">
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
-            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.key === 'xtras' || campo.key === 'na')">
+        <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion">
+            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.name === 'xtras' || campo.name === 'na')">
                 <mat-label></mat-label>
-                <input matInput placeholder="99.99" type="number" [value]="calcularTotal(campo.key)">
+                <input matInput placeholder="99.99" type="number" [value]="calcularTotal(campo.name)">
             </mat-form-field>
         </mat-grid-tile>
     </mat-grid-list>
@@ -101,10 +100,10 @@
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1">
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion | keyvalue">
-            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.key === 'xtras' || campo.key === 'na')">
+        <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion">
+            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.name === 'xtras' || campo.name === 'na')">
                 <mat-label></mat-label>
-                <input matInput placeholder="99.99" type="number" [value]="calcularMargenError(campo.key)">
+                <input matInput placeholder="99.99" type="number" [value]="calcularMargenError(campo.name)">
             </mat-form-field>
         </mat-grid-tile>
     </mat-grid-list>
@@ -123,32 +122,32 @@
             <h4>N° de int.</h4>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1"
-            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron | keyvalue">
-            <h4>{{campo.value.label}}</h4>
+            *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron">
+            <h4>{{campo.label}}</h4>
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="8" rowHeight="90px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos | keyvalue">
+    <mat-grid-list cols="8" rowHeight="90px" *ngFor="let alimento of formPlanAlimenticio.tablas.alimentos">
 
         <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <h4>{{alimento.value}}</h4>
+            <h4>{{alimento.label}}</h4>
         </mat-grid-tile>
-        <form [formGroup]="passToFormGroup('alimentos', alimento.key)">
+        <form [formGroup]="passToFormGroup('alimentos', alimento.name)">
 
             <mat-grid-tile [colspan]="1" [rowspan]="1">
-                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" [class.mat-form-field-invalid]="verificarNumeroIntMenu(alimento.key)">
+                <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" [class.mat-form-field-invalid]="verificarNumeroIntMenu(alimento.name)">
                     <mat-label></mat-label>
-                    <input matInput placeholder="99" [value]="numInter(alimento.key)" type="number"
+                    <input matInput placeholder="99" [value]="numInter(alimento.name)" type="number"
                         formControlName="n_int">
-                    <mat-hint class="mat-error" *ngIf="verificarNumeroIntMenu(alimento.key)">La suma no coincide</mat-hint>
+                    <mat-hint class="mat-error" *ngIf="verificarNumeroIntMenu(alimento.name)">La suma no coincide</mat-hint>
                 </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile [colspan]="1" [rowspan]="1"
-                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron | keyvalue">
+                *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_patron">
                 <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
                     <mat-label></mat-label>
-                    <input matInput placeholder="99.99" type="number" formControlName="{{campo.key}}">
+                    <input matInput placeholder="99.99" type="number" formControlName="{{campo.name}}">
                 </mat-form-field>
             </mat-grid-tile>
         </form>
