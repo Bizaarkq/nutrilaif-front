@@ -33,7 +33,7 @@ export class PlanificacionDietaComponent implements OnInit {
         this.planAlimenticio.addControl(key, this.FB.group({}));
         Object.entries(value.controls).forEach(([key2, value2]) => {
           (this.planAlimenticio.controls[key] as FormGroup).addControl(
-            key2,
+            value2.name,
             this.FB.control('')
           );
         });
@@ -44,7 +44,7 @@ export class PlanificacionDietaComponent implements OnInit {
     Object.entries(this.formPlanAlimenticio.tablas.alimentos).forEach(
       ([key, value]) => {
         (this.planAlimenticio.controls['alimentos'] as FormGroup).addControl(
-          key,
+          value.name,
           this.FB.group({})
         );
         Object.entries(this.formPlanAlimenticio.tablas.form_alimento).forEach(
@@ -52,9 +52,9 @@ export class PlanificacionDietaComponent implements OnInit {
             Object.entries(value2).forEach(([key3, value3]) => {
               (
                 (this.planAlimenticio.controls['alimentos'] as FormGroup)
-                  .controls[key] as FormGroup
+                  .controls[value.name] as FormGroup
               ).addControl(
-                key3,
+                value3.name,
                 this.FB.control(
                   '',
                   value3.validators.map(function (validator) {
@@ -95,12 +95,10 @@ export class PlanificacionDietaComponent implements OnInit {
     const numeroInt = this.numInter(form);
     if (numeroInt === null || numeroInt === '') return false;
     let total = 0;
-    const formAlimento = (this.planAlimenticio.controls['alimentos'] as FormGroup).controls[form].value;
-    Object.entries(formAlimento).forEach(([key, value]) => {
-      if( key in this.formPlanAlimenticio.tablas.form_alimento.controls_patron){
-        total += Number(value);
-      }
-    })
+    Object.entries(this.formPlanAlimenticio.tablas.form_alimento.controls_patron).forEach( element => {
+      total += Number(this.planAlimenticio.controls['alimentos'].value[form][element[1].name]);
+    });
+
     return !(numeroInt === total);
   }
 
