@@ -1,0 +1,74 @@
+<form [formGroup]="formPliegues">
+  <div id="columna-formulario">
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha Medidas A.</mat-label>
+      <input matInput formControlName='fecha' placeholder="11/03/2021">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Bicipital (mm)</mat-label>
+      <input matInput formControlName='bicipital' placeholder="12">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. tricipital (mm)</mat-label>
+      <input matInput formControlName='tricipital' placeholder="25">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Sub-escapular (mm)</mat-label>
+      <input matInput formControlName='subEscapular' placeholder="29">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Supra-iliaco (mm)</mat-label>
+      <input matInput formControlName='supraIliaco' placeholder="32">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Abdominal (mm)</mat-label>
+      <input matInput formControlName='abdominal' placeholder="35">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Muslo anterior (mm)</mat-label>
+      <input matInput formControlName='musloAnterior' placeholder="31">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. pierna medial (mm)</mat-label>
+      <input matInput formControlName='piernaMedial' placeholder="14">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>C. Brazo contraído (cm)</mat-label>
+      <input matInput formControlName='brazoContraido' placeholder="14">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>C. Pierna (cm)</mat-label>
+      <input matInput formControlName='cPierna' placeholder="37">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Humero (cm)</mat-label>
+      <input matInput formControlName='humero' placeholder="0">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>P. Fémur (cm)</mat-label>
+      <input matInput formControlName='femur' placeholder="12">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Peso actual (kg)</mat-label>
+      <input matInput formControlName='pesoActual' placeholder="73.81">
+    </mat-form-field>
+  </div>
+  <div id="columna-resultados">
+    <mat-form-field appearance="outline">
+      <mat-label>Pliegues</mat-label>
+      <input matInput formControlName='pliegues' placeholder="Total de los pliegues">
+    </mat-form-field>
+  </div>  
+</form>

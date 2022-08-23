@@ -14,6 +14,7 @@ import { TablaDietaComponent } from './dieta/tabla-dieta/tabla-dieta.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion-dieta.component';
 import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/modal-extender-sesion.component';
+import { PlieguesComponent } from './pliegues/pliegues.component';
 
 
 
@@ -28,6 +29,7 @@ import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/mod
     SpinnerComponent,
     PlanificacionDietaComponent,
     ModalExtenderSesionComponent,
+    PlieguesComponent,
   ],
   imports: [
     CommonModule,
