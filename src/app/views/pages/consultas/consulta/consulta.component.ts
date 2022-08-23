@@ -40,6 +40,7 @@ export class ConsultaComponent implements OnInit, deComponent {
   estados:any;
   estadoActual:any;
   permitirGuardado: boolean = false;
+redirigir: boolean=false;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -173,10 +174,13 @@ export class ConsultaComponent implements OnInit, deComponent {
         
           this.paciente.controls['numero_exp'].setValue(res.data);
           this.numeroExpediente = res.data;
-          setTimeout(() => {
-            this.router.navigate(['/expedientes']);
-          }, duracion);
-
+          if(this.accion==='nueva')this.redirigirCita();
+          if(this.accion==='editar'){
+            this.redirigir=true;
+            setTimeout(()=>{
+              this.router.navigate(['/expedientes']);
+            }, duracion);
+          }
         }
       },
       error: (err) => {
@@ -324,7 +328,7 @@ calcular(){
   }
 
   async decisionDialog(){
-    if(!this.consultaForm.touched){
+    if(!this.consultaForm.touched || this.redirigir){
       return true;
     }
     const decision = await this.abrirDialog();
@@ -344,6 +348,25 @@ calcular(){
     return dialog.afterClosed().toPromise()
     .then(result => {
       return Promise.resolve(result);
+    });
+  }
+  redirigirCita(){
+    const dialog = this.dialog.open(ModalExtenderSesionComponent, {
+      width: '30%',
+      data: {
+        titulo:'Redirigir a cita',
+        mensaje: '¿Desea agendar la próxima cita?',
+        boton: 'Confirmar'
+      }
+    });
+    return dialog.afterClosed().subscribe(result => {
+      this.redirigir=true;
+      if(result){
+        this.router.navigate(['/citas',this.numeroExpediente]);
+      }
+      else{
+        this.router.navigate(['/expedientes']);
+      }
     });
   }
   
