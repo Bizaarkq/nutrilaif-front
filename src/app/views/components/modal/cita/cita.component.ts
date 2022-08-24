@@ -9,6 +9,7 @@ import { CitaService } from 'src/app/services/cita.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalExtenderSesionComponent } from '../../shared/modal-extender-sesion/modal-extender-sesion.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-cita',
   templateUrl: './cita.component.html',
@@ -52,6 +53,8 @@ export class CitaComponent implements OnInit {
     private snack: MatSnackBar,
     private modal: MatDialog,
     public dialog: MatDialogRef<CitaComponent>,
+    private router:ActivatedRoute,
+    private route:Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -74,7 +77,8 @@ export class CitaComponent implements OnInit {
       this.paciente.patchValue(this.data);
       this.setFechaHora(this.data.fecha_cita_inicio, this.data.fecha_cita_fin);
     }
-    this.getPacientes();
+    let numExp = this.router.snapshot.queryParamMap.get('expediente');
+    this.getPacientes(numExp);
     this.getNutricionistas();
   }
 
@@ -93,8 +97,8 @@ export class CitaComponent implements OnInit {
     this.horaFin = fecha[1].substring(0,5);
   }
 
-  getPacientes(){
-    this.pacienteService.getDatosPersonales().subscribe({
+  getPacientes(numExp:any = null){
+    this.pacienteService.getDatosPersonales(numExp).subscribe({
       next: (res) =>{
         this.listadoPaciente = res;
         this.filteredPacientes = this.paciente.valueChanges.pipe(
@@ -176,6 +180,7 @@ export class CitaComponent implements OnInit {
 
         if(res.code === 200){
           this.eventoForm.controls['id'].setValue(res.data);
+          if(this.router.snapshot.queryParamMap.get('expediente')) this.route.navigate(['/citas']);
           this.data ? this.dialog.close({...this.eventoForm.value, editar: true}) : this.dialog.close({...this.eventoForm.value, guardado: true});
         }
       }

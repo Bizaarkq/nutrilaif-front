@@ -119,8 +119,12 @@ redirigir: boolean=false;
       }
       this.createSubForm();
     }
-    this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
-    this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
+
+    setTimeout(() => {
+      this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
+      this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
+    }, 5000);
+
   }
 
   passToFormGroup(form: string) {
@@ -362,7 +366,7 @@ calcular(){
     return dialog.afterClosed().subscribe(result => {
       this.redirigir=true;
       if(result){
-        this.router.navigate(['/citas',this.numeroExpediente]);
+        this.router.navigate(['/citas'], { queryParams: { expediente: this.numeroExpediente} });
       }
       else{
         this.router.navigate(['/expedientes']);

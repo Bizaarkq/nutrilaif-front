@@ -8,6 +8,7 @@ import { CitaComponent } from 'src/app/views/components/modal/cita/cita.componen
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -44,11 +45,13 @@ export class CalendarioComponent implements OnInit {
     private citaService: CitaService,
     private dialog: MatDialog,
     private datePipe: DatePipe,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private router: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getCitas();
+    if(this.router.snapshot.queryParamMap.get('expediente')) this.addEvent();
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
