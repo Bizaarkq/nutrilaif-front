@@ -27,13 +27,13 @@ export class PlieguesService {
     )
   }
 
-  getPliegues( id:any = null ){
+  getPliegues( id:any, idConsulta:any=null ){
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     });
-    let url = endpoints.pliegues.listar;
+    let url = (idConsulta)?endpoints.pliegues.obtener + '/' + id + '/'+idConsulta: endpoints.pliegues.obtener + '/' + id;
     return this.http.get(url, { headers})
     .pipe(
       map((results: any) => {

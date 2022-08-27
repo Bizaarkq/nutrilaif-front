@@ -16,12 +16,13 @@ export class PlieguesComponent implements OnInit {
   @Input() talla:number = 0;
   //ID Paciente
   @Input() id:any;
-
+  //ID de consulta
+  @Input() idConsulta:any;
   pliegues = this.fb.group({});
-  //Formulario para la talla
+  //Formulario para los datos extras
   formExtras:any = FormGroup;
   //Fecha maxima
-  fechaCreacion = new Date();
+  fechaCreacion = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
   //Variable para el numero de columnas
   numCols:any;
   //Arreglo de fechas
@@ -58,18 +59,19 @@ export class PlieguesComponent implements OnInit {
       masaGrasaLibras     : ['',]
     })
     this.createForm();
-    this.getPliegues();
+    (this.id)?this.getPliegues():this.numCols=2;
   }
 
   getPliegues(){
     if(!(this.id===null)){
-      this.plieguesService.getPliegues(this.id).subscribe({
+      this.plieguesService.getPliegues(this.id, this.idConsulta).subscribe({
         next: res => {
           this.numCols = res.length + 2;
           let auxiliar;
           this.datosPliegue.forEach((element:any)=>{
-            this.fechaPliegues = res.map(function(e:any){
-              return new Date(e['created_at']);
+            this.fechaPliegues = res.map((e:any) =>{
+              let date = this.datepipe.transform(new Date(e['fecha']), 'dd/MM/yyyy'); 
+              return date;
             })
             auxiliar = res.map(function(e:any){
               return e[element.name];             

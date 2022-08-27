@@ -85,7 +85,7 @@
         <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'" [precargar]="accion==='nueva'"></app-frecuencia-consumo>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
-          <button *ngIf="!(accion==='nueva')" mat-raised-button matStepperNext color="accent">Siguiente</button>
+          <button *ngIf="!(accion==='nueva') || verificarRol()" mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -105,16 +105,16 @@
         <app-tabla-dieta [formularioDieta]="dieta" [subSec]="accion==='editar'"></app-tabla-dieta>
         <div>
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+          <button mat-raised-button matStepperNext *ngIf='verificarRol()' color="accent">Siguiente</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="pliegues">
+    <mat-step [stepControl]="pliegues" *ngIf="verificarRol()">
       <form [formGroup]="pliegues">
         <ng-template matStepLabel>Pliegues</ng-template>
-        <app-pliegues [id]="id_paciente" [talla]="tallaPaciente" [formPliegues]="pliegues"></app-pliegues>
+        <app-pliegues [id]="id_paciente" [talla]="tallaPaciente" [idConsulta]="id" [formPliegues]="pliegues"></app-pliegues>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
-          <button *ngIf="!(accion==='nueva')" mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
       </form>
     </mat-step>

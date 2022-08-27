@@ -43,7 +43,8 @@ export class ConsultaComponent implements OnInit, deComponent {
   redirigir: boolean=false;
   //Talla del paciente
   tallaPaciente:any;
-
+  //Roles del usuario activo
+  roles:any;
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
   frecuencia_consumo: FormGroup = this.FB.group({
@@ -68,6 +69,7 @@ export class ConsultaComponent implements OnInit, deComponent {
   ) {}
 
   ngOnInit(): void {
+    this.obtenerRoles(localStorage.getItem('rol'), ',');
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
@@ -375,6 +377,13 @@ calcular(){
         this.router.navigate(['/expedientes']);
       }
     });
+  }
+
+  obtenerRoles( elemento:any, separador:string){
+    this.roles = elemento.split(separador);
+  }
+  verificarRol(){
+    return (this.roles.includes('nutri-deportista'));
   }
   
 }
