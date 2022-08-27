@@ -6,7 +6,7 @@
     <mat-grid-tile *ngFor="let campos of fechaPliegues">
       {{ campos }}
     </mat-grid-tile>
-    <mat-grid-tile>{{fechaCreacion}}</mat-grid-tile>
+    <!-- <mat-grid-tile>{{fechaCreacion}}</mat-grid-tile> -->
   </mat-grid-list>
   <mat-grid-list *ngFor="let datos of datosPliegue | keyvalue" cols="{{numCols}}" rowHeight="80px" gutterSize="120" >
     <mat-grid-tile *ngFor="let campos of getDatosPliegues(datos.key)">
