@@ -49,7 +49,8 @@ import { PlieguesComponent } from './pliegues/pliegues.component';
     TablaDietaComponent,
     SpinnerComponent,
     PlanificacionDietaComponent,
-    ModalExtenderSesionComponent
+    ModalExtenderSesionComponent,
+    PlieguesComponent
   ]
 })
 export class ComponentsModule { }

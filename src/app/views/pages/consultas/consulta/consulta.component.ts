@@ -40,7 +40,9 @@ export class ConsultaComponent implements OnInit, deComponent {
   estados:any;
   estadoActual:any;
   permitirGuardado: boolean = false;
-redirigir: boolean=false;
+  redirigir: boolean=false;
+  //Talla del paciente
+  tallaPaciente:any;
 
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
@@ -49,6 +51,7 @@ redirigir: boolean=false;
   });
   planificacion_dieta: FormGroup = this.FB.group({});
   dieta: FormGroup = this.FB.group({});
+  pliegues: FormGroup = this.FB.group({});
 
   consultaForm:FormGroup = this.FB.group({});
 
@@ -77,7 +80,7 @@ redirigir: boolean=false;
       this.loadingDataEdicion = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
-
+          this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
           if(data.es_subsecuente){
@@ -218,7 +221,7 @@ redirigir: boolean=false;
           ));
         });
       });
-
+      this.subConsultaForm.addControl('pliegues', this.pliegues);
       this.consultaForm = this.FB.group({
         paciente: this.paciente,
         recordatorio: this.recordatorio,
