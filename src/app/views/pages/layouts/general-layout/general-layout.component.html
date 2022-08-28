@@ -1,23 +1,34 @@
 <mat-sidenav-container class="menu" (backdropClick)="sidenav.close()">
-  <mat-sidenav #sidenav (keydown.escape)="sidenav.close()" disableClose>
-    <p><span style="padding-right: 5em; padding-left: 1em;">Menú</span><button mat-button (click)="sidenav.close()">
+  <mat-sidenav #sidenav (keydown.escape)="sidenav.close()" disableClose style="width: 10em;" [autoFocus]="false">
+    
+    <div class="buttons">
+      <button mat-icon-button (click)="cambiarTema()" [@rotacion]="theme">
+        <mat-icon class="material-icons-outlined"> {{ theme === 'light-theme' ? 'dark_mode' : 'light_mode'}}</mat-icon>
+      </button>
+      <button mat-icon-button (click)="sidenav.close()">
         <mat-icon>close</mat-icon>
-      </button></p>
+      </button>
+    </div>
+    <br>
     <mat-nav-list>
       <mat-list-item *ngFor="let i of items" (click)="sidenav.close()" [routerLink]="i.link">{{i.label}}</mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar>
-      <button mat-button (click)="sidenav.open()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <a mat-button routerLink="/inicio" ><h3 >Nutrilaif</h3></a>
-      <button id="cerrarSesion" mat-button (click)="cerrarSesion()" matTooltip="Cerrar Sesión">
-        <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>
-      </button>
-    </mat-toolbar>
+    <div class="toolbar">
+      <mat-toolbar>
+        <button mat-button (click)="sidenav.open()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a mat-button routerLink="/inicio">
+          <h3>Nutrilaif</h3>
+        </a>
+        <button id="cerrarSesion" mat-button (click)="cerrarSesion()" matTooltip="Cerrar Sesión">
+          <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>
+        </button>
+      </mat-toolbar>
+    </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

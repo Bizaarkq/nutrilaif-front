@@ -12,4 +12,13 @@ a{
 .container{
     max-width: 1300px;
     margin: 0 auto;
+    padding: 3em;
+}
+
+.boton-add-alimento{
+    align-content: center;
+    width: 98%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
 }

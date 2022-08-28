@@ -21,7 +21,7 @@ const colors: Record<string, EventColor> = {
   },
   green: {
     primary: '#8bc34a',
-    secondary: '#dcedc8',
+    secondary: '#B2DFDB',
   },
 };
 
@@ -109,7 +109,6 @@ export class CalendarioComponent implements OnInit {
         ...event,
         start: newStart,
         end: newEnd,
-        color: colors['green'],
         meta: {
           ...event.meta,
           fecha_cita_inicio: this.datePipe.transform(
@@ -205,7 +204,6 @@ export class CalendarioComponent implements OnInit {
         title: result.titulo,
         start: new Date(result.fecha_cita_inicio),
         end: new Date(result.fecha_cita_fin),
-        color: colors['green'],
         draggable: true,
         resizable: {
           beforeStart: true,
