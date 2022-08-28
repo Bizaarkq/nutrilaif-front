@@ -9,10 +9,8 @@ table {
   width: 100%;
 }
 
-.mat-fab.green{
-  background-color: #116530;
-  color: white;
-  float: right;
+.mat-fab {
+  float: right !important;
 }
 
 .grid-layout{

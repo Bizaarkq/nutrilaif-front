@@ -42,15 +42,15 @@
                       ></textarea>
           </mat-form-field>
           <button mat-mini-fab color="warn" style="margin-left: 5px;" matTooltip="Eliminar alimento" (click)="removeFrecuencia(i)">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+            <mat-icon class="material-icons-outlined">delete</mat-icon>
           </button>
         </mat-grid-tile> 
       </div>
     </div>
   </mat-grid-list>
   <div class="grid-layout" *ngIf="!modoLectura">
-    <button mat-fab class="green" matTooltip="Agregar alimento" (click)="addFrecuencia()">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+    <button mat-mini-fab color="primary" matTooltip="Agregar alimento" (click)="addFrecuencia()">
+      <mat-icon class="material-icons-outlined">add</mat-icon>
     </button>
   </div>
 </form>

@@ -5,17 +5,28 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { GeneralService } from 'src/app/services/general.service';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
+import { trigger, state, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-general-layout',
   templateUrl: './general-layout.component.html',
-  styleUrls: ['./general-layout.component.css']
+  styleUrls: ['./general-layout.component.css'],
+  animations: [
+    // animacion para rotar sol/luna
+    trigger('rotacion', [
+      state('light-theme', style({ transform: 'rotate(0)' })),
+      state('dark-theme', style({ transform: 'rotate(-360deg)' })),
+      transition('dark-theme => light-theme', animate('500ms ease-out')),
+      transition('light-theme => dark-theme', animate('500ms ease-in')),
+    ]),
+  ],
 })
 export class GeneralLayoutComponent implements OnInit {
 
   items: any = [];
 
   result:any;
+  theme: string = 'light-theme';
 
   sesionActiva = true;
 
@@ -28,6 +39,7 @@ export class GeneralLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.temaPorDefecto();
     this.extenderSesion();
 
     this.generalService.getMenu().subscribe({
@@ -101,4 +113,23 @@ export class GeneralLayoutComponent implements OnInit {
       }
     }, ((refresh - 60)*1000))
   }
+
+  temaPorDefecto(){
+    const body = document.getElementsByTagName('body')[0];
+    if(localStorage.getItem('theme')){
+      this.theme = localStorage.getItem('theme') as string;
+      body.classList.add(this.theme);
+    }else{
+      body.classList.add(this.theme);
+    }
+    
+  }
+
+  cambiarTema(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove(this.theme);
+    this.theme = this.theme === 'light-theme' ? 'dark-theme' : 'light-theme';
+    body.classList.add(this.theme);
+    localStorage.setItem('theme', this.theme);
+    }
 }

@@ -1,37 +1,164 @@
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+@import '~angular-calendar/scss/angular-calendar';
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$front-nutri-primary: mat.define-palette(mat.$green-palette, 900);
+// tema claro
+$front-nutri-primary: mat.define-palette(mat.$green-palette, 800);
 $front-nutri-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $front-nutri-warn: mat.define-palette(mat.$red-palette);
-$front-nutri-success: mat.define-palette(mat.$lime-palette, 700);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
 $front-nutri-theme: mat.define-light-theme((
   color: (
     primary: $front-nutri-primary,
     accent: $front-nutri-accent,
-    warn: $front-nutri-warn,
-    success: $front-nutri-success,
+    warn: $front-nutri-warn
   )
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($front-nutri-theme);
+//tema oscuro
+$front-dark-nutri-primary: mat.define-palette(mat.$lime-palette, A700);
+$front-dark-nutri-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$front-dark-nutri-warn: mat.define-palette(mat.$deep-orange-palette, 300);
 
+$front-nutri-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $front-dark-nutri-primary,
+    accent: $front-dark-nutri-accent,
+    warn: $front-dark-nutri-warn
+  )
+));
+
+// background color
+@mixin background-color($back) {
+  background-color: $back !important;
+}
+
+
+//clase para tema oscuro
+.dark-theme {
+  @include mat.all-component-themes($front-nutri-dark-theme);
+  
+  //tema oscuro para calendario
+  @include cal-theme(
+    (
+      bg-primary: #303030,
+      bg-secondary: #424242,
+      weekend-color: #FFD54F,
+      bg-active: #212121,
+      border-color: #E0E0E0,
+      today-bg:#263238,
+      event-color-primary: #AEEA00,
+    )
+  );
+
+  //estilo para el div que se despliega al seleccionar el dia en la vista mes
+  .cal-open-day-events {
+    @include background-color(#212121);
+    box-shadow: none !important;
+    color: #fff !important;
+    font-size: 1.5em;
+  }
+  
+  //estilo para edicion invalida de un evento
+  .invalid-position .cal-event {
+    @include background-color(#FF6E40);
+    color: #D50000;
+  }
+
+  //estilo para el marcador de la hora
+  .cal-current-time-marker{
+    @include background-color(#AEEA00);
+  }
+  
+  //estilo para el marcador de citas en el dia en la vista del mes
+  .cal-day-badge{
+    @include background-color(#2E7D32);
+  }
+
+  //estilo para el evento en la vista de semana y dia
+  .cal-week-view .cal-event{
+    background-color:#263238;
+    font-size: 1.5em;
+  } 
+
+  .mat-drawer-backdrop {
+    background-color: rgba(33, 33, 33, 0.6) !important;
+  }
+
+}
+
+//clase para tema claro
+.light-theme {
+  @include mat.all-component-themes($front-nutri-theme);
+  .mat-toolbar {
+    @include background-color(#2E7D32);
+    color: #fff;
+  }
+  .mat-sidenav{
+    @include background-color(#1B5E20);
+    color: #fff;
+  }
+  .mat-list-item:hover{
+    @include background-color(#1B5E20);
+  }
+  
+
+   //tema oscuro para calendario
+   @include cal-theme(
+    (
+      bg-primary: #FAFAFA,
+      bg-secondary: #F5F5F5,
+      bg-active: #A5D6A7,
+      weekend-color: #E65100,
+      border-color: #E0E0E0,
+      today-bg:#81C784,
+      event-color-primary: #2E7D32,
+    )
+  );
+
+  //estilo para el div que se despliega al seleccionar el dia en la vista mes
+  .cal-open-day-events {
+    @include background-color(#F5F5F5);
+    box-shadow: none !important;
+    color: #424242 !important;
+    font-size: 1.5em;
+  }
+  
+  //estilo para edicion invalida de un evento
+  .invalid-position .cal-event {
+    @include background-color(#FF6E40);
+    color: #D50000;
+  }
+
+  //estilo para el marcador de la hora
+  .cal-current-time-marker{
+    @include background-color(#1B5E20);
+  }
+  
+  //estilo para el marcador de citas en el dia en la vista del mes
+  .cal-day-badge{
+    @include background-color(#2E7D32);
+  }
+
+  //estilo para el evento en la vista de semana y dia
+  .cal-week-view .cal-event{
+    background-color:#FAFAFA;
+    font-size: 1.5em;
+  } 
+
+  .cal-month-view .cal-day-number{
+    opacity: 1 !important;
+
+  }
+  .cal-month-view .cal-day-cell.cal-out-month .cal-day-number{
+    opacity: 0.5 !important;
+  }
+  
+}
+
+.mat-list-item{
+  font-size: 1.5em !important;
+  color:#fff !important;
+}

@@ -1,9 +1,8 @@
 <div>
     <form [formGroup]="formularioDieta" >
-        <table>
-                <tr>
-                    <td colspan="2">
-                        <mat-form-field class="large-form-control" appearance="outline">
+        <mat-grid-list cols="12" rowHeight="90px">
+                    <mat-grid-tile [colspan]="4">
+                        <mat-form-field appearance="outline">
                             <mat-label>Fecha de creación de la dieta</mat-label>
                             <input autocomplete="off" matInput [max]="fechaCreacion" [matDatepicker]="picker" 
                                     placeholder="Ingrese la fecha de creación de la dieta" 
@@ -13,22 +12,27 @@
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="validarCampo('fechaCreacionDieta')">No se ha seleccionado ninguna fecha</mat-error>
                         </mat-form-field>
-                    </td>
-                    <td>
-                        <button mat-icon-button color="accent" *ngIf="subSec" id="botonLimpiar" (click)="limpiar()">
-                            <mat-icon>cleaning_services</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="6"></mat-grid-tile>
+                    <mat-grid-tile [colspan]="1">
+                        <button mat-mini-fab color="accent" *ngIf="subSec" id="botonEditar" matTooltip="Editar cita" (click)="editarDieta()">
+                            <mat-icon class="material-icons-outlined">edit_note</mat-icon>
                         </button>
-                    </td>
-                    <td>
-                        <button mat-icon-button color="accent" *ngIf="subSec" id="botonEditar" (click)="editarDieta()">
-                            <mat-icon>edit_note</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1">
+                        <button mat-mini-fab color="accent" *ngIf="subSec" id="botonLimpiar" matTooltip="Limpiar cita" (click)="limpiar()">
+                            <mat-icon class="material-icons-outlined">cleaning_services</mat-icon>
                         </button>
-                    </td>
-                </tr>
+                    </mat-grid-tile>
+        </mat-grid-list>
+        <table>
                 <br>
                 <!------------LUNES----------->
                 <tr>
-                    <th colspan="5">Lunes</th>
+                    <th colspan="5">Lunes
+                        <mat-divider></mat-divider>
+                    </th>
+                   
                 </tr>
                 <tr>
                     <td>

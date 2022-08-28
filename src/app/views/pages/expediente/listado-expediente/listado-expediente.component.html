@@ -1,6 +1,6 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <div style="max-width:1300px; margin: 0 auto;">
-<mat-form-field appearance="standard">
+<mat-form-field appearance="standard" style="width: 100%;">
     <mat-label>Buscar expediente</mat-label>
     <input matInput (keyup)="filtroExpediente($event)" #input>
 </mat-form-field>
@@ -38,13 +38,13 @@
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element" style="text-align: right">
             <a [routerLink]="[ '/consulta/nueva', element.id ]"  mat-mini-fab color="accent" matTooltip="Agregar Consulta">
-              <mat-icon>add</mat-icon>
+              <mat-icon class="material-icons-outlined">add</mat-icon>
             </a>
             <a [routerLink]="[ '/expediente', element.id ]" mat-mini-fab color="primary" matTooltip="Ver Expediente"> 
-                <mat-icon>visibility</mat-icon>
+                <mat-icon class="material-icons-outlined">visibility</mat-icon>
             </a>
             <a mat-mini-fab color="warn" matTooltip="Eliminar Expediente" (click)="eliminarExpediente(element)">
-                <mat-icon>delete</mat-icon>
+                <mat-icon class="material-icons-outlined">delete</mat-icon>
             </a>
         </td>
       </ng-container>
@@ -58,7 +58,7 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 15, 25, 100]" [pageSize]="15" aria-label="Select page of users"></mat-paginator>
   </div>
 
 </div>
