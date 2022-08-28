@@ -44,6 +44,7 @@ export class AuthService {
       .post(endpoints.auth.infoUser, null, { headers })
       .pipe(
         map((results: any) => {
+          localStorage.setItem('rol', results.rol);
           return results;
         }), catchError((error: HttpErrorResponse)=>{
           throw new Error(error.error.message);

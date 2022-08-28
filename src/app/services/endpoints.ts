@@ -38,6 +38,12 @@ export const endpoints = {
         guardar: environment.apiUrl + '/cita/save',
         updateFechaHora: environment.apiUrl + '/cita/update/fechora',
         eliminar: environment.apiUrl + '/cita/delete'
+    },
+    pliegues: {
+        guardar: environment.apiUrl + '/pliegues/save',
+        editar: environment.apiUrl + '/pliegues/update',
+        obtener: environment.apiUrl + '/pliegues/get',
+        listar: environment.apiUrl + '/pliegues/list'
     }
 };
 

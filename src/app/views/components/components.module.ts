@@ -16,6 +16,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { PlanificacionDietaComponent } from './planificacion-dieta/planificacion-dieta.component';
 import { ModalExtenderSesionComponent } from './shared/modal-extender-sesion/modal-extender-sesion.component';
 import { CitaComponent } from './modal/cita/cita.component';
+import { PlieguesComponent } from './pliegues/pliegues.component';
 
 
 
@@ -30,6 +31,7 @@ import { CitaComponent } from './modal/cita/cita.component';
     SpinnerComponent,
     PlanificacionDietaComponent,
     ModalExtenderSesionComponent,
+    PlieguesComponent,
     CitaComponent,
   ],
   imports: [
@@ -47,7 +49,8 @@ import { CitaComponent } from './modal/cita/cita.component';
     TablaDietaComponent,
     SpinnerComponent,
     PlanificacionDietaComponent,
-    ModalExtenderSesionComponent
+    ModalExtenderSesionComponent,
+    PlieguesComponent
   ]
 })
 export class ComponentsModule { }

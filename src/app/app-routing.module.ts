@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './views/auth/login/login.component';
-import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { GeneralLayoutComponent } from './views/pages/layouts/general-layout/general-layout.component';
 import { InicioComponent } from './views/pages/layouts/inicio/inicio.component';
@@ -74,7 +72,7 @@ const routes: Routes = [
         path: 'citas',
         canActivate: [AuthGuard],
         component: CalendarioComponent
-      }
+      },
     ],
   },
   {

@@ -27,7 +27,8 @@
                     [matDatepicker]="picker" 
                     placeholder="21/7/2022" 
                     formControlName="fechaExpediente"
-                    autocomplete="off">
+                    autocomplete="off"
+                    [readonly]="true">
                 <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -115,6 +116,7 @@
                     formControlName="fecha_nacimiento"
                     (dateChange)="getEdad($event)"
                     autocomplete="off"
+                    [readonly]="true"
                 >
                 <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="pickerN"></mat-datepicker-toggle>

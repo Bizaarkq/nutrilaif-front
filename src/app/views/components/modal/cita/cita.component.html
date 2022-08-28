@@ -37,10 +37,11 @@
                         [(ngModel)]="fechaCita"
                         [ngModelOptions]="{standalone: true}"
                         [min]="hoy"
+                        [readonly]="true"
                     >
                     <mat-hint>DD/MM/YYYY</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="pickerN"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerN></mat-datepicker>
+                    <mat-datepicker #pickerN disabled="false"></mat-datepicker>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile [colspan]="3">

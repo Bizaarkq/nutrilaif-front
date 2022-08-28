@@ -40,8 +40,11 @@ export class ConsultaComponent implements OnInit, deComponent {
   estados:any;
   estadoActual:any;
   permitirGuardado: boolean = false;
-redirigir: boolean=false;
-
+  redirigir: boolean=false;
+  //Talla del paciente
+  tallaPaciente:any;
+  //Roles del usuario activo
+  roles:any;
   paciente: FormGroup = this.FB.group({});
   recordatorio: FormGroup = this.FB.group({});
   frecuencia_consumo: FormGroup = this.FB.group({
@@ -49,6 +52,7 @@ redirigir: boolean=false;
   });
   planificacion_dieta: FormGroup = this.FB.group({});
   dieta: FormGroup = this.FB.group({});
+  pliegues: FormGroup = this.FB.group({});
 
   consultaForm:FormGroup = this.FB.group({});
 
@@ -65,6 +69,7 @@ redirigir: boolean=false;
   ) {}
 
   ngOnInit(): void {
+    this.obtenerRoles(localStorage.getItem('rol'), ',');
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
@@ -77,7 +82,7 @@ redirigir: boolean=false;
       this.loadingDataEdicion = true;
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
-
+          this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
           if(data.es_subsecuente){
@@ -218,7 +223,10 @@ redirigir: boolean=false;
           ));
         });
       });
-
+      //Agregar componente de pliegues solo cuando es un rol de nutri-deportista
+      if(this.verificarRol()){
+        this.subConsultaForm.addControl('pliegues', this.pliegues);
+      }
       this.consultaForm = this.FB.group({
         paciente: this.paciente,
         recordatorio: this.recordatorio,
@@ -372,6 +380,13 @@ calcular(){
         this.router.navigate(['/expedientes']);
       }
     });
+  }
+
+  obtenerRoles( elemento:any, separador:string){
+    this.roles = elemento.split(separador);
+  }
+  verificarRol(){
+    return (this.roles.includes('nutri-deportista'));
   }
   
 }
