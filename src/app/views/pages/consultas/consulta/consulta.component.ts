@@ -223,7 +223,10 @@ export class ConsultaComponent implements OnInit, deComponent {
           ));
         });
       });
-      this.subConsultaForm.addControl('pliegues', this.pliegues);
+      //Agregar componente de pliegues solo cuando es un rol de nutri-deportista
+      if(this.verificarRol()){
+        this.subConsultaForm.addControl('pliegues', this.pliegues);
+      }
       this.consultaForm = this.FB.group({
         paciente: this.paciente,
         recordatorio: this.recordatorio,
