@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('refresh_token', res.refresh_token);
             localStorage.setItem('expires_in', res.expires_in);
             localStorage.setItem('refresh_expires_in', res.refresh_expires_in);
-            
             this.router.navigate(['/inicio']);
           },
           error: err =>{
