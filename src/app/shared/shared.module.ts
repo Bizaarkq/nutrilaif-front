@@ -19,8 +19,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
-
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -42,7 +45,12 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDialogModule,
     MatRadioModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    MatAutocompleteModule
   ], 
   exports: [
     MatFormFieldModule,
@@ -61,7 +69,12 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDialogModule,
     MatRadioModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule { }

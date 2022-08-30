@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   //form login
   formLogin!: FormGroup;
 
+  hide = true;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -42,6 +44,9 @@ export class LoginComponent implements OnInit {
         {
           next: res => {
             localStorage.setItem('access_token', res.access_token);
+            localStorage.setItem('refresh_token', res.refresh_token);
+            localStorage.setItem('expires_in', res.expires_in);
+            localStorage.setItem('refresh_expires_in', res.refresh_expires_in);
             this.router.navigate(['/inicio']);
           },
           error: err =>{
@@ -51,5 +56,9 @@ export class LoginComponent implements OnInit {
           }
         }
       );
+  }
+
+  validarCampos( campo:string ){
+    return this.formLogin.controls[campo].errors && this.formLogin.controls[campo].touched;
   }
 }

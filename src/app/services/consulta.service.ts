@@ -46,4 +46,20 @@ export class ConsultaService {
     );
   }
 
+  getListadoConsultas(id: string){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    let url = endpoints.consulta.listaConsultas + '/' + id;
+    return this.http.get(url, {headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
+
 }

@@ -1,0 +1,364 @@
+[
+  {
+    "step": "datos_medicos",
+    "label_step": "Datos Médicos",
+    "controls": [
+      {
+        "name": "diagnostico",
+        "validators": [],
+        "label": "Nuevo diagnóstico médico",
+        "placeholder": "Cefalea",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
+      },
+      {
+        "name": "medicamento_suplemento",
+        "validators": [],
+        "label": "Nuevos Medicamentos/Suplementos",
+        "placeholder": "Inyección de vitaminas",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
+      },
+      {
+        "name": "otros_datos",
+        "validators": [],
+        "label": "Otros datos importantes",
+        "placeholder": "Síntomas de cansancio",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
+      }
+    ]
+  },
+  {
+    "step": "examen_labs",
+    "label_step": "Exámenes de laboratorio",
+    "controls": [
+      {
+        "name": "hemoglobina",
+        "label": "Hemoglobina",
+        "placeholder": "Ingrese el valor de la Hemoglobina",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "trigliceridos",
+        "label": "Triglicéridos",
+        "placeholder": "Ingrese el valor de los Triglicéridos",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "colesterol_total",
+        "label": "Colesterol Total",
+        "placeholder": "Ingrese el Colesterol Total",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "glucosa_ayuno",
+        "label": "Glucosa en ayuno",
+        "placeholder": "Glucosa en ayuno",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "creatinina",
+        "label": "Creatinina",
+        "placeholder": "Ingrese el valor de la Creatinina",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "acido_urico",
+        "label": "Ácido úrico",
+        "placeholder": "Ingrese el Ácido úrico",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "chdl",
+        "label": "c-HDL",
+        "placeholder": "Ingrese el valor de c-HDL",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "glucosa_post_pondrial",
+        "label": "Glucosa post pondríal",
+        "placeholder": "Ingrese la Glucosa post pondríal",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "linfocitos",
+        "label": "Linfocitos",
+        "placeholder": "Ingrese el valor de los Linfocitos",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "albumina",
+        "label": "Albúmina",
+        "placeholder": "Ingrese la Albúmina",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "cldl",
+        "label": "c-LDL",
+        "placeholder": "Ingrese el valord de c-LDL",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "hba_1c",
+        "label": "HbA 1c",
+        "placeholder": "Ingrese el valor de HbA 1c",
+        "type": "input",
+        "autocomplete": "off",
+        "validators": []
+      },
+      {
+        "name": "otros",
+        "label": "Otro Exámen",
+        "placeholder": "Ingrese el valor del exámen",
+        "type": "input",
+        "autocomplete": "off"
+      }
+    ]
+  },
+  {
+    "step": "datos_antropo",
+    "label_step": "Datos antropométricos",
+    "controls": [
+      {
+        "name": "peso_actual",
+        "label": "Peso actual (Kg)",
+        "placeholder": "99.99",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "peso_meta",
+        "label": "Peso meta (Kg)",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "autocomplete": "off"
+      },
+      {
+        "name": "edad_metabolica",
+        "label": "Edad metabólica",
+        "placeholder": "99",
+        "type": "number",
+        "cols": "4",
+        "autocomplete": "off"
+      },
+      {
+        "name": "peso_ideal",
+        "label": "Peso ideal (Kg)",
+        "placeholder": "99.99",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "p_grasa_corporal",
+        "label": "Porcentaje grasa corporal",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "c_muneca",
+        "label": "C. Muñeca (cm)",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "autocomplete": "off"
+      },
+      {
+        "name": "talla",
+        "label": "Talla (m)",
+        "placeholder": "9.99",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "p_grasa_visceral",
+        "label": "Porcentaje grasa visceral",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "c_brazo_relaj",
+        "label": "C. Brazo relajado (cm)",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "autocomplete": "off"
+      },
+      {
+        "name": "imc",
+        "label": "Imc (Kg/m2)",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "p_masa_muscular",
+        "label": "Porcentaje masa muscular",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "autocomplete": "off"
+      },
+      {
+        "name": "c_cintura",
+        "label": "C. Cintura (cm)",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "c_cadera",
+        "label": "C. Cadera (cm)",
+        "placeholder": "99.9",
+        "type": "number",
+        "cols": "4",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "diagnostico_nutricional",
+        "label": "Diagnóstico nutricional",
+        "placeholder": "Normal según IMC",
+        "type": "textarea",
+        "cols": "11",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
+      }
+    ]
+  },
+  {
+    "step": "historia_dietetica",
+    "label_step": "Historia dietética",
+    "controls": [
+      {
+        "name": "actividad_fisica",
+        "label": "Actividad física",
+        "placeholder": "Todos los días",
+        "type": "input",
+        "cols": "12",
+        "class": "large-form-control",
+        "validators": [
+          {
+            "type": "required"
+          }
+        ],
+        "autocomplete": "off"
+      },
+      {
+        "name": "observacion_menu_anterior",
+        "label": "Observación del menú anterior",
+        "placeholder": "Disminuir raciones de un alimento",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
+      },
+      {
+        "name": "saciedad",
+        "label": "Saciedad",
+        "placeholder": "Saciedad",
+        "type": "input",
+        "cols": "6",
+        "autocomplete": "off"
+      },
+      {
+        "name": "alimentos_quiere",
+        "label": "Alimentos que quisiera incorporar",
+        "placeholder": "Hamburguesa",
+        "type": "textarea",
+        "cols": "12",
+        "rows": "2",
+        "height": "5",
+        "class": "large-form-control",
+        "autocomplete": "off"
+      }
+    ]
+  }
+]

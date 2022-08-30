@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlimentosService } from 'src/app/services/alimentos.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GeneralService } from 'src/app/services/general.service';
+
 
 @Component({
   selector: 'app-dialog-alimento',
@@ -10,9 +13,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 })
 export class DialogAlimentoComponent implements OnInit {
   //Formulario para manejar el formulario de alimentos
+  visibleSpinner = false;
+  paises: any;
   formDatosAlimento:any = FormGroup;
   camposAlimento: string[] = [
     'codigo',
+    'cod_pais',
     'nombre',
     'calorias',
     'grasas',
@@ -27,24 +33,26 @@ export class DialogAlimentoComponent implements OnInit {
   
   ngOnInit(): void {
     this.codigoDisabled = this.editData ? true : false;
+    this.getPaises();
     //this.createForm();
     //Validar campos del formulario
     this.formDatosAlimento = this.fb.group({
       codigo: [{value:'', disabled: this.codigoDisabled}, Validators.required],
-      nombre: ['', Validators.required],
-      calorias: ['', Validators.required],
-      grasas: ['', Validators.required],
-      proteinas: ['', Validators.required],
-      carbohidratos: ['', Validators.required],
-      hierro: ['', Validators.required],
-      potasio: ['', Validators.required],
-      calcio: ['', Validators.required],
-      sodio: ['', Validators.required],
+      cod_pais:['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      calorias: ['', [Validators.required,Validators.min(0)]],
+      grasas: ['', [Validators.required,Validators.min(0)]],
+      proteinas: ['', [Validators.required,Validators.min(0)]],
+      carbohidratos: ['', [Validators.required,Validators.min(0)]],
+      hierro: ['', [Validators.required,Validators.min(0)]],
+      potasio: ['', [Validators.required,Validators.min(0)]],
+      calcio: ['', [Validators.required,Validators.min(0)]],
+      sodio: ['', [Validators.required,Validators.min(0)]],
     })
     //Codigo para obtener los datos de un alimento seleccionado
     if(this.editData){
       this.actionBtn = 'Actualizar';
-      this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
+     /* this.formDatosAlimento.controls['codigo'].setValue(this.editData.codigo);
       this.formDatosAlimento.controls['nombre'].setValue(this.editData.nombre);
       this.formDatosAlimento.controls['calorias'].setValue(this.editData.calorias);
       this.formDatosAlimento.controls['grasas'].setValue(this.editData.grasas);
@@ -53,16 +61,18 @@ export class DialogAlimentoComponent implements OnInit {
       this.formDatosAlimento.controls['hierro'].setValue(this.editData.hierro);
       this.formDatosAlimento.controls['potasio'].setValue(this.editData.potasio);
       this.formDatosAlimento.controls['calcio'].setValue(this.editData.calcio);
-      this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);
+      this.formDatosAlimento.controls['sodio'].setValue(this.editData.sodio);*/
+      this.formDatosAlimento.patchValue(this.editData);
     }
   }
   
   actionBtn:string = 'Agregar';
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder, private snack: MatSnackBar,
     private api:AlimentosService,
     @Inject(MAT_DIALOG_DATA) public editData:any, //Para recibir datos enviados al hacer clic en el boton de editar del componente listar-alimentos
     private dialogRef:MatDialogRef<DialogAlimentoComponent>,
-    
+    private generalService: GeneralService,
+
   ) {
 
   }
@@ -74,17 +84,32 @@ export class DialogAlimentoComponent implements OnInit {
   // }
 
   addAlimento(){
+    this.visibleSpinner=true;
     if(!this.editData){
       if(!this.formDatosAlimento.invalid){
           this.api.addAlimentos(this.formDatosAlimento.value)
           .subscribe({
             next:(res)=>{
-              alert("Alimento agregado correctamente");
+              this.visibleSpinner=false;
+              this.snack.open(
+                res.mensaje,
+                'OK',
+                {
+                  duration: 3000,
+                }
+              );
               this.formDatosAlimento.reset();
               this.dialogRef.close('guardar');
             },
-            error:()=>{
-              alert("Error al agregar alimento");
+            error:(res)=>{
+              this.visibleSpinner=false;
+              this.snack.open(
+                res.mensaje,
+                'OK',
+                {
+                  duration: 3000,
+                }
+              );
             }
           })
       }
@@ -94,19 +119,43 @@ export class DialogAlimentoComponent implements OnInit {
   }
 
   editarAlimento(){
+    this.visibleSpinner=true;
     if(!this.formDatosAlimento.invalid){
       this.api.editarAlimentos(this.formDatosAlimento.getRawValue())
       .subscribe({
         next:(res)=>{
-          alert("Alimento editado correctamente");
+          this.visibleSpinner=false;
+          this.snack.open(
+            res.mensaje,
+            'OK',
+            {
+              duration: 3000,
+            }
+          );
           this.formDatosAlimento.reset();
           this.dialogRef.close('actualizar');
         },
-        error:()=>{
-          alert("Error al editar un alimento");
+        error:(res)=>{
+          this.visibleSpinner=false;
+          this.snack.open(
+            res.mensaje,
+            'OK',
+            {
+              duration: 3000,
+            }
+          );
+          
         }
       })
     }
+  }
+
+  getPaises(){
+    this.generalService.getPaises().subscribe({
+      next: (results: any) => {
+        this.paises = results;
+      }
+    });
   }
 
 }

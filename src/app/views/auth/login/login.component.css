@@ -1,0 +1,28 @@
+.btn-center {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+mat-card {
+    height: 275px;
+    width: 300px;
+    opacity: 0.90;
+}
+
+body{
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-card-header{
+    justify-content: center;
+    padding-bottom: 20px;
+}
+

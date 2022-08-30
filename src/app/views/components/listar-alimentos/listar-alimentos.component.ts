@@ -4,9 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlimentosService } from 'src/app/services/alimentos.service';
-import { Alimento } from '../../../interfaces/Alimento';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAlimentoComponent } from '../dialog-alimento/dialog-alimento.component';
+import { ModalExtenderSesionComponent } from '../shared/modal-extender-sesion/modal-extender-sesion.component';
 
 @Component({
   selector: 'app-listar-alimentos',
@@ -14,18 +14,22 @@ import { DialogAlimentoComponent } from '../dialog-alimento/dialog-alimento.comp
   styleUrls: ['./listar-alimentos.component.css']
 })
 export class ListarAlimentosComponent implements OnInit {
-  displayedColumns: string[] = ['codigo', 'nombre', 'calorias', 'grasas', 'proteinas', 'carbohidratos', 'hierro', 'potasio', 'calcio', 'sodio', 'acciones'];
+  displayedColumns: string[] = ['codigo','cod_pais', 'nombre', 'calorias', 'grasas', 'proteinas', 'carbohidratos', 'hierro', 'potasio', 'calcio', 'sodio', 'acciones'];
   dataSource!: MatTableDataSource<any>;
-  
+  visibleSpinner = false;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.cargarAlimentos();
   }
-  constructor(private dialog:MatDialog, private api:AlimentosService){
-
-  }
+  constructor(
+    private dialog:MatDialog, 
+    private api:AlimentosService, 
+    private snack: MatSnackBar
+  ){}
+  
   openDialog() {
     this.dialog.open(DialogAlimentoComponent, {
       width:'30%'
@@ -36,15 +40,23 @@ export class ListarAlimentosComponent implements OnInit {
     })
   }
   cargarAlimentos(){
+    this.visibleSpinner = true;
     this.api.getAlimentos()
     .subscribe({
       next:(res)=>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.visibleSpinner = false;
       },
       error:()=>{
-        alert("No se pueden obtener los alimentos");
+        this.snack.open(
+          "No se pueden obtener los alimentos",
+          'OK',
+          {
+            duration: 5000,
+          }
+        );
       }
     })
   }
@@ -63,16 +75,44 @@ export class ListarAlimentosComponent implements OnInit {
   }
 
   eliminarAlimento(alimento:any){
-    this.api.eliminarAlimento(alimento.codigo)
-    .subscribe({
-      next:(res)=>{
-        alert("Alimento eliminado");
-        this.cargarAlimentos();
-      },
-      error:()=>{
-        alert("Error al eliminar alimento");
+    //Modal para solicitar confirmacion de eliminacion de alimento
+    const dialog = this.dialog.open( ModalExtenderSesionComponent, {
+      width: '30%',
+      data: {
+        titulo: 'Confirmar eliminación',
+        mensaje: '¿Desea eliminar de forma permanente el alimento seleccionado?',
+        boton: 'Aceptar'
       }
-    })
+    });
+    dialog.afterClosed().subscribe( result => {
+      if(result){
+        this.visibleSpinner=true;
+        this.api.eliminarAlimento(alimento.codigo)
+        .subscribe({
+          next:(res)=>{
+            this.visibleSpinner=false;
+            this.snack.open(
+              res.mensaje,
+              'OK',
+              {
+                duration: 3000,
+              }
+            );
+            this.cargarAlimentos();
+          },
+          error:(res)=>{
+            this.visibleSpinner=false;
+            this.snack.open(
+              res.mensaje,
+              'OK',
+              {
+                duration: 3000,
+              }
+            );
+          }
+        })
+      }
+    });
   }
 
   editarAlimento(row:any){

@@ -1,0 +1,93 @@
+{
+    "desayunoHora": {
+        "label": "Hora del desayuno",
+        "validators": []
+    },
+    "desayunoHoraFin": {
+        "label": "Hora del desayuno",
+        "validators": []
+    },
+    "recordatorioDesayuno": {
+        "label": "Recordatorio del desayuno",
+        "validators": []
+    },
+    "desayunoRefrigerioHora": {
+        "label": "Hora del refrigerio",
+        "validators": []
+    },
+    "desayunoRefrigerioHoraFin": {
+        "label": "Hora del refrigerio",
+        "validators": []
+    },
+    "recordatorioRefrigerioDesayuno": {
+        "label": "Recordatorio del refrigerio del desayuno",
+        "validators": []
+    },
+    "almuerzoHora": {
+        "label": "Hora del almuerzo",
+        "validators": []
+    },
+    "almuerzoHoraFin": {
+        "label": "Hora del almuerzo",
+        "validators": []
+    },
+    "recordatorioAlmuerzo": {
+        "label": "Recordatorio del almuerzo",
+        "validators": []
+    },
+    "almuerzoRefrigerioHora": {
+        "label": "Refrigerio almuerzo",
+        "validators": []
+    },
+    "almuerzoRefrigerioHoraFin": {
+        "label": "Refrigerio almuerzo",
+        "validators": []
+    },
+    "recordatorioRefrigerioAlmuerzo": {
+        "label": "Recordatorio del almuerzo",
+        "validators": []
+    },
+    "cenaHora": {
+        "label": "Hora de la cena",
+        "validators": []
+    },
+    "cenaHoraFin": {
+        "label": "Hora de la cena",
+        "validators": []
+    },
+    "recordatorioCena": {
+        "label": "Recordatorio de la cena",
+        "validators": []
+    },
+    "caloriasTotales": {
+        "validators": []
+    },
+    "cumplimientoCalorias": {
+        "validators": []
+    },
+    "cho": {
+        "validators": []
+    },
+    "cumplimientoCho": {
+        "validators": []
+    },
+    "chon": {
+        "validators": []
+    },
+    "cumplimientoChon": {
+        "validators": []
+    },
+    "cooh": {
+        "validators": []
+    },
+    "cumplimientoCooh": {
+        "validators": []
+    },
+    "consumoAgua": {
+        "validators": [
+            {
+                "type": "required"
+            }
+        ]
+    }
+}

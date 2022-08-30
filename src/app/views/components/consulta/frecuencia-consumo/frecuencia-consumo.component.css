@@ -9,3 +9,15 @@ table {
   width: 100%;
 }
 
+.mat-fab {
+  float: right !important;
+}
+
+.grid-layout{
+  width: 92%;
+}
+
+.label{
+  font-size: 18px;
+  font-weight: 400;
+}

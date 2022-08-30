@@ -1,41 +1,61 @@
 <form [formGroup]="formDatosAlimento">
     <h1 mat-dialog-title>Formulario para agregar alimento</h1>
     <div mat-dialog-content>
-        <mat-form-field class="" appearance="fill">
+        <mat-form-field class="" appearance="outline">
             <mat-label>Codigo</mat-label>
-            <input matInput type="number" formControlName="codigo" placeholder="Ingrese el codigo del alimento" value="" autocomplete="off">
+            <input matInput type="number" formControlName="codigo" 
+                placeholder="9999" autocomplete="off">
         </mat-form-field>
-        <mat-form-field class="" appearance="fill">
+        <mat-form-field class="" appearance="outline">
+            <mat-label>País</mat-label>
+            <mat-select formControlName="cod_pais"> 
+                <mat-option *ngIf="!paises" value="">--</mat-option>
+                <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
+                    {{pais.nombre}}
+                </mat-option>
+            </mat-select>   
+            <mat-error>Seleccione un país</mat-error>                    
+        </mat-form-field>    
+        <mat-form-field class="" appearance="outline">
             <mat-label>Nombre</mat-label>
-            <input matInput type="text" formControlName="nombre" placeholder="Ingrese el nombre del alimento" value="" autocomplete="off">
+            <input matInput type="text" formControlName="nombre"
+                placeholder="LECHE DE VACA, DESCREMADA" autocomplete="off">
         </mat-form-field>
-        <mat-form-field class="" appearance="fill">
+        <mat-form-field class="" appearance="outline">
             <mat-label>Calorias</mat-label>
-            <input matInput type="number" formControlName="calorias" placeholder="Ingrese las calorias del alimento" value="" autocomplete="off">
+            <input matInput type="number" formControlName="calorias" 
+                placeholder="300" autocomplete="off">
         </mat-form-field>
-        <mat-form-field class="" appearance="fill">
+        <mat-form-field class="" appearance="outline">
             <mat-label>Grasas</mat-label>
-            <input matInput type="number" formControlName="grasas" placeholder="Ingrese la grasa del alimento" value="" autocomplete="off">
+            <input matInput type="number" formControlName="grasas" 
+                placeholder="0.99" autocomplete="off">
         </mat-form-field>
-        <mat-form-field class="" appearance="fill">
+        <mat-form-field class="" appearance="outline">
             <mat-label>Proteinas</mat-label>
-            <input matInput type="number" formControlName="proteinas" placeholder="Ingrese las proteinas del alimento" value="" autocomplete="off">
-        </mat-form-field><mat-form-field class="" appearance="fill">
+            <input matInput type="number" formControlName="proteinas" 
+                placeholder="90.1" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="outline">
             <mat-label>Carbohidratos</mat-label>
-            <input matInput type="number" formControlName="carbohidratos" placeholder="Ingrese los carbohidratos del alimento" value="" autocomplete="off">
-        </mat-form-field><mat-form-field class="" appearance="fill">
+            <input matInput type="number" formControlName="carbohidratos" 
+                placeholder="90.1" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="outline">
             <mat-label>Hierro</mat-label>
-            <input matInput type="number" formControlName="hierro" placeholder="Ingrese el hierro del alimento" value="" autocomplete="off">
-        </mat-form-field><mat-form-field class="" appearance="fill">
+            <input matInput type="number" formControlName="hierro" 
+                placeholder="0.91" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="outline">
             <mat-label>Potasio</mat-label>
-            <input matInput type="number" formControlName="potasio" placeholder="Ingrese el potasio del alimento" value="" autocomplete="off">
-        </mat-form-field><mat-form-field class="" appearance="fill">
+            <input matInput type="number" formControlName="potasio" 
+                placeholder="900" autocomplete="off">
+        </mat-form-field><mat-form-field class="" appearance="outline">
             <mat-label>Calcio</mat-label>
-            <input matInput type="number" formControlName="calcio" placeholder="Ingrese el calcio del alimento" value="" autocomplete="off">
+            <input matInput type="number" formControlName="calcio" 
+                placeholder="1900" autocomplete="off">
         </mat-form-field>
-        <mat-form-field class="" appearance="fill">
+        <mat-form-field class="" appearance="outline">
             <mat-label>Sodio</mat-label>
-            <input matInput type="number" formControlName="sodio" placeholder="Ingrese el sodio del alimento" value="" autocomplete="off">
+            <input matInput type="number" formControlName="sodio" 
+                placeholder="900" autocomplete="off">
         </mat-form-field>
     </div>
     <div mat-dialog-action [align]="'end'">

@@ -1,0 +1,33 @@
+.large-form-control{
+    width: 100%;
+    margin-left: 1em;
+}
+
+.small-form-control{
+    width: 91%;
+    margin-left: 1em;
+    margin-right: 0.10em;
+}
+
+.medium-form-control{
+    width: 75%;
+    padding-left: 15px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+div{
+    align-content: center;
+    width: 98%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+

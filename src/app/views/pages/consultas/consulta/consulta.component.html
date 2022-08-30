@@ -1,36 +1,138 @@
+<div class="page">
+<app-spinner [visible]="visibleSpinner"></app-spinner>
 <form [formGroup]="consultaForm" (submit)="guardar()">
-<mat-stepper [linear]="false" #stepper>
-  <mat-step [stepControl]="paciente">
-    <form [formGroup]="paciente" >
-      <ng-template matStepLabel>Datos Paciente</ng-template>
-          <app-datos-personales [pacienteForm]="paciente"></app-datos-personales> 
-      <div>
-        <button mat-button matStepperNext type="button">Siguiente</button>
-      </div>
-    </form>
-  </mat-step>
-  <ng-container *ngFor="let group of subConsultaForm.controls | keyvalue">
-    <mat-step [stepControl]="group.value">
-      <form *ngIf="subConsultaForm.controls[group.key]" [formGroup]="passToFormGroup(group.key)" >
-        <ng-template matStepLabel>{{group.key}}</ng-template>
-        <ng-container *ngFor="let control of passToFormGroup(group.key).controls | keyvalue">
-          <mat-form-field appearance="legacy">
-            <mat-label>{{ control.key }}</mat-label>
-            <input
-              matInput
-              formControlName="{{ control.key }}"
-              />
-          </mat-form-field>
-        </ng-container>
-        <div>
-          <button mat-button matStepperNext type="button">Siguiente</button>
+  <mat-stepper orientation="vertical" [linear]="false" #stepper >
+    <mat-step [stepControl]="paciente">
+      <form [formGroup]="paciente">
+        <ng-template matStepLabel>Datos del Paciente</ng-template>
+        <app-datos-personales [pacienteForm]="paciente"
+          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"(edad)="setEdad($event)"></app-datos-personales>
+        <div class="buttons">
+          <button mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
       </form>
     </mat-step>
-  </ng-container>
-</mat-stepper>
-<button mat-raised-button color="primary">Guardar</button>
-<section [formGroup]="consultaForm">
-  <p><mat-checkbox formControlName="es_borrador">Guardar como borrador</mat-checkbox></p>
-</section>
+    <ng-container *ngIf="!loadingDataEdicion">
+      <ng-container *ngFor="let group of subConsulta | keyvalue; let i=index">
+        <mat-step [stepControl]="getControlSubConsulta(group.value['step'])">
+          <form *ngIf="subConsultaForm.controls[group.value['step']]" [formGroup]="passToFormGroup(group.value['step'])">
+            <ng-template matStepLabel>{{ group.value['label_step'] }}</ng-template>
+            <mat-grid-list cols="12" rowHeight="90px">
+              <ng-container *ngFor="let control of group.value['controls']">
+                 <mat-grid-tile 
+                  [colspan]="control.cols ?? 3"
+                  [rowspan]="control.rows ?? 1"
+                  >
+                  <div class="tile-content">
+                <mat-form-field class="{{ control.class ?? 'medium-form-control'}}" appearance="outline">
+                  <mat-label>{{ control.label }}</mat-label>
+                  
+                  <span [ngSwitch]="control.type">
+                    <p *ngSwitchCase="'input'">
+                      <input id="{{ control.name }}" matInput formControlName="{{ control.name }}" 
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}" />
+                    </p>
+                    <p *ngSwitchCase="'textarea'">
+                      <textarea id="{{ control.name }}"  matInput style="height: auto; resize: none;" 
+                        rows="{{ control.height }}"
+                        formControlName="{{ control.name }}"
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"></textarea>
+                    </p>
+                    <p *ngSwitchCase="'select'">
+                      <mat-select id="{{ control.name }}"  formControlName="{{ control.name }}">
+                        <mat-option *ngFor="let option of control.options"
+                          [value]="option.value">
+                          {{option.label}}
+                        </mat-option>
+                      </mat-select>
+                    </p>
+
+                    <p *ngSwitchCase="'number'">
+                      <input id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"/>
+                    </p>
+                    <p *ngSwitchDefault>
+
+                    </p>
+                  </span>
+                  <mat-hint *ngIf="control.name === 'imc'">{{imcString}}</mat-hint>
+                </mat-form-field> 
+              </div>
+              </mat-grid-tile>
+              </ng-container>
+            </mat-grid-list>
+            <div class="buttons">
+              <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+              <button mat-raised-button matStepperNext color="accent">Siguiente</button>
+            </div>
+          </form>
+        </mat-step>
+      </ng-container>
+    </ng-container>
+    <mat-step [stepControl]="recordatorio">
+      <form [formGroup]="recordatorio">
+        <ng-template matStepLabel>Recordatorio de 24 Horas</ng-template>
+        <app-recordatorio [formRecordatorio]="recordatorio"></app-recordatorio>
+        <div class="buttons">
+          <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+          <button mat-raised-button matStepperNext color="accent">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="frecuencia_consumo">
+      <form [formGroup]="frecuencia_consumo">
+        <ng-template matStepLabel>Frecuencia de consumo</ng-template>
+        <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'" [precargar]="accion==='nueva'"></app-frecuencia-consumo>
+        <div class="buttons">
+          <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+          <button *ngIf="!(accion==='nueva') || verificarRol()" mat-raised-button matStepperNext color="accent">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step *ngIf="(accion==='editar' && !(estadoActual === 'BORRADOR.CONSULTA' || !estadoActual))|| accion==='ver'" [stepControl]="planificacion_dieta">
+      <form [formGroup]="planificacion_dieta">
+        <ng-template matStepLabel>Plan Alimenticio</ng-template>
+        <app-planificacion-dieta [planAlimenticio]="planificacion_dieta"></app-planificacion-dieta>
+        <div class="buttons">
+          <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+          <button mat-raised-button matStepperNext color="accent">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step *ngIf="(accion==='editar' && !(estadoActual === 'BORRADOR.CONSULTA' || !estadoActual)) || accion==='ver'" [stepControl]="dieta">
+      <form [formGroup]="dieta">
+        <ng-template matStepLabel>Dieta</ng-template>
+        <app-tabla-dieta [formularioDieta]="dieta" [subSec]="accion==='editar'"></app-tabla-dieta>
+        <div>
+          <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+          <button mat-raised-button matStepperNext *ngIf='verificarRol()' color="accent">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="pliegues" *ngIf="verificarRol()">
+      <form [formGroup]="pliegues">
+        <ng-template matStepLabel>Pliegues</ng-template>
+        <app-pliegues [id]="id_paciente" [talla]="tallaPaciente" [idConsulta]="id" [formPliegues]="pliegues"></app-pliegues>
+        <div class="buttons">
+          <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+  <div class="fila-guardado">
+    <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Guardado</mat-label>
+        <mat-select formControlName="estado" (selectionChange)="opcionDeGuardado(estado.value)" #estado> 
+          <mat-option *ngIf="!estados"value="">--</mat-option>
+          <mat-option *ngFor="let estado of estados"
+            [value]="estado.codigo">
+            {{estado.opcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </section>
+    <button mat-raised-button class="boton-guardado" color="primary" [disabled]="!permitirGuardado"><mat-icon>save</mat-icon></button>
+  </div>
 </form>
+</div>
