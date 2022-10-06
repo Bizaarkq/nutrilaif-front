@@ -63,7 +63,15 @@ export class AuthService {
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });
-    localStorage.clear();
+    
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('refresh_expires_in');
+    localStorage.removeItem('expires_in');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('user');
+    localStorage.removeItem('nombre');
+
     return this.http
       .post(endpoints.auth.logout, formSesion, { headers })
       .pipe(
