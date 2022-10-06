@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -21,14 +21,13 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
     ]),
   ],
 })
-export class GeneralLayoutComponent implements OnInit {
+export class GeneralLayoutComponent implements OnInit, OnDestroy {
 
   items: any = [];
 
   result:any;
   theme: string = 'light-theme';
-
-  sesionActiva = true;
+  extenderTime: any;
 
   constructor(
     private generalService:GeneralService,
@@ -40,7 +39,7 @@ export class GeneralLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.temaPorDefecto();
-    this.extenderSesion();
+    if(localStorage.getItem('refresh_expires_in')) this.extenderSesion();
 
     this.generalService.getMenu().subscribe({
       next: (data:any) => {
@@ -55,8 +54,11 @@ export class GeneralLayoutComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    clearTimeout(this.extenderTime);
+  }
+
   cerrarSesion(){
-    this.sesionActiva = false;
     this.authService.cerrarSesion().subscribe({
       next: () => {
         this.snack.open('Sesión finalizada con éxito', 'Ok',{
@@ -74,9 +76,7 @@ export class GeneralLayoutComponent implements OnInit {
 
   extenderSesion(){
     let refresh = Number(localStorage.getItem('refresh_expires_in'));
-    setTimeout(() => {
-      if(this.sesionActiva){
-        
+    this.extenderTime = setTimeout(() => {
         const dialog = this.dialog.open(ModalExtenderSesionComponent, {
           width: '30%',
           data: {
@@ -110,7 +110,6 @@ export class GeneralLayoutComponent implements OnInit {
             this.cerrarSesion();
           }
         })
-      }
     }, ((refresh - 60)*1000))
   }
 
@@ -120,6 +119,7 @@ export class GeneralLayoutComponent implements OnInit {
       this.theme = localStorage.getItem('theme') as string;
       body.classList.add(this.theme);
     }else{
+      localStorage.setItem('theme', this.theme);
       body.classList.add(this.theme);
     }
     
