@@ -24,24 +24,44 @@ export class TablaDietaComponent implements OnInit {
   }
   
   addControls(){
+
     //Formulario reactivo de dieta --- Explicacion de variables: primera letra relacionada al dia de semana, luego la palabra del tiempo de comida
-    Object.entries(this.camposDieta).forEach(([key, value]) => {
-      this.formularioDieta.addControl(key, this.fb.control('', 
-      value.validators?.map(function (validator) {
-        if (!validator.includes(':')) {
-          return (Validators as any)[validator];
-        } else {
-          let parametros = validator.split(':');
-          return (Validators as any)[parametros[0]](parametros[1]);
-        }
-      })
-      ));
+    Object.entries(dietaForm.fechaDieta).forEach(([key, value])=> {
+      this.formularioDieta.addControl(value.name, this.fb.control(new Date(), [Validators.required]));
     });
+
+    this.formularioDieta.addControl('dieta', this.fb.group({}));
+    
+    Object.entries(dietaForm.dias).forEach(([key, value])=> {
+      (this.formularioDieta.controls['dieta'] as FormGroup).addControl(value.name, this.fb.group({}));
+
+      Object.entries(dietaForm.tiemposComida).forEach(([key2, value2])=>{
+        ((this.formularioDieta.controls['dieta'] as FormGroup).controls[value.name] as FormGroup).
+          addControl(value2.name, this.fb.control('',
+            value2.validator.map(function (validator:any) {
+              if ('params' in validator) {
+                return (Validators as any)[validator.type](
+                  validator.params
+                );
+              } else {
+                return (Validators as any)[validator.type];
+              }
+            })
+        )) 
+      })
+    });
+
+    console.log(this.formularioDieta);
   }
   
-  validarCampo( campo:string ){
-    return this.formularioDieta.controls[campo].errors && 
-      this.formularioDieta.controls[campo].touched;
+  validarCampo( control:string, subForm:string = '' ){
+    if (subForm === ''){
+      return this.formularioDieta.controls[control].errors &&
+        this.formularioDieta.controls[control].touched;
+    } else {
+      return ((this.formularioDieta.controls['dieta'] as FormGroup).controls[subForm] as FormGroup).controls[control].errors && 
+        ((this.formularioDieta.controls['dieta'] as FormGroup).controls[subForm] as FormGroup).controls[control].touched;
+    } 
     
   }
 
@@ -53,5 +73,15 @@ export class TablaDietaComponent implements OnInit {
   }
   editarDieta(){
     this.formularioDieta.enable();
+  }
+
+  passToFormGroup(form: string, sub_form: string = '') {
+    if (sub_form === '') {
+      return this.formularioDieta.get(form) as FormGroup;
+    } else {
+      return (this.formularioDieta.get(form) as FormGroup).get(
+        sub_form
+      ) as FormGroup;
+    }
   }
 }

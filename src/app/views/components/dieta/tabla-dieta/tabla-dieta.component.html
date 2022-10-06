@@ -1,401 +1,46 @@
 <div>
-    <form [formGroup]="formularioDieta" >
+    <form [formGroup]="formularioDieta">
         <mat-grid-list cols="12" rowHeight="90px">
-                    <mat-grid-tile [colspan]="4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Fecha de creación de la dieta</mat-label>
-                            <input autocomplete="off" matInput [max]="fechaCreacion" [matDatepicker]="picker" 
-                                    placeholder="Ingrese la fecha de creación de la dieta" 
-                                    formControlName="fechaCreacionDieta" [readonly]="true">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="validarCampo('fechaCreacionDieta')">No se ha seleccionado ninguna fecha</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="6"></mat-grid-tile>
-                    <mat-grid-tile [colspan]="1">
-                        <button mat-mini-fab color="accent" *ngIf="subSec" id="botonEditar" matTooltip="Editar cita" (click)="editarDieta()">
-                            <mat-icon class="material-icons-outlined">edit_note</mat-icon>
-                        </button>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="1">
-                        <button mat-mini-fab color="accent" *ngIf="subSec" id="botonLimpiar" matTooltip="Limpiar cita" (click)="limpiar()">
-                            <mat-icon class="material-icons-outlined">cleaning_services</mat-icon>
-                        </button>
-                    </mat-grid-tile>
-        </mat-grid-list>
-        <table>
-                <br>
-                <!------------LUNES----------->
-                <tr>
-                    <th colspan="5">Lunes
-                        <mat-divider></mat-divider>
-                    </th>
-                   
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="lDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('lDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="lRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('lRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="lAlmuerzo" placeholder="Pechuga de pollo en salsa"></textarea>
-                            <mat-error *ngIf="validarCampo('lAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="lRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('lRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="lCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('lCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                
-                <!------------MARTES-------------->
-                <tr>
-                    <th colspan="5">Martes</th>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="mDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('mDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="mRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('mRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="mAlmuerzo" placeholder="Pechuga de pollo en salsa"></textarea>
-                            <mat-error *ngIf="validarCampo('mAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="mRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('mRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="mCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('mCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-
-                <!------------MIERCOLES-------------->
-                <tr>
-                    <th colspan="5">Miércoles</th>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="miDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('miDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="miRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('miRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="miAlmuerzo" placeholder="Pechuga de pollo en salsa"></textarea>
-                            <mat-error *ngIf="validarCampo('miAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="miRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('miRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="miCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('miCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-
-                <!------------JUEVES-------------->
-                <tr>
-                    <th colspan="5">Jueves</th>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="juDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('juDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="juRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('juRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="juAlmuerzo" placeholder="Pechuga de pollo en salsa"></textarea>
-                            <mat-error *ngIf="validarCampo('juAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="juRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('juRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="juCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('juCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-
-                <!------------VIERNES-------------->
-                <tr>
-                    <th colspan="5">Viernes</th>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="vDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('vDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="vRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('vRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="vAlmuerzo" placeholder="Pechuga de pollo en salsao"></textarea>
-                            <mat-error *ngIf="validarCampo('vAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="vRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('vRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="vCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('vCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-
-
-                <!------------SABADO-------------->
-                <tr>
-                    <th colspan="5">Sábado</th>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="sDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('sDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="sRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('sRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="sAlmuerzo" placeholder="Pechuga de pollo en salsa"></textarea>
-                            <mat-error *ngIf="validarCampo('sAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="sRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('sRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="sCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('sCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-
-
-                <!------------DOMINGO-------------->
-                <tr>
-                    <th colspan="5">Domingo</th>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-label>Desayuno</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del desayuno</mat-label>
-                            <textarea matInput formControlName="dDesayuno" placeholder="Leche descremada"></textarea>
-                            <mat-error *ngIf="validarCampo('dDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del desayuno</mat-label>
-                            <textarea matInput formControlName="dRefrigerioDesayuno"  placeholder="1 Fruta"></textarea>
-                            <mat-error *ngIf="validarCampo('dRefrigerioDesayuno')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Almuerzo</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos del almuerzo</mat-label>
-                            <textarea matInput formControlName="dAlmuerzo" placeholder="Pechuga de pollo en salsa"></textarea>
-                            <mat-error *ngIf="validarCampo('dAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Refrigerio</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Refrigerio despues del almuerzo</mat-label>
-                            <textarea matInput formControlName="dRefrigerioAlmuerzo" placeholder="4 Rodajas de tomate"></textarea>
-                            <mat-error *ngIf="validarCampo('dRefrigerioAlmuerzo')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-label>Cena</mat-label>
-                        <br>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alimentos de la cena</mat-label>
-                            <textarea matInput formControlName="dCena" placeholder="Taza de vegetales"></textarea>
-                            <mat-error *ngIf="validarCampo('dCena')">El campo se encuentra vacío</mat-error>
-                        </mat-form-field>
-                    </td>
-                </tr>
-            
-        </table>
+            <mat-grid-tile [colspan]="1"></mat-grid-tile>
+            <mat-grid-tile [colspan]="3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de creación de la dieta</mat-label>
+                    <input autocomplete="off" matInput [max]="fechaCreacion" [matDatepicker]="picker" 
+                            placeholder="Ingrese la fecha de creación de la dieta" 
+                            formControlName="fechaCreacionDieta" [readonly]="true">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="validarCampo('fechaCreacionDieta')">No se ha seleccionado ninguna fecha</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="6"></mat-grid-tile>
+            <mat-grid-tile [colspan]="1">
+                <button mat-mini-fab color="accent" *ngIf="subSec" id="botonEditar" matTooltip="Editar cita" (click)="editarDieta()">
+                    <mat-icon class="material-icons-outlined">edit_note</mat-icon>
+                </button>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1">
+                <button mat-mini-fab color="accent" *ngIf="subSec" id="botonLimpiar" matTooltip="Limpiar cita" (click)="limpiar()">
+                    <mat-icon class="material-icons-outlined">cleaning_services</mat-icon>
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list> 
     </form>
+    <mat-grid-list rowHeight="175px" style="width:100%" cols="12" *ngFor="let dias of camposDieta.dias">
+        <h2> {{dias.label}} </h2>
+        <form [formGroup]="passToFormGroup('dieta', dias.name)">
+            <mat-grid-tile [colspan]="1"></mat-grid-tile>
+            <mat-grid-tile [colspan]="2" *ngFor="let tiempoComida of camposDieta.tiemposComida">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{tiempoComida.label}}</mat-label>
+                    <textarea matInput formControlName="{{tiempoComida.name}}" placeholder="{{tiempoComida.placeholder}}"></textarea>
+                    <mat-error *ngIf="validarCampo(tiempoComida.name, dias.name)">
+                        El campo se encuentra vacío
+                    </mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1"></mat-grid-tile>
+        </form>
+    </mat-grid-list>
 </div>
