@@ -7,18 +7,14 @@
 .example-full-width {
     width: 100%;
 }
-.example-card {
-    max-width: 92%;
-}
 
 .container{
   display: flex;
- 
 }
 
 .width-form {
-  width: 47%;
-  padding-left: 3%;
+  width: 45%;
+  padding-left: 2%;
 }
 mat-card-title {
   padding-bottom: 5px;
