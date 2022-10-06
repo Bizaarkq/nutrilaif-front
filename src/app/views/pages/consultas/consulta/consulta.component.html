@@ -103,7 +103,7 @@
       <form [formGroup]="dieta">
         <ng-template matStepLabel>Dieta</ng-template>
         <app-tabla-dieta [formularioDieta]="dieta" [subSec]="accion==='editar'"></app-tabla-dieta>
-        <div>
+        <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button mat-raised-button matStepperNext *ngIf='verificarRol()' color="accent">Siguiente</button>
         </div>

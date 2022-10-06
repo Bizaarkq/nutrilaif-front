@@ -1,20 +1,19 @@
-th{
-    padding: 0.5em;
-    font-size: 18px;
-}
-tr{
-    text-align: center;
-}
-table {
-    width: 100%;
-    padding: 10px;
-}
-.mat-form-field {
-    width: 100%;
+mat-form-field {
+    width: 90%;
+
 }
 
 textarea{
     resize: none;
     height: 5em;
 }
+
+h2{
+    text-align: center;
+}
+
+mat-grid-tile{
+    padding-top: 20px;
+}
+
 
