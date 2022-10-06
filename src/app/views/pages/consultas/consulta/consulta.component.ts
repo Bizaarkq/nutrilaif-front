@@ -39,7 +39,6 @@ export class ConsultaComponent implements OnInit, deComponent {
   imcString:string='';
   estados:any;
   estadoActual:any;
-  permitirGuardado: boolean = false;
   redirigir: boolean=false;
   //Talla del paciente
   tallaPaciente:any;
@@ -246,74 +245,32 @@ export class ConsultaComponent implements OnInit, deComponent {
     ((this.consultaForm.controls[form] as FormGroup).controls[subform] as FormGroup).controls[control].setValue(valor);
   }
   
-calcular(){
-  let elevarTalla= this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
-  elevarTalla*=elevarTalla;
-  let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
-  let boolAnciano=this.getEdad();
-  mult=mult/elevarTalla;
-  this.setValorControl('subconsulta_form', 'datos_antropo', 'imc', mult);
-  if(boolAnciano > 60){
-    if(mult <= 23){
-      this.imcString="Desnutrición";
+  calcular(){
+    let elevarTalla= this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
+    elevarTalla*=elevarTalla;
+    let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
+    let boolAnciano=this.getEdad();
+    mult=mult/elevarTalla;
+    this.setValorControl('subconsulta_form', 'datos_antropo', 'imc', mult);
+    if(boolAnciano > 60){
+      this.imcString = 
+      mult <= 23 ? "Desnutrición" : 
+      mult <= 28 ? "Normal" : 
+      mult <= 32 ? "Sobrepeso" : 
+      "Obesidad";
     }
     else{
-      if(mult <= 28){
-        this.imcString="Normal";
-      }
-      else{
-        if(mult <= 32){
-          this.imcString="Sobrepeso";
-        }
-        else{
-          this.imcString="Obesidad";
-        }
-      }
+      this.imcString = 
+      mult < 16 ? "Desnutrición severa" : 
+      mult < 17 ? "Desnutrición moderada" : 
+      mult < 18.55 ? "Desnutrición leve" : 
+      mult < 25 ? "Normal" : 
+      mult < 30 ? "Sobrepeso" : 
+      mult < 35 ? "Obesidad grado I" : 
+      mult < 40 ? "Obesidad grado II" : 
+      mult < 50 ? "Obesidad grado mórbida" : 
+      "Obesidad extrema";
     }
-  }
-  else{
-    if(mult < 16){
-      this.imcString="Desnutrición severa";
-    }
-    else{
-      if(mult < 17){
-        this.imcString="Desnutrición moderada";
-      }
-      else{
-        if(mult < 18.55){
-          this.imcString="Desnutrición leve";
-        }
-        else{
-          if(mult < 25){
-            this.imcString="Normal";
-          }
-          else{
-            if(mult < 30){
-              this.imcString="Sobrepeso";
-            }
-            else{
-              if(mult < 35){
-                this.imcString="Obesidad grado 1";
-              }
-              else{
-                if(mult < 40){
-                  this.imcString="Obesidad grado 2";
-                }
-                else{
-                  if(mult < 50){
-                    this.imcString="Obesidad grado mórbida";
-                  }
-                  else{
-                    this.imcString="Obesidad extrema";
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
   }
   setEdad(edad:any){
     this.edad=edad;
@@ -329,14 +286,8 @@ calcular(){
     });
   }
 
-  opcionDeGuardado(estado:any){
-    if(estado.includes('BORRADOR')){
-      this.permitirGuardado = true;
-    }else if (this.consultaForm.valid){
-      this.permitirGuardado = true;
-    }else{
-      this.permitirGuardado = false;
-    }
+  permitirGuardado(){
+    return this.consultaForm.controls['estado'].value.includes('BORRADOR') ? true : this.consultaForm.valid;
   }
 
   async decisionDialog(){

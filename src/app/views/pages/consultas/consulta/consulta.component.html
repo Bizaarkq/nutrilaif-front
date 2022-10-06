@@ -123,7 +123,7 @@
     <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
       <mat-form-field appearance="outline">
         <mat-label>Guardado</mat-label>
-        <mat-select formControlName="estado" (selectionChange)="opcionDeGuardado(estado.value)" #estado> 
+        <mat-select formControlName="estado"> 
           <mat-option *ngIf="!estados"value="">--</mat-option>
           <mat-option *ngFor="let estado of estados"
             [value]="estado.codigo">
@@ -132,7 +132,7 @@
         </mat-select>
       </mat-form-field>
     </section>
-    <button mat-raised-button class="boton-guardado" color="primary" [disabled]="!permitirGuardado"><mat-icon>save</mat-icon></button>
+    <button mat-raised-button class="boton-guardado" color="primary" [disabled]="!permitirGuardado()"><mat-icon>save</mat-icon></button>
   </div>
 </form>
 </div>
