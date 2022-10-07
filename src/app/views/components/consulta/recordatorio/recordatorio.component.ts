@@ -10,6 +10,16 @@ export class RecordatorioComponent implements OnInit {
   @Input() formRecordatorio !: FormGroup;
 
   camposRecordatorio = recordatorioForm;
+  horaInicioD:any;
+  horaFinD:any;
+  horaInicioRD:any;
+  horaFinRD:any;
+  horaInicioA:any;
+  horaFinA:any;
+  horaInicioRA:any;
+  horaFinRA:any;
+  horaInicioC:any;
+  horaFinC:any;
   
   constructor(private fb:FormBuilder) {}
 
