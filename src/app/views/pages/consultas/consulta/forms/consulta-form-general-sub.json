@@ -165,7 +165,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "peso_meta",
@@ -173,7 +174,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "edad_metabolica",
@@ -181,7 +183,8 @@
         "placeholder": "99",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "peso_ideal",
@@ -194,7 +197,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "p_grasa_corporal",
@@ -207,7 +211,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_muneca",
@@ -215,7 +220,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "talla",
@@ -228,7 +234,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "p_grasa_visceral",
@@ -241,7 +248,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_brazo_relaj",
@@ -249,7 +257,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "imc",
@@ -262,7 +271,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "p_masa_muscular",
@@ -270,7 +280,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_cintura",
@@ -283,7 +294,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_cadera",
@@ -296,7 +308,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "diagnostico_nutricional",
@@ -327,7 +340,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese la actividad física del paciente"
       },
       {
         "name": "observacion_menu_anterior",
