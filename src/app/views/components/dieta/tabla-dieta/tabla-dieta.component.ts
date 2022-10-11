@@ -96,17 +96,17 @@ export class TablaDietaComponent implements OnInit, OnChanges{
 
   validandoForm(subForm:string):Object{
     let data:any = ValidarFormService(this.passToFormGroup('dieta', subForm));
-    let campos:any = {};
-    console.log(subForm, data);
-
-    if(data.incorrectos.length) campos.incorrectos = data.incorrectos.map((campo:any) => {
+    let campos:any = {
+      vacios: []
+    };
+    
+    if(data.incorrectos.length) campos.vacios.push(...data.incorrectos.map((campo:any) => {
         return dietaForm.tiemposComida.find((e) => e.name === campo)?.label;
-      });
+      }));
 
-    if(data.vacios.length) campos.vacios = data.vacios.map((campo:any) => {
+    if(data.vacios.length) campos.vacios.push(...data.vacios.map((campo:any) => {
         return dietaForm.tiemposComida.find((e) => e.name === campo)?.label;
-      });
-
+      }));
     return campos;
   }
 }
