@@ -118,7 +118,12 @@
     <mat-step *ngIf="(accion==='editar' && !(estadoActual === 'BORRADOR.CONSULTA' || !estadoActual)) || accion==='ver'" [stepControl]="dieta">
       <form [formGroup]="dieta">
         <ng-template matStepLabel>Dieta</ng-template>
-        <app-tabla-dieta [formularioDieta]="dieta" [subSec]="accion==='editar'"></app-tabla-dieta>
+        <app-tabla-dieta 
+          [formularioDieta]="dieta"
+          [subSec]="accion==='editar'"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"
+          ></app-tabla-dieta>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button mat-raised-button matStepperNext *ngIf='verificarRol()' color="accent">Siguiente</button>

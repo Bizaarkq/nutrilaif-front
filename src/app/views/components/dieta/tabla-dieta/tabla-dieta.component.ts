@@ -1,26 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, OnChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import dietaForm from './form_dieta.json';
+import { ValidarFormService } from 'src/app/services/general.service';
 @Component({
   selector: 'app-tabla-dieta',
   templateUrl: './tabla-dieta.component.html',
   styleUrls: ['./tabla-dieta.component.css']
 })
-export class TablaDietaComponent implements OnInit {
+export class TablaDietaComponent implements OnInit, OnChanges{
   fechaCreacion = new Date().getDate();
   //Formulario de dieta recibido desde la pagina de consulta
   @Input() formularioDieta !: FormGroup;
   @Input() subSec:boolean=false;
+  @Input() realizarValidacion: boolean = false;
+  @Output() validacionForm = new EventEmitter<Object>();
   //Formulario de dieta
   camposDieta = dietaForm;
-  accion:any;
   constructor( private fb: FormBuilder) { }
 
   ngOnInit(): void {
     //Metodo que crea el formulario al iniciar el componente agregando los controles necesarios para el componente
-      this.addControls();
-      this.formularioDieta.disable();
-      this.accion===!('ver');
+    this.addControls();
+    this.formularioDieta.disable();
+  }
+
+  ngOnChanges(): void {
+    if(this.realizarValidacion){
+      if(this.realizarValidacion){
+        Object.entries(dietaForm.dias).forEach(([key, dia])=> {
+          this.validacionForm.emit({ 
+            'form': `Dieta (${dia.label})`, 
+            'campos': this.validandoForm(dia.name)
+          });
+        });
+      }
+    }
   }
   
   addControls(){
@@ -50,8 +64,6 @@ export class TablaDietaComponent implements OnInit {
         )) 
       })
     });
-
-    console.log(this.formularioDieta);
   }
   
   validarCampo( control:string, subForm:string = '' ){
@@ -61,16 +73,13 @@ export class TablaDietaComponent implements OnInit {
     } else {
       return ((this.formularioDieta.controls['dieta'] as FormGroup).controls[subForm] as FormGroup).controls[control].errors && 
         ((this.formularioDieta.controls['dieta'] as FormGroup).controls[subForm] as FormGroup).controls[control].touched;
-    } 
-    
+    }
   }
 
-  getErrorMessage() {
-    return 'You must enter a value';
-  }
   limpiar(){
     this.formularioDieta.reset();
   }
+
   editarDieta(){
     this.formularioDieta.enable();
   }
@@ -83,5 +92,21 @@ export class TablaDietaComponent implements OnInit {
         sub_form
       ) as FormGroup;
     }
+  }
+
+  validandoForm(subForm:string):Object{
+    let data:any = ValidarFormService(this.passToFormGroup('dieta', subForm));
+    let campos:any = {};
+    console.log(subForm, data);
+
+    if(data.incorrectos.length) campos.incorrectos = data.incorrectos.map((campo:any) => {
+        return dietaForm.tiemposComida.find((e) => e.name === campo)?.label;
+      });
+
+    if(data.vacios.length) campos.vacios = data.vacios.map((campo:any) => {
+        return dietaForm.tiemposComida.find((e) => e.name === campo)?.label;
+      });
+
+    return campos;
   }
 }
