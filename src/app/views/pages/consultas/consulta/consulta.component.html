@@ -1,12 +1,18 @@
 <div class="page">
 <app-spinner [visible]="visibleSpinner"></app-spinner>
+<p-toast key="validacionform" position="top-center" [style]="{'white-space': 'pre-wrap'}"></p-toast>
 <form [formGroup]="consultaForm" (submit)="guardar()">
   <mat-stepper orientation="vertical" [linear]="false" #stepper >
     <mat-step [stepControl]="paciente">
       <form [formGroup]="paciente">
         <ng-template matStepLabel>Datos del Paciente</ng-template>
-        <app-datos-personales [pacienteForm]="paciente"
-          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"(edad)="setEdad($event)"></app-datos-personales>
+        <app-datos-personales 
+          [pacienteForm]="paciente"
+          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"
+          (edad)="setEdad($event)"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"
+          ></app-datos-personales>
         <div class="buttons">
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
@@ -82,7 +88,13 @@
     <mat-step [stepControl]="frecuencia_consumo">
       <form [formGroup]="frecuencia_consumo">
         <ng-template matStepLabel>Frecuencia de consumo</ng-template>
-        <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'" [precargar]="accion==='nueva'"></app-frecuencia-consumo>
+        <app-frecuencia-consumo 
+          [formularioFrecuencia]="frecuencia_consumo"
+          [modoLectura]="accion==='ver'"
+          [precargar]="accion==='nueva'"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"
+        ></app-frecuencia-consumo>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button *ngIf="!(accion==='nueva') || verificarRol()" mat-raised-button matStepperNext color="accent">Siguiente</button>
@@ -119,7 +131,7 @@
       </form>
     </mat-step>
   </mat-stepper>
-  <div class="fila-guardado">
+  <div class="fila-guardado" *ngIf="!(accion === 'ver')">
     <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
       <mat-form-field appearance="outline">
         <mat-label>Guardado</mat-label>
