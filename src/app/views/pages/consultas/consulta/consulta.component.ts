@@ -293,6 +293,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
   }
 
   validacionMessage(camposFormHijo:any){
+    console.log(camposFormHijo);
     if ('incorrectos' in camposFormHijo.campos && camposFormHijo.campos.incorrectos.length) this.messageService.add({
         key:'validacionform', 
         severity:'error', 
@@ -384,6 +385,32 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
         }
       ))
     );
+  }
+
+  verificarSubFormConsulta(estado:string){
+    if(!estado.includes('BORRADOR')){
+      Object.entries(this.subConsulta).forEach(([key,subform]) => {
+        let incorrectos = subform.controls.filter((e:any) => 
+          (this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].invalid &&
+          (this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].touched
+        )
+        .map((e:any) => {
+          return e.label;
+        });
+  
+        let vacios = subform.controls.filter((e:any) => 
+          (this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].invalid &&
+          !(this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].touched
+        )
+        .map((e:any) => {
+          return e.label;
+        });
+        
+        if(incorrectos.length || vacios.length){
+          this.validacionMessage({campos:{incorrectos, vacios}, form: subform.label_step});
+        }  
+      });
+    }
   }
 
   ngAfterContentChecked(): void {
