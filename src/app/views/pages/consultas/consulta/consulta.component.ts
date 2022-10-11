@@ -297,14 +297,16 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
         key:'validacionform', 
         severity:'error', 
         summary:`Campos incorrectos en ${camposFormHijo.form}`, 
-        detail: camposFormHijo.campos.incorrectos.join('\n')
+        detail: camposFormHijo.campos.incorrectos.join('\n'),
+        closable: false
       });
 
     if ('vacios' in camposFormHijo.campos && camposFormHijo.campos.vacios.length) this.messageService.add({
         key:'validacionform', 
         severity:'warn', 
         summary:`Campos vacios en ${camposFormHijo.form}`, 
-        detail: camposFormHijo.campos.vacios.filter((e:any) => e !== '').join('\n')
+        detail: camposFormHijo.campos.vacios.filter((e:any) => e !== '').join('\n'),
+        closable: false
       });
   }
 
@@ -383,7 +385,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
       ))
     );
   }
-  
+
   ngAfterContentChecked(): void {
     this.cd.detectChanges();
   }
