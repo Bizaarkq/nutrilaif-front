@@ -55,13 +55,17 @@
 
                     <p *ngSwitchCase="'number'">
                       <input id="{{ control.name }}" matInput type="number" formControlName="{{ control.name }}"
-                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"/>
+                        placeholder="{{ control.placeholder }}" autocomplete="{{ control.autocomplete }}"
+                        min=0/>
                     </p>
                     <p *ngSwitchDefault>
 
                     </p>
                   </span>
                   <mat-hint *ngIf="control.name === 'imc'">{{imcString}}</mat-hint>
+                  <!--Se envía el campo y luego el formulario que contiene el componente de este campo
+                     además de añadir la propiedad error en los json-->
+                  <mat-hint class="mat-error" *ngIf="validarCampo(control.name, group.value['step'])">{{control.error}}</mat-hint>
                 </mat-form-field> 
               </div>
               </mat-grid-tile>

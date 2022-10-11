@@ -416,4 +416,12 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
   ngAfterContentChecked(): void {
     this.cd.detectChanges();
   }
+  
+  //Se requiere subformulario específico y luego el que lo contiene
+  // campo (Datos_Antropo entre otros) y group (subconsultaForm) respectivamente
+  validarCampo(campo:string, group:any){
+    return (this.subConsultaForm.controls[group]as FormGroup).controls[campo].errors && 
+            (this.subConsultaForm.controls[group]as FormGroup).controls[campo].touched
+  }  
+  
 }

@@ -63,8 +63,8 @@ export class FrecuenciaConsumoComponent implements OnInit, OnChanges {
   }
   
   //Metodo para validar campos de la frecuencia de consumo
-  validarCampos(){
-    return (this.newFrecuencia().invalid) ? true : false;
+  validarCampos(campo:string, indice:any):boolean{
+    return (this.frecuencias.controls.find((value, key)=>key===indice) as FormGroup).controls[campo].invalid;
   }
 
   getBase(){

@@ -12,7 +12,18 @@ export class RecordatorioComponent implements OnInit, OnChanges {
   @Input() realizarValidacion: boolean = false;
   @Output() validacionForm = new EventEmitter<Object>();
 
+
   camposRecordatorio:{ [key:string] : any} = recordatorioForm;
+  horaInicioD:any;
+  horaFinD:any;
+  horaInicioRD:any;
+  horaFinRD:any;
+  horaInicioA:any;
+  horaFinA:any;
+  horaInicioRA:any;
+  horaFinRA:any;
+  horaInicioC:any;
+  horaFinC:any;
   
   constructor(private fb:FormBuilder) {}
 
