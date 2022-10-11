@@ -78,7 +78,11 @@
     <mat-step [stepControl]="recordatorio">
       <form [formGroup]="recordatorio">
         <ng-template matStepLabel>Recordatorio de 24 Horas</ng-template>
-        <app-recordatorio [formRecordatorio]="recordatorio"></app-recordatorio>
+        <app-recordatorio 
+          [formRecordatorio]="recordatorio"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"  
+        ></app-recordatorio>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
