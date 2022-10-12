@@ -54,5 +54,9 @@
   "fechaExpediente": {
     "label": "Fecha de Expediente",
     "validators": ["required"]
+  },
+  "mujerEmbLac":{
+    "label": "Mujer embarazada/lactante",
+    "validators":null
   }
 }

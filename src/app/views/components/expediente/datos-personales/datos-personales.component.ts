@@ -165,6 +165,17 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
       })
     }
   }
+  //Activar el slide si el paciente es una mujer de 9 a 60 años
+  mujerEmb():boolean{
+    let mujer=this.pacienteForm.controls['sexo'].value;
+    let edadMujer=this.pacienteForm.controls['edad'].value;
+    if(mujer=='M' && edadMujer > 9 && edadMujer < 60){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 
   ngOnChanges(): void {
     if(this.realizarValidacion){
