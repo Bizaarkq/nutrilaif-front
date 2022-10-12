@@ -44,7 +44,11 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
   redirigir: boolean = false;
   realizarValidacion: boolean = false;
   //Talla del paciente
-  tallaPaciente:any;
+  tallaPaciente!:number;
+  //Peso actual del paciente
+  pesoActual!:number;
+  //Sexo del paciente
+  sexo!:string;
   //Roles del usuario activo
   roles:any;
   paciente: FormGroup = this.FB.group({});
@@ -86,6 +90,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
           this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
+          this.pesoActual = data.subconsulta_form.datos_antropo.peso_actual;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
           if(data.es_subsecuente){
@@ -129,8 +134,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     setTimeout(() => {
       this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
       this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
-    }, 5000);
-
+    }, 5000); 
   }
 
   passToFormGroup(form: string) {
@@ -252,6 +256,12 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     let elevarTalla= this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
     elevarTalla*=elevarTalla;
     let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
+    
+    //Variable utilizada para enviar el valor del peso actual al componente de pliegues
+    this.pesoActual = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
+    //Variable utilizada para enviar el valor de la talla al componente de pliegues
+    this.tallaPaciente = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
+    
     let boolAnciano=this.getEdad();
     mult=mult/elevarTalla;
     this.setValorControl('subconsulta_form', 'datos_antropo', 'imc', mult);
@@ -373,6 +383,10 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     return (this.roles.includes('nutri-deportista'));
   }
   
+  //Obtener sexo del paciente enviado desde un output definido en el componente de datos del paciente
+  obtenerSexo(e:string){
+    this.sexo = e;
+  }
   loadFrecuenciaConsumo(frecuencias:any){
     (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
     

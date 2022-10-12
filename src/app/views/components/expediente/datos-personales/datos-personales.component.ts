@@ -19,6 +19,8 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
   @Input() expediente: boolean = false;
   @Input() realizarValidacion: boolean = false;
   @Output() edad = new EventEmitter<number>();
+  //Variable utilizada para obtener el sexo del paciente
+  @Output() sexoPaciente = new EventEmitter<string>();
   @Output() validacionForm = new EventEmitter<Object>();
   paises: any;
   departamentos: any;
@@ -31,9 +33,6 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
   data:any;
   camposPacientes:{ [key:string] : any} = formPaciente;
 
-  //Formulario de datos de paciente
-  //Variable para manejar el formulario de datos personales
-  //formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
   constructor(
     private fb: FormBuilder, 
@@ -57,7 +56,7 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
       this.visibleSpinner=true;
       this.pacienteService.getDatosPersonales(id_paciente).subscribe({
         next: (results: any) => {
-          
+          //this.getSexoPaciente(results[0].sexo);
           if(results[0].municipio !== null && results[0].departamento !== null && results[0].pais !== null){
             this.getDepartamentos(results[0].pais);
             this.getMunicipios(results[0].departamento);
@@ -71,6 +70,9 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
         }
       });
     }
+    this.pacienteForm.controls['sexo'].valueChanges.subscribe((sexo:any) => {
+      this.getSexoPaciente(sexo);
+    })
 
   }
 
@@ -164,6 +166,11 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
        },
       })
     }
+  }
+
+  //Metodo para obtener el sexo del paciente
+  getSexoPaciente(sexoP:string = ''){
+    this.sexoPaciente.emit(sexoP);
   }
   //Activar el slide si el paciente es una mujer de 9 a 60 años
   mujerEmb():boolean{

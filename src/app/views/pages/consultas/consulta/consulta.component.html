@@ -10,6 +10,7 @@
           [pacienteForm]="paciente"
           [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"
           (edad)="setEdad($event)"
+          (sexoPaciente)="obtenerSexo($event)"
           [realizarValidacion]="realizarValidacion"
           (validacionForm)="validacionMessage($event)"
           ></app-datos-personales>
@@ -137,7 +138,8 @@
     <mat-step [stepControl]="pliegues" *ngIf="verificarRol()">
       <form [formGroup]="pliegues">
         <ng-template matStepLabel>Pliegues</ng-template>
-        <app-pliegues [id]="id_paciente" [talla]="tallaPaciente" [idConsulta]="id" [formPliegues]="pliegues"></app-pliegues>
+        <app-pliegues [id]="id_paciente" [talla]="tallaPaciente" [idConsulta]="id" 
+                      [pesoActual]="pesoActual" [formPliegues]="pliegues" [sexoPaciente]="sexo"></app-pliegues>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
         </div>
