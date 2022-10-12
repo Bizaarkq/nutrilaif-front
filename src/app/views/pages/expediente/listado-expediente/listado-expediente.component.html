@@ -1,10 +1,10 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <div style="max-width:1300px; margin: 0 auto;">
-<mat-form-field appearance="standard" style="width: 100%;">
+<mat-form-field appearance="standard" style="width: 100%; padding: 0px 25px;">
     <mat-label>Buscar expediente</mat-label>
     <input matInput (keyup)="filtroExpediente($event)" #input>
 </mat-form-field>
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" style="padding: 0px 25px;">
     <table mat-table [dataSource]="tablaData" matSort style="width:100%;">
 
       <!-- Columna de numero expediente -->
@@ -43,8 +43,8 @@
             <a [routerLink]="[ '/expediente', element.id ]" mat-mini-fab color="primary" matTooltip="Ver Expediente"> 
                 <mat-icon class="material-icons-outlined">visibility</mat-icon>
             </a>
-            <a mat-mini-fab color="warn" matTooltip="Eliminar Expediente" (click)="eliminarExpediente(element)">
-                <mat-icon class="material-icons-outlined">delete</mat-icon>
+            <a mat-mini-fab color="warn" matTooltip="Archivar Expediente" (click)="eliminarExpediente(element)">
+                <mat-icon class="material-icons-outlined">archive</mat-icon>
             </a>
         </td>
       </ng-container>
