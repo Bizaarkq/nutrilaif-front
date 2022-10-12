@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { endpoints } from './endpoints';
 import { map } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -106,3 +108,17 @@ export class GeneralService {
     );
   }
 }
+
+export function ValidarFormService(form:FormGroup): Object {
+  let camposIncorrectos:string[] = [];
+  let camposVacios:string[] =[];
+  Object.entries(form.controls).forEach(([key, value]) => {
+    if(value.errors && !value.touched)camposVacios.push(key);
+    if (value.errors && value.touched)camposIncorrectos.push(key);
+  });
+  return {
+    "incorrectos": camposIncorrectos,
+    "vacios": camposVacios
+  };
+}
+

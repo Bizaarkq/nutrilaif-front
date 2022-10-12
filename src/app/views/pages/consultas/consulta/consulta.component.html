@@ -1,12 +1,18 @@
 <div class="page">
 <app-spinner [visible]="visibleSpinner"></app-spinner>
+<p-toast key="validacionform" position="top-center" [style]="{'white-space': 'pre-wrap'}"></p-toast>
 <form [formGroup]="consultaForm" (submit)="guardar()">
   <mat-stepper orientation="vertical" [linear]="false" #stepper >
     <mat-step [stepControl]="paciente">
       <form [formGroup]="paciente">
         <ng-template matStepLabel>Datos del Paciente</ng-template>
-        <app-datos-personales [pacienteForm]="paciente"
-          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"(edad)="setEdad($event)"></app-datos-personales>
+        <app-datos-personales 
+          [pacienteForm]="paciente"
+          [editable]="!(accion==='editar' || accion==='ver' || esSubsecuente)"
+          (edad)="setEdad($event)"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"
+          ></app-datos-personales>
         <div class="buttons">
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
         </div>
@@ -76,7 +82,11 @@
     <mat-step [stepControl]="recordatorio">
       <form [formGroup]="recordatorio">
         <ng-template matStepLabel>Recordatorio de 24 Horas</ng-template>
-        <app-recordatorio [formRecordatorio]="recordatorio"></app-recordatorio>
+        <app-recordatorio 
+          [formRecordatorio]="recordatorio"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"  
+        ></app-recordatorio>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button mat-raised-button matStepperNext color="accent">Siguiente</button>
@@ -86,7 +96,13 @@
     <mat-step [stepControl]="frecuencia_consumo">
       <form [formGroup]="frecuencia_consumo">
         <ng-template matStepLabel>Frecuencia de consumo</ng-template>
-        <app-frecuencia-consumo [formularioFrecuencia]="frecuencia_consumo" [modoLectura]="accion==='ver'" [precargar]="accion==='nueva'"></app-frecuencia-consumo>
+        <app-frecuencia-consumo 
+          [formularioFrecuencia]="frecuencia_consumo"
+          [modoLectura]="accion==='ver'"
+          [precargar]="accion==='nueva'"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"
+        ></app-frecuencia-consumo>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button *ngIf="!(accion==='nueva') || verificarRol()" mat-raised-button matStepperNext color="accent">Siguiente</button>
@@ -106,7 +122,12 @@
     <mat-step *ngIf="(accion==='editar' && !(estadoActual === 'BORRADOR.CONSULTA' || !estadoActual)) || accion==='ver'" [stepControl]="dieta">
       <form [formGroup]="dieta">
         <ng-template matStepLabel>Dieta</ng-template>
-        <app-tabla-dieta [formularioDieta]="dieta" [subSec]="accion==='editar'"></app-tabla-dieta>
+        <app-tabla-dieta 
+          [formularioDieta]="dieta"
+          [subSec]="accion==='editar'"
+          [realizarValidacion]="realizarValidacion"
+          (validacionForm)="validacionMessage($event)"
+          ></app-tabla-dieta>
         <div class="buttons">
           <button mat-raised-button matStepperPrevious color="accent">Anterior</button>
           <button mat-raised-button matStepperNext *ngIf='verificarRol()' color="accent">Siguiente</button>
@@ -123,11 +144,11 @@
       </form>
     </mat-step>
   </mat-stepper>
-  <div class="fila-guardado">
+  <div class="fila-guardado" *ngIf="!(accion === 'ver')">
     <section *ngIf="!loadingDataEdicion" [formGroup]="consultaForm">
       <mat-form-field appearance="outline">
         <mat-label>Guardado</mat-label>
-        <mat-select formControlName="estado"> 
+        <mat-select formControlName="estado" (selectionChange)="verificarSubFormConsulta(estado.value)" #estado> 
           <mat-option *ngIf="!estados"value="">--</mat-option>
           <mat-option *ngFor="let estado of estados"
             [value]="estado.codigo">
