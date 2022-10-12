@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { GeneralService } from 'src/app/services/general.service';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
@@ -28,6 +28,7 @@ export class GeneralLayoutComponent implements OnInit, OnDestroy {
   result:any;
   theme: string = 'light-theme';
   extenderTime: any;
+  url_consulta:boolean =false;
 
   constructor(
     private generalService:GeneralService,
@@ -51,6 +52,12 @@ export class GeneralLayoutComponent implements OnInit, OnDestroy {
         });
       },
       error: (err:any) => {}
+    });
+
+    this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+        this.url_consulta = event.url.includes("consulta");
+    }
     });
   }
 

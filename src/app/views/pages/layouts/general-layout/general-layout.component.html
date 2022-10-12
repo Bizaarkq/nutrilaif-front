@@ -24,7 +24,7 @@
         <a mat-button routerLink="/inicio">
           <h3>Nutrilaif</h3>
         </a>
-        <button id="cerrarSesion" mat-button (click)="cerrarSesion()" matTooltip="Cerrar Sesión">
+        <button id="cerrarSesion" mat-button (click)="cerrarSesion()" matTooltip="Cerrar Sesión" *ngIf="!url_consulta">
           <mat-icon aria-hidden="false" aria-label="Logout">logout</mat-icon>
         </button>
       </mat-toolbar>
