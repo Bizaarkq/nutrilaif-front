@@ -89,7 +89,7 @@ export class GeneralLayoutComponent implements OnInit, OnDestroy {
           if(result){
             this.authService.extenderSesion().subscribe({
               next: res => {
-                localStorage.setItem('acces_token', res.access_token);
+                localStorage.setItem('access_token', res.access_token);
                 localStorage.setItem('refresh_token', res.refresh_token);
                 this.snack.open('Sesión extendida correctamente', 'Ok',{
                   duration: 3000

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { GeneralService } from 'src/app/services/general.service';
@@ -6,20 +6,22 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import formPaciente from './campos_form.json';
-import { findIndex } from 'rxjs';
+import { ValidarFormService } from 'src/app/services/general.service';
 @Component({
   selector: 'app-datos-personales',
   templateUrl: './datos-personales.component.html',
   styleUrls: ['./datos-personales.component.css']
 })
-export class DatosPersonalesComponent implements OnInit {
+export class DatosPersonalesComponent implements OnInit, OnChanges {
 
   @Input() pacienteForm !: FormGroup;
   @Input() editable: boolean = true;
   @Input() expediente: boolean = false;
+  @Input() realizarValidacion: boolean = false;
   @Output() edad = new EventEmitter<number>();
   //Variable utilizada para obtener el sexo del paciente
   @Output() sexoPaciente = new EventEmitter<string>();
+  @Output() validacionForm = new EventEmitter<Object>();
   paises: any;
   departamentos: any;
   municipios: any;
@@ -29,7 +31,7 @@ export class DatosPersonalesComponent implements OnInit {
   id_paciente:string='';
   paciente: FormGroup = this.fb.group({});
   data:any;
-  camposPacientes = formPaciente;
+  camposPacientes:{ [key:string] : any} = formPaciente;
 
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
   constructor(
@@ -39,7 +41,8 @@ export class DatosPersonalesComponent implements OnInit {
     private datePipe: DatePipe,
     private snack: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void { 
     if(this.expediente){
@@ -79,7 +82,7 @@ export class DatosPersonalesComponent implements OnInit {
         key,
         this.fb.control(
           { value: '', disabled: !this.editable },
-          value.validators?.map(function (validator) {
+          value.validators?.map(function (validator:any) {
             if (!validator.includes(':')) {
               return (Validators as any)[validator];
             } else {
@@ -169,4 +172,40 @@ export class DatosPersonalesComponent implements OnInit {
   getSexoPaciente(sexoP:string = ''){
     this.sexoPaciente.emit(sexoP);
   }
+  //Activar el slide si el paciente es una mujer de 9 a 60 años
+  mujerEmb():boolean{
+    let mujer=this.pacienteForm.controls['sexo'].value;
+    let edadMujer=this.pacienteForm.controls['edad'].value;
+    if(mujer=='M' && edadMujer > 9 && edadMujer < 60){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  ngOnChanges(): void {
+    if(this.realizarValidacion){
+      this.validacionForm.emit({ 
+        'form': 'Datos Personales', 
+        'campos': this.validandoForm()
+      });
+    }
+  }
+
+  validandoForm():Object{
+    let data:any = ValidarFormService(this.pacienteForm);
+    let campos:any = {};
+
+    if(data.incorrectos.length) campos.incorrectos = data.incorrectos.map((campo:any) => {
+        return this.camposPacientes[campo].label;
+      });
+
+    if(data.vacios.length) campos.vacios = data.vacios.map((campo:any) => {
+        return this.camposPacientes[campo].label;
+      });
+
+    return campos;
+  }
+
 }

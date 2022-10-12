@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -14,6 +15,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input'
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import {ToastModule} from 'primeng/toast';
 
 //componentes
 import { HttpClientModule } from '@angular/common/http';
@@ -68,6 +71,7 @@ registerLocaleData(localeES, 'es');
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    ToastModule
   ],
   providers: [
     DatePipe,
