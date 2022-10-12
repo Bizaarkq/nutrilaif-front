@@ -86,6 +86,7 @@ export class ConsultaComponent implements OnInit, deComponent {
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
           this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
+          this.pesoActual = data.subconsulta_form.datos_antropo.peso_actual;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
           if(data.es_subsecuente){
@@ -254,7 +255,7 @@ export class ConsultaComponent implements OnInit, deComponent {
     let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
     
     //Variable utilizada para enviar el valor del peso actual al componente de pliegues
-    this.pesoActual = mult;
+    this.pesoActual = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
     //Variable utilizada para enviar el valor de la talla al componente de pliegues
     this.tallaPaciente = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
     
