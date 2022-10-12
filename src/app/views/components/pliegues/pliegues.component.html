@@ -15,7 +15,7 @@
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-form-field autocomplete="off" class='large-form-control' appearance="outline">
         <mat-label></mat-label>
-        <input matInput formControlName='{{ getNombreForm(datos.key) }}' placeholder="12">
+        <input matInput formControlName='{{ getNombreForm(datos.key) }}' placeholder="12" type="number" min="0">
       </mat-form-field>
     </mat-grid-tile>
     <mat-divider></mat-divider> 
