@@ -50,8 +50,6 @@ export class TablaDietaComponent implements OnInit {
         )) 
       })
     });
-
-    console.log(this.formularioDieta);
   }
   
   validarCampo( control:string, subForm:string = '' ){

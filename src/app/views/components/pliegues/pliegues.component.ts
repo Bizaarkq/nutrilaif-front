@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PlieguesService } from '../../../services/pliegues.service';
 
@@ -8,12 +8,16 @@ import { PlieguesService } from '../../../services/pliegues.service';
   templateUrl: './pliegues.component.html',
   styleUrls: ['./pliegues.component.css']
 })
-export class PlieguesComponent implements OnInit {
+export class PlieguesComponent implements OnInit, OnChanges {
 
   //Formulario para los pliegues
   @Input() formPliegues!:FormGroup;
   //Obtener talla del paciente
-  @Input() talla:number = 0;
+  @Input() talla!:number;
+  //Obtener peso actual del paciente
+  @Input() pesoActual!:number;
+  //Obtener sexo del paciente
+  @Input() sexoPaciente!:string;
   //ID Paciente
   @Input() id:any;
   //ID de consulta
@@ -29,6 +33,10 @@ export class PlieguesComponent implements OnInit {
   fechaPliegues!:any [];
 
   variable:any;
+  //Variables utilizadas para los pliegues
+  porcentajeGrasa:number = 0;
+  masaGrasaKg:number = 0;
+  masaGrasaLb:number = 0;
 
   datosPliegue:any = [
     {name: 'p_bicipital', data: ['P. Bicipital (mm)']},
@@ -40,7 +48,7 @@ export class PlieguesComponent implements OnInit {
     {name: 'p_pierna_medial', data: ['P. pierna medial (mm)']},
     {name: 'c_brazo_contraido', data: ['C. Brazo contraído (cm)']},
     {name: 'c_pierna', data: ['C. Pierna (cm)']},
-    {name: 'p_humero', data: ['P. Humero (cm']},
+    {name: 'p_humero', data: ['P. Humero (cm)']},
     {name: 'p_femur', data: ['P. Fémur (cm)']},
   ];
   
@@ -60,6 +68,13 @@ export class PlieguesComponent implements OnInit {
     })
     this.createForm();
     (this.id)?this.getPliegues():this.numCols=2;
+  }
+
+  ngOnChanges(){
+    if(this.sexoPaciente && this.pesoActual){
+      this.calcularPliegues();
+    }
+    
   }
 
   getPliegues(){
@@ -98,5 +113,38 @@ export class PlieguesComponent implements OnInit {
     this.datosPliegue.forEach((element:any)=>{
       this.formPliegues.addControl(element.name, this.fb.control(''));
     })
+  }
+
+  //Metodo para calcular los pliegues
+  calcularPliegues(){
+    let pG = 0, mGKg = 0, mGLb = 0;
+    let pliegues = 0;
+    //Calculo de los pliegues
+    pliegues = this.getCampo('p_tricipital') + this.getCampo('p_sub_escapular') + this.getCampo('p_supra_iliaco') + 
+                this.getCampo('p_abdominal') + this.getCampo('p_muslo_anterior') + this.getCampo('p_pierna_medial');
+    
+    //Calculos para mujeres
+    if(this.sexoPaciente === 'M'){
+      pG = 0.1548 * pliegues + 3.58;
+      this.porcentajeGrasa = Number(pG.toFixed(3));
+      mGKg = (this.porcentajeGrasa * this.pesoActual) / 100;
+      this.masaGrasaKg = Number(mGKg.toFixed(3));
+      mGLb = this.masaGrasaKg * 2.2
+      this.masaGrasaLb = Number(mGLb.toFixed(3)); 
+    }
+    //Calculo para hombres
+    if(this.sexoPaciente === 'H'){
+      pG = 0.1051 * pliegues + 2.585;
+      this.porcentajeGrasa = Number(pG.toFixed(3));
+      mGKg = (this.porcentajeGrasa * this.pesoActual) / 100;
+      this.masaGrasaKg = Number(mGKg.toFixed(3));
+      mGLb = this.masaGrasaKg * 2.2;
+      this.masaGrasaLb = Number(mGLb.toFixed(3)); 
+    }
+    return pliegues;
+  }
+  //Metodo intermedio para obtener el valor de un control del formulario de pliegues
+  getCampo(campo : string){
+    return Number(this.formPliegues.controls[campo].value);
   }
 }

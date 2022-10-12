@@ -18,6 +18,8 @@ export class DatosPersonalesComponent implements OnInit {
   @Input() editable: boolean = true;
   @Input() expediente: boolean = false;
   @Output() edad = new EventEmitter<number>();
+  //Variable utilizada para obtener el sexo del paciente
+  @Output() sexoPaciente = new EventEmitter<string>();
   paises: any;
   departamentos: any;
   municipios: any;
@@ -29,9 +31,6 @@ export class DatosPersonalesComponent implements OnInit {
   data:any;
   camposPacientes = formPaciente;
 
-  //Formulario de datos de paciente
-  //Variable para manejar el formulario de datos personales
-  //formDatosPaciente!: FormGroup;
   //En el constructor se realiza la inyeccion del formulario reactivo a utilizar
   constructor(
     private fb: FormBuilder, 
@@ -54,7 +53,7 @@ export class DatosPersonalesComponent implements OnInit {
       this.visibleSpinner=true;
       this.pacienteService.getDatosPersonales(id_paciente).subscribe({
         next: (results: any) => {
-          
+          //this.getSexoPaciente(results[0].sexo);
           if(results[0].municipio !== null && results[0].departamento !== null && results[0].pais !== null){
             this.getDepartamentos(results[0].pais);
             this.getMunicipios(results[0].departamento);
@@ -68,6 +67,9 @@ export class DatosPersonalesComponent implements OnInit {
         }
       });
     }
+    this.pacienteForm.controls['sexo'].valueChanges.subscribe((sexo:any) => {
+      this.getSexoPaciente(sexo);
+    })
 
   }
 
@@ -161,5 +163,10 @@ export class DatosPersonalesComponent implements OnInit {
        },
       })
     }
+  }
+
+  //Metodo para obtener el sexo del paciente
+  getSexoPaciente(sexoP:string = ''){
+    this.sexoPaciente.emit(sexoP);
   }
 }
