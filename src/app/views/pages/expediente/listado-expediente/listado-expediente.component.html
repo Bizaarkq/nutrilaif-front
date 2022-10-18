@@ -1,10 +1,14 @@
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <div style="max-width:1300px; margin: 0 auto;">
+<br>
+<div class="container">
+  <mat-slide-toggle color="primary" (click)="cambiarExpedientes()">Ver expedientes inactivos</mat-slide-toggle>
+</div>
 <mat-form-field appearance="standard" style="width: 100%; padding: 0px 25px;">
     <mat-label>Buscar expediente</mat-label>
     <input matInput (keyup)="filtroExpediente($event)" #input>
 </mat-form-field>
-<div class="mat-elevation-z8" style="padding: 0px 25px;">
+<div class="mat-elevation-z8">
     <table mat-table [dataSource]="tablaData" matSort style="width:100%;">
 
       <!-- Columna de numero expediente -->
@@ -43,7 +47,7 @@
             <a [routerLink]="[ '/expediente', element.id ]" mat-mini-fab color="primary" matTooltip="Ver Expediente"> 
                 <mat-icon class="material-icons-outlined">visibility</mat-icon>
             </a>
-            <a mat-mini-fab color="warn" matTooltip="Archivar Expediente" (click)="eliminarExpediente(element)">
+            <a mat-mini-fab color="warn" matTooltip="Inactivar Expediente" (click)="eliminarExpediente(element)">
                 <mat-icon class="material-icons-outlined">archive</mat-icon>
             </a>
         </td>
