@@ -21,6 +21,7 @@ export class AuthService {
         password: pass,
         grant_type: 'password',
         client_id: environment.client,
+        client_secret: environment.clientSecret
       },
     });
 
@@ -91,6 +92,7 @@ export class AuthService {
       fromObject: {
         grant_type: 'refresh_token',
         client_id: environment.client,
+        client_secret: environment.clientSecret,
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });
