@@ -2,7 +2,7 @@
 <div style="max-width:1300px; margin: 0 auto;">
 <br>
 <div class="container">
-  <mat-slide-toggle color="primary" (click)="cambiarExpedientes()">Ver expedientes inactivos</mat-slide-toggle>
+  <mat-slide-toggle color="primary" (click)="cambiarExpedientes()">Ver expedientes archivados</mat-slide-toggle>
 </div>
 <mat-form-field appearance="standard" style="width: 100%; padding: 0px 25px;">
     <mat-label>Buscar expediente</mat-label>
@@ -38,7 +38,7 @@
       </ng-container>
 
       <!-- Columna de acciones -->
-      <ng-container matColumnDef="acciones">
+      <ng-container *ngIf="inactivado==true" matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element" style="text-align: right">
             <a [routerLink]="[ '/consulta/nueva', element.id ]"  mat-mini-fab color="accent" matTooltip="Agregar Consulta">
@@ -47,8 +47,17 @@
             <a [routerLink]="[ '/expediente', element.id ]" mat-mini-fab color="primary" matTooltip="Ver Expediente"> 
                 <mat-icon class="material-icons-outlined">visibility</mat-icon>
             </a>
-            <a mat-mini-fab color="warn" matTooltip="Inactivar Expediente" (click)="eliminarExpediente(element)">
+            <a mat-mini-fab color="warn" matTooltip="Archivar Expediente" (click)="eliminarExpediente(element)">
                 <mat-icon class="material-icons-outlined">archive</mat-icon>
+            </a>
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="inactivado==false" matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: right">
+            <a mat-mini-fab color="warn" matTooltip="Recuperar Expediente" (click)="eliminarExpediente(element)">
+                <mat-icon class="material-icons-outlined">unarchive</mat-icon>
             </a>
         </td>
       </ng-container>

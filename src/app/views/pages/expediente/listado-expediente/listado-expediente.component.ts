@@ -41,7 +41,6 @@ export class ListadoExpedienteComponent implements OnInit {
     this.pacienteService.getDatosPersonales()
     .subscribe({
       next:(res)=>{
-        console.log(res)
         let array = [];
         if(this.inactivado){
           array = res.filter ( (item:any) => item.inactivo === 0);
@@ -66,15 +65,27 @@ export class ListadoExpedienteComponent implements OnInit {
   }
 
   eliminarExpediente(paciente: any){
-    //Modal para solicitar confirmación de eliminación de expediente
-    const dialog = this.dialog.open( ModalExtenderSesionComponent, {
-      width: '30%',
-      data: {
-        titulo: 'Confirmar inactivación',
-        mensaje: '¿Desea inactivar el expediente seleccionado?',
-        boton: 'Aceptar'
-      }
-    });
+    let dialog;
+    if(this.inactivado){
+      dialog = this.dialog.open( ModalExtenderSesionComponent, {
+        width: '30%',
+        data: {
+          titulo: 'Confirmar archivado',
+          mensaje: '¿Desea archivar el expediente seleccionado?',
+          boton: 'Aceptar'
+        }
+      });
+    }else{
+      dialog = this.dialog.open( ModalExtenderSesionComponent, {
+        width: '30%',
+        data: {
+          titulo: 'Confirmar recuperación',
+          mensaje: '¿Desea recuperar el expediente seleccionado?',
+          boton: 'Aceptar'
+        }
+      });
+    }
+    
     dialog.afterClosed().subscribe(result => {
       if(result) {
         this.visibleSpinner=true;
