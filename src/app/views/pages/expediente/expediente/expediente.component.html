@@ -4,14 +4,14 @@
 
   <div class="acordeon">
   <mat-accordion displayMode="flat">
-    <mat-expansion-panel expandedHeight="720px">
+    <mat-expansion-panel expandedHeight="720px" (opened)="reportesUrl()">
       <mat-expansion-panel-header>
         <mat-panel-title> 
           Reportes del paciente
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="contenedor">
-        <iframe class="reportes" [src]="reportesUrl()" frameborder="0"></iframe>
+        <iframe class="reportes" [src]="url" frameborder="0"></iframe>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

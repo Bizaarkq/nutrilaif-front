@@ -23,6 +23,7 @@ export class ExpedienteComponent implements OnInit {
   visibleSpinner = false;
   id_paciente: any;
   urlGraphic = environment.dashboardUrl;
+  url:any;
 
   habilitar:boolean=false;
   expedienteForm: FormControl = new FormControl();
@@ -36,6 +37,7 @@ export class ExpedienteComponent implements OnInit {
   ngOnInit(): void {
     this.id_paciente = this.router.snapshot.paramMap.get('id_paciente');
     this.cargarConsultas(this.id_paciente);
+    this.reportesUrl();
   }
 
   cargarConsultas(id_paciente: any){
@@ -65,7 +67,7 @@ export class ExpedienteComponent implements OnInit {
 
   reportesUrl(){
     let tema = localStorage.getItem('theme') === 'dark-theme' ? 'dark' : 'light';
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGraphic + '?orgId=1&var-idPaciente=' + this.id_paciente + '&kiosk=tv&theme=' + tema);
+    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGraphic + '?orgId=1&var-idPaciente=' + this.id_paciente + '&kiosk=tv&theme=' + tema);
   }
 
 }
