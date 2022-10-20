@@ -6,6 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-expediente',
@@ -20,18 +22,22 @@ export class ExpedienteComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   visibleSpinner = false;
   id_paciente: any;
+  urlGraphic = environment.dashboardUrl;
+  url:any;
 
   habilitar:boolean=false;
   expedienteForm: FormControl = new FormControl();
   
   constructor(
     private consultaServie: ConsultaService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.id_paciente = this.router.snapshot.paramMap.get('id_paciente');
     this.cargarConsultas(this.id_paciente);
+    this.reportesUrl();
   }
 
   cargarConsultas(id_paciente: any){
@@ -57,6 +63,11 @@ export class ExpedienteComponent implements OnInit {
   btnEditarExpediente(){
     //this.habilitar = this.expedienteForm.value;
     this.habilitar = true;
+  }
+
+  reportesUrl(){
+    let tema = localStorage.getItem('theme') === 'dark-theme' ? 'dark' : 'light';
+    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGraphic + '?orgId=1&var-idPaciente=' + this.id_paciente + '&kiosk=tv&theme=' + tema);
   }
 
 }
