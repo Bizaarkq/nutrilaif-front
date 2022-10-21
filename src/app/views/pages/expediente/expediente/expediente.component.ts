@@ -22,6 +22,7 @@ export class ExpedienteComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   visibleSpinner = false;
   id_paciente: any;
+  embarazada:any;
   urlGraphic = environment.dashboardUrl;
   url:any;
 
@@ -65,6 +66,10 @@ export class ExpedienteComponent implements OnInit {
     this.habilitar = true;
   }
 
+  getEmbarazo(respuesta:boolean){
+    this.embarazada=respuesta;
+  }
+  
   reportesUrl(){
     let tema = localStorage.getItem('theme') === 'dark-theme' ? 'dark' : 'light';
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGraphic + '?orgId=1&var-idPaciente=' + this.id_paciente + '&kiosk=tv&theme=' + tema);

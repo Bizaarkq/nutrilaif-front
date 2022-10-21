@@ -13,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 import ConsultaGeneralForm from './forms/consulta-form-general.json';
 import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.json';
+import EmbLactForm from './forms/embarazada.json';
+import EmbLactSubsecuenteForm from './forms/embarazada_sub.json';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
 import { deComponent } from 'src/app/services/deactivate.guard';
@@ -37,6 +39,8 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
   edad:any;
+  mujerEmbLac:any;
+  modulo:any;
   imcString:string='';
   estados:any;
   estadoActual:any;
@@ -80,7 +84,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
-    
+    this.modulo = this.route.snapshot.paramMap.get('modulo');
 
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
@@ -91,14 +95,13 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
         next: (data) => {
           this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
           this.pesoActual = data.subconsulta_form.datos_antropo.peso_actual;
+          this.esSubsecuente = data.es_subsecuente;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
-          if(data.es_subsecuente){
-            this.subConsulta = ConsultaGeneralSubSecuenteForm;
-          }else{
-            this.subConsulta = ConsultaGeneralForm;
-          }
-          this.createSubForm();
+          this.subConsulta=data.es_subsecuente ? 
+            this.modulo==='embarazada' ? EmbLactSubsecuenteForm : ConsultaGeneralSubSecuenteForm
+            : this.modulo==='embarazada' ? EmbLactForm : ConsultaGeneralForm;
+          this.createSubForm(); 
           this.consultaForm.patchValue(data);
           
           this.loadFrecuenciaConsumo(data.frecuencia_consumo.frecuencia);
@@ -123,11 +126,10 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
       });
     } else if (this.accion == 'nueva') {
       this.cargarEstados();
-      if(this.id_paciente){
-        this.subConsulta = ConsultaGeneralSubSecuenteForm;
-      }else{
-        this.subConsulta = ConsultaGeneralForm;
-      }
+      this.subConsulta = this.id_paciente ? 
+        this.modulo==='embarazada' ? EmbLactSubsecuenteForm : ConsultaGeneralSubSecuenteForm
+        : this.modulo==='embarazada' ? EmbLactForm : ConsultaGeneralForm;
+        
       this.createSubForm();
     }
 
@@ -214,7 +216,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     }
   }
 
-  createSubForm(){
+  createSubForm(parametro=null){
       Object.entries(this.subConsulta).forEach(([key, value]) => {
         this.subConsultaForm.addControl(value.step, this.FB.group({}));
         value.controls.forEach((control: any) => {
@@ -243,6 +245,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
         subconsulta_form: this.subConsultaForm,
         estado: ''
       });
+      this.consultaForm.updateValueAndValidity();
   }
 
   getValorDeControl(form:string, subform: string, control:string ){
@@ -442,5 +445,21 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     return (this.subConsultaForm.controls[group]as FormGroup).controls[campo].errors && 
             (this.subConsultaForm.controls[group]as FormGroup).controls[campo].touched
   }  
-  
+
+  setModuloEmbarazada(respuesta:any){
+    const formActual = this.subConsulta;
+    this.subConsulta = respuesta ?
+      this.esSubsecuente ? EmbLactSubsecuenteForm : EmbLactForm
+    : this.esSubsecuente ? ConsultaGeneralSubSecuenteForm : ConsultaGeneralForm;
+
+    if(formActual !== this.subConsulta){
+      this.subConsultaForm=this.FB.group({});
+      this.createSubForm();
+      setTimeout(() => {
+        this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
+        this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
+      }, 5000);
+    }
+  }
+
 }

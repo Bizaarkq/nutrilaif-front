@@ -30,7 +30,7 @@
                     autocomplete="off"
                     [readonly]="true">
                 <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="id_paciente"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="validarCampo('fechaExpediente')">No se ha seleccionado ninguna fecha</mat-error>
             </mat-form-field>
@@ -147,7 +147,7 @@
 
         <mat-grid-tile [colspan]="4" [rowspan]="1">
             <mat-slide-toggle formControlName="mujerEmbLac" class="small-form-control"
-                *ngIf="mujerEmb()" appearance="outline">
+                *ngIf="mujerEmb()" (change)="enviarMEL()" appearance="outline">
                 Mujer embarazada/lactante
             </mat-slide-toggle>
         </mat-grid-tile>

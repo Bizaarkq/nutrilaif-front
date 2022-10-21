@@ -22,13 +22,15 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
   //Variable utilizada para obtener el sexo del paciente
   @Output() sexoPaciente = new EventEmitter<string>();
   @Output() validacionForm = new EventEmitter<Object>();
+  //Variable utilizada para mandar si es una mujer embarazada
+  @Output() mujerEmbLac = new EventEmitter<boolean>();
   paises: any;
   departamentos: any;
   municipios: any;
   visibleSpinner = false;
   fechaCreacion = new Date();
-  id:any;
-  id_paciente:string='';
+  id:any = null;
+  id_paciente:any;
   paciente: FormGroup = this.fb.group({});
   data:any;
   camposPacientes:{ [key:string] : any} = formPaciente;
@@ -51,10 +53,10 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
     this.createForm();
     this.getPaises();
 
-    const id_paciente = this.route.snapshot.paramMap.get('id_paciente');
-    if( id_paciente !== null ){
+    this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    if( this.id_paciente !== null ){
       this.visibleSpinner=true;
-      this.pacienteService.getDatosPersonales(id_paciente).subscribe({
+      this.pacienteService.getDatosPersonales(this.id_paciente).subscribe({
         next: (results: any) => {
           //this.getSexoPaciente(results[0].sexo);
           if(results[0].municipio !== null && results[0].departamento !== null && results[0].pais !== null){
@@ -63,6 +65,7 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
           }
 
           this.pacienteForm.patchValue(results[0]);
+          if(results[0].mujerEmbLac)this.enviarMEL();
           this.visibleSpinner=false;
         },
         error: (err: any) => {
@@ -185,11 +188,13 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
     let mujer=this.pacienteForm.controls['sexo'].value;
     let edadMujer=this.pacienteForm.controls['edad'].value;
     if(mujer=='M' && edadMujer > 9 && edadMujer < 60){
-      return this.pacienteForm.controls['mujerEmbLac'].enabled;
+      this.pacienteForm.controls['mujerEmbLac'].enabled;
+      return  true;
     }
     else{
-      return this.pacienteForm.controls['mujerEmbLac'].disabled;
-    }
+      this.pacienteForm.controls['mujerEmbLac'].disabled;
+      return false;
+     }
   }
 
   ngOnChanges(): void {
@@ -216,4 +221,10 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
     return campos;
   }
 
+  // se envia el valor que tiene el slide
+  enviarMEL(){
+    let cambio = this.pacienteForm.controls['mujerEmbLac'].value;
+    this.mujerEmbLac.emit(cambio);
+  }
+  
 }
