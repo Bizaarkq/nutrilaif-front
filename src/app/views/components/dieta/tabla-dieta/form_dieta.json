@@ -1,4 +1,11 @@
 {
+    "plan": [
+      {
+        "name": "planDeDieta",
+        "label": "Plan de la dieta",
+        "placeholder": "Dieta baja en carbohidratos de 1500 Kcal"
+      }
+    ],
     "fechaDieta": [
       {
         "name": "fechaCreacionDieta",

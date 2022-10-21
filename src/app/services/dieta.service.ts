@@ -26,5 +26,20 @@ export class DietaService {
       })
     )
   }
+
+  obtenerPdf(id:any, cuerpo:any){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+    let url = endpoints.paciente.obtenerDietaPdf + '/' + id;
+    return this.http.post( url, cuerpo, {headers, responseType: 'blob'} )
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    )
+  }
   
 }
