@@ -75,10 +75,10 @@ const routes: Routes = [
       },
     ],
   },
-  /*{
+  {
     path: '**',
     redirectTo: 'inicio',
-  }*/
+  }
 ];
 
 @NgModule({
