@@ -147,7 +147,7 @@
 
         <mat-grid-tile [colspan]="4" [rowspan]="1">
             <mat-slide-toggle formControlName="mujerEmbLac" class="small-form-control"
-                *ngIf="mujerEmb()" appearance="outline">
+                *ngIf="mujerEmb()" (change)="enviarMEL()" appearance="outline">
                 Mujer embarazada/lactante
             </mat-slide-toggle>
         </mat-grid-tile>

@@ -20,6 +20,7 @@ export class ExpedienteComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   visibleSpinner = false;
   id_paciente: any;
+  embarazada:any;
 
   habilitar:boolean=false;
   expedienteForm: FormControl = new FormControl();
@@ -59,4 +60,7 @@ export class ExpedienteComponent implements OnInit {
     this.habilitar = true;
   }
 
+  getEmbarazo(respuesta:boolean){
+    this.embarazada=respuesta;
+  }
 }

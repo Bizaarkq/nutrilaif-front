@@ -34,21 +34,21 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'consulta/:accion/:id_paciente/:id_consulta',
+        path: 'consulta/:modulo/:accion/:id_paciente/:id_consulta',
         canActivate: [AuthGuard],
         component: ConsultaComponent,
         canDeactivate: [DeactivateGuard]
 
       },
       {
-        path: 'consulta/:accion/:id_paciente',
+        path: 'consulta/:modulo/:accion/:id_paciente',
         canActivate: [AuthGuard],
         component: ConsultaComponent,
         canDeactivate: [DeactivateGuard]
 
       },
       {
-        path: 'consulta/:accion',
+        path: 'consulta/:modulo/:accion',
         canActivate: [AuthGuard],
         component: ConsultaComponent,
         canDeactivate: [DeactivateGuard]
@@ -75,10 +75,10 @@ const routes: Routes = [
       },
     ],
   },
-  {
+  /*{
     path: '**',
     redirectTo: 'inicio',
-  }
+  }*/
 ];
 
 @NgModule({

@@ -22,6 +22,8 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
   //Variable utilizada para obtener el sexo del paciente
   @Output() sexoPaciente = new EventEmitter<string>();
   @Output() validacionForm = new EventEmitter<Object>();
+  //Variable utilizada para mandar si es una mujer embarazada
+  @Output() mujerEmbLac = new EventEmitter<boolean>();
   paises: any;
   departamentos: any;
   municipios: any;
@@ -63,6 +65,7 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
           }
 
           this.pacienteForm.patchValue(results[0]);
+          if(results[0].mujerEmbLac)this.enviarMEL();
           this.visibleSpinner=false;
         },
         error: (err: any) => {
@@ -177,11 +180,13 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
     let mujer=this.pacienteForm.controls['sexo'].value;
     let edadMujer=this.pacienteForm.controls['edad'].value;
     if(mujer=='M' && edadMujer > 9 && edadMujer < 60){
-      return this.pacienteForm.controls['mujerEmbLac'].enabled;
+      this.pacienteForm.controls['mujerEmbLac'].enabled;
+      return  true;
     }
     else{
-      return this.pacienteForm.controls['mujerEmbLac'].disabled;
-    }
+      this.pacienteForm.controls['mujerEmbLac'].disabled;
+      return false;
+     }
   }
 
   ngOnChanges(): void {
@@ -208,4 +213,10 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
     return campos;
   }
 
+  // se envia el valor que tiene el slide
+  enviarMEL(){
+    let cambio = this.pacienteForm.controls['mujerEmbLac'].value;
+    this.mujerEmbLac.emit(cambio);
+  }
+  
 }
