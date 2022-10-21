@@ -1,0 +1,25 @@
+
+.reportes{
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor {
+    width: 100%;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-general{
+    width: 100%;
+    height: 100%;
+    padding: 1em
+}
+
+.acordeon {
+    width: 98%;
+    margin: auto;
+}

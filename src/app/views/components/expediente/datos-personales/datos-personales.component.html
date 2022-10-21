@@ -3,7 +3,7 @@
     <button mat-mini-fab  color="accent" (click)="pacienteForm.enable()" *ngIf="expediente" matTooltip ="Editar Expediente" >
         <mat-icon class="material-icons-outlined">edit</mat-icon>
     </button>
-    <button [disabled]="!this.pacienteForm.touched" method ="post" mat-mini-fab  color="primary" (click)="updateExp()" *ngIf="expediente" matTooltip ="Actualizar Expediente">
+    <button [disabled]="!(this.pacienteForm.valid  && this.pacienteForm.touched)" method ="post" mat-mini-fab  color="primary" (click)="updateExp()" *ngIf="expediente" matTooltip ="Actualizar Expediente">
         <mat-icon class="material-icons-outlined">save</mat-icon>
     </button>
 </div>

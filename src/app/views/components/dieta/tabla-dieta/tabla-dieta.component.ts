@@ -2,6 +2,8 @@ import { Component, Input, Output, OnInit, OnChanges, EventEmitter } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import dietaForm from './form_dieta.json';
 import { ValidarFormService } from 'src/app/services/general.service';
+import { DietaService } from 'src/app/services/dieta.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tabla-dieta',
   templateUrl: './tabla-dieta.component.html',
@@ -14,26 +16,27 @@ export class TablaDietaComponent implements OnInit, OnChanges{
   @Input() subSec:boolean=false;
   @Input() realizarValidacion: boolean = false;
   @Output() validacionForm = new EventEmitter<Object>();
+
+  idPaciente:any;
   //Formulario de dieta
   camposDieta = dietaForm;
-  constructor( private fb: FormBuilder) { }
+  constructor( private fb: FormBuilder, private dietaService:DietaService, private ar:ActivatedRoute) { }
 
   ngOnInit(): void {
     //Metodo que crea el formulario al iniciar el componente agregando los controles necesarios para el componente
     this.addControls();
     this.formularioDieta.disable();
+    this.idPaciente = this.ar.snapshot.paramMap.get('id_paciente');
   }
 
   ngOnChanges(): void {
     if(this.realizarValidacion){
-      if(this.realizarValidacion){
         Object.entries(dietaForm.dias).forEach(([key, dia])=> {
           this.validacionForm.emit({ 
             'form': `Dieta (${dia.label})`, 
             'campos': this.validandoForm(dia.name)
           });
         });
-      }
     }
   }
   
@@ -43,6 +46,8 @@ export class TablaDietaComponent implements OnInit, OnChanges{
     Object.entries(dietaForm.fechaDieta).forEach(([key, value])=> {
       this.formularioDieta.addControl(value.name, this.fb.control(new Date(), [Validators.required]));
     });
+    
+    this.formularioDieta.addControl('planDeDieta', this.fb.control('', [Validators.required]));
 
     this.formularioDieta.addControl('dieta', this.fb.group({}));
     
@@ -109,4 +114,12 @@ export class TablaDietaComponent implements OnInit, OnChanges{
       }));
     return campos;
   }
+
+  guardarDieta(){
+    this.dietaService.obtenerPdf(this.idPaciente, this.formularioDieta.value).subscribe(data => {
+      let file = window.URL.createObjectURL(data);
+      window.open(file);
+      });
+
+    }
 }

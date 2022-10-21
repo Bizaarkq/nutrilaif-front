@@ -143,31 +143,39 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
 
   updateExp(){
     this.visibleSpinner = true;
-    if(!this.pacienteForm.invalid){
-
-      this.pacienteService.update(this.pacienteForm.getRawValue())
-      .subscribe({
-        next:(res)=>{
+    if(this.pacienteForm.valid){
+      if(!this.pacienteForm.invalid){
+        this.pacienteService.update(this.pacienteForm.getRawValue())
+        .subscribe({
+          next:(res)=>{
+            this.visibleSpinner=false;
+            this.snack.open(
+              res.mensaje,
+              'OK',
+              {
+                duration:5000,
+              }
+            );
+          },
+        error:(res)=>{
           this.visibleSpinner=false;
           this.snack.open(
             res.mensaje,
-            'OK',
+            'Error',
             {
-              duration:5000,
+              duration: 5000,
             }
           );
         },
-       error:(res)=>{
-        this.visibleSpinner=false;
-        this.snack.open(
-          res.mensaje,
-          'Error',
-          {
-            duration: 5000,
-          }
-        );
-       },
-      })
+        })
+      }
+    }else{
+      this.visibleSpinner = false;
+      this.snack.open(
+        "Error al guardar, dato no valido",'Error',{
+          duration:5000,
+        }
+      );
     }
   }
 

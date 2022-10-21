@@ -1,7 +1,27 @@
 <div>
     <form [formGroup]="formularioDieta">
         <mat-grid-list cols="12" rowHeight="90px">
-            <mat-grid-tile [colspan]="1"></mat-grid-tile>
+            <mat-grid-tile [colspan]="5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Plan</mat-label>
+                    <input autocomplete="off" matInput 
+                            placeholder="Dieta baja en carbohidratos de 1500 Kcal"
+                            formControlName="planDeDieta">
+                    <mat-error *ngIf="validarCampo('planDeDieta')">No se ha ingresado plan de la dieta</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="5"></mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+                <div class="buttons">
+                <button [disabled]="formularioDieta.invalid || formularioDieta.disabled" mat-raised-button color="primary" (click)="guardarDieta()"><mat-icon>file_download</mat-icon></button>
+                <button mat-raised-button  color="accent" *ngIf="subSec" id="botonEditar" matTooltip="Editar cita" (click)="editarDieta()">
+                    <mat-icon class="material-icons-outlined">edit_note</mat-icon>
+                </button>
+                <button mat-raised-button  color="accent" *ngIf="subSec" id="botonLimpiar" matTooltip="Limpiar cita" (click)="limpiar()">
+                    <mat-icon class="material-icons-outlined">cleaning_services</mat-icon>
+                </button>
+            </div>
+            </mat-grid-tile>
             <mat-grid-tile [colspan]="3">
                 <mat-form-field appearance="outline">
                     <mat-label>Fecha de creación de la dieta</mat-label>
@@ -14,24 +34,13 @@
                     <mat-error *ngIf="validarCampo('fechaCreacionDieta')">No se ha seleccionado ninguna fecha</mat-error>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan]="6"></mat-grid-tile>
-            <mat-grid-tile [colspan]="1">
-                <button mat-mini-fab color="accent" *ngIf="subSec" id="botonEditar" matTooltip="Editar cita" (click)="editarDieta()">
-                    <mat-icon class="material-icons-outlined">edit_note</mat-icon>
-                </button>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="1">
-                <button mat-mini-fab color="accent" *ngIf="subSec" id="botonLimpiar" matTooltip="Limpiar cita" (click)="limpiar()">
-                    <mat-icon class="material-icons-outlined">cleaning_services</mat-icon>
-                </button>
-            </mat-grid-tile>
         </mat-grid-list> 
+        
     </form>
-    <mat-grid-list rowHeight="175px" style="width:100%" cols="12" *ngFor="let dias of camposDieta.dias">
+    <mat-grid-list rowHeight="200px" style="width:100%" cols="15" *ngFor="let dias of camposDieta.dias">
         <h2> {{dias.label}} </h2>
         <form [formGroup]="passToFormGroup('dieta', dias.name)">
-            <mat-grid-tile [colspan]="1"></mat-grid-tile>
-            <mat-grid-tile [colspan]="2" *ngFor="let tiempoComida of camposDieta.tiemposComida">
+            <mat-grid-tile [colspan]="3" style="height: 100%;" *ngFor="let tiempoComida of camposDieta.tiemposComida">
                 <mat-form-field appearance="outline">
                     <mat-label>{{tiempoComida.label}}</mat-label>
                     <textarea matInput formControlName="{{tiempoComida.name}}" placeholder="{{tiempoComida.placeholder}}"></textarea>
@@ -40,7 +49,6 @@
                     </mat-error>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan]="1"></mat-grid-tile>
         </form>
     </mat-grid-list>
 </div>

@@ -324,13 +324,19 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
   }
 
   permitirGuardado(){
-    this.realizarValidacion = 
-      'estado' in this.consultaForm.controls && 
+    this.realizarValidacion = this.estadoActual === 'CONSULTA.FINALIZADA' ? 
+      'estado' in this.consultaForm.controls &&
+      !this.consultaForm.controls['estado'].value.includes('BORRADOR') &&
+      !this.consultaForm.controls['estado'].value.includes('FINALIZADA')
+    : ( 'estado' in this.consultaForm.controls && 
       !this.consultaForm.controls['estado'].value.includes('BORRADOR') &&
       this.consultaForm.touched && 
-      this.consultaForm.controls['estado'].value !== '';
+      this.consultaForm.controls['estado'].value !== '');
     return 'estado' in this.consultaForm.controls ? 
-      this.consultaForm.controls['estado'].value.includes('BORRADOR') ? true : this.consultaForm.valid 
+      this.consultaForm.controls['estado'].value.includes('BORRADOR') ? 
+      true : this.consultaForm.valid && (this.estadoActual === 'CONSULTA.FINALIZADA' ? 
+      this.consultaForm.controls['estado'].value.includes('ARCHIVADA') 
+      : this.consultaForm.controls['estado'].value.includes('FINALIZADA'))
       : false;
   }
 
