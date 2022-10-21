@@ -95,13 +95,14 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
         next: (data) => {
           this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
           this.pesoActual = data.subconsulta_form.datos_antropo.peso_actual;
+          this.esSubsecuente = data.es_subsecuente;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
           this.subConsulta=data.es_subsecuente ? 
             this.modulo==='embarazada' ? EmbLactSubsecuenteForm : ConsultaGeneralSubSecuenteForm
             : this.modulo==='embarazada' ? EmbLactForm : ConsultaGeneralForm;
-          this.createSubForm(data);
-         // this.consultaForm.patchValue(data);
+          this.createSubForm(); 
+          this.consultaForm.patchValue(data);
           
           this.loadFrecuenciaConsumo(data.frecuencia_consumo.frecuencia);
           
@@ -125,7 +126,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
       });
     } else if (this.accion == 'nueva') {
       this.cargarEstados();
-      this.subConsulta=this.id_paciente ? 
+      this.subConsulta = this.id_paciente ? 
         this.modulo==='embarazada' ? EmbLactSubsecuenteForm : ConsultaGeneralSubSecuenteForm
         : this.modulo==='embarazada' ? EmbLactForm : ConsultaGeneralForm;
         
@@ -244,7 +245,7 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
         subconsulta_form: this.subConsultaForm,
         estado: ''
       });
-      if(!parametro)this.consultaForm.patchValue(parametro as any);
+      this.consultaForm.updateValueAndValidity();
   }
 
   getValorDeControl(form:string, subform: string, control:string ){
@@ -305,7 +306,6 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
   }
 
   validacionMessage(camposFormHijo:any){
-    console.log(camposFormHijo);
     if ('incorrectos' in camposFormHijo.campos && camposFormHijo.campos.incorrectos.length) this.messageService.add({
         key:'validacionform', 
         severity:'error', 
@@ -440,20 +440,20 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
             (this.subConsultaForm.controls[group]as FormGroup).controls[campo].touched
   }  
 
-  async setModuloEmbarazada(respuesta:any){
-    if(this.esSubsecuente==true){
-      respuesta? this.subConsulta=EmbLactSubsecuenteForm : this.subConsulta=ConsultaGeneralSubSecuenteForm;
+  setModuloEmbarazada(respuesta:any){
+    const formActual = this.subConsulta;
+    this.subConsulta = respuesta ?
+      this.esSubsecuente ? EmbLactSubsecuenteForm : EmbLactForm
+    : this.esSubsecuente ? ConsultaGeneralSubSecuenteForm : ConsultaGeneralForm;
+
+    if(formActual !== this.subConsulta){
+      this.subConsultaForm=this.FB.group({});
+      this.createSubForm();
+      setTimeout(() => {
+        this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
+        this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
+      }, 5000);
     }
-    else{
-      respuesta? this.subConsulta=EmbLactForm:this.subConsulta=ConsultaGeneralForm;
-    }
-    this.subConsultaForm=this.FB.group({});
-    await this.createSubForm();
-    this.consultaForm.updateValueAndValidity();
-    setTimeout(() => {
-      this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
-      this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
-    }, 5000);
   }
 
 }

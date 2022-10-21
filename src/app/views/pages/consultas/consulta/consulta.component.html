@@ -32,7 +32,12 @@
                   [rowspan]="control.rows ?? 1"
                   >
                   <div class="tile-content">
-                  <mat-checkbox *ngIf="control.type==='checkbox';else textoControl" id="{{ control.name }}" formControlName="{{control.name}}" >{{control.label}}</mat-checkbox>
+                      <mat-checkbox *ngIf="control.type==='checkbox';else textoControl" 
+                      id="{{ control.name }}" 
+                      style="margin: 0 auto"
+                      formControlName="{{control.name}}" >
+                      {{control.label}}
+                      </mat-checkbox>
                   <ng-template #textoControl>
                     <mat-form-field class="{{ control.class ?? 'medium-form-control'}}" appearance="outline">
                       <mat-label>{{ control.label }}</mat-label>

@@ -29,8 +29,8 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
   municipios: any;
   visibleSpinner = false;
   fechaCreacion = new Date();
-  id:any;
-  id_paciente:string='';
+  id:any = null;
+  id_paciente:any;
   paciente: FormGroup = this.fb.group({});
   data:any;
   camposPacientes:{ [key:string] : any} = formPaciente;
@@ -53,10 +53,10 @@ export class DatosPersonalesComponent implements OnInit, OnChanges {
     this.createForm();
     this.getPaises();
 
-    const id_paciente = this.route.snapshot.paramMap.get('id_paciente');
-    if( id_paciente !== null ){
+    this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
+    if( this.id_paciente !== null ){
       this.visibleSpinner=true;
-      this.pacienteService.getDatosPersonales(id_paciente).subscribe({
+      this.pacienteService.getDatosPersonales(this.id_paciente).subscribe({
         next: (results: any) => {
           //this.getSexoPaciente(results[0].sexo);
           if(results[0].municipio !== null && results[0].departamento !== null && results[0].pais !== null){

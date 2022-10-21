@@ -30,7 +30,7 @@
                     autocomplete="off"
                     [readonly]="true">
                 <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="id_paciente"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="validarCampo('fechaExpediente')">No se ha seleccionado ninguna fecha</mat-error>
             </mat-form-field>

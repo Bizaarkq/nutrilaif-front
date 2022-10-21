@@ -273,7 +273,7 @@
             }
           ],
           "autocomplete": "off",
-          "error":"Ingrese un dato mayor a cero"
+          "error":"Ingrese un dato"
         },
         {
           "name": "c_cadera",
@@ -287,7 +287,7 @@
             }
           ],
           "autocomplete": "off",
-          "error":"Ingrese un dato mayor a cero"
+          "error":"Ingrese un dato"
         },
         {
             "name":"p/e",
