@@ -1,9 +1,7 @@
 
-<app-datos-personales [expediente]="true"  [editable]="false" (mujerEmbLac)="getEmbarazo($event)"></app-datos-personales>
-
 <app-spinner [visible]="visibleSpinner"></app-spinner>
 <div class="contenedor-general">
-  <app-datos-personales [expediente]="true" [editable]="false"></app-datos-personales>
+  <app-datos-personales [expediente]="true"  [editable]="false" (mujerEmbLac)="getEmbarazo($event)"></app-datos-personales>
 
   <div class="acordeon">
   <mat-accordion displayMode="flat">

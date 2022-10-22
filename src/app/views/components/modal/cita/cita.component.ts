@@ -27,6 +27,7 @@ export class CitaComponent implements OnInit {
   filteredPacientes: any;
   nutric_aux: boolean = false;
   nutricionistas:any[] = [];
+  telefonoPaciente:any;
 
   eventoForm: FormGroup = this.fb.group({
     id : [null],
@@ -132,6 +133,8 @@ export class CitaComponent implements OnInit {
   setPacienteCita(paciente:any){
       this.eventoForm.controls['id_paciente'].patchValue(paciente.id);
       this.eventoForm.controls['nombre'].patchValue(paciente.nombre_completo);
+      this.telefonoPaciente = paciente.municipio < 263 ? '503'+paciente.telefono : paciente.telefono;
+      this.telefonoPaciente = this.telefonoPaciente.replace(/[^\d]/g, '');
   }
 
   validarCampo( campo:string ){
@@ -181,10 +184,35 @@ export class CitaComponent implements OnInit {
         if(res.code === 200){
           this.eventoForm.controls['id'].setValue(res.data);
           if(this.router.snapshot.queryParamMap.get('expediente')) this.route.navigate(['/citas']);
+          const modal = this.modal.open(ModalExtenderSesionComponent, {
+            width: '30%',
+            data: {
+              titulo:'¿Desea notificar al paciente?',
+              mensaje: 'Se abrirá una ventana para enviar mensaje por WhatsApp al usuario',
+              boton: 'Notificar'
+            }
+          });
+          modal.afterClosed().subscribe((res) =>{
+            if(res){
+              this.enviarMensaje(this.telefonoPaciente);
+            }
+          });
           this.data ? this.dialog.close({...this.eventoForm.value, editar: true}) : this.dialog.close({...this.eventoForm.value, guardado: true});
         }
       }
     });
+  }
+
+  enviarMensaje(phone:any){
+    let telefono = this.data ? 
+      /[2|6-7]\d{3}-\d{4}/.test(this.data.telefono) ? 
+      '503'+this.data.telefono : this.data.telefono 
+      : phone;
+    telefono = telefono.replace(/[^\d]/g, '');
+    const nombre = this.eventoForm.controls['nombre'].value;
+    const mensaje = `Hola ${nombre}, te informamos que tu cita ha sido agendada para el día ${this.datepipe.transform(this.fechaCita, 'dd/MM/yy') } de ${this.horaInicio} a ${this.horaFin}.`;
+    const url = `https://api.whatsapp.com/send?phone=${telefono}?text=${mensaje}&lang=es&type=phone_number&app_absent=1`;
+    window.open(url, '_blank');
   }
 
   eliminarCita(){
