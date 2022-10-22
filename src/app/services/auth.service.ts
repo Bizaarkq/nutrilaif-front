@@ -61,6 +61,7 @@ export class AuthService {
     const formSesion = new HttpParams({
       fromObject: {
         client_id: environment.client,
+        client_secret: environment.clientSecret,
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });
