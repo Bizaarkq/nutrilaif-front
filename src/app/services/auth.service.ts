@@ -21,6 +21,7 @@ export class AuthService {
         password: pass,
         grant_type: 'password',
         client_id: environment.client,
+        client_secret: environment.clientSecret
       },
     });
 
@@ -60,10 +61,19 @@ export class AuthService {
     const formSesion = new HttpParams({
       fromObject: {
         client_id: environment.client,
+        client_secret: environment.clientSecret,
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });
-    localStorage.clear();
+    
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('refresh_expires_in');
+    localStorage.removeItem('expires_in');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('user');
+    localStorage.removeItem('nombre');
+
     return this.http
       .post(endpoints.auth.logout, formSesion, { headers })
       .pipe(
@@ -83,6 +93,7 @@ export class AuthService {
       fromObject: {
         grant_type: 'refresh_token',
         client_id: environment.client,
+        client_secret: environment.clientSecret,
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });

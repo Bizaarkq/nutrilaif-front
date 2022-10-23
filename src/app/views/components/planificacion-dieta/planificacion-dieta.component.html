@@ -88,7 +88,7 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1">
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion">
-            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.name === 'xtras' || campo.name === 'na')">
+            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline">
                 <mat-label></mat-label>
                 <input matInput placeholder="99.99" type="number" [value]="calcularTotal(campo.name)">
             </mat-form-field>
@@ -101,7 +101,7 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1">
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let campo of formPlanAlimenticio.tablas.form_alimento.controls_distribucion">
-            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.name === 'xtras' || campo.name === 'na')">
+            <mat-form-field class="ancho" [hideRequiredMarker]="true" appearance="outline" *ngIf="!(campo.name === 'na')">
                 <mat-label></mat-label>
                 <input matInput placeholder="99.99" type="number" [value]="calcularMargenError(campo.name)">
             </mat-form-field>

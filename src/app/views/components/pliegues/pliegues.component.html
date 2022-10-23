@@ -15,7 +15,7 @@
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-form-field autocomplete="off" class='large-form-control' appearance="outline">
         <mat-label></mat-label>
-        <input matInput formControlName='{{ getNombreForm(datos.key) }}' placeholder="12">
+        <input matInput formControlName='{{ getNombreForm(datos.key) }}' placeholder="12" type="number" min="0">
       </mat-form-field>
     </mat-grid-tile>
     <mat-divider></mat-divider> 
@@ -24,7 +24,7 @@
 
 <br>
 <!--FORMULARIO PARA LOS RESULTADOS-->
-<form [formGroup]="formExtras">
+<form>
   <ng-container>
     <mat-grid-list cols="7" rowHeight="80px">
       <mat-grid-tile [colspan]="1" [rowspan]="1">
@@ -32,31 +32,37 @@
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <mat-form-field class='large-form-control' appearance="outline">
           <mat-label>Talla (m)</mat-label>
-          <input matInput autocomplete="off" formControlName='talla' [value]="talla" placeholder="1.70">
+          <input type="number" matInput autocomplete="off" [value]="talla" placeholder="1.70" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class='large-form-control' appearance="outline">
+          <mat-label>Peso actual (m)</mat-label>
+          <input type="number" matInput autocomplete="off" [value]="pesoActual" placeholder="100.70" disabled>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <mat-form-field class='large-form-control' appearance="outline">
           <mat-label>Pliegues totales</mat-label>
-          <input matInput autocomplete="off" formControlName='pliegues' placeholder="150">
+          <input type="number" matInput autocomplete="off" placeholder="150" [value] = "calcularPliegues()" disabled>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <mat-form-field class='large-form-control' appearance="outline">
           <mat-label>% de grasa</mat-label>
-          <input matInput autocomplete="off" formControlName='porcentajeGrasa' placeholder="18.98">
+          <input type="number" matInput autocomplete="off" placeholder="18.98" [value] = "porcentajeGrasa" disabled>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <mat-form-field class='large-form-control' appearance="outline">
           <mat-label>Masa grasa (Kg)</mat-label>
-          <input matInput autocomplete="off" formControlName='masaGrasaKg' placeholder="14.01">
+          <input type="number" matInput autocomplete="off" placeholder="14.01" [value] = "masaGrasaKg" disabled>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="1">
         <mat-form-field class='large-form-control' appearance="outline">
           <mat-label>Masa grasa (Lb)</mat-label>
-          <input matInput autocomplete="off" formControlName='masaGrasaLibras' placeholder="14.01">
+          <input type="number" matInput autocomplete="off" placeholder="14.01" [value] = "masaGrasaLb" disabled>
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>

@@ -16,8 +16,8 @@
             <input autocomplete="off" 
                     matInput placeholder="Carne molida"
                     formControlName="alimento">
-            <mat-error *ngIf="validarCampos()">
-              Debe ingresar el alimento y seleccionar la frecuencia de consumo
+            <mat-error *ngIf="validarCampos('alimento',i)">
+              Debe ingresar el alimento
             </mat-error>
           </mat-form-field>
         </mat-grid-tile>
@@ -31,6 +31,9 @@
             <mat-radio-button value="5">5</mat-radio-button>
             <mat-radio-button value="6">6</mat-radio-button>
             <mat-radio-button value="7">7</mat-radio-button>
+            <mat-error *ngIf="validarCampos('frequencia',i)">
+              Debe ingresar la frecuencia
+            </mat-error>  
           </mat-radio-group>
         </mat-grid-tile>
         <mat-grid-tile>

@@ -5,7 +5,6 @@
     "controls": [
       {
         "name": "diagnostico",
-        "validators": [],
         "label": "Diagnósticos médicos",
         "placeholder": "Cefalea",
         "type": "textarea",
@@ -17,7 +16,6 @@
       },
       {
         "name": "medicamento_suplemento",
-        "validators": [],
         "label": "Medicamento/Suplemento",
         "placeholder": "Inyección de vitaminas",
         "type": "textarea",
@@ -29,7 +27,6 @@
       },
       {
         "name": "otros_datos",
-        "validators": [],
         "label": "Otros datos importantes",
         "placeholder": "Síntomas de cansancio",
         "type": "textarea",
@@ -50,96 +47,84 @@
         "label": "Hemoglobina",
         "placeholder": "Ingrese el valor de la Hemoglobina",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "trigliceridos",
         "label": "Triglicéridos",
         "placeholder": "Ingrese el valor de los Triglicéridos",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "colesterol_total",
         "label": "Colesterol Total",
         "placeholder": "Ingrese el Colesterol Total",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "glucosa_ayuno",
         "label": "Glucosa en ayuno",
         "placeholder": "Glucosa en ayuno",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "creatinina",
         "label": "Creatinina",
         "placeholder": "Ingrese el valor de la Creatinina",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "acido_urico",
         "label": "Ácido úrico",
         "placeholder": "Ingrese el Ácido úrico",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "chdl",
         "label": "c-HDL",
         "placeholder": "Ingrese el valor de c-HDL",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "glucosa_post_pondrial",
         "label": "Glucosa post pondríal",
         "placeholder": "Ingrese la Glucosa post pondríal",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "linfocitos",
         "label": "Linfocitos",
         "placeholder": "Ingrese el valor de los Linfocitos",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "albumina",
         "label": "Albúmina",
         "placeholder": "Ingrese la Albúmina",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "cldl",
         "label": "c-LDL",
         "placeholder": "Ingrese el valord de c-LDL",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "hba_1c",
         "label": "HbA 1c",
         "placeholder": "Ingrese el valor de HbA 1c",
         "type": "input",
-        "autocomplete": "off",
-        "validators": []
+        "autocomplete": "off"
       },
       {
         "name": "otros",
@@ -165,7 +150,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "peso_meta",
@@ -173,7 +159,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "edad_metabolica",
@@ -181,7 +168,8 @@
         "placeholder": "99",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "peso_ideal",
@@ -194,7 +182,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "p_grasa_corporal",
@@ -207,7 +196,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_muneca",
@@ -215,7 +205,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "talla",
@@ -228,7 +219,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "p_grasa_visceral",
@@ -241,7 +233,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_brazo_relaj",
@@ -249,7 +242,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "imc",
@@ -262,7 +256,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "p_masa_muscular",
@@ -270,7 +265,8 @@
         "placeholder": "99.9",
         "type": "number",
         "cols": "4",
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_cintura",
@@ -283,7 +279,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "c_cadera",
@@ -296,7 +293,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese un dato mayor a cero"
       },
       {
         "name": "diagnostico_nutricional",
@@ -336,7 +334,8 @@
             "type": "required"
           }
         ],
-        "autocomplete": "off"
+        "autocomplete": "off",
+        "error":"Ingrese la actividad física del paciente"
       },
       {
         "name": "alcohol",

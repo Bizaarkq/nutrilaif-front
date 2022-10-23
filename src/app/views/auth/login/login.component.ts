@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+
+    this.setTema();
   }
 
   login() {
@@ -60,5 +62,11 @@ export class LoginComponent implements OnInit {
 
   validarCampos( campo:string ){
     return this.formLogin.controls[campo].errors && this.formLogin.controls[campo].touched;
+  }
+
+  setTema(){
+    const body = document.getElementsByTagName('body')[0];
+    let theme = localStorage.getItem('theme') as string;
+    body.classList.add(theme);
   }
 }

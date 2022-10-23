@@ -1,0 +1,547 @@
+[
+    {
+      "step": "datos_medicos",
+      "label_step": "Datos Médicos",
+      "controls": [
+        {
+          "name": "diagnostico",
+          "validators": [],
+          "label": "Diagnósticos médicos",
+          "placeholder": "Cefalea",
+          "type": "textarea",
+          "cols": "12",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        },
+        {
+          "name": "medicamento_suplemento",
+          "validators": [],
+          "label": "Medicamento/Suplemento",
+          "placeholder": "Inyección de vitaminas",
+          "type": "textarea",
+          "cols": "12",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        },
+        {
+            "name":"formula",
+            "validators": [],
+            "label": "Formulas",
+            "placeholder": "Formula",
+            "type": "textarea",
+            "cols": "12",
+            "rows": "2",
+            "height": "5",
+            "class": "large-form-control",
+            "autocomplete": "off"
+        },
+        {
+            "name":"edad_gestional",
+            "validators": [],
+            "label": "Edad Gestacional",
+            "placeholder": "Edad gestacional",
+            "type": "textarea",
+            "cols": "12",
+            "rows": "2",
+            "height": "5",
+            "class": "large-form-control",
+            "autocomplete": "off"
+        },
+        {
+          "name": "otros_datos",
+          "validators": [],
+          "label": "Otros datos importantes",
+          "placeholder": "Síntomas de cansancio",
+          "type": "textarea",
+          "cols": "12",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        }
+      ]
+    },
+    {
+      "step": "examen_labs",
+      "label_step": "Exámenes de laboratorio",
+      "controls": [
+        {
+          "name": "hemoglobina",
+          "label": "Hemoglobina",
+          "placeholder": "Ingrese el valor de la Hemoglobina",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "trigliceridos",
+          "label": "Triglicéridos",
+          "placeholder": "Ingrese el valor de los Triglicéridos",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "colesterol_total",
+          "label": "Colesterol Total",
+          "placeholder": "Ingrese el Colesterol Total",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "glucosa_ayuno",
+          "label": "Glucosa en ayuno",
+          "placeholder": "Glucosa en ayuno",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "creatinina",
+          "label": "Creatinina",
+          "placeholder": "Ingrese el valor de la Creatinina",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "acido_urico",
+          "label": "Ácido úrico",
+          "placeholder": "Ingrese el Ácido úrico",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "chdl",
+          "label": "c-HDL",
+          "placeholder": "Ingrese el valor de c-HDL",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "glucosa_post_pondrial",
+          "label": "Glucosa post pondríal",
+          "placeholder": "Ingrese la Glucosa post pondríal",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "linfocitos",
+          "label": "Linfocitos",
+          "placeholder": "Ingrese el valor de los Linfocitos",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "albumina",
+          "label": "Albúmina",
+          "placeholder": "Ingrese la Albúmina",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "cldl",
+          "label": "c-LDL",
+          "placeholder": "Ingrese el valord de c-LDL",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "hba_1c",
+          "label": "HbA 1c",
+          "placeholder": "Ingrese el valor de HbA 1c",
+          "type": "input",
+          "autocomplete": "off",
+          "validators": []
+        },
+        {
+          "name": "otros",
+          "label": "Otro Exámen",
+          "placeholder": "Ingrese el valor del exámen",
+          "type": "input",
+          "autocomplete": "off"
+        }
+      ]
+    },
+    {
+      "step": "datos_antropo",
+      "label_step": "Datos antropométricos",
+      "controls": [
+        {
+          "name": "peso_actual",
+          "label": "Peso actual (Kg)",
+          "placeholder": "99.99",
+          "type": "number",
+          "cols": "4",
+          "validators": [
+            {
+              "type": "required"
+            }
+          ],
+          "autocomplete": "off",
+          "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name": "talla",
+            "label": "Talla (m)",
+            "placeholder": "9.99",
+            "type": "number",
+            "cols": "4",
+            "validators": [
+              {
+                "type": "required"
+              }
+            ],
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+          "name": "imc",
+          "label": "IMC (Kg/m2)",
+          "placeholder": "99.9",
+          "type": "number",
+          "cols": "4",
+          "validators": [
+            {
+              "type": "required"
+            }
+          ],
+          "autocomplete": "off",
+          "error":"Ingrese un dato mayor a cero"
+        },
+        {
+          "name": "peso_ideal",
+          "label": "Peso ideal (Kg)",
+          "placeholder": "99.99",
+          "type": "number",
+          "cols": "4",
+          "validators": [
+            {
+              "type": "required"
+            }
+          ],
+          "autocomplete": "off",
+          "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"ext_brazada",
+            "label": "Ext. de la brazada",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"t/e",
+            "label": "T/E",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"peso_usual",
+            "label": "Peso usual",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+          "name": "c_cintura",
+          "label": "Cintura",
+          "placeholder": "99.9",
+          "type": "number",
+          "cols": "2",
+          "validators": [
+            {
+              "type": "required"
+            }
+          ],
+          "autocomplete": "off",
+          "error":"Ingrese un dato"
+        },
+        {
+          "name": "c_cadera",
+          "label": "Cadera",
+          "placeholder": "99.9",
+          "type": "number",
+          "cols": "2",
+          "validators": [
+            {
+              "type": "required"
+            }
+          ],
+          "autocomplete": "off",
+          "error":"Ingrese un dato"
+        },
+        {
+            "name":"p/e",
+            "label": "P/E",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+          "name": "peso_meta",
+          "label": "Peso meta (Kg)",
+          "placeholder": "99.9",
+          "type": "number",
+          "cols": "4",
+          "autocomplete": "off",
+          "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"peso_deseable",
+            "label": "Peso deseable",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"p/t",
+            "label": "P/T",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"peso_antes_embarazo",
+            "label": "Peso antes del embarazo",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"peso_nacer",
+            "label": "Peso al nacer (kg)",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+            "name":"perimetro_cefalico",
+            "label": "Perímetro cefálico",
+            "placeholder": "99.99",
+            "type": "number",
+            "cols": "4",
+            "autocomplete": "off",
+            "error":"Ingrese un dato mayor a cero"
+        },
+        {
+          "name": "diagnostico_nutricional",
+          "label": "Diagnóstico nutricional",
+          "placeholder": "Normal según IMC",
+          "type": "textarea",
+          "cols": "11",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        }
+      ]
+    },
+    {
+      "step": "historia_dietetica",
+      "label_step": "Historia dietética",
+      "controls": [
+        {
+          "name": "antecedentes_familiares",
+          "label": "Antecedentes familiares",
+          "placeholder": "Padre hipertenso",
+          "type": "input",
+          "cols": "12",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        },
+        {
+          "name": "actividad_fisica",
+          "label": "Actividad física",
+          "placeholder": "Todos los días",
+          "type": "input",
+          "cols": "6",
+          "class": "large-form-control small-margin-right",
+          "validators": [
+            {
+              "type": "required"
+            }
+          ],
+          "autocomplete": "off",
+          "error":"Ingrese la actividad física del paciente"
+        },
+        {
+          "name": "alcohol",
+          "label": "Alcohol",
+          "placeholder": "",
+          "type": "input",
+          "cols": "4",
+          "class": "large-form-control small-margin-right",
+          "autocomplete": "off"
+        },
+        {
+          "name": "tabaco",
+          "label": "Tabaquismo",
+          "placeholder": "Tabaquismo",
+          "type": "select",
+          "options": [
+            {
+              "label": "No",
+              "value": 0
+            },
+            {
+              "label": "Si",
+              "value": 1
+            }
+          ],
+          "cols": "2",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        },
+        {
+          "name": "preferencia_alimen",
+          "label": "Preferencias alimentarias",
+          "placeholder": "Hamburguesa",
+          "type": "textarea",
+          "cols": "12",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control ",
+          "autocomplete": "off"
+        },
+        {
+          "name": "alimentos_no_gustan",
+          "label": "Alimentos que no le gustan",
+          "placeholder": "remolacha",
+          "type": "textarea",
+          "cols": "12",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        },
+        {
+          "name": "intolerancia_alergia",
+          "label": "Intolerancias o alergias",
+          "placeholder": "Café provoca acidez",
+          "type": "textarea",
+          "cols": "12",
+          "rows": "2",
+          "height": "5",
+          "class": "large-form-control",
+          "autocomplete": "off"
+        },
+        {
+          "name": "donde_come",
+          "label": "Dónde come",
+          "placeholder": "Desayuno en el trabajo",
+          "type": "input",
+          "autocomplete": "off",
+          "class": "large-form-control small-margin-right",
+          "cols": "6"
+        },
+        {
+          "name": "quien_cocina",
+          "label": "Quién prepara los alimentos",
+          "placeholder": "La madre",
+          "type": "input",
+          "autocomplete": "off",
+          "class": "large-form-control",
+          "cols": "6"
+        },
+        {
+          "name": "estrenimiento",
+          "label": "Estreñimiento",
+          "placeholder": "Estreñimiento",
+          "cols": "6",
+          "class": "large-form-control small-margin-right",
+          "type": "input",
+          "autocomplete": "off"
+        },
+        {
+          "name": "horas_sueno",
+          "label": "Horas de sueño",
+          "placeholder": "9 horas",
+          "type": "input",
+          "autocomplete": "off",
+          "cols": "6",
+          "class": "large-form-control"
+        },
+        {
+            "name":"lm_exclusiva",
+            "type":"checkbox",
+            "label":"LM Exclusiva",
+            "autocomplete":"off",
+            "cols":"2",
+            "class": "small-form-control"
+        },
+        {
+            "name":"predominante",
+            "type":"checkbox",
+            "label":"Predominante",
+            "autocomplete":"off",
+            "cols":"2",
+            "class": "small-form-control"
+        },
+        {
+            "name":"completa",
+            "type":"checkbox",
+            "label":"Completa",
+            "autocomplete":"off",
+            "cols":"2",
+            "class": "small-form-control"
+        },
+        {
+            "name":"prolongada",
+            "type":"checkbox",
+            "label":"Prolongada",
+            "autocomplete":"off",
+            "cols":"2",
+            "class": "small-form-control"
+        },
+        {
+            "name":"sin_lm",
+            "type":"checkbox",
+            "label":"Sin LM",
+            "autocomplete":"off",
+            "cols":"2",
+            "class": "small-form-control"
+        },
+        {
+            "name":"destete",
+            "label": "Destete de la lactante",
+            "placeholder": "Aprox. 1 mes",
+            "type": "textarea",
+            "cols": "12",
+            "rows": "2",
+            "height": "5",
+            "class": "large-form-control",
+            "autocomplete": "off"
+        }
+      ]
+    }
+  ]
+  

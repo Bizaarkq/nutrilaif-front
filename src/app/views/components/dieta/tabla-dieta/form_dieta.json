@@ -1,110 +1,98 @@
 {
-    "fechaCreacionDieta"        :{
-      "validators": null
-    },
-    "lDesayuno"           : {
-      "validators": ["required"]
-    },
-    "lRefrigerioDesayuno" : {
-      "validators": ["required"]
-    },
-    "lAlmuerzo"           : {
-      "validators": ["required"]
-    },
-    "lRefrigerioAlmuerzo" : {
-      "validators": ["required"]
-    },
-    "lCena"               : {
-      "validators": ["required"]
-    },
-    "mDesayuno"           : {
-      "validators": ["required"]
-    },
-    "mRefrigerioDesayuno" : {
-      "validators": ["required"]
-    },
-    "mAlmuerzo"           : {
-      "validators": ["required"]
-    },
-    "mRefrigerioAlmuerzo" : {
-      "validators": ["required"]
-    },
-    "mCena"               : {
-      "validators": ["required"]
-    },
-    "miDesayuno"          : {
-      "validators": ["required"]
-    },
-    "miRefrigerioDesayuno": {
-      "validators": ["required"]
-    },
-    "miAlmuerzo"          : {
-      "validators": ["required"]
-    },
-    "miRefrigerioAlmuerzo": {
-      "validators": ["required"]
-    },
-    "miCena"              : {
-      "validators": ["required"]
-    },
-    "juDesayuno"          : {
-      "validators": ["required"]
-    },
-    "juRefrigerioDesayuno": {
-      "validators": ["required"]
-    },
-    "juAlmuerzo"          : {
-      "validators": ["required"]
-    },
-    "juRefrigerioAlmuerzo": {
-      "validators": ["required"]
-    },
-    "juCena"              : {
-      "validators": ["required"]
-    },
-    "vDesayuno"           : {
-      "validators": ["required"]
-    },
-    "vRefrigerioDesayuno" : {
-      "validators": ["required"]
-    },
-    "vAlmuerzo"           : {
-      "validators": ["required"]
-    },
-    "vRefrigerioAlmuerzo" : {
-      "validators": ["required"]
-    },
-    "vCena"               : {
-      "validators": ["required"]
-    },
-    "sDesayuno"           : {
-      "validators": ["required"]
-    },
-    "sRefrigerioDesayuno" : {
-      "validators": ["required"]
-    },
-    "sAlmuerzo"           : {
-      "validators": ["required"]
-    },
-    "sRefrigerioAlmuerzo" : {
-      "validators": ["required"]
-    },
-    "sCena"               : {
-      "validators": ["required"]
-    },
-    "dDesayuno"   : {
-      "validators":  ["required"]
-    },
-    "dRefrigerioDesayuno" : {
-      "validators":  ["required"]
-    },
-    "dAlmuerzo"           : {
-      "validators":  ["required"]
-    },
-    "dRefrigerioAlmuerzo" : {
-      "validators":  ["required"]
-    },
-    "dCena"               : {
-      "validators":  ["required"]
-    }
+    "plan": [
+      {
+        "name": "planDeDieta",
+        "label": "Plan de la dieta",
+        "placeholder": "Dieta baja en carbohidratos de 1500 Kcal"
+      }
+    ],
+    "fechaDieta": [
+      {
+        "name": "fechaCreacionDieta",
+        "label": "Fecha de creacion de la dieta",
+        "placeholder": "01/01/2022"
+      }
+    ],
+    "dias": [
+      {
+        "name": "lunes",
+        "label": "Lunes"
+      },
+      {
+        "name": "martes",
+        "label": "Martes"
+      },
+      {
+        "name": "miercoles",
+        "label": "Miercoles"
+      },
+      {
+        "name": "jueves",
+        "label": "Jueves"
+      },
+      {
+        "name": "viernes",
+        "label": "Viernes"
+      },
+      {
+        "name": "sabado",
+        "label": "Sabado"
+      },
+      {
+        "name": "domingo",
+        "label": "Domingo"
+      }
+    ],
+    "tiemposComida": [
+      {
+        "name": "desayuno",
+        "label": "Desayuno",
+        "placeholder": "Leche descremada",
+        "validator": [
+          {
+            "type": "required"
+          }
+        ]
+      },
+      {
+        "name": "refrigerioDesayuno",
+        "label": "Refrigerio desayuno",
+        "placeholder": "1 Fruta",
+        "validator": [
+          {
+            "type": "required"
+          }
+        ]
+      },
+      {
+        "name": "almuerzo",
+        "label": "Almuerzo",
+        "placeholder": "Pechuga de pollo en salsa",
+        "validator": [
+          {
+            "type": "required"
+          }
+        ]
+      },
+      {
+        "name": "refrigerioAlmuerzo",
+        "label": "Refrigerio almuerzo",
+        "placeholder": "4 Rodajas de tomate",
+        "validator": [
+          {
+            "type": "required"
+          }
+        ]
+      },
+      {
+        "name": "cena",
+        "label": "Cena",
+        "placeholder": "Taza de vegetales",
+        "validator": [
+          {
+            "type": "required"
+          }
+        ]
+      }
+    ]
   }

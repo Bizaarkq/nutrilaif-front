@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
+import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -46,7 +48,8 @@ export class CalendarioComponent implements OnInit {
     private dialog: MatDialog,
     private datePipe: DatePipe,
     private snack: MatSnackBar,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private pacienteService: DatosPersonalesService
   ) {}
 
   ngOnInit(): void {
@@ -139,6 +142,20 @@ export class CalendarioComponent implements OnInit {
               return event;
             }
             return iEvent;
+          });
+        }else if (res.code == 200) {
+          const modal = this.dialog.open(ModalExtenderSesionComponent, {
+            width: '30%',
+            data: {
+              titulo:'¿Desea notificar al paciente?',
+              mensaje: 'Se abrirá una ventana para enviar mensaje por WhatsApp al usuario',
+              boton: 'Notificar'
+            }
+          });
+          modal.afterClosed().subscribe((res) =>{
+            if(res){
+              this.enviarMensaje(eventoEdit.meta);
+            }
           });
         }
       },
@@ -279,4 +296,33 @@ export class CalendarioComponent implements OnInit {
 
     return true;
   };
+
+  enviarMensaje(evento:any){
+    this.pacienteService.notificarCitaCorreo(evento).subscribe(data => {
+      this.snack.open(
+        data.mensaje, 'Ok', 
+        {
+          duration: 3000,
+        }
+      );
+    });
+    if(evento.telefono){
+      let telefono =  /[2|6-7]\d{3}-\d{4}/.test(evento.telefono) ? 
+      '503'+evento.telefono : evento.telefono 
+      telefono = telefono.replace(/[^\d]/g, '');
+      const nombre = evento.nombre;
+      
+      const mensaje = `Hola ${nombre}, te informamos que tu cita ha sido agendada para el día ${this.datePipe.transform(evento.fecha_cita_fin, 'dd/MM/yy') } de ${this.datePipe.transform(evento.fecha_cita_inicio, 'h:mm a')} a ${this.datePipe.transform(evento.fecha_cita_fin, 'h:mm a')}.`;
+      const url = `https://api.whatsapp.com/send?phone=${telefono}?text=${mensaje}&lang=es&type=phone_number&app_absent=1`;
+      window.open(url, '_blank');
+    }else{
+      this.snack.open(
+        'El paciente no tiene un número de teléfono', 'Ok', 
+        {
+          duration: 3000,
+        }
+      );
+    }
+    
+  }
 }

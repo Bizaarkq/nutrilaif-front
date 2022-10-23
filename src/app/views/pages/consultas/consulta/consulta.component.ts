@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterContentChecked } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,17 +13,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 import ConsultaGeneralForm from './forms/consulta-form-general.json';
 import ConsultaGeneralSubSecuenteForm from './forms/consulta-form-general-sub.json';
+import EmbLactForm from './forms/embarazada.json';
+import EmbLactSubsecuenteForm from './forms/embarazada_sub.json';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
 import { deComponent } from 'src/app/services/deactivate.guard';
-import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
   styleUrls: ['./consulta.component.css'],
+  providers: [MessageService]
 })
-export class ConsultaComponent implements OnInit, deComponent {
+export class ConsultaComponent implements OnInit, deComponent, AfterContentChecked {
   subConsulta: object = {};
   //Arreglo para algunos titulos mostrados en los step
   labelTitulos: string[] = ["Datos antropometricos", "Datos médicos", "Examenes de laboratorio", "Historia dietética" ];
@@ -36,13 +39,20 @@ export class ConsultaComponent implements OnInit, deComponent {
   loadingDataEdicion: boolean = false;
   numeroExpediente: any = null;
   edad:any;
+  mujerEmbLac:any;
+  modulo:any;
   imcString:string='';
   estados:any;
   estadoActual:any;
-  permitirGuardado: boolean = false;
-  redirigir: boolean=false;
+  //flags
+  redirigir: boolean = false;
+  realizarValidacion: boolean = false;
   //Talla del paciente
-  tallaPaciente:any;
+  tallaPaciente!:number;
+  //Peso actual del paciente
+  pesoActual!:number;
+  //Sexo del paciente
+  sexo!:string;
   //Roles del usuario activo
   roles:any;
   paciente: FormGroup = this.FB.group({});
@@ -65,7 +75,8 @@ export class ConsultaComponent implements OnInit, deComponent {
     private router: Router,
     private dialog: MatDialog,
     private elRef:ElementRef,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +84,7 @@ export class ConsultaComponent implements OnInit, deComponent {
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
-    
+    this.modulo = this.route.snapshot.paramMap.get('modulo');
 
     if(this.id_paciente) this.paciente.addControl('id_paciente', this.FB.control(this.id_paciente));
 
@@ -83,20 +94,18 @@ export class ConsultaComponent implements OnInit, deComponent {
       this.consultaService.getconsulta(this.id).subscribe({
         next: (data) => {
           this.tallaPaciente = data.subconsulta_form.datos_antropo.talla;
+          this.pesoActual = data.subconsulta_form.datos_antropo.peso_actual;
+          this.esSubsecuente = data.es_subsecuente;
           this.cargarEstados(data.estado);
           this.estadoActual = data.estado;
-          if(data.es_subsecuente){
-            this.subConsulta = ConsultaGeneralSubSecuenteForm;
-          }else{
-            this.subConsulta = ConsultaGeneralForm;
-          }
-          this.createSubForm();
+          this.subConsulta=data.es_subsecuente ? 
+            this.modulo==='embarazada' ? EmbLactSubsecuenteForm : ConsultaGeneralSubSecuenteForm
+            : this.modulo==='embarazada' ? EmbLactForm : ConsultaGeneralForm;
+          this.createSubForm(); 
           this.consultaForm.patchValue(data);
-          (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
           
-          data.frecuencia_consumo.frecuencia.forEach((f:any) => (
-            this.frecuencia_consumo.get('frecuencia') as FormArray).push(this.FB.group(f))
-          );
+          this.loadFrecuenciaConsumo(data.frecuencia_consumo.frecuencia);
+          
           if ( data.estado === 'ARCHIVADA' || this.accion === 'ver'){
             this.consultaForm.disable();
           };
@@ -117,19 +126,17 @@ export class ConsultaComponent implements OnInit, deComponent {
       });
     } else if (this.accion == 'nueva') {
       this.cargarEstados();
-      if(this.id_paciente){
-        this.subConsulta = ConsultaGeneralSubSecuenteForm;
-      }else{
-        this.subConsulta = ConsultaGeneralForm;
-      }
+      this.subConsulta = this.id_paciente ? 
+        this.modulo==='embarazada' ? EmbLactSubsecuenteForm : ConsultaGeneralSubSecuenteForm
+        : this.modulo==='embarazada' ? EmbLactForm : ConsultaGeneralForm;
+        
       this.createSubForm();
     }
 
     setTimeout(() => {
       this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
       this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
-    }, 5000);
-
+    }, 5000); 
   }
 
   passToFormGroup(form: string) {
@@ -145,69 +152,71 @@ export class ConsultaComponent implements OnInit, deComponent {
   }
   
   guardar() {
-    this.visibleSpinner = true;
-    this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
-      next: (res) => {
-        if(res.code === 99){
+    if(this.permitirGuardado()){
+      this.visibleSpinner = true;
+      this.consultaService.guardarConsulta(this.consultaForm.value, this.id).subscribe({
+        next: (res) => {
+          if(res.code === 99){
+            this.snack.open(
+              res.mensaje,
+              '',
+              {
+                duration: 3000,
+              }
+            );
+          }else{
+            let duracion = 5000;
+            if(res.data != null){
+              this.snack.open(
+                'N° de Expediente para el nuevo paciente: ' + res.data, '',
+                {
+                  duration: duracion/2,
+                }
+              );
+              
+              setTimeout(() => {
+                 this.snack.open(res.mensaje, '', {
+                   duration: duracion / 2,
+                 });
+              }, duracion/2);
+              
+            }else{
+              this.snack.open(
+                res.mensaje, '',
+                {
+                  duration: duracion,
+                }
+              );
+            }
+          
+            this.paciente.controls['numero_exp'].setValue(res.data);
+            this.numeroExpediente = res.data;
+            if(this.accion==='nueva')this.redirigirCita();
+            if(this.accion==='editar'){
+              this.redirigir=true;
+              setTimeout(()=>{
+                this.router.navigate(['/expedientes']);
+              }, duracion);
+            }
+          }
+        },
+        error: (err) => {
           this.snack.open(
-            res.mensaje,
+            err.mensaje,
             '',
             {
               duration: 3000,
             }
           );
-        }else{
-          let duracion = 5000;
-          if(res.data != null){
-            this.snack.open(
-              'N° de Expediente para el nuevo paciente: ' + res.data, '',
-              {
-                duration: duracion/2,
-              }
-            );
-            
-            setTimeout(() => {
-               this.snack.open(res.mensaje, '', {
-                 duration: duracion / 2,
-               });
-            }, duracion/2);
-            
-          }else{
-            this.snack.open(
-              res.mensaje, '',
-              {
-                duration: duracion,
-              }
-            );
-          }
-        
-          this.paciente.controls['numero_exp'].setValue(res.data);
-          this.numeroExpediente = res.data;
-          if(this.accion==='nueva')this.redirigirCita();
-          if(this.accion==='editar'){
-            this.redirigir=true;
-            setTimeout(()=>{
-              this.router.navigate(['/expedientes']);
-            }, duracion);
-          }
+        },
+        complete: () => {
+          this.visibleSpinner = false;
         }
-      },
-      error: (err) => {
-        this.snack.open(
-          err.mensaje,
-          '',
-          {
-            duration: 3000,
-          }
-        );
-      },
-      complete: () => {
-        this.visibleSpinner = false;
-      }
-    });
+      });
+    }
   }
 
-  createSubForm(){
+  createSubForm(parametro=null){
       Object.entries(this.subConsulta).forEach(([key, value]) => {
         this.subConsultaForm.addControl(value.step, this.FB.group({}));
         value.controls.forEach((control: any) => {
@@ -236,7 +245,7 @@ export class ConsultaComponent implements OnInit, deComponent {
         subconsulta_form: this.subConsultaForm,
         estado: ''
       });
-      this.cd.detectChanges();
+      this.consultaForm.updateValueAndValidity();
   }
 
   getValorDeControl(form:string, subform: string, control:string ){
@@ -246,81 +255,48 @@ export class ConsultaComponent implements OnInit, deComponent {
     ((this.consultaForm.controls[form] as FormGroup).controls[subform] as FormGroup).controls[control].setValue(valor);
   }
   
-calcular(){
-  let elevarTalla= this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
-  elevarTalla*=elevarTalla;
-  let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
-  let boolAnciano=this.getEdad();
-  mult=mult/elevarTalla;
-  this.setValorControl('subconsulta_form', 'datos_antropo', 'imc', mult);
-  if(boolAnciano > 60){
-    if(mult <= 23){
-      this.imcString="Desnutrición";
+  calcular(){
+    let elevarTalla= this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
+    elevarTalla*=elevarTalla;
+    let mult = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
+    
+    //Variable utilizada para enviar el valor del peso actual al componente de pliegues
+    this.pesoActual = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'peso_actual');
+    //Variable utilizada para enviar el valor de la talla al componente de pliegues
+    this.tallaPaciente = this.getValorDeControl('subconsulta_form', 'datos_antropo', 'talla') ;
+    
+    let boolAnciano=this.getEdad();
+    mult=mult/elevarTalla;
+    this.setValorControl('subconsulta_form', 'datos_antropo', 'imc', mult);
+    if(boolAnciano > 60){
+      this.imcString = 
+      mult <= 23 ? "Desnutrición" : 
+      mult <= 28 ? "Normal" : 
+      mult <= 32 ? "Sobrepeso" : 
+      "Obesidad";
     }
     else{
-      if(mult <= 28){
-        this.imcString="Normal";
-      }
-      else{
-        if(mult <= 32){
-          this.imcString="Sobrepeso";
-        }
-        else{
-          this.imcString="Obesidad";
-        }
-      }
+      this.imcString = 
+      mult < 16 ? "Desnutrición severa" : 
+      mult < 17 ? "Desnutrición moderada" : 
+      mult < 18.55 ? "Desnutrición leve" : 
+      mult < 25 ? "Normal" : 
+      mult < 30 ? "Sobrepeso" : 
+      mult < 35 ? "Obesidad grado I" : 
+      mult < 40 ? "Obesidad grado II" : 
+      mult < 50 ? "Obesidad grado mórbida" : 
+      "Obesidad extrema";
     }
   }
-  else{
-    if(mult < 16){
-      this.imcString="Desnutrición severa";
-    }
-    else{
-      if(mult < 17){
-        this.imcString="Desnutrición moderada";
-      }
-      else{
-        if(mult < 18.55){
-          this.imcString="Desnutrición leve";
-        }
-        else{
-          if(mult < 25){
-            this.imcString="Normal";
-          }
-          else{
-            if(mult < 30){
-              this.imcString="Sobrepeso";
-            }
-            else{
-              if(mult < 35){
-                this.imcString="Obesidad grado 1";
-              }
-              else{
-                if(mult < 40){
-                  this.imcString="Obesidad grado 2";
-                }
-                else{
-                  if(mult < 50){
-                    this.imcString="Obesidad grado mórbida";
-                  }
-                  else{
-                    this.imcString="Obesidad extrema";
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  }
+
   setEdad(edad:any){
     this.edad=edad;
   }
+
   getEdad(){
     return this.edad;    
   }
+
   cargarEstados(estadoActual: any = null){
     this.generalService.getEstados(estadoActual).subscribe({
       next: (data) => {
@@ -329,14 +305,39 @@ calcular(){
     });
   }
 
-  opcionDeGuardado(estado:any){
-    if(estado.includes('BORRADOR')){
-      this.permitirGuardado = true;
-    }else if (this.consultaForm.valid){
-      this.permitirGuardado = true;
-    }else{
-      this.permitirGuardado = false;
-    }
+  validacionMessage(camposFormHijo:any){
+    if ('incorrectos' in camposFormHijo.campos && camposFormHijo.campos.incorrectos.length) this.messageService.add({
+        key:'validacionform', 
+        severity:'error', 
+        summary:`Campos incorrectos en ${camposFormHijo.form}`, 
+        detail: camposFormHijo.campos.incorrectos.join('\n'),
+        closable: false
+      });
+
+    if ('vacios' in camposFormHijo.campos && camposFormHijo.campos.vacios.length) this.messageService.add({
+        key:'validacionform', 
+        severity:'warn', 
+        summary:`Campos vacios en ${camposFormHijo.form}`, 
+        detail: camposFormHijo.campos.vacios.filter((e:any) => e !== '').join('\n'),
+        closable: false
+      });
+  }
+
+  permitirGuardado(){
+    this.realizarValidacion = this.estadoActual === 'CONSULTA.FINALIZADA' ? 
+      'estado' in this.consultaForm.controls &&
+      !this.consultaForm.controls['estado'].value.includes('BORRADOR') &&
+      !this.consultaForm.controls['estado'].value.includes('FINALIZADA')
+    : ( 'estado' in this.consultaForm.controls && 
+      !this.consultaForm.controls['estado'].value.includes('BORRADOR') &&
+      this.consultaForm.touched && 
+      this.consultaForm.controls['estado'].value !== '');
+    return 'estado' in this.consultaForm.controls ? 
+      this.consultaForm.controls['estado'].value.includes('BORRADOR') ? 
+      true : this.consultaForm.valid && (this.estadoActual === 'CONSULTA.FINALIZADA' ? 
+      this.consultaForm.controls['estado'].value.includes('ARCHIVADA') 
+      : this.consultaForm.controls['estado'].value.includes('FINALIZADA'))
+      : false;
   }
 
   async decisionDialog(){
@@ -345,7 +346,6 @@ calcular(){
     }
     const decision = await this.abrirDialog();
     return decision;
-
   }
 
   async abrirDialog(){
@@ -362,6 +362,7 @@ calcular(){
       return Promise.resolve(result);
     });
   }
+
   redirigirCita(){
     const dialog = this.dialog.open(ModalExtenderSesionComponent, {
       width: '30%',
@@ -385,8 +386,80 @@ calcular(){
   obtenerRoles( elemento:any, separador:string){
     this.roles = elemento.split(separador);
   }
+
   verificarRol(){
     return (this.roles.includes('nutri-deportista'));
   }
   
+  //Obtener sexo del paciente enviado desde un output definido en el componente de datos del paciente
+  obtenerSexo(e:string){
+    this.sexo = e;
+  }
+  loadFrecuenciaConsumo(frecuencias:any){
+    (this.frecuencia_consumo.get('frecuencia') as FormArray).removeAt(0); 
+    
+    frecuencias.forEach((f:any) => (
+      this.frecuencia_consumo.get('frecuencia') as FormArray).push(this.FB.group(
+        {
+          alimento  : [ f.alimento , Validators.required],
+          frequencia: [ f.frequencia, Validators.required],
+          comentario: [ f.comentario ]
+        }
+      ))
+    );
+  }
+
+  verificarSubFormConsulta(estado:string){
+    if(!estado.includes('BORRADOR')){
+      Object.entries(this.subConsulta).forEach(([key,subform]) => {
+        let incorrectos = subform.controls.filter((e:any) => 
+          (this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].invalid &&
+          (this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].touched
+        )
+        .map((e:any) => {
+          return e.label;
+        });
+  
+        let vacios = subform.controls.filter((e:any) => 
+          (this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].invalid &&
+          !(this.subConsultaForm.controls[subform.step] as FormGroup).controls[e.name].touched
+        )
+        .map((e:any) => {
+          return e.label;
+        });
+        
+        if(incorrectos.length || vacios.length){
+          this.validacionMessage({campos:{incorrectos, vacios}, form: subform.label_step});
+        }  
+      });
+    }
+  }
+
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+  }
+  
+  //Se requiere subformulario específico y luego el que lo contiene
+  // campo (Datos_Antropo entre otros) y group (subconsultaForm) respectivamente
+  validarCampo(campo:string, group:any){
+    return (this.subConsultaForm.controls[group]as FormGroup).controls[campo].errors && 
+            (this.subConsultaForm.controls[group]as FormGroup).controls[campo].touched
+  }  
+
+  setModuloEmbarazada(respuesta:any){
+    const formActual = this.subConsulta;
+    this.subConsulta = respuesta ?
+      this.esSubsecuente ? EmbLactSubsecuenteForm : EmbLactForm
+    : this.esSubsecuente ? ConsultaGeneralSubSecuenteForm : ConsultaGeneralForm;
+
+    if(formActual !== this.subConsulta){
+      this.subConsultaForm=this.FB.group({});
+      this.createSubForm();
+      setTimeout(() => {
+        this.elRef.nativeElement.querySelector('#talla').addEventListener('keyup', this.calcular.bind(this));
+        this.elRef.nativeElement.querySelector('#peso_actual').addEventListener('keyup', this.calcular.bind(this));
+      }, 5000);
+    }
+  }
+
 }

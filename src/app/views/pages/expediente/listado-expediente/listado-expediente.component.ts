@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
+import { th } from 'date-fns/locale';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class ListadoExpedienteComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   visibleSpinner = false;
 
+  //Bandera para controlar si el expediente se encuentra inactivado
+  inactivado:boolean = true;
   constructor( 
     private pacienteService:DatosPersonalesService, 
     private router:Router, 
@@ -38,7 +41,13 @@ export class ListadoExpedienteComponent implements OnInit {
     this.pacienteService.getDatosPersonales()
     .subscribe({
       next:(res)=>{
-        this.tablaData = new MatTableDataSource(res);
+        let array = [];
+        if(this.inactivado){
+          array = res.filter ( (item:any) => item.inactivo === 0);
+        }else{
+          array = res.filter ( (item:any) => item.inactivo === 1);
+        }
+        this.tablaData = new MatTableDataSource(array);
         this.tablaData.paginator = this.paginator;
         this.tablaData.sort = this.sort;
         this.visibleSpinner=false;
@@ -56,15 +65,27 @@ export class ListadoExpedienteComponent implements OnInit {
   }
 
   eliminarExpediente(paciente: any){
-    //Modal para solicitar confirmación de eliminación de expediente
-    const dialog = this.dialog.open( ModalExtenderSesionComponent, {
-      width: '30%',
-      data: {
-        titulo: 'Confirmar eliminación',
-        mensaje: '¿Desea eliminar de forma permanente el expediente seleccionado?',
-        boton: 'Aceptar'
-      }
-    });
+    let dialog;
+    if(this.inactivado){
+      dialog = this.dialog.open( ModalExtenderSesionComponent, {
+        width: '30%',
+        data: {
+          titulo: 'Confirmar archivado',
+          mensaje: '¿Desea archivar el expediente seleccionado?',
+          boton: 'Aceptar'
+        }
+      });
+    }else{
+      dialog = this.dialog.open( ModalExtenderSesionComponent, {
+        width: '30%',
+        data: {
+          titulo: 'Confirmar recuperación',
+          mensaje: '¿Desea recuperar el expediente seleccionado?',
+          boton: 'Aceptar'
+        }
+      });
+    }
+    
     dialog.afterClosed().subscribe(result => {
       if(result) {
         this.visibleSpinner=true;
@@ -93,5 +114,12 @@ export class ListadoExpedienteComponent implements OnInit {
         });
       }
     });
+  }
+
+  /*Metodo encargado de cambiar el estado de la bandera para 
+  controlar los datos que se mostraran en el listado de expedientes */
+  cambiarExpedientes(){
+    this.cargarExpedientes();
+    this.inactivado = !this.inactivado;
   }
 }

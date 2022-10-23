@@ -3,7 +3,7 @@
     <button mat-mini-fab  color="accent" (click)="pacienteForm.enable()" *ngIf="expediente" matTooltip ="Editar Expediente" >
         <mat-icon class="material-icons-outlined">edit</mat-icon>
     </button>
-    <button [disabled]="!this.pacienteForm.touched" method ="post" mat-mini-fab  color="primary" (click)="updateExp()" *ngIf="expediente" matTooltip ="Actualizar Expediente">
+    <button [disabled]="!(this.pacienteForm.valid  && this.pacienteForm.touched)" method ="post" mat-mini-fab  color="primary" (click)="updateExp()" *ngIf="expediente" matTooltip ="Actualizar Expediente">
         <mat-icon class="material-icons-outlined">save</mat-icon>
     </button>
 </div>
@@ -30,7 +30,7 @@
                     autocomplete="off"
                     [readonly]="true">
                 <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="id_paciente"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="validarCampo('fechaExpediente')">No se ha seleccionado ninguna fecha</mat-error>
             </mat-form-field>
@@ -105,7 +105,7 @@
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Fecha de nacimiento</mat-label>
                 <input 
@@ -125,7 +125,7 @@
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="small-form-control" appearance="outline">
                 <mat-label>Edad</mat-label>
                 <input [readonly]="true" formControlName="edad" id="edad" matInput type="number" placeholder="Edad" value="">                     
@@ -133,7 +133,7 @@
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Sexo</mat-label>
                 <mat-select matNativeControl formControlName="sexo" required>
@@ -145,11 +145,18 @@
             </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <mat-slide-toggle formControlName="mujerEmbLac" class="small-form-control"
+                *ngIf="mujerEmb()" (change)="enviarMEL()" appearance="outline">
+                Mujer embarazada/lactante
+            </mat-slide-toggle>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
             <mat-form-field class="small-form-control" appearance="outline">
                 <mat-label>Telefono</mat-label>
                 <input formControlName="telefono" autocomplete="enabled" matInput type="text" 
-                placeholder="9999-9999">                     
+                placeholder="9999-9999 | +1-123-456-7890" mask="0000-0000">                   
                 <mat-error *ngIf="validarCampo('telefono')">El número no es válido</mat-error>
             </mat-form-field>
         </mat-grid-tile>
@@ -162,6 +169,8 @@
             </mat-form-field>
         </mat-grid-tile>
 
+        <mat-grid-tile [colspan]="5" [rowspan]="1"></mat-grid-tile>
+
         <mat-grid-tile [colspan]="4" [rowspan]="1">
             <mat-form-field class="large-form-control" appearance="outline">
                 <mat-label>Correo electrónico</mat-label>
@@ -169,6 +178,11 @@
                     placeholder="ejemplo@gmail.com" value="">                     
                 <mat-error *ngIf="validarCampo('correo')">Ingrese un correo electrónico válido</mat-error>
             </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-slide-toggle formControlName="enviar_notif" class="small-form-control">
+                Enviar notificaciones por correo
+            </mat-slide-toggle>
         </mat-grid-tile>
     </form>
 </mat-grid-list>
