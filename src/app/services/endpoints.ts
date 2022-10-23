@@ -24,6 +24,7 @@ export const endpoints = {
         eliminarPaciente: environment.apiUrl + '/paciente/delete',
         getExpediente: environment.apiUrl + '/paciente/get',
         obtenerDietaPdf: environment.apiUrl + '/paciente/dieta/pdf',
+        notificar: environment.apiUrl + '/paciente/notificar',
     },
     catalogo: {
         menu: environment.apiUrl + '/catalogo/menu',

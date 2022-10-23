@@ -72,4 +72,18 @@ export class DatosPersonalesService {
       })
     );
   }
+
+  notificarCitaCorreo(dto:any){
+    let token = localStorage.getItem("access_token");
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+    return this.http.post(endpoints.paciente.notificar, dto,{headers})
+    .pipe(
+      map((results: any) => {
+        return results;
+      })
+    );
+  }
 }
