@@ -25,7 +25,7 @@
   },
   "telefono": {
     "label": "Teléfono",
-    "validators": ["required", "pattern:[2|6-7]\\d{3}-\\d{4}"]
+    "validators": ["required", "pattern:[+|(|)|\\-|\\d]+"]
   },
   "direccion": {
     "label": "Dirección",
@@ -58,5 +58,10 @@
   "mujerEmbLac":{
     "label": "Mujer embarazada/lactante",
     "validators":null
+  },
+  "enviar_notif":{
+    "label": "Enviar notificaciones",
+    "validators":null
   }
+
 }
