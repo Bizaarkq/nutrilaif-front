@@ -40,7 +40,7 @@ export class GeneralLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.temaPorDefecto();
-    if(localStorage.getItem('refresh_expires_in')) this.extenderSesion();
+    if(localStorage.getItem('expires_in')) this.extenderSesion();
 
     this.generalService.getMenu().subscribe({
       next: (data:any) => {
@@ -82,7 +82,7 @@ export class GeneralLayoutComponent implements OnInit, OnDestroy {
   }
 
   extenderSesion(){
-    let refresh = Number(localStorage.getItem('refresh_expires_in'));
+    let refresh = Number(localStorage.getItem('expires_in'));
     this.extenderTime = setTimeout(() => {
         const dialog = this.dialog.open(ModalExtenderSesionComponent, {
           width: '30%',

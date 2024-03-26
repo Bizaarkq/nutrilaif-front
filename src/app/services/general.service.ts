@@ -1,17 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { endpoints } from './endpoints';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
-
+  private cachedMenu: any = null;
   constructor(private http:HttpClient){ }
 
   getMenu(){
+    if(this.cachedMenu){
+      return of(this.cachedMenu);
+    }
     let token = localStorage.getItem("access_token");
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
@@ -21,6 +24,7 @@ export class GeneralService {
     return this.http.get(endpoints.catalogo.menu, {headers})
     .pipe(
       map((results: any) => {
+        this.cachedMenu = results;
         return results;
       })
     );

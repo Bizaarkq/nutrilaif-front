@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
   //form login
   formLogin!: FormGroup;
-
+  loading = false;
   hide = true;
 
   constructor(
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     this.authService
       .iniciarSesion(
         this.formLogin.value.username,
@@ -46,15 +47,18 @@ export class LoginComponent implements OnInit {
         {
           next: res => {
             localStorage.setItem('access_token', res.access_token);
-            localStorage.setItem('refresh_token', res.refresh_token);
             localStorage.setItem('expires_in', res.expires_in);
-            localStorage.setItem('refresh_expires_in', res.refresh_expires_in);
             this.router.navigate(['/inicio']);
+            this.loading = false;
+            this.snack.open('Bienvenido', 'Ok',{
+              duration: 3000
+            });
           },
           error: err =>{
             this.snack.open('Usuario o Contraseña incorrectos', 'Ok',{
               duration: 3000
             });
+            this.loading = false;
           }
         }
       );

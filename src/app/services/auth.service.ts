@@ -3,11 +3,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { endpoints } from './endpoints';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private userInfoCache: any = null;
   constructor(private http: HttpClient) {}
 
   iniciarSesion(user: string, pass: string) {
@@ -17,11 +19,8 @@ export class AuthService {
 
     const loginForm = new HttpParams({
       fromObject: {
-        username: user,
-        password: pass,
-        grant_type: 'password',
-        client_id: environment.client,
-        client_secret: environment.clientSecret
+        codigo: user,
+        password: pass
       },
     });
 
@@ -34,48 +33,54 @@ export class AuthService {
       );
   }
 
-  getUserInfo(){
-    let token = localStorage.getItem("access_token");
+  getUserInfo(): Observable<any> {
+    if (this.userInfoCache) {
+      return of(this.userInfoCache);
+    }
+
+    let token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    });
+
+    return this.http
+      .post(endpoints.auth.infoUser, null, { headers })
+      .pipe(
+        map((results: any) => {
+          localStorage.setItem('nombre', results.name);
+          localStorage.setItem('user', results.codigo);
+          localStorage.setItem('roles', results.roles);
+          this.userInfoCache = results;
+          return results;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          // retornar error a subscribe
+          return throwError(() => new Error('Error al obtener información del usuario'));
+        })
+      );
+  }
+
+  getRoles(): string[] {
+    return this.userInfoCache?.roles ? this.userInfoCache.roles : (localStorage.getItem('roles') ?? '').split(',');
+  }
+  
+  cerrarSesion(){
+    let token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     });
     
-    return this.http
-      .post(endpoints.auth.infoUser, null, { headers })
-      .pipe(
-        map((results: any) => {
-          localStorage.setItem('rol', results.rol);
-          return results;
-        }), catchError((error: HttpErrorResponse)=>{
-          throw new Error(error.error.message);
-        })
-      )
-  }
-
-  cerrarSesion(){
-    const headers = new HttpHeaders({
-      'content-Type': 'application/x-www-form-urlencoded',
-    });
-
-    const formSesion = new HttpParams({
-      fromObject: {
-        client_id: environment.client,
-        client_secret: environment.clientSecret,
-        refresh_token: localStorage.getItem('refresh_token') ?? ''
-      },
-    });
-    
     localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('refresh_expires_in');
     localStorage.removeItem('expires_in');
-    localStorage.removeItem('rol');
+    localStorage.removeItem('roles');
     localStorage.removeItem('user');
     localStorage.removeItem('nombre');
+    this.clearUserInfoCache();
 
     return this.http
-      .post(endpoints.auth.logout, formSesion, { headers })
+      .post(endpoints.auth.logout, null, { headers })
       .pipe(
         map((results: any) => {
           return results;
@@ -92,14 +97,12 @@ export class AuthService {
     const formSesion = new HttpParams({
       fromObject: {
         grant_type: 'refresh_token',
-        client_id: environment.client,
-        client_secret: environment.clientSecret,
         refresh_token: localStorage.getItem('refresh_token') ?? ''
       },
     });
 
     return this.http
-      .post(endpoints.auth.login, formSesion, { headers })
+      .post(endpoints.auth.refresh, {}, { headers })
       .pipe(
         map((results: any) => {
           return results;
@@ -107,4 +110,7 @@ export class AuthService {
       );
   }
 
+  clearUserInfoCache() {
+    this.userInfoCache = null;
+  }
 }

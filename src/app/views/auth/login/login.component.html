@@ -24,7 +24,8 @@
                             <mat-error *ngIf="validarCampos('password')">Constraseña no válida</mat-error>
                         </mat-form-field>
                         <br>
-                        <button mat-raised-button class="btn-center" color="primary">Iniciar Sesión</button>
+                        <button mat-raised-button class="btn-center" color="primary"> <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20">
+                        </mat-spinner></mat-icon>Iniciar Sesión</button>
                         
                     </form>
                 </mat-card-content>

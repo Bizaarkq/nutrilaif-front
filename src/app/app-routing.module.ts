@@ -37,41 +37,46 @@ const routes: Routes = [
         path: 'consulta/:modulo/:accion/:id_paciente/:id_consulta',
         canActivate: [AuthGuard],
         component: ConsultaComponent,
-        canDeactivate: [DeactivateGuard]
-
+        canDeactivate: [DeactivateGuard],
+        data: { roles: ['nutricionista']}
       },
       {
         path: 'consulta/:modulo/:accion/:id_paciente',
         canActivate: [AuthGuard],
         component: ConsultaComponent,
-        canDeactivate: [DeactivateGuard]
-
+        canDeactivate: [DeactivateGuard],
+        data: { roles: ['nutricionista']}
       },
       {
         path: 'consulta/:modulo/:accion',
         canActivate: [AuthGuard],
         component: ConsultaComponent,
-        canDeactivate: [DeactivateGuard]
+        canDeactivate: [DeactivateGuard],
+        data: { roles: ['nutricionista']}
       },
       {
         path: 'alimentos',
         canActivate: [AuthGuard],
-        component: ListarAlimentosComponent
+        component: ListarAlimentosComponent,
+        data: { roles: ['nutricionista']}
       },
       {
         path: 'expedientes',
         canActivate: [AuthGuard],
-        component: ListadoExpedienteComponent
+        component: ListadoExpedienteComponent,
+        data: { roles: ['nutricionista', 'administrativo']}
       },
       {
         path: 'expediente/:id_paciente',
         canActivate: [AuthGuard],
-        component: ExpedienteComponent
+        component: ExpedienteComponent,
+        data: { roles: ['nutricionista', 'administrativo']}
       },
       {
         path: 'citas',
         canActivate: [AuthGuard],
-        component: CalendarioComponent
+        component: CalendarioComponent,
+        data: { roles: ['administrativo', 'nutricionista']}
       },
     ],
   },

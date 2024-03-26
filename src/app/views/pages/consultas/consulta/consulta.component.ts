@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalExtenderSesionComponent } from 'src/app/views/components/shared/modal-extender-sesion/modal-extender-sesion.component';
 import { deComponent } from 'src/app/services/deactivate.guard';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-consulta',
@@ -76,11 +77,12 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     private dialog: MatDialog,
     private elRef:ElementRef,
     private generalService: GeneralService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.obtenerRoles(localStorage.getItem('rol'), ',');
+    this.obtenerRoles();
     this.id = this.route.snapshot.paramMap.get('id_consulta');
     this.accion = this.route.snapshot.paramMap.get('accion');
     this.id_paciente = this.route.snapshot.paramMap.get('id_paciente');
@@ -383,8 +385,8 @@ export class ConsultaComponent implements OnInit, deComponent, AfterContentCheck
     });
   }
 
-  obtenerRoles( elemento:any, separador:string){
-    this.roles = elemento.split(separador);
+  obtenerRoles(){
+    this.roles = this.auth.getRoles();
   }
 
   verificarRol(){
