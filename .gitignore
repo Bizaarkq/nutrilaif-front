@@ -44,3 +44,8 @@ Thumbs.db
 #enviroments
 .env
 ./src/environments/*
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
