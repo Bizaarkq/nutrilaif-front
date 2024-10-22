@@ -36,6 +36,8 @@ import { CalendarioComponent } from './views/pages/citas/calendario/calendario.c
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DeactivateGuard } from './services/deactivate.guard';
+import { LoginComponent } from './views/pages/login/login.component';
+import { AuthLayoutComponent } from './views/pages/layouts/auth-layout/auth-layout.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -47,7 +49,9 @@ registerLocaleData(localeES, 'es');
     ConsultaComponent,
     ListadoExpedienteComponent,
     ExpedienteComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    LoginComponent,
+    AuthLayoutComponent,
   ],
   imports: [
     BrowserModule,

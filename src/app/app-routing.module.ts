@@ -11,12 +11,19 @@ import { ExpedienteComponent } from './views/pages/expediente/expediente/expedie
 import { ListarAlimentosComponent } from './views/components/listar-alimentos/listar-alimentos.component';
 import { CalendarioComponent } from './views/pages/citas/calendario/calendario.component';
 import { DeactivateGuard } from './services/deactivate.guard';
+import { LoginComponent } from './views/pages/login/login.component';
+import { AuthLayoutComponent } from './views/pages/layouts/auth-layout/auth-layout.component';
 
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () =>
-      import('./views/auth/auth.module').then((m) => m.AuthModule),
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      }
+    ]
   },
   {
     path: '',

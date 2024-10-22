@@ -1,0 +1,14 @@
+<mat-sidenav-container class="menu">
+    <mat-sidenav-content>
+      <div class="toolbar">
+        <mat-toolbar>
+            <div class="buttons">
+                <button mat-icon-button (click)="cambiarTema()" [@rotacion]="theme">
+                  <mat-icon class="material-icons-outlined"> {{ theme === 'light-theme' ? 'dark_mode' : 'light_mode'}}</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar>
+      </div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
