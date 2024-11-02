@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, ViewRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConsultaService } from 'src/app/services/consulta.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -20,6 +20,7 @@ export class ExpedienteComponent implements OnInit {
   tablaData !: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('iframeContainer', { static: false }) iframeContainer!: ElementRef;
   visibleSpinner = false;
   id_paciente: any;
   embarazada:any;
@@ -32,7 +33,8 @@ export class ExpedienteComponent implements OnInit {
   constructor(
     private consultaServie: ConsultaService,
     private router: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -72,7 +74,15 @@ export class ExpedienteComponent implements OnInit {
   
   reportesUrl(){
     let tema = localStorage.getItem('theme') === 'dark-theme' ? 'dark' : 'light';
-    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGraphic + '?orgId=1&var-idPaciente=' + this.id_paciente + '&kiosk=tv&theme=' + tema);
+    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlGraphic + '?orgId=1&var-idPaciente=' + this.id_paciente + '&kiosk&theme=' + tema);
+  }
+
+  onPanelOpened(){
+    const iframe = this.iframeContainer.nativeElement.querySelector('.reportes');
+    if (iframe) {
+      this.renderer.setStyle(iframe, 'left', 'auto');
+      this.renderer.setStyle(iframe, 'position', 'static');
+    }
   }
 
 }

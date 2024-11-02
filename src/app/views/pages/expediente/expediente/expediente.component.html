@@ -5,13 +5,13 @@
 
   <div class="acordeon">
   <mat-accordion displayMode="flat">
-    <mat-expansion-panel expandedHeight="720px" (opened)="reportesUrl()">
+    <mat-expansion-panel expandedHeight="720px" (opened)="reportesUrl();onPanelOpened()">
       <mat-expansion-panel-header>
         <mat-panel-title> 
           Reportes del paciente
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="contenedor">
+      <div class="contenedor" #iframeContainer>
         <iframe class="reportes" [src]="url" frameborder="0"></iframe>
       </div>
     </mat-expansion-panel>
